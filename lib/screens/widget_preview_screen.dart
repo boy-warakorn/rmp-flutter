@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/general/help_desk_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 
 class WidgetPreviewScreen extends StatelessWidget {
@@ -10,7 +12,7 @@ class WidgetPreviewScreen extends StatelessWidget {
       body: SafeArea(
         child: ListView(children: [
           TitleCard(
-            title: "Title 007",
+            title: "TitleCard - icon",
             count: 5,
             icon: Icon(
               Icons.ac_unit,
@@ -18,8 +20,18 @@ class WidgetPreviewScreen extends StatelessWidget {
             ),
           ),
           TitleCard(
-            title: "Title 02 no I",
+            title: "TitleCard - no icon",
             count: 12,
+          ),
+          CustomButton(
+            text: "CustomButton - dafault color",
+            onPressed: () => print("CustomButton: Pressed")
+          ),
+          SizedBox(height: 4),
+          CustomButton(
+            text: "CustomButton - colored",
+            onPressed: () => print("CustomButton - colored: Pressed"),
+            color: Colors.blueGrey
           ),
         ]),
       ),
