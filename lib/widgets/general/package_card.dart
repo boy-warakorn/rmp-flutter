@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/widgets/layout/card_template.dart';
 
 class PackageCard extends StatelessWidget {
   final String title;
@@ -18,7 +19,8 @@ class PackageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return CardTemplate(
+      padding: EdgeInsets.zero,
       child: InkWell(
         onTap: onPressed,
         splashColor: kSubtitleColor,
@@ -35,7 +37,7 @@ class PackageCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    date,
+                    "Recieved date: $date",
                     style: Theme.of(context).textTheme.bodyText1?.copyWith(color: kSubtitleColor),  
                   ),
                 ],
@@ -45,7 +47,7 @@ class PackageCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      note,
+                      "Note: $note",
                       style: Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold),
                     )
                   ),

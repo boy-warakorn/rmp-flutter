@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rmp_flutter/configs/colors.dart';
@@ -49,6 +50,11 @@ TextTheme _buildTextTheme(TextTheme base) {
     headline4: mst(
       fontSize: kFontSizeHeadline4,
       fontWeight: FontWeight.bold,
+      color: kBlackColor,
+    ),
+    headline5: mst(
+      fontSize: kFontSizeHeadline4,
+      fontWeight: FontWeight.normal,
       color: kBlackColor,
     ),
     bodyText1: rbt(
