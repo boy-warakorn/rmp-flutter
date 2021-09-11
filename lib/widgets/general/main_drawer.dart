@@ -18,9 +18,7 @@ class MainDrawer extends StatelessWidget {
         child: ListView(
           children: [
             SafeArea(
-              child: SizedBox(
-                height: kSizeS,
-              ),
+              child: kSizedBoxVerticalS,
             ),
             BrandTitle(
                 brandLogo: Image.network(
@@ -30,11 +28,7 @@ class MainDrawer extends StatelessWidget {
                 ),
                 brandTitle: 'Condominium'),
             Divider(),
-            SafeArea(
-              child: SizedBox(
-                height: kSizeS,
-              ),
-            ),
+            SafeArea(child: kSizedBoxVerticalS),
             DrawerButton(
               text: "Profile Settings",
               onPressed: () => print('Hello World'),
@@ -55,9 +49,7 @@ class MainDrawer extends StatelessWidget {
             ),
             Divider(),
             SafeArea(
-              child: SizedBox(
-                height: kSizeS,
-              ),
+              child: kSizedBoxVerticalS,
             ),
             DrawerButton(
               text: "Log Out",

@@ -36,19 +36,15 @@ class GoalCard extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyText1?.copyWith(
                   fontSize: kSizeS * (0.8),
                 ),
-                kSizedBoxHorizontalXS,
-                icon,
-              ],
-            ),
-            kSizedBoxVerticalXS,
-            Text(
-              content,
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: kSizeS * (0.8),
-                  ),
-            ),
-          ],
-        ),
+          ),
+          kSizedBoxVerticalXS,
+          Text(
+            content,
+            style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  fontSize: kSizeS * (0.8),
+                ),
+          ),
+        ],
       ),
     );
   }
