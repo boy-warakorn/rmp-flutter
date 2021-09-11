@@ -31,7 +31,7 @@ class WidgetPreviewScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TitleCard(
-                title: "TitleCard - icon",
+                title: "TitleCard - iconnnn",
                 count: 5,
                 icon: Icon(
                   Icons.ac_unit,
