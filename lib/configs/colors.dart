@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 const kBrandColor = Color(0xFF3A49F8);
 const kBrandDarkerColor = Color(0xFF050D64);
+const kBrandAlternativeDarkerColor = Color(0xFF202CBB);
 const kStrokeColor = Color(0xFF1999F2);
+const kBrandTitleColor = Color(0xFF212121);
 // const kBrandLighterColor = Color();
 
 const kAlternativeColor = Color(0xFF7D7676);
