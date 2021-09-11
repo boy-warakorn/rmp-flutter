@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/widgets/layout/card_template.dart';
 
 class HelpDeskCard extends StatelessWidget {
   final String title;
@@ -18,52 +19,100 @@ class HelpDeskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: EdgeInsets.all(kSizeS),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: kFontSizeHeadline4,
-                            ),
-                      ),
-                      kSizedBoxVerticalXS,
-                      Text(
-                        date,
-                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                              color: kSubtitleColor,
-                            ),
-                      ),
-                      kSizedBoxVerticalXS,
-                      Text(
-                        detail,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                    ],
-                  ),
+    // return Card(
+    //   child: Padding(
+    //     padding: EdgeInsets.all(kSizeS),
+    //     child: Column(
+    //       children: [
+    //         Row(
+    //           children: [
+    //             Expanded(
+    //               child: Column(
+    //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //                 children: [
+    //                   Text(
+    //                     title,
+    //                     style: Theme.of(context).textTheme.bodyText1?.copyWith(
+    //                           fontWeight: FontWeight.bold,
+    //                           fontSize: kFontSizeHeadline4,
+    //                         ),
+    //                   ),
+    //                   kSizedBoxVerticalXS,
+    //                   Text(
+    //                     date,
+    //                     style: Theme.of(context).textTheme.bodyText1?.copyWith(
+    //                           color: kSubtitleColor,
+    //                         ),
+    //                   ),
+    //                   kSizedBoxVerticalXS,
+    //                   Text(
+    //                     detail,
+    //                     style: Theme.of(context).textTheme.bodyText1,
+    //                   ),
+    //                 ],
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //         kSizedBoxVerticalXS,
+    //         Row(
+    //           children: [
+    //             Expanded(
+    //               child: SizedBox(),
+    //             ),
+    //             actionButton,
+    //           ],
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
+    return CardTemplate(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: kFontSizeHeadline4,
+                          ),
+                    ),
+                    kSizedBoxVerticalXS,
+                    Text(
+                      "Date: $date",
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            color: kSubtitleColor,
+                          ),
+                    ),
+                    kSizedBoxVerticalXS,
+                    Text(
+                      detail,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            kSizedBoxVerticalXS,
-            Row(
-              children: [
-                Expanded(
-                  child: SizedBox(),
-                ),
-                actionButton,
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+          kSizedBoxVerticalXS,
+          Row(
+            children: [
+              Expanded(
+                child: SizedBox(),
+              ),
+              Container(
+                width: kSizeXL,
+                child: actionButton
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

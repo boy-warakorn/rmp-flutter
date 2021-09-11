@@ -37,7 +37,7 @@ class WidgetPreviewScreen extends StatelessWidget {
             ],
           ),
           CustomButton(
-              text: "CustomButton - dafault color",
+              text: "CustomButton - default color",
               onPressed: () => print("CustomButton: Pressed")),
           SizedBox(height: 4),
           CustomButton(
