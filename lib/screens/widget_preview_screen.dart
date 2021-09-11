@@ -23,7 +23,16 @@ class WidgetPreviewScreen extends StatelessWidget {
             title: "TitleCard - no icon",
             count: 12,
           ),
-          CustomButton(text: "EDIT", onClick: () => print("YES")),
+          CustomButton(
+            text: "CustomButton - dafault color",
+            onPressed: () => print("CustomButton: Pressed")
+          ),
+          SizedBox(height: 4),
+          CustomButton(
+            text: "CustomButton - colored",
+            onPressed: () => print("CustomButton - colored: Pressed"),
+            color: Colors.blueGrey
+          ),
         ]),
       ),
     );
