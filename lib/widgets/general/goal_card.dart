@@ -35,7 +35,7 @@ class GoalCard extends StatelessWidget {
             Text(
               content,
               style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: 10.0,
+                    fontSize: kSizeS * (10 / 8),
                   ),
             ),
           ],

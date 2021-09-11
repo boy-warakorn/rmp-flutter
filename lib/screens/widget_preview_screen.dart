@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/general/goal_card.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 
@@ -12,19 +14,25 @@ class WidgetPreviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kBgColor,
       body: SafeArea(
         child: ListView(children: [
-          TitleCard(
-            title: "TitleCard - icon",
-            count: 5,
-            icon: Icon(
-              Icons.ac_unit,
-              color: Colors.red,
-            ),
-          ),
-          TitleCard(
-            title: "TitleCard - no icon",
-            count: 12,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TitleCard(
+                title: "TitleCard - icon",
+                count: 5,
+                icon: Icon(
+                  Icons.ac_unit,
+                  color: Colors.red,
+                ),
+              ),
+              TitleCard(
+                title: "TitleCard - no icon",
+                count: 12,
+              ),
+            ],
           ),
           CustomButton(
             text: "CustomButton - dafault color",
@@ -47,6 +55,14 @@ class WidgetPreviewScreen extends StatelessWidget {
             date: "20/20/2020",
             onPressed: () => print("PackageCard note: Pressed"),
             note: loremIpsum,
+          ),
+          GoalCard(
+            title: "GoalCard",
+            content: loremIpsum,
+            icon: Icon(
+              Icons.ac_unit,
+              color: Colors.red,
+            ),
           ),
         ]),
       ),
