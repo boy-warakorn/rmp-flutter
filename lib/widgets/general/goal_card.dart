@@ -16,35 +16,7 @@ class GoalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Card(
-    //   child: Padding(
-    //     padding: EdgeInsets.all(kSizeS),
-    //     child: Column(
-    //       children: [
-    //         Row(
-    //           crossAxisAlignment: CrossAxisAlignment.center,
-    //           children: [
-    //             Text(
-    //               title,
-    //               style: Theme.of(context).textTheme.headline4,
-    //             ),
-    //             kSizedBoxHorizontalXS,
-    //             icon,
-    //           ],
-    //         ),
-    //         kSizedBoxVerticalXS,
-    //         Text(
-    //           content,
-    //           style: Theme.of(context).textTheme.bodyText1?.copyWith(
-    //                 fontSize: kSizeS * (10 / 8),
-    //               ),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
     return CardTemplate(
-      // padding: EdgeInsets.all(kSizeXS),
       child: Column(
         children: [
           Row(

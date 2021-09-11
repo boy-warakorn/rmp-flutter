@@ -19,46 +19,6 @@ class PackageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Card(
-    //   child: InkWell(
-    //     onTap: onPressed,
-    //     splashColor: kSubtitleColor,
-    //     child: Padding(
-    //       padding: EdgeInsets.all(kSizeS),
-    //       child: Column(
-    //         children: [
-    //           Row(
-    //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //             crossAxisAlignment: CrossAxisAlignment.center,
-    //             children: [
-    //               Text(
-    //                 title,
-    //                 style: Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold),
-    //               ),
-    //               Text(
-    //                 date,
-    //                 style: Theme.of(context).textTheme.bodyText1?.copyWith(color: kSubtitleColor),  
-    //               ),
-    //             ],
-    //           ),
-    //           kSizedBoxVerticalS,
-    //           Row(
-    //             children: [
-    //               Expanded(
-    //                 child: Text(
-    //                   note,
-    //                   style: Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold),
-    //                 )
-    //               ),
-    //               kSizedBoxHorizontalS,
-    //               Icon(Icons.arrow_forward_ios, color: kStrokeColor,),
-    //             ],
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
     return CardTemplate(
       padding: EdgeInsets.zero,
       child: InkWell(

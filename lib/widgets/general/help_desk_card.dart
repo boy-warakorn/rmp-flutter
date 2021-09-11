@@ -19,54 +19,6 @@ class HelpDeskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Card(
-    //   child: Padding(
-    //     padding: EdgeInsets.all(kSizeS),
-    //     child: Column(
-    //       children: [
-    //         Row(
-    //           children: [
-    //             Expanded(
-    //               child: Column(
-    //                 crossAxisAlignment: CrossAxisAlignment.start,
-    //                 children: [
-    //                   Text(
-    //                     title,
-    //                     style: Theme.of(context).textTheme.bodyText1?.copyWith(
-    //                           fontWeight: FontWeight.bold,
-    //                           fontSize: kFontSizeHeadline4,
-    //                         ),
-    //                   ),
-    //                   kSizedBoxVerticalXS,
-    //                   Text(
-    //                     date,
-    //                     style: Theme.of(context).textTheme.bodyText1?.copyWith(
-    //                           color: kSubtitleColor,
-    //                         ),
-    //                   ),
-    //                   kSizedBoxVerticalXS,
-    //                   Text(
-    //                     detail,
-    //                     style: Theme.of(context).textTheme.bodyText1,
-    //                   ),
-    //                 ],
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //         kSizedBoxVerticalXS,
-    //         Row(
-    //           children: [
-    //             Expanded(
-    //               child: SizedBox(),
-    //             ),
-    //             actionButton,
-    //           ],
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
     return CardTemplate(
       child: Column(
         children: [

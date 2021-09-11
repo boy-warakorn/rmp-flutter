@@ -19,34 +19,6 @@ class TitleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Card(
-    //   child: Padding(
-    //     padding: const EdgeInsets.all(kSizeS),
-    //     child: Column(
-    //       children: [
-    //         if (icon.icon != null)
-    //           Column(
-    //             children: [
-    //               icon,
-    //               kSizedBoxVerticalXS,
-    //             ],
-    //           ),
-    //         Text(
-    //           title,
-    //           style: Theme.of(context).textTheme.headline4,
-    //         ),
-    //         icon.icon == null ? kSizedBoxVerticalS : kSizedBoxVerticalXS,
-    //         Text(
-    //           "$count",
-    //           style: Theme.of(context)
-    //               .textTheme
-    //               .headline4
-    //               ?.copyWith(fontWeight: FontWeight.normal),
-    //         )
-    //       ],
-    //     ),
-    //   ),
-    // );
     return CardTemplate(
       child: Column(
         children: [
