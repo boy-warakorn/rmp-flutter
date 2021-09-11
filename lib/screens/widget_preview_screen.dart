@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/general/help_desk_card.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 
 // เอาไว้ทดสอบข้อความยาว
-const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare accumsan nulla non accumsan. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eget pharetra lacus. Maecenas et dolor blandit, sodales justo pharetra,";
+const loremIpsum =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare accumsan nulla non accumsan. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eget pharetra lacus. Maecenas et dolor blandit, sodales justo pharetra,";
 
 class WidgetPreviewScreen extends StatelessWidget {
   const WidgetPreviewScreen({Key? key}) : super(key: key);
@@ -27,14 +29,26 @@ class WidgetPreviewScreen extends StatelessWidget {
             count: 12,
           ),
           CustomButton(
-            text: "CustomButton - dafault color",
-            onPressed: () => print("CustomButton: Pressed")
-          ),
+              text: "CustomButton - dafault color",
+              onPressed: () => print("CustomButton: Pressed")),
           SizedBox(height: 4),
           CustomButton(
-            text: "CustomButton - colored",
-            onPressed: () => print("CustomButton - colored: Pressed"),
-            color: Colors.blueGrey
+              text: "CustomButton - colored",
+              onPressed: () => print("CustomButton - colored: Pressed"),
+              color: Colors.blueGrey),
+          HelpDeskCard(
+            title: "Title",
+            date: "20/20/2020",
+            detail: "Short detail",
+            actionButton: CustomButton(
+                text: "REPLY", onPressed: () => print("HelpDeskCard: Pressed")),
+          ),
+          HelpDeskCard(
+            title: "Title long detail",
+            date: "20/20/2020",
+            detail: loremIpsum,
+            actionButton: CustomButton(
+                text: "REPLY", onPressed: () => print("HelpDeskCard: Pressed")),
           ),
           PackageCard(
             title: "Title",
