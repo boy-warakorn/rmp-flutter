@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/widgets/layout/card_template.dart';
 
 class GoalCard extends StatelessWidget {
   final String title;
@@ -15,31 +16,28 @@ class GoalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: EdgeInsets.all(kSizeS),
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.headline4,
+    return CardTemplate(
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              kSizedBoxHorizontalXS,
+              icon,
+            ],
+          ),
+          kSizedBoxVerticalXS,
+          Text(
+            content,
+            style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  fontSize: kSizeS * (0.8),
                 ),
-                kSizedBoxHorizontalXS,
-                icon,
-              ],
-            ),
-            kSizedBoxVerticalXS,
-            Text(
-              content,
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: kSizeS * (10 / 8),
-                  ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
