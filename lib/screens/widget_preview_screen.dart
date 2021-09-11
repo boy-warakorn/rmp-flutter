@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
-import 'package:rmp_flutter/widgets/general/help_desk_card.dart';
+import 'package:rmp_flutter/widgets/general/package_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
+
+// เอาไว้ทดสอบข้อความยาว
+const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare accumsan nulla non accumsan. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eget pharetra lacus. Maecenas et dolor blandit, sodales justo pharetra,";
 
 class WidgetPreviewScreen extends StatelessWidget {
   const WidgetPreviewScreen({Key? key}) : super(key: key);
@@ -32,6 +35,18 @@ class WidgetPreviewScreen extends StatelessWidget {
             text: "CustomButton - colored",
             onPressed: () => print("CustomButton - colored: Pressed"),
             color: Colors.blueGrey
+          ),
+          PackageCard(
+            title: "Title",
+            date: "20/20/2020",
+            onPressed: () => print("PackageCard: Pressed"),
+            note: "-",
+          ),
+          PackageCard(
+            title: "Title with Note",
+            date: "20/20/2020",
+            onPressed: () => print("PackageCard note: Pressed"),
+            note: loremIpsum,
           ),
         ]),
       ),
