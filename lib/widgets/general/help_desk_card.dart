@@ -32,16 +32,22 @@ class HelpDeskCard extends StatelessWidget {
                       Text(
                         title,
                         style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontSize: kFontSizeHeadline4),
+                              fontWeight: FontWeight.bold,
+                              fontSize: kFontSizeHeadline4,
+                            ),
                       ),
                       kSizedBoxVerticalXS,
                       Text(
                         date,
-                        style: Theme.of(context).textTheme.bodyText1?.copyWith(color: kSubtitleColor),  
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                              color: kSubtitleColor,
+                            ),
                       ),
                       kSizedBoxVerticalXS,
-                      Text(detail, style: Theme.of(context).textTheme.bodyText1,),
+                      Text(
+                        detail,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
                     ],
                   ),
                 ),
