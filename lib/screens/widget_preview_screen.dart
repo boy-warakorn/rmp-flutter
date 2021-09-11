@@ -10,15 +10,15 @@ class WidgetPreviewScreen extends StatelessWidget {
       body: SafeArea(
         child: ListView(children: [
           TitleCard(
-            title: "Title 01",
+            title: "Title 007",
             count: 5,
             icon: Icon(
               Icons.ac_unit,
-              color: Colors.lightBlue,
+              color: Colors.red,
             ),
           ),
           TitleCard(
-            title: "Title 02 no Icon",
+            title: "Title 02 no I",
             count: 12,
           ),
         ]),
