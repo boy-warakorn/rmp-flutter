@@ -7,8 +7,11 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Welcome"),
+    return Center(
+      child: Text(
+        "Welcome",
+        style: Theme.of(context).textTheme.headline1,
+      ),
     );
   }
 }
