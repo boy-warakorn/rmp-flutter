@@ -4,10 +4,13 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/widgets/general/alert_box.dart';
 import 'package:rmp_flutter/widgets/general/app_bar.dart';
 import 'package:rmp_flutter/widgets/general/card_button.dart';
+import 'package:rmp_flutter/widgets/general/back_app_bar.dart';
+import 'package:rmp_flutter/widgets/general/bottom_bar.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_slider.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
 import 'package:rmp_flutter/widgets/general/entity_card_status.dart';
+import 'package:rmp_flutter/widgets/general/form_text_field.dart';
 import 'package:rmp_flutter/widgets/general/goal_card.dart';
 import 'package:rmp_flutter/widgets/general/help_desk_card.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
@@ -79,6 +82,54 @@ class _WidgetPreviewScreenState extends State<WidgetPreviewScreen> {
                   Icons.ac_unit,
                   color: Colors.red,
                 ),
+                TitleCard(
+                  title: "TitleCard - no icon",
+                  count: 12,
+                ),
+              ],
+            ),
+            CustomButton(
+                text: "CustomButton - default color",
+                onPressed: () => print("CustomButton: Pressed")),
+            SizedBox(height: 4),
+            CustomButton(
+                text: "CustomButton - colored",
+                onPressed: () => print("CustomButton - colored: Pressed"),
+                color: Colors.blueGrey),
+            HelpDeskCard(
+              title: "Title",
+              date: "20/20/2020",
+              detail: "Short detail",
+              actionButton: CustomButton(
+                  text: "REPLY",
+                  onPressed: () => print("HelpDeskCard: Pressed")),
+            ),
+            HelpDeskCard(
+              title: "Title long detail",
+              date: "20/20/2020",
+              detail: loremIpsum,
+              actionButton: CustomButton(
+                  text: "REPLY",
+                  onPressed: () => print("HelpDeskCard: Pressed")),
+            ),
+            PackageCard(
+              title: "Title",
+              date: "20/20/2020",
+              onPressed: () => print("PackageCard: Pressed"),
+              note: "-",
+            ),
+            PackageCard(
+              title: "Title with Note",
+              date: "20/20/2020",
+              onPressed: () => print("PackageCard note: Pressed"),
+              note: loremIpsum,
+            ),
+            GoalCard(
+              title: "GoalCard",
+              content: loremIpsum,
+              icon: Icon(
+                Icons.ac_unit,
+                color: Colors.red,
               ),
               TitleCard(
                 title: "TitleCard - no icon",
