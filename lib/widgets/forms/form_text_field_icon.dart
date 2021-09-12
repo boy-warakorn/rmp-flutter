@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 
-class FormTextFieldIcon extends StatefulWidget {
+class FormTextFieldIcon extends HookWidget {
   final String fieldName;
   final Icon icon;
   final TextEditingController textEditingController;
-  final String rightSideText;
+  final String suffixText;
 
   const FormTextFieldIcon({
     Key? key,
     required this.fieldName,
     required this.icon,
     required this.textEditingController,
-    required this.rightSideText,
+    required this.suffixText,
   }) : super(key: key);
 
-  @override
-  State<FormTextFieldIcon> createState() => _FormTextFieldIconState();
-}
-
-class _FormTextFieldIconState extends State<FormTextFieldIcon> {
-  void toggleObsecureText() {}
-
   void printText() {
-    print("Text changed: ${widget.textEditingController.text}");
+    print("Text changed: ${textEditingController.text}");
   }
 
   @override
   Widget build(BuildContext context) {
+    final _isObscured = useState(false);
+
+    toggleObsecureText() {
+      _isObscured.value = !_isObscured.value;
+    }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          widget.fieldName,
+          fieldName,
           style: Theme.of(context).textTheme.headline3?.copyWith(
                 color: kBlackColor,
               ),
@@ -43,12 +43,9 @@ class _FormTextFieldIconState extends State<FormTextFieldIcon> {
         Container(
           height: kSizeL,
           child: TextFormField(
-            controller: widget.textEditingController,
+            controller: textEditingController,
             decoration: InputDecoration(
-              prefixIcon: Padding(
-                padding: EdgeInsets.only(),
-                child: widget.icon,
-              ),
+              prefixIcon: icon,
               suffixIcon: GestureDetector(
                 child: Container(
                   padding: EdgeInsets.symmetric(
@@ -56,12 +53,13 @@ class _FormTextFieldIconState extends State<FormTextFieldIcon> {
                     horizontal: kSizeS,
                   ),
                   child: Text(
-                    widget.rightSideText,
+                    suffixText,
                     style: Theme.of(context).textTheme.headline4?.copyWith(
-                          foreground: Paint()..shader = kGradientColor,
+                          color: kBrandColor,
                         ),
                   ),
                 ),
+                onTap: toggleObsecureText,
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: kBorderRadiusXS,
@@ -74,13 +72,13 @@ class _FormTextFieldIconState extends State<FormTextFieldIcon> {
                 horizontal: kSizeXS,
                 vertical: kSizeS / 1.7,
               ),
-              hintText: "Enter ${widget.fieldName}",
+              hintText: "Enter ${fieldName}",
               hintStyle: Theme.of(context).textTheme.subtitle1,
             ),
-            obscureText: false,
+            obscureText: _isObscured.value,
             validator: (value) {
               value == null || value.isEmpty
-                  ? '${widget.fieldName} is required'
+                  ? '${fieldName} is required'
                   : null;
             },
           ),

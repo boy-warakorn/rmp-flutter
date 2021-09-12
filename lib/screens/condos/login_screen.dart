@@ -12,8 +12,8 @@ class LoginScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final usernameController = TextEditingController();
-    final passwordController = TextEditingController();
+    final _username = useTextEditingController();
+    final _password = useTextEditingController();
 
     return SingleChildScrollView(
       child: Stack(
@@ -60,8 +60,8 @@ class LoginScreen extends HookWidget {
                   child: FormTextFieldIcon(
                     fieldName: "Username",
                     icon: Icon(Icons.account_circle, size: kSizeM),
-                    textEditingController: usernameController,
-                    rightSideText: '',
+                    textEditingController: _username,
+                    suffixText: '',
                   ),
                 ),
                 kSizedBoxVerticalS,
@@ -72,13 +72,13 @@ class LoginScreen extends HookWidget {
                   child: FormTextFieldIcon(
                       fieldName: "Password",
                       icon: Icon(Icons.lock_rounded, size: kSizeM),
-                      textEditingController: passwordController,
-                      rightSideText: 'Show'),
+                      textEditingController: _password,
+                      suffixText: 'Show'),
                 ),
                 GestureDetector(
                   onTap: () {
                     print(
-                        "Username: ${usernameController.text}, Password: ${passwordController.text}");
+                        "Username: ${_username.text}, Password: ${_password.text}");
                   },
                   child: Container(
                     margin: EdgeInsets.only(right: kSizeXL * 1.45),
