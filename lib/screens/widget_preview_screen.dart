@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
+import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/widgets/general/app_bar.dart';
 import 'package:rmp_flutter/widgets/general/back_app_bar.dart';
+import 'package:rmp_flutter/widgets/general/bottom_bar.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/form_text_field.dart';
 import 'package:rmp_flutter/widgets/general/goal_card.dart';
@@ -17,30 +19,31 @@ const String fieldName = "Room Number";
 TextEditingController _textEditingController = TextEditingController();
 
 class WidgetPreviewScreen extends StatelessWidget {
-  Size get preferredSize => const Size.fromHeight(50);
+  Size get preferredSize => const Size.fromHeight(kSizeM * 1.75);
   const WidgetPreviewScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainAppBar(
-        haveFilter: true,
+      // appBar: MainAppBar(
+      //   haveFilter: true,
+      // ),
+      bottomNavigationBar: BottomBar(
+        isResident: true,
       ),
-      drawer: MainDrawer(),
+      // drawer: MainDrawer(),
       backgroundColor: kBgColor,
       body: SafeArea(
-        child: ListView(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TitleCard(
-                  title: "TitleCard - iconnnn",
-                  count: 5,
-                  icon: Icon(
-                    Icons.ac_unit,
-                    color: Colors.red,
-                  ),
+        child: ListView(children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TitleCard(
+                title: "TitleCard - icon",
+                count: 5,
+                icon: Icon(
+                  Icons.ac_unit,
+                  color: Colors.red,
                 ),
                 TitleCard(
                   title: "TitleCard - no icon",

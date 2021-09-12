@@ -19,13 +19,6 @@ class _FormTextFieldState extends State<FormTextField> {
     print("Text changed: ${widget.textEditingController.text}");
   }
 
-  @override
-  void initState() {
-    widget.textEditingController.addListener(printText);
-    super.initState();
-  }
-
-  @override
   void dispose() {
     widget.textEditingController.dispose();
     super.dispose();
