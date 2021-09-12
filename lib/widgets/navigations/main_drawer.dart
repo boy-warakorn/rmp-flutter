@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/widgets/general/drawer_button.dart';
+import 'package:rmp_flutter/widgets/navigations/drawer_button.dart';
 import 'package:rmp_flutter/widgets/general/brand_title.dart';
 
 class MainDrawer extends StatelessWidget {
