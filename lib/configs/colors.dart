@@ -19,3 +19,7 @@ const kWarningColor = Color(0xFFFDA027);
 const kBgColor = Color(0xFFF4F7FA);
 const kLightColor = Colors.white;
 const kBlackColor = Colors.black;
+
+final Shader kGradientColor =
+    LinearGradient(colors: <Color>[kBrandColor, kBrandAlternativeDarkerColor])
+        .createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));

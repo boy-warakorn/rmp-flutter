@@ -6,11 +6,14 @@ class FormTextFieldIcon extends StatefulWidget {
   final String fieldName;
   final Icon icon;
   final TextEditingController textEditingController;
+  final String rightSideText;
+
   const FormTextFieldIcon({
     Key? key,
     required this.fieldName,
     required this.icon,
     required this.textEditingController,
+    required this.rightSideText,
   }) : super(key: key);
 
   @override
@@ -18,6 +21,8 @@ class FormTextFieldIcon extends StatefulWidget {
 }
 
 class _FormTextFieldIconState extends State<FormTextFieldIcon> {
+  void toggleObsecureText() {}
+
   void printText() {
     print("Text changed: ${widget.textEditingController.text}");
   }
@@ -44,6 +49,20 @@ class _FormTextFieldIconState extends State<FormTextFieldIcon> {
                 padding: EdgeInsets.only(),
                 child: widget.icon,
               ),
+              suffixIcon: GestureDetector(
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: kSizeS,
+                    horizontal: kSizeS,
+                  ),
+                  child: Text(
+                    widget.rightSideText,
+                    style: Theme.of(context).textTheme.headline4?.copyWith(
+                          foreground: Paint()..shader = kGradientColor,
+                        ),
+                  ),
+                ),
+              ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: kBorderRadiusXS,
                 borderSide: BorderSide(
@@ -58,6 +77,7 @@ class _FormTextFieldIconState extends State<FormTextFieldIcon> {
               hintText: "Enter ${widget.fieldName}",
               hintStyle: Theme.of(context).textTheme.subtitle1,
             ),
+            obscureText: false,
             validator: (value) {
               value == null || value.isEmpty
                   ? '${widget.fieldName} is required'

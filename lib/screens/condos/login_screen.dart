@@ -61,6 +61,7 @@ class LoginScreen extends HookWidget {
                     fieldName: "Username",
                     icon: Icon(Icons.account_circle, size: kSizeM),
                     textEditingController: usernameController,
+                    rightSideText: '',
                   ),
                 ),
                 kSizedBoxVerticalS,
@@ -69,10 +70,10 @@ class LoginScreen extends HookWidget {
                     horizontal: kSizeM * 1.27,
                   ),
                   child: FormTextFieldIcon(
-                    fieldName: "Password",
-                    icon: Icon(Icons.lock_rounded, size: kSizeM),
-                    textEditingController: passwordController,
-                  ),
+                      fieldName: "Password",
+                      icon: Icon(Icons.lock_rounded, size: kSizeM),
+                      textEditingController: passwordController,
+                      rightSideText: 'Show'),
                 ),
                 GestureDetector(
                   onTap: () {
