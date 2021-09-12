@@ -44,6 +44,12 @@ class _FormTextFieldState extends State<FormTextField> {
                   width: kSizeXXXS,
                 ),
               ),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: kSizeXS,
+                vertical: kSizeS / 1.7,
+              ),
+              hintText: "Enter ${widget.fieldName}",
+              hintStyle: Theme.of(context).textTheme.subtitle1,
             ),
             validator: (value) {
               value == null || value.isEmpty ? 'Input is required' : null;
