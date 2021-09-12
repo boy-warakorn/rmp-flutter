@@ -40,7 +40,7 @@ class LoginScreen extends HookWidget {
                     kSizedBoxVerticalM,
                     kSizedBoxVerticalS,
                     Text(
-                      "Log in",
+                      "Login",
                       style: GoogleFonts.montserrat(
                         color: kBlackColor,
                         fontSize: kFontSizeHeadline3,
@@ -50,7 +50,11 @@ class LoginScreen extends HookWidget {
                   ],
                 ),
                 Container(
-                  transform: Matrix4.translationValues(0.0, 10.0, 0.0),
+                  transform: Matrix4.translationValues(
+                    0.0,
+                    10.0,
+                    0.0,
+                  ),
                   child: Divider(
                     color: kBrandColor,
                     thickness: kSizeXXS,
@@ -62,16 +66,22 @@ class LoginScreen extends HookWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: kSizeM),
+            padding: EdgeInsets.symmetric(
+              horizontal: kSizeM,
+            ),
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 kSizedBoxVerticalM,
                 Container(
                   child: FormTextFieldIcon(
                     fieldName: "Username",
-                    icon: Icon(Icons.account_circle, size: kSizeM),
+                    icon: Icon(
+                      Icons.account_circle,
+                      size: kSizeM,
+                    ),
                     textEditingController: _username,
                     suffixText: '',
                   ),
@@ -80,7 +90,10 @@ class LoginScreen extends HookWidget {
                 Container(
                   child: FormTextFieldIcon(
                       fieldName: "Password",
-                      icon: Icon(Icons.lock_rounded, size: kSizeM),
+                      icon: Icon(
+                        Icons.lock_rounded,
+                        size: kSizeM,
+                      ),
                       textEditingController: _password,
                       suffixText: 'Show'),
                 ),
@@ -89,21 +102,18 @@ class LoginScreen extends HookWidget {
                     print(
                         "Username: ${_username.text}, Password: ${_password.text}");
                   },
-                  child: Container(
-                    margin: EdgeInsets.only(right: kSizeXL * 1.45),
-                    child: Text(
-                      "Forgot Password?",
-                      style: Theme.of(context).textTheme.headline5?.copyWith(
-                            fontSize: kFontSizeHeadline4,
-                          ),
-                      textAlign: TextAlign.left,
-                    ),
+                  child: Text(
+                    "Forgot Password?",
+                    style: Theme.of(context).textTheme.headline5?.copyWith(
+                          fontSize: kFontSizeHeadline4,
+                        ),
+                    textAlign: TextAlign.left,
                   ),
                 ),
                 kSizedBoxVerticalM,
                 Container(
                   margin: EdgeInsets.symmetric(
-                    horizontal: kSizeM * 1.27,
+                    horizontal: kSizeM * 1.25,
                   ),
                   child: CustomButton(
                     text: "LOGIN",
