@@ -5,30 +5,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 
-class BottomBar extends StatefulWidget {
+class BottomBar extends StatelessWidget {
+  final int currentIndex;
   final bool isResident;
+  final Function(int) onTap;
+
   const BottomBar({
     Key? key,
+    required this.currentIndex,
     required this.isResident,
+    required this.onTap,
   }) : super(key: key);
 
-  @override
-  State<BottomBar> createState() => _BottomBarState();
-}
-
-class _BottomBarState extends State<BottomBar> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      print(index);
-    });
-  }
-
-  // Resident BottomNavigationBarItem
-
-  List<BottomNavigationBarItem> residentBottomNavigationBarItem =
+  final List<BottomNavigationBarItem> residentBottomNavigationBarItem =
       const <BottomNavigationBarItem>[
     BottomNavigationBarItem(
       icon: Icon(
@@ -61,7 +50,7 @@ class _BottomBarState extends State<BottomBar> {
   ];
 
   // Personnel BottomNavigationBarItem
-  List<BottomNavigationBarItem> personnelBottomNavigationBarItem =
+  final List<BottomNavigationBarItem> personnelBottomNavigationBarItem =
       const <BottomNavigationBarItem>[
     BottomNavigationBarItem(
       icon: Icon(
@@ -91,19 +80,17 @@ class _BottomBarState extends State<BottomBar> {
     return BottomNavigationBar(
       backgroundColor: kBrandColor,
       type: BottomNavigationBarType.fixed,
-      currentIndex: _selectedIndex,
-      onTap: _onItemTapped,
+      currentIndex: currentIndex,
+      onTap: onTap,
       unselectedItemColor: kLightColor,
       unselectedLabelStyle: GoogleFonts.montserrat(
-        color: kLightColor,
         fontSize: kFontSizeSubtitle1,
       ),
-      selectedItemColor: kLightColor,
+      selectedItemColor: kBlackColor,
       selectedLabelStyle: GoogleFonts.montserrat(
-        color: kLightColor,
         fontSize: kFontSizeSubtitle1,
       ),
-      items: widget.isResident
+      items: isResident
           ? residentBottomNavigationBarItem
           : personnelBottomNavigationBarItem,
     );

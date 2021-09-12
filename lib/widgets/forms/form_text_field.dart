@@ -19,11 +19,6 @@ class _FormTextFieldState extends State<FormTextField> {
     print("Text changed: ${widget.textEditingController.text}");
   }
 
-  void dispose() {
-    widget.textEditingController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,6 +44,12 @@ class _FormTextFieldState extends State<FormTextField> {
                   width: kSizeXXXS,
                 ),
               ),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: kSizeXS,
+                vertical: kSizeS / 1.7,
+              ),
+              hintText: "Enter ${widget.fieldName}",
+              hintStyle: Theme.of(context).textTheme.subtitle1,
             ),
             validator: (value) {
               value == null || value.isEmpty ? 'Input is required' : null;
