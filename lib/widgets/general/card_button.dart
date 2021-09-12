@@ -39,7 +39,7 @@ class CardButton extends StatelessWidget {
                 Icon(
                   icon,
                   color: kLightColor,
-                  size: 40,
+                  size: kFontSizeBody1 * (40 / 14),
                 ),
                 const SizedBox(
                   height: kSizeS * (20 / 16),
