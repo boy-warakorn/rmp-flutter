@@ -34,14 +34,14 @@ class GoalCard extends StatelessWidget {
           Text(
             content,
             style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                  fontSize: kSizeS * (0.8),
+                  fontSize: kFontSizeHeadline4 * (0.8),
                 ),
           ),
           kSizedBoxVerticalXS,
           Text(
             content,
             style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                  fontSize: kSizeS * (0.8),
+                  fontSize: kFontSizeHeadline4 * (0.8),
                 ),
           ),
         ],
