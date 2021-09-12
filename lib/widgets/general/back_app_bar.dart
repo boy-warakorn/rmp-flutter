@@ -4,7 +4,7 @@ import 'package:rmp_flutter/configs/constants.dart';
 
 class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
-  Size get preferredSize => const Size.fromHeight(50);
+  Size get preferredSize => const Size.fromHeight(kSizeM * 1.75);
   const BackAppBar({Key? key}) : super(key: key);
 
   @override
@@ -14,10 +14,10 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       leading: Container(
         child: IconButton(
-          onPressed: () => {print('Test')},
+          onPressed: () => {print('Back Function')},
           icon: Icon(
             Icons.arrow_back_ios,
-            size: kSizeS,
+            size: kSizeS * 1.25,
             color: kBlackColor,
           ),
         ),
