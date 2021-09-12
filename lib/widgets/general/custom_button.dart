@@ -6,12 +6,14 @@ class CustomButton extends StatelessWidget {
   final String text;
   final void Function() onPressed;
   final Color color;
+  final EdgeInsets padding;
 
   const CustomButton({
     Key? key,
     required this.text,
     required this.onPressed,
     this.color = kBrandColor,
+    this.padding = const EdgeInsets.all(kSizeS)
   }) : super(key: key);
 
   @override
@@ -19,7 +21,7 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: color,
-          padding: EdgeInsets.all(kSizeS),
+          padding: padding,
           shape: RoundedRectangleBorder(borderRadius: kBorderRadiusXXL),
         ),
         onPressed: onPressed,
