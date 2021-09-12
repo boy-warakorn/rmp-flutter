@@ -25,7 +25,7 @@ class PackageCard extends StatelessWidget {
         onTap: onPressed,
         splashColor: kSubtitleColor,
         child: Padding(
-          padding: EdgeInsets.all(kSizeS),
+          padding: const EdgeInsets.all(kSizeS),
           child: Column(
             children: [
               Row(
@@ -52,7 +52,7 @@ class PackageCard extends StatelessWidget {
                     )
                   ),
                   kSizedBoxHorizontalS,
-                  Icon(Icons.arrow_forward_ios, color: kStrokeColor,),
+                  const Icon(Icons.arrow_forward_ios, color: kStrokeColor,),
                 ],
               ),
             ],
