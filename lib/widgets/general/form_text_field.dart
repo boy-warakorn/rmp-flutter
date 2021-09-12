@@ -19,12 +19,6 @@ class _FormTextFieldState extends State<FormTextField> {
   }
 
   @override
-  void initState() {
-    formTextField.addListener(printText);
-    super.initState();
-  }
-
-  @override
   void dispose() {
     formTextField.dispose();
     super.dispose();
@@ -42,9 +36,7 @@ class _FormTextFieldState extends State<FormTextField> {
                 color: kBlackColor,
               ),
         ),
-        SafeArea(
-          child: kSizedBoxVerticalXS,
-        ),
+        kSizedBoxVerticalXS,
         Container(
           height: kSizeM,
           child: TextFormField(
