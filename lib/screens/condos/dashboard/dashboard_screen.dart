@@ -5,7 +5,7 @@ import 'package:rmp_flutter/widgets/general/title_card.dart';
 import 'package:rmp_flutter/widgets/layout/card_template.dart';
 
 class DashboardScreen extends StatelessWidget {
-  static const routeName = "/CondoDashboard";
+  static const routeName = "/condo/dashboard";
 
   const DashboardScreen({Key? key}) : super(key: key);
 
