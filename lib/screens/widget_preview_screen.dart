@@ -3,6 +3,7 @@ import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/widgets/general/app_bar.dart';
 import 'package:rmp_flutter/widgets/general/back_app_bar.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/general/form_text_field.dart';
 import 'package:rmp_flutter/widgets/general/goal_card.dart';
 import 'package:rmp_flutter/widgets/general/help_desk_card.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
@@ -12,6 +13,7 @@ import 'package:rmp_flutter/widgets/general/main_drawer.dart';
 // เอาไว้ทดสอบข้อความยาว
 const loremIpsum =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare accumsan nulla non accumsan. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eget pharetra lacus. Maecenas et dolor blandit, sodales justo pharetra,";
+const String fieldName = "Room Number";
 
 class WidgetPreviewScreen extends StatelessWidget {
   Size get preferredSize => const Size.fromHeight(50);
@@ -85,6 +87,9 @@ class WidgetPreviewScreen extends StatelessWidget {
               Icons.ac_unit,
               color: Colors.red,
             ),
+          ),
+          FormTextField(
+            fieldName: fieldName,
           ),
         ]),
       ),
