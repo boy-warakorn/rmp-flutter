@@ -8,7 +8,7 @@ class TeamMemberCard extends StatelessWidget {
   final String role;
 
   const TeamMemberCard({
-    Key? key, 
+    Key? key,
     required this.name,
     required this.role,
     required this.image,
@@ -20,7 +20,7 @@ class TeamMemberCard extends StatelessWidget {
           fontSize: kFontSizeBody2 * (11 / 12),
         );
     return Container(
-      width: 200,
+      width: kSizeXL * (200 / 128),
       decoration: const BoxDecoration(
         color: kBrandLighterColor,
         borderRadius: kBorderRadiusS,
@@ -39,10 +39,9 @@ class TeamMemberCard extends StatelessWidget {
             kSizedBoxVerticalXS,
             Text(
               name,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline4
-                  ?.copyWith(fontSize: kFontSizeBody2),
+              style: Theme.of(context).textTheme.headline4?.copyWith(
+                    fontSize: kFontSizeBody2,
+                  ),
             ),
             kSizedBoxVerticalXS,
             Text(
