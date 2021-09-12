@@ -36,10 +36,9 @@ class TitleCard extends StatelessWidget {
           icon.icon == null ? kSizedBoxVerticalS : kSizedBoxVerticalXS,
           Text(
             "$count",
-            style: Theme.of(context)
-                .textTheme
-                .headline4
-                ?.copyWith(fontWeight: FontWeight.normal),
+            style: Theme.of(context).textTheme.headline5?.copyWith(
+                  fontWeight: FontWeight.normal,
+                ),
           )
         ],
       ),
