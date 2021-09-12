@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 
@@ -26,20 +28,31 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       backgroundColor: kBrandColor,
+      type: BottomNavigationBarType.fixed,
+      currentIndex: _selectedIndex,
+      onTap: _onItemTapped,
+      unselectedItemColor: kLightColor,
+      unselectedLabelStyle: GoogleFonts.montserrat(
+        color: kLightColor,
+        fontSize: kFontSizeSubtitle1,
+      ),
+      selectedItemColor: kLightColor,
+      selectedLabelStyle: GoogleFonts.montserrat(
+        color: kLightColor,
+        fontSize: kFontSizeSubtitle1,
+      ),
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(
             Icons.home,
             size: kSizeM,
-            color: kLightColor,
           ),
           label: 'HOME',
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.chat_bubble_outline,
+            Icons.chat_bubble_outline_rounded,
             size: kSizeM,
-            color: kLightColor,
           ),
           label: 'HELPDESK',
         ),
@@ -47,15 +60,10 @@ class _BottomBarState extends State<BottomBar> {
           icon: Icon(
             Icons.layers,
             size: kSizeM,
-            color: kLightColor,
           ),
           label: 'POSTAL',
         ),
       ],
-      type: BottomNavigationBarType.fixed,
-      currentIndex: _selectedIndex,
-      onTap: _onItemTapped,
-      unselectedItemColor: kLightColor,
     );
   }
 }
