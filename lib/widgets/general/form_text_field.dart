@@ -5,28 +5,29 @@ import 'package:rmp_flutter/screens/widget_preview_screen.dart';
 
 class FormTextField extends StatefulWidget {
   final String fieldName;
-  const FormTextField({Key? key, required this.fieldName}) : super(key: key);
+  final TextEditingController textEditingController;
+  const FormTextField(
+      {Key? key, required this.fieldName, required this.textEditingController})
+      : super(key: key);
 
   @override
   State<FormTextField> createState() => _FormTextFieldState();
 }
 
 class _FormTextFieldState extends State<FormTextField> {
-  final formTextField = TextEditingController();
-
   void printText() {
-    print("Text changed: ${formTextField.text}");
+    print("Text changed: ${widget.textEditingController.text}");
   }
 
   @override
   void initState() {
-    formTextField.addListener(printText);
+    widget.textEditingController.addListener(printText);
     super.initState();
   }
 
   @override
   void dispose() {
-    formTextField.dispose();
+    widget.textEditingController.dispose();
     super.dispose();
   }
 
@@ -48,7 +49,7 @@ class _FormTextFieldState extends State<FormTextField> {
         Container(
           height: kSizeM,
           child: TextFormField(
-            controller: formTextField,
+            controller: widget.textEditingController,
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: kBorderRadiusM,
