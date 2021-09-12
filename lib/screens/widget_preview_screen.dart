@@ -27,7 +27,9 @@ class WidgetPreviewScreen extends StatelessWidget {
       // appBar: MainAppBar(
       //   haveFilter: true,
       // ),
-      bottomNavigationBar: BottomBar(),
+      bottomNavigationBar: BottomBar(
+        isResident: true,
+      ),
       // drawer: MainDrawer(),
       backgroundColor: kBgColor,
       body: SafeArea(
