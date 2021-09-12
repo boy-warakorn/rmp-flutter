@@ -15,8 +15,7 @@ class AlertBox extends StatelessWidget {
     required this.onPositive,
   }) : super(key: key);
 
-  Widget _buildActionButton(
-    BuildContext context, {
+  Widget _buildActionButton({
     required bool isPositive,
     required void Function() onPressed,
   }) {
@@ -53,13 +52,11 @@ class AlertBox extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _buildActionButton(
-              context,
               isPositive: false,
               onPressed: onNegative,
             ),
             kSizedBoxHorizontalS,
             _buildActionButton(
-              context,
               isPositive: true,
               onPressed: onPositive,
             ),
