@@ -16,47 +16,59 @@ class LoginScreen extends HookWidget {
     final _password = useTextEditingController();
 
     return SingleChildScrollView(
-      child: Stack(
+      child: Column(
         children: [
           Container(
-            height: kSizeXXL / 1.33,
+            height: kSizeXXL * 1.1,
             decoration: BoxDecoration(
               color: kLightColor,
               borderRadius: BorderRadius.vertical(
-                top: Radius.circular(0),
                 bottom: Radius.circular(kSizeM),
               ),
             ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    kSizedBoxVerticalL,
+                    Image.asset(
+                      "assets/images/rmp_ex.png",
+                      width: kSizeXL,
+                      height: kSizeXL,
+                    ),
+                    kSizedBoxVerticalM,
+                    kSizedBoxVerticalS,
+                    Text(
+                      "Log in",
+                      style: GoogleFonts.montserrat(
+                        color: kBlackColor,
+                        fontSize: kFontSizeHeadline3,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  transform: Matrix4.translationValues(0.0, 10.0, 0.0),
+                  child: Divider(
+                    color: kBrandColor,
+                    thickness: kSizeXXS,
+                    indent: kSizeM * 1.5,
+                    endIndent: kSizeM * 1.5,
+                  ),
+                ),
+              ],
+            ),
           ),
           Container(
+            padding: EdgeInsets.symmetric(horizontal: kSizeM),
             alignment: Alignment.center,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 kSizedBoxVerticalM,
-                Image.asset(
-                  "assets/images/rmp_ex.png",
-                  width: kSizeXL,
-                  height: kSizeXL,
-                ),
-                Text(
-                  "Log in",
-                  style: GoogleFonts.montserrat(
-                    color: kBlackColor,
-                    fontSize: kFontSizeHeadline3,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Divider(
-                  color: kBrandColor,
-                  thickness: kSizeXXS,
-                  indent: kSizeM * 1.5,
-                  endIndent: kSizeM * 1.5,
-                ),
-                kSizedBoxVerticalM,
                 Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: kSizeM * 1.27,
-                  ),
                   child: FormTextFieldIcon(
                     fieldName: "Username",
                     icon: Icon(Icons.account_circle, size: kSizeM),
@@ -66,9 +78,6 @@ class LoginScreen extends HookWidget {
                 ),
                 kSizedBoxVerticalS,
                 Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: kSizeM * 1.27,
-                  ),
                   child: FormTextFieldIcon(
                       fieldName: "Password",
                       icon: Icon(Icons.lock_rounded, size: kSizeM),

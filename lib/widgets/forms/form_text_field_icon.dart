@@ -23,7 +23,7 @@ class FormTextFieldIcon extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _isObscured = useState(false);
+    final _isObscured = useState(true);
 
     toggleObsecureText() {
       _isObscured.value = !_isObscured.value;
