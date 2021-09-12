@@ -19,11 +19,6 @@ class _FormTextFieldState extends State<FormTextField> {
     print("Text changed: ${widget.textEditingController.text}");
   }
 
-  void dispose() {
-    widget.textEditingController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(

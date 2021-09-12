@@ -34,16 +34,18 @@ class WidgetPreviewScreen extends StatelessWidget {
       // drawer: MainDrawer(),
       backgroundColor: kBgColor,
       body: SafeArea(
-        child: ListView(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TitleCard(
-                title: "TitleCard - icon",
-                count: 5,
-                icon: Icon(
-                  Icons.ac_unit,
-                  color: Colors.red,
+        child: ListView(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TitleCard(
+                  title: "TitleCard - icon",
+                  count: 5,
+                  icon: Icon(
+                    Icons.ac_unit,
+                    color: Colors.red,
+                  ),
                 ),
                 TitleCard(
                   title: "TitleCard - no icon",
