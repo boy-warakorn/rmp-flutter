@@ -16,7 +16,7 @@ class MainScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _tabs = [
-      const LoginScreen(),
+      const WidgetPreviewScreen(),
       const HelpDeskScreen(),
       const PostalScreen()
     ];
@@ -31,11 +31,11 @@ class MainScreen extends HookWidget {
       appBar: MainAppBar(haveFilter: false),
       drawer: MainDrawer(),
       body: _tabs[_currentTabIndex.value],
-      // bottomNavigationBar: BottomBar(
-      //   currentIndex: _currentTabIndex.value,
-      //   isResident: false,
-      //   onTap: onTap,
-      // ),
+      bottomNavigationBar: BottomBar(
+        currentIndex: _currentTabIndex.value,
+        isResident: false,
+        onTap: onTap,
+      ),
     );
   }
 }
