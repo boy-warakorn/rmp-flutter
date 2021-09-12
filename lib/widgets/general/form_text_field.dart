@@ -43,9 +43,7 @@ class _FormTextFieldState extends State<FormTextField> {
                 color: kBlackColor,
               ),
         ),
-        SafeArea(
-          child: kSizedBoxVerticalXS,
-        ),
+        kSizedBoxVerticalXS,
         Container(
           height: kSizeM,
           child: TextFormField(
