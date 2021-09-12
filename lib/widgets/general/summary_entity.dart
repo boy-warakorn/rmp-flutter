@@ -24,25 +24,27 @@ class SummaryEntity extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyText1,
             ),
             Container(
+              width: kSizeM * (0.75),
               decoration: const BoxDecoration(
                 color: kErrorColor,
                 borderRadius: kBorderRadiusXS,
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: kSizeXXXS, horizontal: kSizeXXS),
-                child: Text(
-                  count > 9 ? "9+" : "$count",
-                  style: Theme.of(context).textTheme.headline4?.copyWith(
-                        fontSize: kFontSizeBody1,
-                        color: kLightColor,
-                      ),
+                padding: const EdgeInsets.symmetric(vertical: kSizeXXS),
+                child: Center(
+                  child: Text(
+                    count > 9 ? "9+" : "$count",
+                    style: Theme.of(context).textTheme.headline4?.copyWith(
+                          fontSize: kFontSizeBody1,
+                          color: kLightColor,
+                        ),
+                  ),
                 ),
               ),
             ),
           ],
         ),
-        kSizedBoxVerticalXS,
+        kSizedBoxVerticalXXS,
         const Divider(
           color: kSubtitleColor,
         ),
