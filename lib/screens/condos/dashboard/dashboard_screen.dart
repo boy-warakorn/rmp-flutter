@@ -12,8 +12,8 @@ class DashboardScreen extends StatelessWidget {
   Widget _buildTitleCardGroup(
     BuildContext context, {
     required String header,
-    required Widget leftCard,
-    required Widget rightCard,
+    required TitleCard leftCard,
+    required TitleCard rightCard,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
