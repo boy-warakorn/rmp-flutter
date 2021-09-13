@@ -38,8 +38,8 @@ class HelpDeskScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _isResponded = useState(true);
 
-    void switchResponded(dynamic to) {
-      _isResponded.value = to;
+    void switchResponded(bool switchTo) {
+      _isResponded.value = switchTo;
     }
 
     List<Map<String, dynamic>> filterList() {
@@ -59,7 +59,7 @@ class HelpDeskScreen extends HookWidget {
             kSizedBoxVerticalXS,
             CustomSlider(
               isResponded: _isResponded.value,
-              onValueChanged: switchResponded,
+              onValueChanged: (switchTo) => switchResponded(switchTo),
             ),
             kSizedBoxVerticalS,
             kSizedBoxHorizontalXS,
