@@ -9,85 +9,80 @@ class PostalScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Container(
-          padding: EdgeInsets.all(
-            kSizeS * 1.5,
-          ),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: <Color>[
-                kBrandColor,
-                kBrandAlternativeDarkerColor,
-              ],
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                "Postal Management",
-                style: Theme.of(context).textTheme.headline3?.copyWith(
-                      color: kLightColor,
-                    ),
-              ),
-            ],
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: <Color>[
+            kBrandColor,
+            kBrandAlternativeDarkerColor,
+          ],
         ),
-        Expanded(
-          child: Container(
-            padding: EdgeInsets.all(
-              kSizeS * 1.5,
-            ),
-            decoration: BoxDecoration(
-              color: kBgColor,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(
-                  kSizeS,
-                ),
-              ),
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: kSizeS * 1.5,
+              vertical: kSizeS,
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  "All Packages",
-                  style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                        fontSize: kFontSizeHeadline3,
-                        color: kBrandDarkerColor,
-                        fontWeight: FontWeight.bold,
+                  "Postal Management",
+                  style: Theme.of(context).textTheme.headline3?.copyWith(
+                        color: kLightColor,
                       ),
-                ),
-                kSizedBoxVerticalXS,
-                kSizedBoxVerticalS,
-                PackageCard(
-                  title: "Gaming Monitor",
-                  date: "13/9/2021",
-                  note: "24 inches monitor",
-                  onPressed: () => print('this is package.'),
-                ),
-                PackageCard(
-                  title: "Gaming Monitor",
-                  date: "13/9/2021",
-                  note: "24 inches monitor",
-                  onPressed: () => print('this is package.'),
-                ),
-                PackageCard(
-                  title: "Gaming Monitor",
-                  date: "13/9/2021",
-                  note: "24 inches monitor",
-                  onPressed: () => print('this is package.'),
                 ),
               ],
             ),
           ),
-        ),
-      ],
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(
+                kSizeS * 1.5,
+              ),
+              decoration: BoxDecoration(
+                color: kBgColor,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(
+                    kSizeS,
+                  ),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "All Packages",
+                    style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                          fontSize: kFontSizeHeadline3,
+                          color: kBrandDarkerColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  kSizedBoxVerticalXS,
+                  kSizedBoxVerticalS,
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: 10,
+                      itemBuilder: (ctx, index) => PackageCard(
+                        title: "Gaming Monitor",
+                        date: "13/9/2021",
+                        note: "24 inches monitor",
+                        onPressed: () => print('this is package.'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
