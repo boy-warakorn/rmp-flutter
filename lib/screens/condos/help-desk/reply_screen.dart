@@ -22,7 +22,7 @@ class ReplyScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _replyEditingContoller = useTextEditingController();
+    final _reply = useTextEditingController();
 
     return Scaffold(
       backgroundColor: kBgColor,
@@ -58,7 +58,7 @@ class ReplyScreen extends HookWidget {
                       elevation: kSizeXXS,
                       child: TextField(
                         maxLines: null,
-                        controller: _replyEditingContoller,
+                        controller: _reply,
                         style: Theme.of(context).textTheme.bodyText2,
                         decoration: const InputDecoration(
                           hintText: "No reply",
@@ -86,7 +86,7 @@ class ReplyScreen extends HookWidget {
                           width: kSizeXL,
                           child: CustomButton(
                             text: "SUBMIT",
-                            onPressed: () => print(_replyEditingContoller.text),
+                            onPressed: () => print(_reply.text),
                           ),
                         ),
                       ],
