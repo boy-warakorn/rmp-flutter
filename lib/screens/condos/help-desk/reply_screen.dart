@@ -77,7 +77,6 @@ class ReplyScreen extends HookWidget {
                         ),
                       ),
                     ),
-                    kSizedBoxVerticalM,
                     kSizedBoxVerticalS,
                     kSizedBoxVerticalXS,
                     Row(
