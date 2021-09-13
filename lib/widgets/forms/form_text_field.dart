@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/screens/widget_preview_screen.dart';
 
 class FormTextField extends StatefulWidget {
   final String fieldName;

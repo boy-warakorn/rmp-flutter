@@ -11,7 +11,9 @@ class ReportDetailScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _title = useTextEditingController();
+    final _title = useTextEditingController(
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    );
     String dummyText =
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Posuere urna, cras parturient venenatis porttitor platea. Auctor amet ultricies libero lectus convallis urna, lacinia.';
 
@@ -46,6 +48,7 @@ class ReportDetailScreen extends HookWidget {
                 minLine: 10,
                 maxLine: 20,
               ),
+              kSizedBoxVerticalM,
             ],
           ),
         ),
