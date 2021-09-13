@@ -88,12 +88,7 @@ class PackageDetailScreen extends HookWidget {
                     width: kSizeXL,
                     child: CustomButton(
                       text: "EDIT",
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PostalAddScreen(),
-                        ),
-                      ),
+                      onPressed: () => print('Edit'),
                     ),
                   ),
                 ],
