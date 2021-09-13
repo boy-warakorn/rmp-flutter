@@ -61,13 +61,6 @@ class FormTextFieldIcon extends HookWidget {
                 ),
                 onTap: toggleObsecureText,
               ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: kBorderRadiusXS,
-                borderSide: BorderSide(
-                  color: kInputBorderColor,
-                  width: kSizeXXXS,
-                ),
-              ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: kBorderRadiusM,
               ),

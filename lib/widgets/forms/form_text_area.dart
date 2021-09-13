@@ -39,7 +39,7 @@ class _FormTextAreaState extends State<FormTextArea> {
             maxLines: widget.maxLine,
             controller: widget.textEditingController,
             decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
+              focusedBorder: OutlineInputBorder(
                 borderRadius: kBorderRadiusXS,
                 borderSide: BorderSide(
                   color: kAlternativeColor,

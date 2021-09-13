@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
+import 'package:rmp_flutter/screens/condos/postal/postal_add_screen.dart';
+import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
 
 class PostalScreen extends StatelessWidget {
@@ -74,12 +76,7 @@ class PostalScreen extends StatelessWidget {
                         title: "Gaming Monitor",
                         date: "13/9/2021",
                         note: "24 inches monitor",
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PackageDetailScreen(),
-                          ),
-                        ),
+                        onPressed: () => print('Hello World'),
                       ),
                     ),
                   ),
