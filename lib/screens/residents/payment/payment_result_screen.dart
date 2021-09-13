@@ -23,7 +23,7 @@ class PaymentResultScreen extends StatelessWidget {
             ),
             kSizedBoxVerticalM,
             Text(
-              'Payment Sucess!',
+              'Payment Success!',
               style: Theme.of(context).textTheme.headline2?.copyWith(
                     color: kBlackColor,
                   ),
