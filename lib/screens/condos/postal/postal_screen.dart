@@ -6,6 +6,7 @@ import 'package:rmp_flutter/screens/condos/postal/postal_manage_screen.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
 
 class PostalScreen extends StatelessWidget {
+  static const routeName = "/condo/postal";
   const PostalScreen({Key? key}) : super(key: key);
 
   @override
