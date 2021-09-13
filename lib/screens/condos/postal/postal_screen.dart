@@ -5,6 +5,8 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_add_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
+import 'package:rmp_flutter/screens/residents/contact-support/contact_form_screen.dart';
+import 'package:rmp_flutter/screens/residents/contact-support/contact_result_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/report_detail_screen.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
 
@@ -80,7 +82,7 @@ class PostalScreen extends StatelessWidget {
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ReportDetailScreen(),
+                            builder: (context) => ContactResultScreen(),
                           ),
                         ),
                       ),
