@@ -8,6 +8,7 @@ class FormTextFieldIcon extends HookWidget {
   final Icon icon;
   final TextEditingController textEditingController;
   final String suffixText;
+  final Icon suffixIcon;
 
   const FormTextFieldIcon({
     Key? key,
@@ -15,6 +16,10 @@ class FormTextFieldIcon extends HookWidget {
     required this.icon,
     required this.textEditingController,
     required this.suffixText,
+    this.suffixIcon = const Icon(
+      null,
+      size: 0,
+    ),
   }) : super(key: key);
 
   void printText() {

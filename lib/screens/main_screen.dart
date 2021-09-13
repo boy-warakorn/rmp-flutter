@@ -18,7 +18,7 @@ class MainScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _tabs = [
       const WidgetPreviewScreen(),
-      const LoginScreen(),
+      const HelpDeskScreen(),
       const PostalScreen()
     ];
 
