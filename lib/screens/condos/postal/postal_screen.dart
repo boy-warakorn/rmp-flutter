@@ -21,6 +21,7 @@ class PostalScreen extends StatelessWidget {
         ),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: EdgeInsets.symmetric(
@@ -28,8 +29,6 @@ class PostalScreen extends StatelessWidget {
               vertical: kSizeS,
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
                   "Postal Management",
