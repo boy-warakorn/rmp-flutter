@@ -7,12 +7,14 @@ import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
-class PostalEditScreen extends HookWidget {
-  static const routeName = "/condo/postal-edit";
-  const PostalEditScreen({Key? key}) : super(key: key);
+class PostalAddScreen extends HookWidget {
+  static const routeName = "/condo/postal-add";
+  const PostalAddScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _roomNumber = useTextEditingController();
+    final _owner = useTextEditingController();
     final _deliveredBy = useTextEditingController();
     final _deliveredDate = useTextEditingController();
     final _receivedBy = useTextEditingController();
@@ -21,34 +23,31 @@ class PostalEditScreen extends HookWidget {
     final _note = useTextEditingController();
 
     return Scaffold(
-      appBar: BackAppBar(),
       backgroundColor: kBgColor,
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(
-            left: kSizeS * 1.5,
-            right: kSizeS * 1.5,
-            top: kSizeS,
-          ),
+      appBar: BackAppBar(),
+      body: Container(
+        padding: EdgeInsets.only(
+          left: kSizeS * 1.5,
+          right: kSizeS * 1.5,
+          top: kSizeS,
+        ),
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "You are editing CB2312",
-                style: Theme.of(context).textTheme.headline3?.copyWith(
-                      color: kBlackColor,
-                    ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.4,
+                child: FormTextField(
+                  fieldName: "Room number",
+                  textEditingController: _roomNumber,
+                ),
               ),
               kSizedBoxVerticalS,
-              kSizedBoxVerticalXS,
-              Text(
-                "Owner: Anawat Paothong",
-                style: Theme.of(context).textTheme.headline3?.copyWith(
-                      color: kBlackColor,
-                    ),
+              FormTextField(
+                fieldName: "Owner",
+                textEditingController: _owner,
               ),
               kSizedBoxVerticalS,
-              kSizedBoxVerticalXS,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -108,24 +107,23 @@ class PostalEditScreen extends HookWidget {
                 maxLine: 10,
               ),
               kSizedBoxVerticalM,
-              kSizedBoxVerticalM,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
                     width: kSizeXL / 1.25,
                     child: CustomButton(
-                      text: "DELETE",
-                      onPressed: () => print('DELETE'),
-                      color: kErrorColor,
+                      text: "CLEAR",
+                      onPressed: () => print('CLEAR'),
+                      color: kWarningColor,
                     ),
                   ),
                   kSizedBoxHorizontalS,
                   Container(
                     width: kSizeXL / 1.25,
                     child: CustomButton(
-                      text: "SUBMIT",
-                      onPressed: () => print('SUBMIT'),
+                      text: "ADD",
+                      onPressed: () => print('ADD'),
                     ),
                   ),
                 ],
