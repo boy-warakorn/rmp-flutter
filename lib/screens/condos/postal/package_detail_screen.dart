@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
-import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
-class PostalManageScreen extends HookWidget {
-  const PostalManageScreen({Key? key}) : super(key: key);
+class PackageDetailScreen extends HookWidget {
+  static const routeName = "/condo/postal-manage";
+  const PackageDetailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,12 +87,7 @@ class PostalManageScreen extends HookWidget {
                     width: kSizeXL,
                     child: CustomButton(
                       text: "EDIT",
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PostalEditScreen(),
-                        ),
-                      ),
+                      onPressed: () => print('Edit'),
                     ),
                   ),
                 ],
