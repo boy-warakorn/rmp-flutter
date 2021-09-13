@@ -6,11 +6,16 @@ import 'package:rmp_flutter/screens/widget_preview_screen.dart';
 class FormTextField extends StatefulWidget {
   final String fieldName;
   final TextEditingController textEditingController;
+  final Icon suffixIcon;
 
   const FormTextField({
     Key? key,
     required this.fieldName,
     required this.textEditingController,
+    this.suffixIcon = const Icon(
+      null,
+      size: 0,
+    ),
   }) : super(key: key);
 
   @override
@@ -36,6 +41,7 @@ class _FormTextFieldState extends State<FormTextField> {
         ),
         kSizedBoxVerticalXS,
         Container(
+          height: kSizeM,
           child: TextFormField(
             controller: widget.textEditingController,
             decoration: InputDecoration(
@@ -43,14 +49,14 @@ class _FormTextFieldState extends State<FormTextField> {
                 borderRadius: kBorderRadiusM,
                 borderSide: BorderSide(
                   color: kAlternativeColor,
-                  width: kSizeXXXS,
+                  width: kSizeXXXS / 2,
                 ),
               ),
               contentPadding: EdgeInsets.symmetric(
                 horizontal: kSizeXS,
                 vertical: kSizeS / 1.7,
               ),
-              hintText: "Enter ${widget.fieldName}",
+              suffixIcon: widget.suffixIcon,
               hintStyle: Theme.of(context).textTheme.subtitle1,
             ),
             validator: (value) {
