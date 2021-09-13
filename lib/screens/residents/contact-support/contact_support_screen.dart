@@ -5,7 +5,7 @@ import 'package:rmp_flutter/widgets/general/entity_card.dart';
 import 'package:rmp_flutter/widgets/general/entity_card_status.dart';
 
 class ContactSupportScreen extends StatelessWidget {
-  static const routeName = "/condo/contact-support";
+  static const routeName = "/resident/contact-support";
   const ContactSupportScreen({Key? key}) : super(key: key);
 
   @override
