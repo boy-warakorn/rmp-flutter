@@ -20,7 +20,7 @@ class MainScreen extends HookWidget {
     final _tabs = [
       const WidgetPreviewScreen(),
       const HelpDeskScreen(),
-      const ContactSupportScreen()
+      const PostalScreen()
     ];
 
     final _currentTabIndex = useState(0);
