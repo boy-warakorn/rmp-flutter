@@ -30,11 +30,9 @@ class TeamMemberCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: kSizeM,
-              backgroundImage: NetworkImage(
-                "https://i.insider.com/5cdedc95021b4c12a50f46f6?width=1136&format=jpeg",
-              ),
+              backgroundImage: image,
             ),
             kSizedBoxVerticalXS,
             Text(
