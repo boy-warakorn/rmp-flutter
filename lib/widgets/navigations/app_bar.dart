@@ -17,9 +17,12 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       flexibleSpace: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: <Color>[kBrandColor, kBrandAlternativeDarkerColor],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: <Color>[
+              kBrandColor,
+              kBrandAlternativeDarkerColor,
+            ],
           ),
         ),
       ),
