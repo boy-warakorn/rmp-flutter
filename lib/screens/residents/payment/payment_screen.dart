@@ -3,41 +3,39 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/widgets/general/custom_button.dart';
-import 'package:rmp_flutter/widgets/general/entity_card.dart';
-import 'package:rmp_flutter/widgets/general/entity_card_status.dart';
+import 'package:rmp_flutter/widgets/general/payment_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 
 const _dummyData = [
   {
-    "title": "P1",
-    "date": "20/20/2000",
-    "status": "recieved",
+    "type": "Pay1",
+    "amount": 50,
+    "date": "20/02/2002",
   },
   {
-    "title": "P2",
-    "date": "20/20/2000",
-    "status": "recieved",
+    "type": "Pay2",
+    "amount": 5000,
+    "date": "20/02/2002",
   },
   {
-    "title": "P3",
-    "date": "20/20/2000",
-    "status": "in-office",
+    "type": "Pay3",
+    "amount": 4500,
+    "date": "20/02/2002",
   },
   {
-    "title": "P4",
-    "date": "20/20/2000",
-    "status": "in-office",
+    "type": "Pay4",
+    "amount": 50000,
+    "date": "20/02/2002",
   },
   {
-    "title": "P5",
-    "date": "20/20/2000",
-    "status": "recieved",
+    "type": "Pay5",
+    "amount": 50500,
+    "date": "20/02/2002",
   },
 ];
 
-class ResidentPostalScreen extends StatelessWidget {
-  const ResidentPostalScreen({Key? key}) : super(key: key);
+class PaymentScreen extends StatelessWidget {
+  const PaymentScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -70,27 +68,50 @@ class ResidentPostalScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(
+                              "Recent Payment",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline3
+                                  ?.copyWith(
+                                    color: kLightColor,
+                                  ),
+                            ),
+                            kSizedBoxHorizontalS,
+                            kSizedBoxVerticalXS,
                             Row(
                               children: [
                                 Expanded(
                                   child: TitleCard(
-                                    title: "Recieved",
+                                    title: "Electricity",
                                     count: 100,
                                     icon: Icon(
-                                      Icons.ac_unit,
-                                      color: kStrokeColor,
+                                      Icons.bolt,
+                                      color: kWarningColor,
                                     ),
                                   ),
                                 ),
                                 kSizedBoxHorizontalS,
                                 Expanded(
                                   child: TitleCard(
-                                    title: "Not Recieved",
+                                    title: "Water",
                                     count: 100,
                                     icon: Icon(
-                                      Icons.ac_unit,
-                                      color: kErrorColor,
+                                      Icons.water_damage_outlined,
+                                      color: kStrokeColor,
                                     ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            kSizedBoxVerticalXS,
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TitleCard(
+                                    icon: Icon(Icons.payment, color: kSuccessColor,),
+                                    title: "Common Charge",
+                                    count: 500,
                                   ),
                                 ),
                               ],
@@ -121,33 +142,19 @@ class ResidentPostalScreen extends StatelessWidget {
                                 kSizedBoxVerticalXS,
                                 Expanded(
                                   child: ListView.builder(
-                                    itemCount: _dummyData.length,
+                                    itemCount: 5,
                                     itemBuilder: (context, index) {
                                       final data = _dummyData[index];
 
-                                      return EntityCard(
-                                          title: "${data['title']}",
-                                          date: "${data['date']}",
-                                          entityStatus:
-                                              data['status'] == "recieved"
-                                                  ? EntityCardStatus(
-                                                      text: "Recieved",
-                                                      color: kSuccessColor)
-                                                  : EntityCardStatus(
-                                                      text: "In-office",
-                                                      color: kWarningColor));
+                                      return PaymentCard(
+                                        type: "${data['type']}",
+                                        amount: "${data['amount']}",
+                                        paidDate: "${data['date']}",
+                                        onPressed: () =>
+                                            print("Select ${data['type']}"),
+                                      );
                                     },
                                   ),
-                                ),
-                                kSizedBoxVerticalS,
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    CustomButton(
-                                      text: "SHOW IDENTIFICATION",
-                                      onPressed: () => print("IDEN"),
-                                    ),
-                                  ],
                                 ),
                               ],
                             ),
