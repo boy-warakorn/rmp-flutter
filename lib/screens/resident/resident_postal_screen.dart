@@ -95,17 +95,6 @@ class ResidentPostalScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            kSizedBoxVerticalS,
-                            kSizedBoxVerticalXS,
-                            Text(
-                              "All Packages",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3
-                                  ?.copyWith(
-                                    color: kLightColor,
-                                  ),
-                            ),
                           ],
                         ),
                       ),
@@ -122,7 +111,14 @@ class ResidentPostalScreen extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(kSizeS),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Text(
+                                  "All Packages",
+                                  style: Theme.of(context).textTheme.headline3,
+                                ),
+                                kSizedBoxVerticalS,
+                                kSizedBoxVerticalXS,
                                 Expanded(
                                   child: ListView.builder(
                                     itemCount: _dummyData.length,
