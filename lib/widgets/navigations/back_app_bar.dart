@@ -10,11 +10,11 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: kLightColor,
+      backgroundColor: kBgColor,
       elevation: 0,
       leading: Container(
         child: IconButton(
-          onPressed: () => {print('Back Function')},
+          onPressed: () => Navigator.pop(context),
           icon: Icon(
             Icons.arrow_back_ios,
             size: kSizeS * 1.25,
