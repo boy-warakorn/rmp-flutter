@@ -19,20 +19,20 @@ class ScollableCardRow extends StatelessWidget {
     if(cards.isEmpty){
       return [];
     }else{
-      var out = <Widget>[];
+      var resultList = <Widget>[];
 
-      out.add(startSizedBox);
+      resultList.add(startSizedBox);
 
       for(int i = 0; i < cards.length; i++){
-        out.add(cards[i]);
+        resultList.add(cards[i]);
         if(i != cards.length - 1){
-          out.add(spacingSizedBox);
+          resultList.add(spacingSizedBox);
         }
       }
 
-      out.add(endSizedBox);
+      resultList.add(endSizedBox);
 
-      return out;
+      return resultList;
     }
     
   }
