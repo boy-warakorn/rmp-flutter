@@ -52,11 +52,15 @@ class _FormTextFieldState extends State<FormTextField> {
                   width: kSizeXXXS / 2,
                 ),
               ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: kBorderRadiusM,
+              ),
               contentPadding: EdgeInsets.symmetric(
-                horizontal: kSizeXS,
+                horizontal: kSizeS,
                 vertical: kSizeS / 1.7,
               ),
               suffixIcon: widget.suffixIcon,
+              hintText: "${widget.fieldName}",
               hintStyle: Theme.of(context).textTheme.subtitle1,
             ),
             validator: (value) {

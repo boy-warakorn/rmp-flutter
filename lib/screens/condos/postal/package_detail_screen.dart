@@ -8,9 +8,9 @@ import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
-class PostalManageScreen extends HookWidget {
+class PackageDetailScreen extends HookWidget {
   static const routeName = "/condo/postal-manage";
-  const PostalManageScreen({Key? key}) : super(key: key);
+  const PackageDetailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

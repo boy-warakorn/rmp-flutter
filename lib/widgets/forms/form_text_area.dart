@@ -40,7 +40,7 @@ class _FormTextAreaState extends State<FormTextArea> {
             controller: widget.textEditingController,
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
-                borderRadius: kBorderRadiusS,
+                borderRadius: kBorderRadiusXS,
                 borderSide: BorderSide(
                   color: kAlternativeColor,
                   width: kSizeXXXS / 2,

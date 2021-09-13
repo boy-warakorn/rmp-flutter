@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/screens/condos/postal/postal_manage_screen.dart';
+import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
 
 class PostalScreen extends StatelessWidget {
@@ -77,7 +77,7 @@ class PostalScreen extends StatelessWidget {
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PostalManageScreen(),
+                            builder: (context) => PackageDetailScreen(),
                           ),
                         ),
                       ),

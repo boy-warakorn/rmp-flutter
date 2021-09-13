@@ -68,6 +68,9 @@ class FormTextFieldIcon extends HookWidget {
                   width: kSizeXXXS,
                 ),
               ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: kBorderRadiusM,
+              ),
               contentPadding: EdgeInsets.symmetric(
                 horizontal: kSizeXS,
                 vertical: kSizeS / 1.7,

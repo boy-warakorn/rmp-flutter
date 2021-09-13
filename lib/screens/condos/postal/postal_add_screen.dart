@@ -23,121 +23,113 @@ class PostalAddScreen extends HookWidget {
     final _note = useTextEditingController();
 
     return Scaffold(
+      backgroundColor: kBgColor,
       appBar: BackAppBar(),
       body: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: kSizeS * 1.5,
-          vertical: kSizeS,
+        padding: EdgeInsets.only(
+          left: kSizeS * 1.5,
+          right: kSizeS * 1.5,
+          top: kSizeS,
         ),
         child: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: kSizeS * 1.5,
-              vertical: kSizeS,
-            ),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.only(
-                    right: kSizeXL,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.4,
+                child: FormTextField(
+                  fieldName: "Room number",
+                  textEditingController: _roomNumber,
+                ),
+              ),
+              kSizedBoxVerticalS,
+              FormTextField(
+                fieldName: "Owner",
+                textEditingController: _owner,
+              ),
+              kSizedBoxVerticalS,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: FormTextField(
+                      fieldName: "Delivered By",
+                      textEditingController: _deliveredBy,
+                    ),
                   ),
-                  child: FormTextField(
-                    fieldName: "Room number",
-                    textEditingController: _roomNumber,
+                  kSizedBoxHorizontalM,
+                  Expanded(
+                    child: FormTextField(
+                      fieldName: "Delivered Date",
+                      textEditingController: _deliveredDate,
+                      suffixIcon: Icon(
+                        Icons.date_range_outlined,
+                      ),
+                    ),
                   ),
-                ),
-                kSizedBoxVerticalS,
-                FormTextField(
-                  fieldName: "Owner",
-                  textEditingController: _owner,
-                ),
-                kSizedBoxVerticalS,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: kSizeXL * 1.15,
-                      child: FormTextField(
-                        fieldName: "Delivered By",
-                        textEditingController: _deliveredBy,
-                      ),
+                ],
+              ),
+              kSizedBoxVerticalS,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: FormTextField(
+                      fieldName: "Received By",
+                      textEditingController: _receivedBy,
                     ),
-                    Container(
-                      width: kSizeXL * 1.15,
-                      child: FormTextField(
-                        fieldName: "Delivered Date",
-                        textEditingController: _deliveredDate,
-                        suffixIcon: Icon(
-                          Icons.date_range_outlined,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                kSizedBoxVerticalS,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: kSizeXL * 1.15,
-                      child: FormTextField(
-                        fieldName: "Received By",
-                        textEditingController: _receivedBy,
-                      ),
-                    ),
-                    Container(
-                      width: kSizeXL * 1.15,
-                      child: FormTextField(
-                        fieldName: "Received Date",
-                        textEditingController: _receiveDate,
-                        suffixIcon: Icon(
-                          Icons.date_range_outlined,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                kSizedBoxVerticalS,
-                Container(
-                  padding: EdgeInsets.only(
-                    right: kSizeXL,
                   ),
-                  child: FormTextField(
-                    fieldName: "Status",
-                    textEditingController: _status,
+                  kSizedBoxHorizontalM,
+                  Expanded(
+                    child: FormTextField(
+                      fieldName: "Received Date",
+                      textEditingController: _receiveDate,
+                      suffixIcon: Icon(
+                        Icons.date_range_outlined,
+                      ),
+                    ),
                   ),
+                ],
+              ),
+              kSizedBoxVerticalS,
+              Container(
+                width: MediaQuery.of(context).size.width * 0.4,
+                child: FormTextField(
+                  fieldName: "Status",
+                  textEditingController: _status,
                 ),
-                kSizedBoxVerticalS,
-                FormTextArea(
-                  fieldName: "Note",
-                  textEditingController: _note,
-                  minLine: 5,
-                  maxLine: 10,
-                ),
-                kSizedBoxVerticalM,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      width: kSizeXL / 1.25,
-                      child: CustomButton(
-                        text: "CLEAR",
-                        onPressed: () => print('CLEAR'),
-                        color: kWarningColor,
-                      ),
+              ),
+              kSizedBoxVerticalS,
+              FormTextArea(
+                fieldName: "Note",
+                textEditingController: _note,
+                minLine: 5,
+                maxLine: 10,
+              ),
+              kSizedBoxVerticalM,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: kSizeXL / 1.25,
+                    child: CustomButton(
+                      text: "CLEAR",
+                      onPressed: () => print('CLEAR'),
+                      color: kWarningColor,
                     ),
-                    kSizedBoxHorizontalS,
-                    Container(
-                      width: kSizeXL / 1.25,
-                      child: CustomButton(
-                        text: "ADD",
-                        onPressed: () => print('ADD'),
-                      ),
+                  ),
+                  kSizedBoxHorizontalS,
+                  Container(
+                    width: kSizeXL / 1.25,
+                    child: CustomButton(
+                      text: "ADD",
+                      onPressed: () => print('ADD'),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+              kSizedBoxVerticalM,
+            ],
           ),
         ),
       ),
