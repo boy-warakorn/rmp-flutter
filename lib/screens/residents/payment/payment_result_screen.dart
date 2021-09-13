@@ -3,9 +3,8 @@ import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 
-class ContactResultScreen extends StatelessWidget {
-  static final routeName = "/resident/contact-result";
-  const ContactResultScreen({Key? key}) : super(key: key);
+class PaymentResultScreen extends StatelessWidget {
+  const PaymentResultScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +23,14 @@ class ContactResultScreen extends StatelessWidget {
             ),
             kSizedBoxVerticalM,
             Text(
-              'Thank for Helping us!',
+              'Payment Sucess!',
               style: Theme.of(context).textTheme.headline2?.copyWith(
                     color: kBlackColor,
                   ),
             ),
             kSizedBoxVerticalS,
             Text(
-              'We will be reaching to you soon',
+              'Please waiting for confirmation',
               style: Theme.of(context).textTheme.headline4,
             ),
             kSizedBoxVerticalM,
