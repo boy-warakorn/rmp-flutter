@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/screens/widget_preview_screen.dart';
 
-class FormTextField extends StatefulWidget {
+class FormTextArea extends StatefulWidget {
   final String fieldName;
   final TextEditingController textEditingController;
-
-  const FormTextField({
+  final int minLine;
+  final int maxLine;
+  const FormTextArea({
     Key? key,
     required this.fieldName,
     required this.textEditingController,
+    required this.minLine,
+    required this.maxLine,
   }) : super(key: key);
 
   @override
-  State<FormTextField> createState() => _FormTextFieldState();
+  _FormTextAreaState createState() => _FormTextAreaState();
 }
 
-class _FormTextFieldState extends State<FormTextField> {
-  void printText() {
-    print("Text changed: ${widget.textEditingController.text}");
-  }
-
+class _FormTextAreaState extends State<FormTextArea> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,23 +32,24 @@ class _FormTextFieldState extends State<FormTextField> {
                 color: kBlackColor,
               ),
         ),
-        kSizedBoxVerticalXS,
+        kSizedBoxVerticalS,
         Container(
           child: TextFormField(
+            minLines: widget.minLine,
+            maxLines: widget.maxLine,
             controller: widget.textEditingController,
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
-                borderRadius: kBorderRadiusM,
+                borderRadius: kBorderRadiusS,
                 borderSide: BorderSide(
                   color: kAlternativeColor,
-                  width: kSizeXXXS,
+                  width: kSizeXXXS / 2,
                 ),
               ),
               contentPadding: EdgeInsets.symmetric(
                 horizontal: kSizeXS,
                 vertical: kSizeS / 1.7,
               ),
-              hintText: "Enter ${widget.fieldName}",
               hintStyle: Theme.of(context).textTheme.subtitle1,
             ),
             validator: (value) {
