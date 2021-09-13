@@ -80,11 +80,24 @@ class DashboardScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("All Reports", style: Theme.of(context).textTheme.headline4,),
-                      SizedBox(height: kSizeS * (24 / 16),),
-                      SummaryEntity(text: "Summ", count: 1,),
-                      SummaryEntity(text: "Summ", count: 9,),
-                      SummaryEntity(text: "Summ", count: 10,),
+                      Text(
+                        "All Reports",
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      kSizedBoxVerticalS,
+                      kSizedBoxVerticalXS,
+                      SummaryEntity(
+                        text: "Summ",
+                        count: 1,
+                      ),
+                      SummaryEntity(
+                        text: "Summ",
+                        count: 9,
+                      ),
+                      SummaryEntity(
+                        text: "Summ",
+                        count: 10,
+                      ),
                     ],
                   ),
                 ),
