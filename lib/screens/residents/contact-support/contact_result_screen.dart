@@ -4,7 +4,7 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 
 class ContactResultScreen extends StatelessWidget {
-  static final routeName = "/resident/contact-result";
+  static const routeName = "/resident/contact-result";
   const ContactResultScreen({Key? key}) : super(key: key);
 
   @override

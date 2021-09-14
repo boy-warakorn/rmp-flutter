@@ -7,23 +7,34 @@ class CardButton extends StatelessWidget {
   final void Function() onPressed;
   final IconData icon;
 
+  /// [useGradientBackground] must be false for this to activate
+  final Color backgroundColor;
+  final bool useGradientBackground;
+  final Color contentColor;
+
   const CardButton({
     Key? key,
     required this.title,
     required this.onPressed,
     required this.icon,
+    this.useGradientBackground = true,
+    this.backgroundColor = kBrandColor,
+    this.contentColor = kLightColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         borderRadius: kBorderRadiusXS,
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: <Color>[kBrandColor, kBrandAlternativeDarkerColor],
-        ),
+        color: backgroundColor,
+        gradient: useGradientBackground
+            ? const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: <Color>[kBrandColor, kBrandAlternativeDarkerColor],
+              )
+            : null,
       ),
       child: Material(
         color: Colors.transparent,
@@ -31,14 +42,14 @@ class CardButton extends StatelessWidget {
           onTap: onPressed,
           splashColor: kBgColor,
           child: Padding(
-            padding: const EdgeInsets.all(
-              kSizeM * (36 / 32),
+            padding: const EdgeInsets.symmetric(
+              vertical: kSizeM * (36 / 32),
             ),
             child: Column(
               children: [
                 Icon(
                   icon,
-                  color: kLightColor,
+                  color: contentColor,
                   size: kFontSizeBody1 * (40 / 14),
                 ),
                 const SizedBox(
@@ -47,7 +58,7 @@ class CardButton extends StatelessWidget {
                 Text(
                   title,
                   style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                        color: kLightColor,
+                        color: contentColor,
                       ),
                 )
               ],

@@ -8,7 +8,7 @@ import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class ContactFormScreen extends HookWidget {
-  static final routeName = "/resident/contact-form";
+  static const routeName = "/resident/contact-form";
   const ContactFormScreen({Key? key}) : super(key: key);
 
   @override

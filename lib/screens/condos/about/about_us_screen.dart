@@ -14,6 +14,7 @@ const loremIpsum =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet ";
 
 class AboutUsScreen extends StatelessWidget {
+  static const routeName = "/condo/about";
   const AboutUsScreen({Key? key}) : super(key: key);
 
   @override
@@ -58,7 +59,6 @@ class AboutUsScreen extends StatelessWidget {
                             child: Image(
                               image: NetworkImage(littleBearURL),
                             ),
-  
                           ),
                         ),
                       ],

@@ -6,7 +6,7 @@ import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class ReportDetailScreen extends HookWidget {
-  static final routeName = "/resident/report-detail";
+  static const routeName = "/resident/report-detail";
   const ReportDetailScreen({Key? key}) : super(key: key);
 
   @override
