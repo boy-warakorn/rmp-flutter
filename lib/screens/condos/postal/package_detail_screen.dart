@@ -87,7 +87,10 @@ class PackageDetailScreen extends HookWidget {
                     width: kSizeXL,
                     child: CustomButton(
                       text: "EDIT",
-                      onPressed: () => print('Edit'),
+                      onPressed: () => Navigator.pushNamed(
+                        context,
+                        '/condo/postal-edit',
+                      ),
                     ),
                   ),
                 ],

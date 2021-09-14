@@ -33,7 +33,10 @@ class MainDrawer extends StatelessWidget {
             SafeArea(child: kSizedBoxVerticalS),
             DrawerButton(
               text: "Profile Settings",
-              onPressed: () => print("Profile Setting"),
+              onPressed: () => Navigator.pushNamed(
+                context,
+                '/condo/profile',
+              ),
               icon: Icon(
                 Icons.account_circle_outlined,
                 size: kSizeM,
@@ -42,7 +45,10 @@ class MainDrawer extends StatelessWidget {
             ),
             DrawerButton(
               text: "About us",
-              onPressed: () => print("About Us"),
+              onPressed: () => Navigator.pushNamed(
+                context,
+                '/condo/about',
+              ),
               icon: Icon(
                 Icons.info_outline_rounded,
                 size: kSizeM,
@@ -55,7 +61,10 @@ class MainDrawer extends StatelessWidget {
             ),
             DrawerButton(
               text: "Log Out",
-              onPressed: () => print('Hello World'),
+              onPressed: () => Navigator.pushNamed(
+                context,
+                '/login',
+              ),
               icon: Icon(
                 Icons.logout_outlined,
                 size: kSizeM,

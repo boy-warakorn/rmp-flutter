@@ -123,9 +123,10 @@ class LoginScreen extends HookWidget {
                     ),
                     child: CustomButton(
                       text: "LOGIN",
-                      onPressed: () {
-                        print('LOG IN');
-                      },
+                      onPressed: () => Navigator.pushNamed(
+                        context,
+                        '/',
+                      ),
                     ),
                   ),
                 ],

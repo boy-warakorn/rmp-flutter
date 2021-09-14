@@ -4,6 +4,8 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_slider.dart';
 import 'package:rmp_flutter/widgets/general/help_desk_card.dart';
+import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
+import 'package:rmp_flutter/widgets/navigations/main_drawer.dart';
 
 const loremIpsum =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare accumsan nulla non accumsan. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eget pharetra lacus. Maecenas et dolor blandit, sodales justo pharetra,";
@@ -48,8 +50,12 @@ class HelpDeskScreen extends HookWidget {
           .toList();
     }
 
-    return SafeArea(
-      child: Padding(
+    return Scaffold(
+      appBar: MainAppBar(
+        haveFilter: true,
+      ),
+      drawer: MainDrawer(),
+      body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: kSizeS * (24 / 16),
         ),
@@ -72,7 +78,10 @@ class HelpDeskScreen extends HookWidget {
                   detail: "${filterList()[index]["detail"]}",
                   actionButton: filterList()[index]["isResponded"] as bool
                       ? CustomButton(
-                          onPressed: () => print("Reply"),
+                          onPressed: () => Navigator.pushNamed(
+                            context,
+                            '/condo/reply',
+                          ),
                           text: "Reply",
                         )
                       : const SizedBox(),

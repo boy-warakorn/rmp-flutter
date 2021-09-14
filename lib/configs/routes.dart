@@ -1,4 +1,5 @@
 import 'package:rmp_flutter/screens/condos/about/about_us_screen.dart';
+import 'package:rmp_flutter/screens/condos/help-desk/help_desk_screen.dart';
 import 'package:rmp_flutter/screens/condos/help-desk/reply_screen.dart';
 import 'package:rmp_flutter/screens/condos/login_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
@@ -34,4 +35,5 @@ final generalRoutes = {
   ReplyScreen.routeName: (_) => const ReplyScreen(),
   ContactFormScreen.routeName: (_) => const ContactFormScreen(),
   ResidentPostalScreen.routeName: (_) => const ResidentPostalScreen(),
+  HelpDeskScreen.routeName: (_) => const HelpDeskScreen(),
 };

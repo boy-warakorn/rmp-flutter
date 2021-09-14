@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/widgets/general/summary_entity.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 import 'package:rmp_flutter/widgets/layout/card_template.dart';
+import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
+import 'package:rmp_flutter/widgets/navigations/main_drawer.dart';
 
 class DashboardScreen extends StatelessWidget {
   static const routeName = "/condo/dashboard";
@@ -41,67 +44,72 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(
-            kSizeS * (24 / 16),
-          ),
-          child: Container(
-            child: Column(
-              children: [
-                _buildTitleCardGroup(
-                  context,
-                  header: "Postal Package",
-                  leftCard: TitleCard(
-                    title: "Recieved",
-                    subtitle: 5.toString(),
+    return Scaffold(
+      appBar: MainAppBar(haveFilter: false),
+      drawer: MainDrawer(),
+      backgroundColor: kBgColor,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(
+              kSizeS * (24 / 16),
+            ),
+            child: Container(
+              child: Column(
+                children: [
+                  _buildTitleCardGroup(
+                    context,
+                    header: "Postal Package",
+                    leftCard: TitleCard(
+                      title: "Recieved",
+                      subtitle: 5.toString(),
+                    ),
+                    rightCard: TitleCard(
+                      title: "Total",
+                      subtitle: 5.toString(),
+                    ),
                   ),
-                  rightCard: TitleCard(
-                    title: "Total",
-                    subtitle: 5.toString(),
+                  kSizedBoxVerticalS,
+                  _buildTitleCardGroup(
+                    context,
+                    header: "Residential Report",
+                    leftCard: TitleCard(
+                      title: "Unread",
+                      subtitle: 5.toString(),
+                    ),
+                    rightCard: TitleCard(
+                      title: "Replied",
+                      subtitle: 5.toString(),
+                    ),
                   ),
-                ),
-                kSizedBoxVerticalS,
-                _buildTitleCardGroup(
-                  context,
-                  header: "Residential Report",
-                  leftCard: TitleCard(
-                    title: "Unread",
-                    subtitle: 5.toString(),
+                  kSizedBoxVerticalS,
+                  CardTemplate(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "All Reports",
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                        kSizedBoxVerticalS,
+                        kSizedBoxVerticalXS,
+                        SummaryEntity(
+                          text: "Summ",
+                          count: 1,
+                        ),
+                        SummaryEntity(
+                          text: "Summ",
+                          count: 9,
+                        ),
+                        SummaryEntity(
+                          text: "Summ",
+                          count: 10,
+                        ),
+                      ],
+                    ),
                   ),
-                  rightCard: TitleCard(
-                    title: "Replied",
-                    subtitle: 5.toString(),
-                  ),
-                ),
-                kSizedBoxVerticalS,
-                CardTemplate(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "All Reports",
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                      kSizedBoxVerticalS,
-                      kSizedBoxVerticalXS,
-                      SummaryEntity(
-                        text: "Summ",
-                        count: 1,
-                      ),
-                      SummaryEntity(
-                        text: "Summ",
-                        count: 9,
-                      ),
-                      SummaryEntity(
-                        text: "Summ",
-                        count: 10,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

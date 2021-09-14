@@ -4,6 +4,7 @@ import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
+import 'package:rmp_flutter/widgets/general/alert_box.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
@@ -114,7 +115,7 @@ class PostalAddScreen extends HookWidget {
                     width: kSizeXL / 1.25,
                     child: CustomButton(
                       text: "CLEAR",
-                      onPressed: () => print('CLEAR'),
+                      onPressed: () => {print('Clear data!')},
                       color: kWarningColor,
                     ),
                   ),
@@ -123,7 +124,19 @@ class PostalAddScreen extends HookWidget {
                     width: kSizeXL / 1.25,
                     child: CustomButton(
                       text: "ADD",
-                      onPressed: () => print('ADD'),
+                      onPressed: () => {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertBox(
+                            message: "Are you sure?",
+                            onNegative: () => Navigator.pop(context),
+                            onPositive: () => Navigator.pushNamed(
+                              context,
+                              '/condo/postal',
+                            ),
+                          ),
+                        ),
+                      },
                     ),
                   ),
                 ],
