@@ -67,7 +67,7 @@ class WidgetPreviewScreen extends HookWidget {
             children: [
               TitleCard(
                 title: "TitleCard - icon",
-                count: 5,
+                subtitle: "new: 45",
                 icon: Icon(
                   Icons.ac_unit,
                   color: Colors.red,
@@ -75,7 +75,7 @@ class WidgetPreviewScreen extends HookWidget {
               ),
               TitleCard(
                 title: "TitleCard - no icon",
-                count: 12,
+                subtitle: 12.toString(),
               ),
             ],
           ),
@@ -145,7 +145,7 @@ class WidgetPreviewScreen extends HookWidget {
           ),
           TitleCard(
             title: "TitleCard - no icon",
-            count: 12,
+            subtitle: 12.toString(),
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
