@@ -4,6 +4,7 @@ import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/layout/card_template.dart';
+import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 const loremIpsum =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sodales et lacus vel consequat. Duis ac sem id lorem congue mollis ac et turpis. Nulla ultrices tempus laoreet. Proin finibus tincidunt lobortis. Morbi cursus velit non dictum tincidunt. Nunc dignissim rutrum urna nec imperdiet. Fusce rhoncus ultrices tincidunt. Quisque ut lacus dolor.";
@@ -27,15 +28,12 @@ class ReplyScreen extends HookWidget {
 
     return Scaffold(
       backgroundColor: kBgColor,
+      appBar: BackAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BackButton(
-                onPressed: () => print("Back"),
-                color: kBlackColor,
-              ),
               Padding(
                 padding: const EdgeInsets.all(kSizeS * (24 / 16)),
                 child: Column(
@@ -85,7 +83,7 @@ class ReplyScreen extends HookWidget {
                           width: kSizeXL,
                           child: CustomButton(
                             text: "SUBMIT",
-                            onPressed: () => print(_reply.text),
+                            onPressed: () => Navigator.of(context).pop(),
                           ),
                         ),
                       ],
