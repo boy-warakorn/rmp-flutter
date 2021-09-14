@@ -37,6 +37,7 @@ const _dummyData = [
 ];
 
 class ResidentPostalScreen extends StatelessWidget {
+  static const routeName = "/resident/postal";
   const ResidentPostalScreen({Key? key}) : super(key: key);
 
   @override
