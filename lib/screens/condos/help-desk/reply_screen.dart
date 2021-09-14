@@ -9,6 +9,7 @@ const loremIpsum =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sodales et lacus vel consequat. Duis ac sem id lorem congue mollis ac et turpis. Nulla ultrices tempus laoreet. Proin finibus tincidunt lobortis. Morbi cursus velit non dictum tincidunt. Nunc dignissim rutrum urna nec imperdiet. Fusce rhoncus ultrices tincidunt. Quisque ut lacus dolor.";
 
 class ReplyScreen extends HookWidget {
+  static const routeName = "/condo/reply";
   const ReplyScreen({Key? key}) : super(key: key);
 
   Widget _buildHeaderText(BuildContext context, String text) {
@@ -62,12 +63,10 @@ class ReplyScreen extends HookWidget {
                         style: Theme.of(context).textTheme.bodyText2,
                         decoration: const InputDecoration(
                           hintText: "No reply",
-                          
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: kStrokeColor,
-                            )
-                          ),
+                              borderSide: BorderSide(
+                            color: kStrokeColor,
+                          )),
                           filled: true,
                           fillColor: kLightColor,
                           border: InputBorder.none,

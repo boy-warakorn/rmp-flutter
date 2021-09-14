@@ -1,3 +1,5 @@
+import 'package:rmp_flutter/screens/condos/about/about_us_screen.dart';
+import 'package:rmp_flutter/screens/condos/help-desk/reply_screen.dart';
 import 'package:rmp_flutter/screens/condos/login_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_add_screen.dart';
@@ -10,6 +12,7 @@ import 'package:rmp_flutter/screens/residents/contact-support/contact_result_scr
 import 'package:rmp_flutter/screens/residents/contact-support/contact_support_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/report_detail_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/payment_result_screen.dart';
+import 'package:rmp_flutter/screens/residents/postal/resident_postal_screen.dart';
 
 final routes = {
   ...generalRoutes,
@@ -27,4 +30,8 @@ final generalRoutes = {
   ProfileSettingScreen.routeName: (_) => const ProfileSettingScreen(),
   ContactResultScreen.routeName: (_) => const ContactResultScreen(),
   PaymentResultScreen.routeName: (_) => const PaymentResultScreen(),
+  AboutUsScreen.routeName: (_) => const AboutUsScreen(),
+  ReplyScreen.routeName: (_) => const ReplyScreen(),
+  ContactFormScreen.routeName: (_) => const ContactFormScreen(),
+  ResidentPostalScreen.routeName: (_) => const ResidentPostalScreen(),
 };
