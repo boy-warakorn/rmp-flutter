@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/screens/condos/about/about_us_screen.dart';
 import 'package:rmp_flutter/screens/condos/login_screen.dart';
 import 'package:rmp_flutter/screens/condos/profile/profile_setting_screen.dart';
 import 'package:rmp_flutter/widgets/navigations/drawer_button.dart';
@@ -33,7 +34,8 @@ class MainDrawer extends StatelessWidget {
             SafeArea(child: kSizedBoxVerticalS),
             DrawerButton(
               text: "Profile Settings",
-              onPressed: () => print("Profile Setting"),
+              onPressed: () => Navigator.of(context)
+                  .pushNamed(ProfileSettingScreen.routeName),
               icon: Icon(
                 Icons.account_circle_outlined,
                 size: kSizeM,
@@ -42,7 +44,8 @@ class MainDrawer extends StatelessWidget {
             ),
             DrawerButton(
               text: "About us",
-              onPressed: () => print("About Us"),
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(AboutUsScreen.routeName),
               icon: Icon(
                 Icons.info_outline_rounded,
                 size: kSizeM,
@@ -55,7 +58,8 @@ class MainDrawer extends StatelessWidget {
             ),
             DrawerButton(
               text: "Log Out",
-              onPressed: () => print('Hello World'),
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(LoginScreen.routeName),
               icon: Icon(
                 Icons.logout_outlined,
                 size: kSizeM,

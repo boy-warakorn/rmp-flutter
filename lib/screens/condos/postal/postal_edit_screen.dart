@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/screens/condos/postal/postal_add_screen.dart';
+import 'package:rmp_flutter/screens/condos/postal/postal_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
+import 'package:rmp_flutter/widgets/general/alert_box.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
@@ -116,7 +119,17 @@ class PostalEditScreen extends HookWidget {
                     width: kSizeXL / 1.25,
                     child: CustomButton(
                       text: "DELETE",
-                      onPressed: () => print('DELETE'),
+                      onPressed: () => {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertBox(
+                            message: "Are you sure?",
+                            onNegative: () => Navigator.of(context).pop(),
+                            onPositive: () => Navigator.of(context)
+                                .pushNamed(PostalScreen.routeName),
+                          ),
+                        ),
+                      },
                       color: kErrorColor,
                     ),
                   ),
@@ -125,7 +138,9 @@ class PostalEditScreen extends HookWidget {
                     width: kSizeXL / 1.25,
                     child: CustomButton(
                       text: "SUBMIT",
-                      onPressed: () => print('SUBMIT'),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(PostalScreen.routeName);
+                      },
                     ),
                   ),
                 ],

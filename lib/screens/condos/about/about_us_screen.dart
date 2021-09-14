@@ -6,6 +6,7 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/widgets/general/goal_card.dart';
 import 'package:rmp_flutter/widgets/general/team_member_card.dart';
 import 'package:rmp_flutter/widgets/layout/scrollable_card_row.dart';
+import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 const littleBearURL =
     "https://i.insider.com/5cdedc95021b4c12a50f46f6?width=1136&format=jpeg";
@@ -21,15 +22,12 @@ class AboutUsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBgColor,
+      appBar: BackAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BackButton(
-                onPressed: () => print("Back"),
-                color: kBlackColor,
-              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

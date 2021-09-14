@@ -70,6 +70,17 @@ class FormTextFieldIcon extends HookWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: kBorderRadiusXS,
+                borderSide: BorderSide(
+                  color: kAlternativeColor,
+                  width: kSizeXXXS / 2,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: kBorderRadiusXS,
+                borderSide: BorderSide(
+                  color: kAlternativeColor,
+                  width: kSizeXXXS / 2,
+                ),
               ),
               focusColor: kInputBorderColor,
               contentPadding: EdgeInsets.symmetric(
