@@ -8,6 +8,7 @@ import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class ProfileSettingScreen extends HookWidget {
+  static const routeName = "/condo/profile";
   const ProfileSettingScreen({Key? key}) : super(key: key);
 
   @override

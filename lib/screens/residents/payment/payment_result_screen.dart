@@ -4,6 +4,7 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 
 class PaymentResultScreen extends StatelessWidget {
+  static final routeName = "/resident/payment-result";
   const PaymentResultScreen({Key? key}) : super(key: key);
 
   @override

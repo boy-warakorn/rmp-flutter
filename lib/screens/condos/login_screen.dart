@@ -8,6 +8,7 @@ import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 
 class LoginScreen extends HookWidget {
+  static const routeName = "/login";
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
