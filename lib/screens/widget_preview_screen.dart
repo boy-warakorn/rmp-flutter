@@ -47,259 +47,233 @@ class WidgetPreviewScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _example = useTextEditingController();
     return SafeArea(
-      child: ListView(
-        children: [
-          ScollableCardRow(
-            cards: [
-              TeamMemberCard(
-                name: "Anawat Paothong",
-                role: "Role Name",
-                image: NetworkImage(
-                  littleBearURL,
-                ),
-              ),
-              TeamMemberCard(
-                name: "Warakorn Chantranupong",
-                role: "Role Name",
-                image: NetworkImage(
-                  littleBearURL,
-                ),
-              ),
-              TeamMemberCard(
-                name: "Noppanut Boonrueng",
-                role: "Role Name",
-                image: NetworkImage(
-                  littleBearURL,
-                ),
-              ),
-              TeamMemberCard(
-                name: "Shortname",
-                role: "Role Name",
-                image: NetworkImage(
-                  littleBearURL,
-                ),
-              ),
-            ],
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: const [
-                TeamMemberCard(
-                  name: "Anawat Paothong",
-                  role: "Role Name",
-                  image: NetworkImage(
-                    littleBearURL,
-                  ),
-                ),
-                kSizedBoxHorizontalS,
-                TeamMemberCard(
-                  name: "Warakorn Chantranupong",
-                  role: "Role Name",
-                  image: NetworkImage(
-                    littleBearURL,
-                  ),
-                ),
-                kSizedBoxHorizontalS,
-                TeamMemberCard(
-                  name: "Noppanut Boonrueng",
-                  role: "Role Name",
-                  image: NetworkImage(
-                    littleBearURL,
-                  ),
-                ),
-                TeamMemberCard(
-                  name: "Shortname",
-                  role: "Role Name",
-                  image: NetworkImage(
-                    littleBearURL,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      child: Expanded(
+        child: Container(
+          color: Colors.amber,
+          child: ListView(
             children: [
-              CardButton(
-                title: "GET QR CODE",
-                onPressed: () => print("CardButton: Pressed"),
-                icon: Icons.qr_code,
+              ScollableCardRow(
+                cards: [
+                  TeamMemberCard(
+                    name: "Anawat Paothong",
+                    role: "Role Name",
+                    image: NetworkImage(
+                      littleBearURL,
+                    ),
+                  ),
+                  TeamMemberCard(
+                    name: "Warakorn Chantranupong",
+                    role: "Role Name",
+                    image: NetworkImage(
+                      littleBearURL,
+                    ),
+                  ),
+                  TeamMemberCard(
+                    name: "Noppanut Boonrueng",
+                    role: "Role Name",
+                    image: NetworkImage(
+                      littleBearURL,
+                    ),
+                  ),
+                  TeamMemberCard(
+                    name: "Shortname",
+                    role: "Role Name",
+                    image: NetworkImage(
+                      littleBearURL,
+                    ),
+                  ),
+                ],
               ),
-              kSizedBoxHorizontalS,
-              CardButton(
-                title: "GET QR CODE",
-                onPressed: () => print("CardButton: Pressed"),
-                icon: Icons.qr_code,
+              Row(
+                children: [
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CardButton(
+                          title: "GET QR CODE",
+                          onPressed: () => print("CardButton: Pressed"),
+                          icon: Icons.qr_code,
+                        ),
+                        kSizedBoxHorizontalS,
+                        CardButton(
+                          title: "GET QR CODE",
+                          onPressed: () => print("CardButton: Pressed"),
+                          icon: Icons.qr_code,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TitleCard(
-                title: "TitleCard - icon",
-                subtitle: "new: 45",
-                icon: Icon(
-                  Icons.ac_unit,
-                  color: Colors.red,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TitleCard(
+                    title: "TitleCard - icon",
+                    subtitle: "new: 45",
+                    icon: Icon(
+                      Icons.ac_unit,
+                      color: Colors.red,
+                    ),
+                  ),
+                  TitleCard(
+                    title: "TitleCard - no icon",
+                    subtitle: 12.toString(),
+                  ),
+                ],
+              ),
+              PaymentCard(
+                type: "Pay type",
+                amount: "500 THB",
+                paidDate: "20/20/2020",
+                onPressed: () => print("Pressed"),
+              ),
+              CardTemplate(
+                child: Column(
+                  children: const [
+                    SummaryEntity(
+                      text: "SummaryEntity(1-9 counts)",
+                      count: 5,
+                    ),
+                    SummaryEntity(
+                      text: "SummaryEntity(9+ counts)",
+                      count: 16,
+                    ),
+                  ],
+                ),
+              ),
+              CustomButton(
+                text: "CustomButton - default color",
+                onPressed: () => print("CustomButton: Pressed"),
+              ),
+              const SizedBox(height: 4),
+              CustomButton(
+                text: "CustomButton - colored",
+                onPressed: () => print("CustomButton - colored: Pressed"),
+                color: Colors.blueGrey,
+              ),
+              HelpDeskCard(
+                title: "Title",
+                date: "20/20/2020",
+                detail: "Short detail",
+                actionButton: CustomButton(
+                    text: "REPLY", onPressed: () => print("HelpDeskCard: Pressed")),
+              ),
+              HelpDeskCard(
+                title: "Title long detail",
+                date: "20/20/2020",
+                detail: loremIpsum,
+                actionButton: CustomButton(
+                    text: "REPLY", onPressed: () => print("HelpDeskCard: Pressed")),
+              ),
+              PackageCard(
+                title: "Title",
+                date: "20/20/2020",
+                onPressed: () => print("PackageCard: Pressed"),
+                note: "-",
+              ),
+              PackageCard(
+                title: "Title with Note",
+                date: "20/20/2020",
+                onPressed: () => print("PackageCard note: Pressed"),
+                note: loremIpsum,
+              ),
+              const EntityCard(
+                title: "EntityCard",
+                date: "20/20/2020",
+                entityStatus: EntityCardStatus(
+                  text: "Recieved",
+                  color: kSuccessColor,
                 ),
               ),
               TitleCard(
                 title: "TitleCard - no icon",
                 subtitle: 12.toString(),
               ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: const [
+                    TeamMemberCard(
+                      name: "Anawat Paothong",
+                      role: "Role Name",
+                      image: NetworkImage(
+                        littleBearURL,
+                      ),
+                    ),
+                    kSizedBoxHorizontalS,
+                    TeamMemberCard(
+                      name: "Warakorn Chantranupong",
+                      role: "Role Name",
+                      image: NetworkImage(
+                        littleBearURL,
+                      ),
+                    ),
+                    kSizedBoxHorizontalS,
+                    TeamMemberCard(
+                      name: "Noppanut Boonrueng",
+                      role: "Role Name",
+                      image: NetworkImage(
+                        littleBearURL,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              CustomButton(
+                  text: "CustomButton - default color",
+                  onPressed: () => print("CustomButton: Pressed")),
+              SizedBox(height: 4),
+              CustomButton(
+                  text: "CustomButton - colored",
+                  onPressed: () => print("CustomButton - colored: Pressed"),
+                  color: Colors.blueGrey),
+              HelpDeskCard(
+                title: "Title",
+                date: "20/20/2020",
+                detail: "Short detail",
+                actionButton: CustomButton(
+                    text: "REPLY", onPressed: () => print("HelpDeskCard: Pressed")),
+              ),
+              HelpDeskCard(
+                title: "Title long detail",
+                date: "20/20/2020",
+                detail: loremIpsum,
+                actionButton: CustomButton(
+                    text: "REPLY", onPressed: () => print("HelpDeskCard: Pressed")),
+              ),
+              PackageCard(
+                title: "Title",
+                date: "20/20/2020",
+                onPressed: () => print("PackageCard: Pressed"),
+                note: "-",
+              ),
+              PackageCard(
+                title: "Title with Note",
+                date: "20/20/2020",
+                onPressed: () => print("PackageCard note: Pressed"),
+                note: loremIpsum,
+              ),
+              CustomSlider(
+                isResponded: true,
+                onValueChanged: (val) => print(val),
+              ),
+              GoalCard(
+                title: "GoalCard",
+                content: loremIpsum,
+                icon: Icon(
+                  Icons.ac_unit,
+                  color: Colors.red,
+                ),
+              ),
+              FormTextField(
+                fieldName: fieldName,
+                textEditingController: _example,
+              ),
             ],
           ),
-          PaymentCard(
-            type: "Pay type",
-            amount: "500 THB",
-            paidDate: "20/20/2020",
-            onPressed: () => print("Pressed"),
-          ),
-          CardTemplate(
-            child: Column(
-              children: const [
-                SummaryEntity(
-                  text: "SummaryEntity(1-9 counts)",
-                  count: 5,
-                ),
-                SummaryEntity(
-                  text: "SummaryEntity(9+ counts)",
-                  count: 16,
-                ),
-              ],
-            ),
-          ),
-          CustomButton(
-            text: "CustomButton - default color",
-            onPressed: () => print("CustomButton: Pressed"),
-          ),
-          const SizedBox(height: 4),
-          CustomButton(
-            text: "CustomButton - colored",
-            onPressed: () => print("CustomButton - colored: Pressed"),
-            color: Colors.blueGrey,
-          ),
-          HelpDeskCard(
-            title: "Title",
-            date: "20/20/2020",
-            detail: "Short detail",
-            actionButton: CustomButton(
-                text: "REPLY", onPressed: () => print("HelpDeskCard: Pressed")),
-          ),
-          HelpDeskCard(
-            title: "Title long detail",
-            date: "20/20/2020",
-            detail: loremIpsum,
-            actionButton: CustomButton(
-                text: "REPLY", onPressed: () => print("HelpDeskCard: Pressed")),
-          ),
-          PackageCard(
-            title: "Title",
-            date: "20/20/2020",
-            onPressed: () => print("PackageCard: Pressed"),
-            note: "-",
-          ),
-          PackageCard(
-            title: "Title with Note",
-            date: "20/20/2020",
-            onPressed: () => print("PackageCard note: Pressed"),
-            note: loremIpsum,
-          ),
-          const EntityCard(
-            title: "EntityCard",
-            date: "20/20/2020",
-            entityStatus: EntityCardStatus(
-              text: "Recieved",
-              color: kSuccessColor,
-            ),
-          ),
-          TitleCard(
-            title: "TitleCard - no icon",
-            subtitle: 12.toString(),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: const [
-                TeamMemberCard(
-                  name: "Anawat Paothong",
-                  role: "Role Name",
-                  image: NetworkImage(
-                    littleBearURL,
-                  ),
-                ),
-                kSizedBoxHorizontalS,
-                TeamMemberCard(
-                  name: "Warakorn Chantranupong",
-                  role: "Role Name",
-                  image: NetworkImage(
-                    littleBearURL,
-                  ),
-                ),
-                kSizedBoxHorizontalS,
-                TeamMemberCard(
-                  name: "Noppanut Boonrueng",
-                  role: "Role Name",
-                  image: NetworkImage(
-                    littleBearURL,
-                  ),
-                )
-              ],
-            ),
-          ),
-          CustomButton(
-              text: "CustomButton - default color",
-              onPressed: () => print("CustomButton: Pressed")),
-          SizedBox(height: 4),
-          CustomButton(
-              text: "CustomButton - colored",
-              onPressed: () => print("CustomButton - colored: Pressed"),
-              color: Colors.blueGrey),
-          HelpDeskCard(
-            title: "Title",
-            date: "20/20/2020",
-            detail: "Short detail",
-            actionButton: CustomButton(
-                text: "REPLY", onPressed: () => print("HelpDeskCard: Pressed")),
-          ),
-          HelpDeskCard(
-            title: "Title long detail",
-            date: "20/20/2020",
-            detail: loremIpsum,
-            actionButton: CustomButton(
-                text: "REPLY", onPressed: () => print("HelpDeskCard: Pressed")),
-          ),
-          PackageCard(
-            title: "Title",
-            date: "20/20/2020",
-            onPressed: () => print("PackageCard: Pressed"),
-            note: "-",
-          ),
-          PackageCard(
-            title: "Title with Note",
-            date: "20/20/2020",
-            onPressed: () => print("PackageCard note: Pressed"),
-            note: loremIpsum,
-          ),
-          CustomSlider(
-            isResponded: true,
-            onValueChanged: (val) => print(val),
-          ),
-          GoalCard(
-            title: "GoalCard",
-            content: loremIpsum,
-            icon: Icon(
-              Icons.ac_unit,
-              color: Colors.red,
-            ),
-          ),
-          FormTextField(
-            fieldName: fieldName,
-            textEditingController: _example,
-          ),
-        ],
+        ),
       ),
     );
   }
