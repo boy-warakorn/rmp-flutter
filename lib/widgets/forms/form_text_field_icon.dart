@@ -71,7 +71,7 @@ class FormTextFieldIcon extends HookWidget {
               focusedBorder: OutlineInputBorder(
                 borderRadius: kBorderRadiusXS,
               ),
-              focusColor: kBlackColor,
+              focusColor: kInputBorderColor,
               contentPadding: EdgeInsets.symmetric(
                 horizontal: kSizeXS,
                 vertical: kSizeS / 1.7,

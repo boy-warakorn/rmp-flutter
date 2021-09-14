@@ -7,7 +7,7 @@ import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class PackageDetailScreen extends HookWidget {
-  static const routeName = "/condo/postal-manage";
+  static const routeName = "/condo/package-detail";
   const PackageDetailScreen({Key? key}) : super(key: key);
 
   @override
