@@ -29,7 +29,7 @@ class HelpDeskCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      "Owner: $title",
                       style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: kFontSizeHeadline4,
@@ -58,10 +58,7 @@ class HelpDeskCard extends StatelessWidget {
               Expanded(
                 child: SizedBox(),
               ),
-              Container(
-                width: kSizeXL,
-                child: actionButton
-              ),
+              Container(width: kSizeXL, child: actionButton),
             ],
           ),
         ],

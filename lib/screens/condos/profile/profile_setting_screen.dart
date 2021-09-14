@@ -47,70 +47,76 @@ class ProfileSettingScreen extends HookWidget {
               child: kSizedBoxVerticalL,
             ),
             Transform.translate(
-              offset: const Offset(0, -kSizeM * 1.5),
-              child: Image.asset("assets/images/129.png"),
-            ),
-            Text(
-              "Personal Profile",
-              style: Theme.of(context).textTheme.headline3?.copyWith(
-                    color: kBrandDarkerColor,
-                  ),
-            ),
-            kSizedBoxVerticalXS,
-            kSizedBoxVerticalS,
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: kSizeS * 1.5),
+              offset: const Offset(0, -kSizeM * 1.8),
               child: Column(
                 children: [
-                  FormTextFieldIcon(
-                    fieldName: "Username",
-                    textEditingController: _username,
-                    fieldColor: kBrandDarkerColor,
+                  Image.asset("assets/images/129.png"),
+                  kSizedBoxVerticalS,
+                  kSizedBoxVerticalXS,
+                  Text(
+                    "Personal Profile",
+                    style: Theme.of(context).textTheme.headline3?.copyWith(
+                          color: kBrandDarkerColor,
+                        ),
                   ),
                   kSizedBoxVerticalXS,
                   kSizedBoxVerticalS,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: FormTextFieldIcon(
-                          fieldName: "Gender",
-                          textEditingController: _gender,
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: kSizeS * 1.5),
+                    child: Column(
+                      children: [
+                        FormTextFieldIcon(
+                          fieldName: "Username",
+                          textEditingController: _username,
                           fieldColor: kBrandDarkerColor,
                         ),
-                      ),
-                      kSizedBoxHorizontalM,
-                      Expanded(
-                        child: FormTextFieldIcon(
-                          fieldName: "Age",
-                          textEditingController: _age,
+                        kSizedBoxVerticalXS,
+                        kSizedBoxVerticalS,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: FormTextFieldIcon(
+                                fieldName: "Gender",
+                                textEditingController: _gender,
+                                fieldColor: kBrandDarkerColor,
+                              ),
+                            ),
+                            kSizedBoxHorizontalM,
+                            Expanded(
+                              child: FormTextFieldIcon(
+                                fieldName: "Age",
+                                textEditingController: _age,
+                                fieldColor: kBrandDarkerColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                        kSizedBoxVerticalXS,
+                        kSizedBoxVerticalS,
+                        FormTextFieldIcon(
+                          fieldName: "Your Role",
+                          textEditingController: _role,
                           fieldColor: kBrandDarkerColor,
                         ),
-                      ),
-                    ],
-                  ),
-                  kSizedBoxVerticalXS,
-                  kSizedBoxVerticalS,
-                  FormTextFieldIcon(
-                    fieldName: "Your Role",
-                    textEditingController: _role,
-                    fieldColor: kBrandDarkerColor,
-                  ),
-                  kSizedBoxVerticalM,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        width: kSizeXL,
-                        child: CustomButton(
-                          text: "DONE",
-                          onPressed: () => Navigator.of(context)
-                              .pushNamed(MainScreen.routeName),
+                        kSizedBoxVerticalM,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              width: kSizeXL,
+                              child: CustomButton(
+                                text: "DONE",
+                                onPressed: () => Navigator.of(context)
+                                    .pushNamed(MainScreen.routeName),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
+                        kSizedBoxVerticalM,
+                      ],
+                    ),
                   ),
-                  kSizedBoxVerticalM,
                 ],
               ),
             ),
