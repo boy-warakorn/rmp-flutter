@@ -33,10 +33,7 @@ class MainDrawer extends StatelessWidget {
             SafeArea(child: kSizedBoxVerticalS),
             DrawerButton(
               text: "Profile Settings",
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProfileSettingScreen()),
-              ),
+              onPressed: () => print("Profile Setting"),
               icon: Icon(
                 Icons.account_circle_outlined,
                 size: kSizeM,
@@ -45,10 +42,7 @@ class MainDrawer extends StatelessWidget {
             ),
             DrawerButton(
               text: "About us",
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginScreen()),
-              ),
+              onPressed: () => print("About Us"),
               icon: Icon(
                 Icons.info_outline_rounded,
                 size: kSizeM,
