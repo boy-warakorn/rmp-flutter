@@ -158,14 +158,16 @@ class WidgetPreviewScreen extends HookWidget {
                 date: "20/20/2020",
                 detail: "Short detail",
                 actionButton: CustomButton(
-                    text: "REPLY", onPressed: () => print("HelpDeskCard: Pressed")),
+                    text: "REPLY",
+                    onPressed: () => print("HelpDeskCard: Pressed")),
               ),
               HelpDeskCard(
                 title: "Title long detail",
                 date: "20/20/2020",
                 detail: loremIpsum,
                 actionButton: CustomButton(
-                    text: "REPLY", onPressed: () => print("HelpDeskCard: Pressed")),
+                    text: "REPLY",
+                    onPressed: () => print("HelpDeskCard: Pressed")),
               ),
               PackageCard(
                 title: "Title",
@@ -179,13 +181,14 @@ class WidgetPreviewScreen extends HookWidget {
                 onPressed: () => print("PackageCard note: Pressed"),
                 note: loremIpsum,
               ),
-              const EntityCard(
+              EntityCard(
                 title: "EntityCard",
                 date: "20/20/2020",
                 entityStatus: EntityCardStatus(
                   text: "Recieved",
                   color: kSuccessColor,
                 ),
+                onPressed: () => print('Test'),
               ),
               TitleCard(
                 title: "TitleCard - no icon",
@@ -234,14 +237,16 @@ class WidgetPreviewScreen extends HookWidget {
                 date: "20/20/2020",
                 detail: "Short detail",
                 actionButton: CustomButton(
-                    text: "REPLY", onPressed: () => print("HelpDeskCard: Pressed")),
+                    text: "REPLY",
+                    onPressed: () => print("HelpDeskCard: Pressed")),
               ),
               HelpDeskCard(
                 title: "Title long detail",
                 date: "20/20/2020",
                 detail: loremIpsum,
                 actionButton: CustomButton(
-                    text: "REPLY", onPressed: () => print("HelpDeskCard: Pressed")),
+                    text: "REPLY",
+                    onPressed: () => print("HelpDeskCard: Pressed")),
               ),
               PackageCard(
                 title: "Title",

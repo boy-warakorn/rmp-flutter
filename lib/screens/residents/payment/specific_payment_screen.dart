@@ -3,16 +3,20 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/screens/residents/payment/confirm_payment_screen.dart';
 import 'package:rmp_flutter/widgets/general/card_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class SpecificPaymentScreen extends StatelessWidget {
+  static const routeName = "/resident/specific-payment";
   const SpecificPaymentScreen({Key? key}) : super(key: key);
 
   Future<void> _takePhoto() async {
     final ImagePicker _picker = ImagePicker();
-    final XFile? slipPhoto = await _picker.pickImage(source: ImageSource.camera);
+    final XFile? slipPhoto =
+        await _picker.pickImage(source: ImageSource.camera);
     print(slipPhoto);
   }
 
@@ -20,14 +24,11 @@ class SpecificPaymentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBgColor,
+      appBar: BackAppBar(),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BackButton(
-              onPressed: () => print("Back"),
-              color: kBlackColor,
-            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(kSizeS * (1.5)),
@@ -67,10 +68,12 @@ class SpecificPaymentScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const Expanded(child: SizedBox()),
+                    const Expanded(
+                      child: SizedBox(),
+                    ),
                     CustomButton(
                       text: "UPLOAD RECEIPT",
-                      onPressed: _takePhoto,
+                      onPressed: () => _takePhoto,
                     ),
                   ],
                 ),

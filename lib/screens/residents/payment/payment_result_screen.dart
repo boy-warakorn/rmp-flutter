@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/screens/main_screen.dart';
+import 'package:rmp_flutter/screens/residents/home_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 
 class PaymentResultScreen extends StatelessWidget {
@@ -41,7 +43,12 @@ class PaymentResultScreen extends StatelessWidget {
                 Container(
                   child: CustomButton(
                     text: "BACK TO HOME",
-                    onPressed: () => print('Back to home'),
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed(MainScreen.routeName),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: kSizeS,
+                      vertical: kSizeXS,
+                    ),
                   ),
                 ),
               ],

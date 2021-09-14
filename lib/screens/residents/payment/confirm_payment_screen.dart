@@ -3,12 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/screens/residents/payment/payment_result_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 
 const slip =
     "https://www.microsuck.net/wp-content/uploads/2019/09/1-592x1024.png";
 
 class ConfirmPaymentScreen extends StatelessWidget {
+  static const routeName = "/resident/confirm-payment";
   const ConfirmPaymentScreen({Key? key}) : super(key: key);
 
   @override
@@ -40,7 +42,8 @@ class ConfirmPaymentScreen extends StatelessWidget {
                     kSizedBoxVerticalXS,
                     CustomButton(
                       text: "SUBMIT RECEIPT",
-                      onPressed: () {},
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(PaymentResultScreen.routeName),
                     ),
                   ],
                 ),
