@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/widgets/layout/card_template.dart';
 
 class TeamMemberCard extends StatelessWidget {
   final ImageProvider image;
@@ -19,14 +20,10 @@ class TeamMemberCard extends StatelessWidget {
     final detailStyle = Theme.of(context).textTheme.headline5?.copyWith(
           fontSize: kFontSizeBody2 * (11 / 12),
         );
-    return Container(
+    return SizedBox(
       width: kSizeXL * (200 / 128),
-      decoration: const BoxDecoration(
+      child: CardTemplate(
         color: kBrandLighterColor,
-        borderRadius: kBorderRadiusS,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(kSizeS * (20 / 16)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

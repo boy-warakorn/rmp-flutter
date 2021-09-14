@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print
+
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
@@ -17,6 +19,7 @@ import 'package:rmp_flutter/widgets/general/summary_entity.dart';
 import 'package:rmp_flutter/widgets/general/team_member_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 import 'package:rmp_flutter/widgets/layout/card_template.dart';
+import 'package:rmp_flutter/widgets/layout/scrollable_card_row.dart';
 
 // เอาไว้ทดสอบข้อความยาว
 const loremIpsum =
@@ -46,6 +49,75 @@ class WidgetPreviewScreen extends HookWidget {
     return SafeArea(
       child: ListView(
         children: [
+          ScollableCardRow(
+            cards: [
+              TeamMemberCard(
+                name: "Anawat Paothong",
+                role: "Role Name",
+                image: NetworkImage(
+                  littleBearURL,
+                ),
+              ),
+              TeamMemberCard(
+                name: "Warakorn Chantranupong",
+                role: "Role Name",
+                image: NetworkImage(
+                  littleBearURL,
+                ),
+              ),
+              TeamMemberCard(
+                name: "Noppanut Boonrueng",
+                role: "Role Name",
+                image: NetworkImage(
+                  littleBearURL,
+                ),
+              ),
+              TeamMemberCard(
+                name: "Shortname",
+                role: "Role Name",
+                image: NetworkImage(
+                  littleBearURL,
+                ),
+              ),
+            ],
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: const [
+                TeamMemberCard(
+                  name: "Anawat Paothong",
+                  role: "Role Name",
+                  image: NetworkImage(
+                    littleBearURL,
+                  ),
+                ),
+                kSizedBoxHorizontalS,
+                TeamMemberCard(
+                  name: "Warakorn Chantranupong",
+                  role: "Role Name",
+                  image: NetworkImage(
+                    littleBearURL,
+                  ),
+                ),
+                kSizedBoxHorizontalS,
+                TeamMemberCard(
+                  name: "Noppanut Boonrueng",
+                  role: "Role Name",
+                  image: NetworkImage(
+                    littleBearURL,
+                  ),
+                ),
+                TeamMemberCard(
+                  name: "Shortname",
+                  role: "Role Name",
+                  image: NetworkImage(
+                    littleBearURL,
+                  ),
+                ),
+              ],
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
