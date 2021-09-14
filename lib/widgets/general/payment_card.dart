@@ -28,30 +28,30 @@ class PaymentCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(kSizeS),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Type: $type",
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                  kSizedBoxVerticalS,
-                  Row(
-                    children: [
-                      Text("Amount: $amount", style: contentStyle),
-                      const SizedBox(
-                        width: kSizeM,
-                      ),
-                      Text(
-                        "Paid date: $paidDate",
-                        style: contentStyle,
-                      ),
-                    ],
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Type: $type",
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                    kSizedBoxVerticalS,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Amount: $amount", style: contentStyle),
+                        Text(
+                          "Paid date: $paidDate",
+                          style: contentStyle,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
+              kSizedBoxHorizontalXS,
               const Icon(
                 Icons.arrow_forward_ios,
                 color: kStrokeColor,
