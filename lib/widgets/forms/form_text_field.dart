@@ -47,6 +47,9 @@ class _FormTextFieldState extends State<FormTextField> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: kBorderRadiusM,
               ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: kBorderRadiusM,
+              ),
               contentPadding: EdgeInsets.symmetric(
                 horizontal: kSizeS,
                 vertical: kSizeS / 1.7,

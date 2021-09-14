@@ -115,7 +115,16 @@ class PostalAddScreen extends HookWidget {
                     width: kSizeXL / 1.25,
                     child: CustomButton(
                       text: "CLEAR",
-                      onPressed: () => {print('Clear data!')},
+                      onPressed: () => {
+                        _roomNumber.clear(),
+                        _owner.clear(),
+                        _deliveredBy.clear(),
+                        _deliveredDate.clear(),
+                        _receivedBy.clear(),
+                        _receiveDate.clear(),
+                        _status.clear(),
+                        _note.clear(),
+                      },
                       color: kWarningColor,
                     ),
                   ),
