@@ -80,9 +80,9 @@ class ForgotPasswordScreen extends HookWidget {
                   kSizedBoxVerticalM,
                   Container(
                     child: FormTextFieldIcon(
-                      fieldName: "Username",
+                      fieldName: "Email",
                       icon: Icon(
-                        Icons.account_circle,
+                        Icons.email_outlined,
                         size: kSizeM,
                       ),
                       textEditingController: _username,
