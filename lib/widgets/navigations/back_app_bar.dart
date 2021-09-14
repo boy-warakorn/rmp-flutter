@@ -32,6 +32,7 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
           : Container(),
       leading: Container(
         child: IconButton(
+          splashRadius: kSizeS,
           onPressed: () => Navigator.of(context).pop(),
           icon: Icon(
             Icons.arrow_back_ios,

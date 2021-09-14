@@ -34,30 +34,34 @@ class _FormTextAreaState extends State<FormTextArea> {
               ),
         ),
         kSizedBoxVerticalS,
-        Container(
-          child: TextFormField(
-              minLines: widget.minLine,
-              maxLines: widget.maxLine,
-              controller: widget.textEditingController,
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: kBorderRadiusXS,
-                  borderSide: BorderSide(
-                    color: kAlternativeColor,
-                    width: kSizeXXXS / 2,
-                  ),
+        TextFormField(
+            minLines: widget.minLine,
+            maxLines: widget.maxLine,
+            controller: widget.textEditingController,
+            decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: kInputBorderColor,
                 ),
-                hintText: widget.fieldName,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: kSizeXS,
-                  vertical: kSizeS / 1.7,
-                ),
-                hintStyle: Theme.of(context).textTheme.subtitle1,
               ),
-              validator: (value) {
-                value == null || value.isEmpty ? 'Input is required' : null;
-              }),
-        ),
+              filled: true,
+              fillColor: kLightColor,
+              enabledBorder: OutlineInputBorder(
+                borderRadius: kBorderRadiusXS,
+                borderSide: BorderSide(
+                  color: kInputBorderColor,
+                  width: 0,
+                ),
+              ),
+              contentPadding: EdgeInsets.all(
+                kSizeS,
+              ),
+              hintText: widget.fieldName,
+              hintStyle: Theme.of(context).textTheme.subtitle1,
+            ),
+            validator: (value) {
+              value == null || value.isEmpty ? 'Input is required' : null;
+            }),
       ],
     );
   }

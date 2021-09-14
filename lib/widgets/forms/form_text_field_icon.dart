@@ -52,6 +52,8 @@ class FormTextFieldIcon extends HookWidget {
           child: TextFormField(
             controller: textEditingController,
             decoration: InputDecoration(
+              fillColor: kLightColor,
+              filled: true,
               prefixIcon: icon.icon != null ? icon : null,
               suffixIcon: GestureDetector(
                 child: Container(
@@ -71,20 +73,20 @@ class FormTextFieldIcon extends HookWidget {
               focusedBorder: OutlineInputBorder(
                 borderRadius: kBorderRadiusXS,
                 borderSide: BorderSide(
-                  color: kAlternativeColor,
+                  color: kInputBorderColor,
                   width: kSizeXXXS / 2,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: kBorderRadiusXS,
                 borderSide: BorderSide(
-                  color: kAlternativeColor,
+                  color: kInputBorderColor,
                   width: kSizeXXXS / 2,
                 ),
               ),
               focusColor: kInputBorderColor,
               contentPadding: EdgeInsets.symmetric(
-                horizontal: kSizeXS,
+                horizontal: kSizeS,
                 vertical: kSizeS / 1.7,
               ),
               hintText: "Enter ${fieldName}",

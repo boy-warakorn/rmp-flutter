@@ -27,6 +27,14 @@ class LoginScreen extends HookWidget {
               height: kSizeXXL * 1.1,
               decoration: BoxDecoration(
                 color: kLightColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
                 borderRadius: BorderRadius.vertical(
                   bottom: Radius.circular(kSizeM),
                 ),
@@ -57,14 +65,16 @@ class LoginScreen extends HookWidget {
                   Container(
                     transform: Matrix4.translationValues(
                       0.0,
-                      10.0,
+                      1.0,
                       0.0,
                     ),
-                    child: Divider(
+                    height: kSizeXXS,
+                    margin: EdgeInsets.symmetric(
+                      horizontal: kSizeM * 1.4,
+                    ),
+                    decoration: BoxDecoration(
                       color: kBrandColor,
-                      thickness: kSizeXXS,
-                      indent: kSizeM * 1.5,
-                      endIndent: kSizeM * 1.5,
+                      borderRadius: kBorderRadiusM,
                     ),
                   ),
                 ],
@@ -124,6 +134,9 @@ class LoginScreen extends HookWidget {
                       horizontal: kSizeM * 1.25,
                     ),
                     child: CustomButton(
+                      padding: EdgeInsets.symmetric(
+                        vertical: kSizeS * 1.2,
+                      ),
                       text: "LOGIN",
                       onPressed: () =>
                           Navigator.of(context).pushNamed(MainScreen.routeName),

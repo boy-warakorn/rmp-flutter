@@ -28,6 +28,14 @@ class ForgotPasswordScreen extends HookWidget {
                 borderRadius: BorderRadius.vertical(
                   bottom: Radius.circular(kSizeM),
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,6 +86,30 @@ class ForgotPasswordScreen extends HookWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   kSizedBoxVerticalM,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(LoginScreen.routeName);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.arrow_back_ios_new_outlined,
+                          color: kBlackColor,
+                          size: kSizeS,
+                        ),
+                        kSizedBoxHorizontalXS,
+                        Text(
+                          "Back to log in",
+                          style:
+                              Theme.of(context).textTheme.headline5?.copyWith(
+                                    fontSize: kFontSizeHeadline4,
+                                  ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
+                    ),
+                  ),
+                  kSizedBoxVerticalM,
                   Container(
                     child: FormTextFieldIcon(
                       fieldName: "Email",
@@ -90,25 +122,15 @@ class ForgotPasswordScreen extends HookWidget {
                       isPassword: false,
                     ),
                   ),
-                  kSizedBoxVerticalS,
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(LoginScreen.routeName);
-                    },
-                    child: Text(
-                      "Back to log in",
-                      style: Theme.of(context).textTheme.headline5?.copyWith(
-                            fontSize: kFontSizeHeadline4,
-                          ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
                   kSizedBoxVerticalM,
                   Container(
                     margin: EdgeInsets.symmetric(
                       horizontal: kSizeM * 1.25,
                     ),
                     child: CustomButton(
+                      padding: EdgeInsets.symmetric(
+                        vertical: kSizeS * 1.4,
+                      ),
                       text: "SUBMIT",
                       onPressed: () => Navigator.of(context)
                           .pushNamed(LoginScreen.routeName),

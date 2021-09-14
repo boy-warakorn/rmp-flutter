@@ -24,13 +24,16 @@ class SummaryEntity extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyText1,
             ),
             Container(
-              width: kSizeM * (0.75),
+              width: kSizeM,
               decoration: const BoxDecoration(
                 color: kErrorColor,
                 borderRadius: kBorderRadiusXS,
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: kSizeXXS),
+                padding: const EdgeInsets.symmetric(
+                  vertical: kSizeXXS,
+                  horizontal: kSizeXS,
+                ),
                 child: Center(
                   child: Text(
                     count > 9 ? "9+" : "$count",
