@@ -51,44 +51,38 @@ class HelpDeskScreen extends HookWidget {
           .toList();
     }
 
-    return Scaffold(
-      appBar: MainAppBar(
-        haveFilter: true,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: kSizeS * (24 / 16),
       ),
-      drawer: MainDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: kSizeS * (24 / 16),
-        ),
-        child: Column(
-          children: [
-            kSizedBoxVerticalS,
-            kSizedBoxVerticalXS,
-            CustomSlider(
-              isResponded: _isResponded.value,
-              onValueChanged: (switchTo) => switchResponded(switchTo),
-            ),
-            kSizedBoxVerticalS,
-            kSizedBoxHorizontalXS,
-            Expanded(
-              child: ListView.builder(
-                itemCount: filterList().length,
-                itemBuilder: (context, index) => HelpDeskCard(
-                  title: "${filterList()[index]["title"]}",
-                  date: "${filterList()[index]["date"]}",
-                  detail: "${filterList()[index]["detail"]}",
-                  actionButton: filterList()[index]["isResponded"] as bool
-                      ? const SizedBox()
-                      : CustomButton(
-                          onPressed: () => Navigator.of(context)
-                              .pushNamed(ReplyScreen.routeName),
-                          text: "REPLY",
-                        ),
-                ),
+      child: Column(
+        children: [
+          kSizedBoxVerticalS,
+          kSizedBoxVerticalXS,
+          CustomSlider(
+            isResponded: _isResponded.value,
+            onValueChanged: (switchTo) => switchResponded(switchTo),
+          ),
+          kSizedBoxVerticalS,
+          kSizedBoxHorizontalXS,
+          Expanded(
+            child: ListView.builder(
+              itemCount: filterList().length,
+              itemBuilder: (context, index) => HelpDeskCard(
+                title: "${filterList()[index]["title"]}",
+                date: "${filterList()[index]["date"]}",
+                detail: "${filterList()[index]["detail"]}",
+                actionButton: filterList()[index]["isResponded"] as bool
+                    ? const SizedBox()
+                    : CustomButton(
+                        onPressed: () => Navigator.of(context)
+                            .pushNamed(ReplyScreen.routeName),
+                        text: "REPLY",
+                      ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
