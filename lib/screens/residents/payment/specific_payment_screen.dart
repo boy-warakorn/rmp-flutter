@@ -1,11 +1,20 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/widgets/general/card_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SpecificPaymentScreen extends StatelessWidget {
   const SpecificPaymentScreen({Key? key}) : super(key: key);
+
+  Future<void> _takePhoto() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? slipPhoto = await _picker.pickImage(source: ImageSource.camera);
+    print(slipPhoto);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +70,7 @@ class SpecificPaymentScreen extends StatelessWidget {
                     const Expanded(child: SizedBox()),
                     CustomButton(
                       text: "UPLOAD RECEIPT",
-                      onPressed: () => print("UPLOAD"),
+                      onPressed: _takePhoto,
                     ),
                   ],
                 ),
