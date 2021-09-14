@@ -78,10 +78,8 @@ class HelpDeskScreen extends HookWidget {
                   detail: "${filterList()[index]["detail"]}",
                   actionButton: filterList()[index]["isResponded"] as bool
                       ? CustomButton(
-                          onPressed: () => Navigator.pushNamed(
-                            context,
-                            '/condo/reply',
-                          ),
+                          onPressed: () =>
+                              Navigator.of(context).pushNamed('/condo/reply'),
                           text: "Reply",
                         )
                       : const SizedBox(),

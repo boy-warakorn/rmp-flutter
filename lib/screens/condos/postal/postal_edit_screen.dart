@@ -122,11 +122,9 @@ class PostalEditScreen extends HookWidget {
                           context: context,
                           builder: (BuildContext context) => AlertBox(
                             message: "Are you sure?",
-                            onNegative: () => Navigator.pop(context),
-                            onPositive: () => Navigator.pushNamed(
-                              context,
-                              '/condo/postal',
-                            ),
+                            onNegative: () => Navigator.of(context).pop(),
+                            onPositive: () => Navigator.of(context)
+                                .pushNamed('/condo/postal'),
                           ),
                         ),
                       },
@@ -139,10 +137,7 @@ class PostalEditScreen extends HookWidget {
                     child: CustomButton(
                       text: "SUBMIT",
                       onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/condo/postal',
-                        );
+                        Navigator.of(context).pushNamed('/condo/postal');
                       },
                     ),
                   ),

@@ -103,7 +103,7 @@ class ProfileSettingScreen extends HookWidget {
                         width: kSizeXL,
                         child: CustomButton(
                           text: "DONE",
-                          onPressed: () => print('Done'),
+                          onPressed: () => Navigator.of(context).pushNamed('/'),
                         ),
                       ),
                     ],

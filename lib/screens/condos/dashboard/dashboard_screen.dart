@@ -18,27 +18,32 @@ class DashboardScreen extends StatelessWidget {
     required TitleCard leftCard,
     required TitleCard rightCard,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          header,
-          style: Theme.of(context).textTheme.headline3,
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: leftCard,
-            ),
-            const SizedBox(
-              width: kSizeXS,
-            ),
-            Expanded(
-              child: rightCard,
-            ),
-          ],
-        ),
-      ],
+    return Scaffold(
+      appBar: MainAppBar(haveFilter: false),
+      drawer: MainDrawer(),
+      backgroundColor: kBgColor,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            header,
+            style: Theme.of(context).textTheme.headline3,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: leftCard,
+              ),
+              const SizedBox(
+                width: kSizeXS,
+              ),
+              Expanded(
+                child: rightCard,
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

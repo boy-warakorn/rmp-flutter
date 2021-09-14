@@ -79,10 +79,8 @@ class PostalScreen extends StatelessWidget {
                           title: "Gaming Monitor",
                           date: "13/9/2021",
                           note: "24 inches monitor",
-                          onPressed: () => Navigator.pushNamed(
-                            context,
-                            '/condo/package-detail',
-                          ),
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed('/condo/package-detail'),
                         ),
                       ),
                     ),

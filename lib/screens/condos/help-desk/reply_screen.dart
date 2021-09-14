@@ -83,7 +83,7 @@ class ReplyScreen extends HookWidget {
                           width: kSizeXL,
                           child: CustomButton(
                             text: "SUBMIT",
-                            onPressed: () => Navigator.pop(context),
+                            onPressed: () => Navigator.of(context).pop(),
                           ),
                         ),
                       ],
