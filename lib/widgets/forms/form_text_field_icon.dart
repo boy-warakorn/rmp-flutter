@@ -8,13 +8,20 @@ class FormTextFieldIcon extends HookWidget {
   final Icon icon;
   final TextEditingController textEditingController;
   final String suffixText;
+  final Color fieldColor;
+  final bool isPassword;
 
   const FormTextFieldIcon({
     Key? key,
     required this.fieldName,
-    required this.icon,
+    this.icon = const Icon(
+      null,
+      size: 0,
+    ),
     required this.textEditingController,
-    required this.suffixText,
+    this.suffixText = '',
+    this.fieldColor = kBlackColor,
+    this.isPassword = false,
   }) : super(key: key);
 
   void printText() {
@@ -23,7 +30,7 @@ class FormTextFieldIcon extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _isObscured = useState(true);
+    final _isObscured = useState(false);
 
     toggleObsecureText() {
       _isObscured.value = !_isObscured.value;
@@ -36,7 +43,7 @@ class FormTextFieldIcon extends HookWidget {
         Text(
           fieldName,
           style: Theme.of(context).textTheme.headline3?.copyWith(
-                color: kBlackColor,
+                color: fieldColor == '' ? kBlackColor : fieldColor,
               ),
         ),
         kSizedBoxVerticalXS,
@@ -45,7 +52,7 @@ class FormTextFieldIcon extends HookWidget {
           child: TextFormField(
             controller: textEditingController,
             decoration: InputDecoration(
-              prefixIcon: icon,
+              prefixIcon: icon.icon != null ? icon : null,
               suffixIcon: GestureDetector(
                 child: Container(
                   padding: EdgeInsets.symmetric(
@@ -53,7 +60,7 @@ class FormTextFieldIcon extends HookWidget {
                     horizontal: kSizeS,
                   ),
                   child: Text(
-                    suffixText,
+                    suffixText == '' ? '' : suffixText,
                     style: Theme.of(context).textTheme.headline4?.copyWith(
                           color: kBrandColor,
                         ),
@@ -62,8 +69,9 @@ class FormTextFieldIcon extends HookWidget {
                 onTap: toggleObsecureText,
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: kBorderRadiusM,
+                borderRadius: kBorderRadiusXS,
               ),
+              focusColor: kBlackColor,
               contentPadding: EdgeInsets.symmetric(
                 horizontal: kSizeXS,
                 vertical: kSizeS / 1.7,
@@ -71,7 +79,7 @@ class FormTextFieldIcon extends HookWidget {
               hintText: "Enter ${fieldName}",
               hintStyle: Theme.of(context).textTheme.subtitle1,
             ),
-            obscureText: _isObscured.value,
+            obscureText: isPassword ? !_isObscured.value : _isObscured.value,
             validator: (value) {
               value == null || value.isEmpty
                   ? '${fieldName} is required'

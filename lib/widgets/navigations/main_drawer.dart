@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/screens/condos/login_screen.dart';
+import 'package:rmp_flutter/screens/condos/profile/profile_setting_screen.dart';
 import 'package:rmp_flutter/widgets/navigations/drawer_button.dart';
 import 'package:rmp_flutter/widgets/general/brand_title.dart';
 
@@ -31,7 +33,10 @@ class MainDrawer extends StatelessWidget {
             SafeArea(child: kSizedBoxVerticalS),
             DrawerButton(
               text: "Profile Settings",
-              onPressed: () => print('Hello World'),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfileSettingScreen()),
+              ),
               icon: Icon(
                 Icons.account_circle_outlined,
                 size: kSizeM,
@@ -40,7 +45,10 @@ class MainDrawer extends StatelessWidget {
             ),
             DrawerButton(
               text: "About us",
-              onPressed: () => print('Hello World'),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+              ),
               icon: Icon(
                 Icons.info_outline_rounded,
                 size: kSizeM,
