@@ -118,7 +118,6 @@ class ResidentHomeScreen extends StatelessWidget {
                                   child: ListView.builder(
                                     itemCount: _dummyData.length,
                                     itemBuilder: (context, index) {
-                                      final data = _dummyData[index];
                                       return AnnouncementCard(
                                         title: _dummyData[index]['title'].toString(),
                                         subtitle: _dummyData[index]['subtitle'].toString(),
