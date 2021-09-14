@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/screens/condos/forgot_password_screen.dart';
+import 'package:rmp_flutter/screens/condos/login_screen.dart';
 import 'package:rmp_flutter/screens/main_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 
-class LoginScreen extends HookWidget {
-  static const routeName = "/login";
-  const LoginScreen({Key? key}) : super(key: key);
+class ForgotPasswordScreen extends HookWidget {
+  static const routeName = "/forgot-password";
+  const ForgotPasswordScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _username = useTextEditingController();
-    final _password = useTextEditingController();
 
     return Scaffold(
       backgroundColor: kBgColor,
@@ -45,7 +43,7 @@ class LoginScreen extends HookWidget {
                       kSizedBoxVerticalM,
                       kSizedBoxVerticalS,
                       Text(
-                        "Login",
+                        "Password Recovery",
                         style: GoogleFonts.montserrat(
                           color: kBlackColor,
                           fontSize: kFontSizeHeadline3,
@@ -93,25 +91,12 @@ class LoginScreen extends HookWidget {
                     ),
                   ),
                   kSizedBoxVerticalS,
-                  Container(
-                    child: FormTextFieldIcon(
-                      fieldName: "Password",
-                      icon: Icon(
-                        Icons.lock_rounded,
-                        size: kSizeM,
-                      ),
-                      textEditingController: _password,
-                      suffixText: 'Show',
-                      isPassword: true,
-                    ),
-                  ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(ForgotPasswordScreen.routeName);
+                      Navigator.of(context).pushNamed(LoginScreen.routeName);
                     },
                     child: Text(
-                      "Forgot Password?",
+                      "Back to log in",
                       style: Theme.of(context).textTheme.headline5?.copyWith(
                             fontSize: kFontSizeHeadline4,
                           ),
@@ -124,9 +109,9 @@ class LoginScreen extends HookWidget {
                       horizontal: kSizeM * 1.25,
                     ),
                     child: CustomButton(
-                      text: "LOGIN",
-                      onPressed: () =>
-                          Navigator.of(context).pushNamed(MainScreen.routeName),
+                      text: "SUBMIT",
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(LoginScreen.routeName),
                     ),
                   ),
                 ],
