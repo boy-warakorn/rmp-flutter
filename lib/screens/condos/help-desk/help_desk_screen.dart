@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/screens/condos/help-desk/reply_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_slider.dart';
 import 'package:rmp_flutter/widgets/general/help_desk_card.dart';
@@ -78,8 +79,8 @@ class HelpDeskScreen extends HookWidget {
                   detail: "${filterList()[index]["detail"]}",
                   actionButton: filterList()[index]["isResponded"] as bool
                       ? CustomButton(
-                          onPressed: () =>
-                              Navigator.of(context).pushNamed('/condo/reply'),
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed(ReplyScreen.routeName),
                           text: "Reply",
                         )
                       : const SizedBox(),

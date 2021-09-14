@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
 import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
 import 'package:rmp_flutter/widgets/navigations/main_drawer.dart';
@@ -80,7 +81,7 @@ class PostalScreen extends StatelessWidget {
                           date: "13/9/2021",
                           note: "24 inches monitor",
                           onPressed: () => Navigator.of(context)
-                              .pushNamed('/condo/package-detail'),
+                              .pushNamed(PackageDetailScreen.routeName),
                         ),
                       ),
                     ),

@@ -46,10 +46,19 @@ class _FormTextFieldState extends State<FormTextField> {
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
                 borderRadius: kBorderRadiusM,
+                borderSide: BorderSide(
+                  color: kAlternativeColor,
+                  width: kSizeXXXS / 2,
+                ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: kBorderRadiusM,
+                borderSide: BorderSide(
+                  color: kAlternativeColor,
+                  width: kSizeXXXS / 2,
+                ),
               ),
+              focusColor: kInputBorderColor,
               contentPadding: EdgeInsets.symmetric(
                 horizontal: kSizeS,
                 vertical: kSizeS / 1.7,
