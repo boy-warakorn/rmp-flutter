@@ -55,11 +55,11 @@ class DashboardScreen extends StatelessWidget {
                   header: "Postal Package",
                   leftCard: TitleCard(
                     title: "Recieved",
-                    count: 5,
+                    subtitle: 5.toString(),
                   ),
                   rightCard: TitleCard(
                     title: "Total",
-                    count: 5,
+                    subtitle: 5.toString(),
                   ),
                 ),
                 kSizedBoxVerticalS,
@@ -68,11 +68,11 @@ class DashboardScreen extends StatelessWidget {
                   header: "Residential Report",
                   leftCard: TitleCard(
                     title: "Unread",
-                    count: 5,
+                    subtitle: 5.toString(),
                   ),
                   rightCard: TitleCard(
                     title: "Replied",
-                    count: 5,
+                    subtitle: 5.toString(),
                   ),
                 ),
                 kSizedBoxVerticalS,

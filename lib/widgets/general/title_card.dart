@@ -7,6 +7,9 @@ class TitleCard extends StatelessWidget {
   final String title;
   final int count;
 
+  // upcoming params
+  final String? subtitle;
+
   const TitleCard({
     Key? key,
     this.icon = const Icon(
@@ -14,7 +17,8 @@ class TitleCard extends StatelessWidget {
       size: 0,
     ),
     required this.title,
-    required this.count,
+    @Deprecated('Use [subtitle] instead') this.count = 0,
+    this.subtitle,
   }) : super(key: key);
 
   @override
@@ -35,7 +39,7 @@ class TitleCard extends StatelessWidget {
           ),
           icon.icon == null ? kSizedBoxVerticalS : kSizedBoxVerticalXS,
           Text(
-            "$count",
+            subtitle != null ? "$subtitle" : "$count",
             style: Theme.of(context).textTheme.headline5?.copyWith(
                   fontWeight: FontWeight.normal,
                 ),

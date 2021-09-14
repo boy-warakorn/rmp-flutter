@@ -84,7 +84,7 @@ class PaymentScreen extends StatelessWidget {
                                 Expanded(
                                   child: TitleCard(
                                     title: "Electricity",
-                                    count: 100,
+                                    subtitle: "\$100",
                                     icon: Icon(
                                       Icons.bolt,
                                       color: kWarningColor,
@@ -95,7 +95,7 @@ class PaymentScreen extends StatelessWidget {
                                 Expanded(
                                   child: TitleCard(
                                     title: "Water",
-                                    count: 100,
+                                    subtitle: "\$1500",
                                     icon: Icon(
                                       Icons.water_damage_outlined,
                                       color: kStrokeColor,
@@ -111,7 +111,7 @@ class PaymentScreen extends StatelessWidget {
                                   child: TitleCard(
                                     icon: Icon(Icons.payment, color: kSuccessColor,),
                                     title: "Common Charge",
-                                    count: 500,
+                                    subtitle: '\$500',
                                   ),
                                 ),
                               ],

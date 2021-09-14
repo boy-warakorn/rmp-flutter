@@ -75,7 +75,7 @@ class ResidentPostalScreen extends StatelessWidget {
                                 Expanded(
                                   child: TitleCard(
                                     title: "Recieved",
-                                    count: 100,
+                                    subtitle: 100.toString(),
                                     icon: Icon(
                                       Icons.ac_unit,
                                       color: kStrokeColor,
@@ -86,7 +86,7 @@ class ResidentPostalScreen extends StatelessWidget {
                                 Expanded(
                                   child: TitleCard(
                                     title: "Not Recieved",
-                                    count: 100,
+                                    subtitle: 100.toString(),
                                     icon: Icon(
                                       Icons.ac_unit,
                                       color: kErrorColor,
