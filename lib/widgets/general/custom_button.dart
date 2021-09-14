@@ -13,7 +13,9 @@ class CustomButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.color = kBrandColor,
-    this.padding = const EdgeInsets.all(kSizeS)
+    this.padding = const EdgeInsets.all(
+      kSizeXXS,
+    ),
   }) : super(key: key);
 
   @override

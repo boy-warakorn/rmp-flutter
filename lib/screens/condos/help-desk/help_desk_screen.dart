@@ -82,8 +82,8 @@ class HelpDeskScreen extends HookWidget {
                       : CustomButton(
                           onPressed: () => Navigator.of(context)
                               .pushNamed(ReplyScreen.routeName),
-                          text: "Reply",
-                      ),
+                          text: "REPLY",
+                        ),
                 ),
               ),
             ),

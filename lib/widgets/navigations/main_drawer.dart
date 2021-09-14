@@ -31,7 +31,7 @@ class MainDrawer extends StatelessWidget {
                 ),
                 brandTitle: 'Condominium'),
             Divider(),
-            SafeArea(child: kSizedBoxVerticalS),
+            kSizedBoxVerticalS,
             DrawerButton(
               text: "Profile Settings",
               onPressed: () => Navigator.of(context)
@@ -53,9 +53,7 @@ class MainDrawer extends StatelessWidget {
               ),
             ),
             Divider(),
-            SafeArea(
-              child: kSizedBoxVerticalS,
-            ),
+            kSizedBoxVerticalXXS,
             DrawerButton(
               text: "Log Out",
               onPressed: () =>

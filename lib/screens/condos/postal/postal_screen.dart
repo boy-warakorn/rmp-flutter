@@ -33,8 +33,8 @@ class PostalScreen extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.symmetric(
-                horizontal: kSizeS * 1.5,
                 vertical: kSizeS,
+                horizontal: kSizeS * 1.5,
               ),
               child: Column(
                 children: [
@@ -49,8 +49,10 @@ class PostalScreen extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                padding: EdgeInsets.all(
-                  kSizeS * 1.5,
+                padding: EdgeInsets.only(
+                  left: kSizeS * 1.5,
+                  right: kSizeS * 1.5,
+                  top: kSizeS,
                 ),
                 decoration: BoxDecoration(
                   color: kBgColor,
@@ -71,7 +73,6 @@ class PostalScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                     ),
-                    kSizedBoxVerticalXS,
                     kSizedBoxVerticalS,
                     Expanded(
                       child: ListView.builder(
