@@ -35,6 +35,7 @@ const _dummyData = [
 ];
 
 class PaymentScreen extends StatelessWidget {
+  static const routeName = "/resident/payment";
   const PaymentScreen({Key? key}) : super(key: key);
 
   @override
@@ -109,7 +110,10 @@ class PaymentScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: TitleCard(
-                                    icon: Icon(Icons.payment, color: kSuccessColor,),
+                                    icon: Icon(
+                                      Icons.payment,
+                                      color: kSuccessColor,
+                                    ),
                                     title: "Common Charge",
                                     subtitle: '\$500',
                                   ),

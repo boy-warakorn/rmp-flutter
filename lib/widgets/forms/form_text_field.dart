@@ -44,13 +44,6 @@ class _FormTextFieldState extends State<FormTextField> {
           child: TextFormField(
             controller: widget.textEditingController,
             decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: kBorderRadiusM,
-                borderSide: BorderSide(
-                  color: kAlternativeColor,
-                  width: kSizeXXXS / 2,
-                ),
-              ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: kBorderRadiusM,
               ),
