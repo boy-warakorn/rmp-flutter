@@ -76,22 +76,27 @@ class BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: kBrandColor,
-      type: BottomNavigationBarType.fixed,
-      currentIndex: currentIndex,
-      onTap: onTap,
-      unselectedItemColor: kLightColor,
-      unselectedLabelStyle: GoogleFonts.montserrat(
-        fontSize: kFontSizeSubtitle1,
+    return ClipRRect(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(kSizeXS),
       ),
-      selectedItemColor: kBlackColor,
-      selectedLabelStyle: GoogleFonts.montserrat(
-        fontSize: kFontSizeSubtitle1,
+      child: BottomNavigationBar(
+        backgroundColor: kBrandColor,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: currentIndex,
+        onTap: onTap,
+        unselectedItemColor: kLightColor,
+        unselectedLabelStyle: GoogleFonts.montserrat(
+          fontSize: kFontSizeSubtitle1,
+        ),
+        selectedItemColor: kBlackColor,
+        selectedLabelStyle: GoogleFonts.montserrat(
+          fontSize: kFontSizeSubtitle1,
+        ),
+        items: isResident
+            ? residentBottomNavigationBarItem
+            : personnelBottomNavigationBarItem,
       ),
-      items: isResident
-          ? residentBottomNavigationBarItem
-          : personnelBottomNavigationBarItem,
     );
   }
 }

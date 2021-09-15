@@ -4,10 +4,10 @@ import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/screens/condos/dashboard/dashboard_screen.dart';
 import 'package:rmp_flutter/screens/condos/help-desk/help_desk_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_screen.dart';
-import 'package:rmp_flutter/screens/residents/payment/specific_payment_screen.dart';
+import 'package:rmp_flutter/screens/residents/contact-support/contact_support_screen.dart';
+import 'package:rmp_flutter/screens/residents/home_screen.dart';
 import 'package:rmp_flutter/screens/residents/postal/resident_postal_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/payment_screen.dart';
-import 'package:rmp_flutter/screens/widget_preview_screen.dart';
 import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
 import 'package:rmp_flutter/widgets/navigations/bottom_bar.dart';
 import 'package:rmp_flutter/widgets/navigations/main_drawer.dart';
@@ -19,10 +19,19 @@ class MainScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _tabs = [
+    const isResident = true;
+
+    final _condoTabs = [
       const DashboardScreen(),
       const HelpDeskScreen(),
       const PostalScreen()
+    ];
+
+    final _residentTabs = [
+      const ResidentHomeScreen(),
+      const PaymentScreen(),
+      const ResidentPostalScreen(),
+      const ContactSupportScreen(),
     ];
 
     final _currentTabIndex = useState(0);
@@ -33,10 +42,16 @@ class MainScreen extends HookWidget {
 
     return Scaffold(
       backgroundColor: kBgColor,
-      body: _tabs[_currentTabIndex.value],
+      appBar: MainAppBar(
+        haveFilter: _currentTabIndex.value > 0 ? true : false,
+      ),
+      drawer: MainDrawer(),
+      body: isResident
+          ? _residentTabs[_currentTabIndex.value]
+          : _condoTabs[_currentTabIndex.value],
       bottomNavigationBar: BottomBar(
         currentIndex: _currentTabIndex.value,
-        isResident: false,
+        isResident: isResident,
         onTap: onTap,
       ),
     );

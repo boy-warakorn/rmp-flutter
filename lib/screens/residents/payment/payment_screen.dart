@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/screens/residents/payment/specific_payment_screen.dart';
 import 'package:rmp_flutter/widgets/general/payment_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 
@@ -134,12 +135,12 @@ class PaymentScreen extends StatelessWidget {
                             ),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(kSizeS),
+                            padding: const EdgeInsets.all(kSizeS * 1.5),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "All Packages",
+                                  "My Payments",
                                   style: Theme.of(context).textTheme.headline3,
                                 ),
                                 kSizedBoxVerticalS,
@@ -149,13 +150,13 @@ class PaymentScreen extends StatelessWidget {
                                     itemCount: 5,
                                     itemBuilder: (context, index) {
                                       final data = _dummyData[index];
-
                                       return PaymentCard(
                                         type: "${data['type']}",
                                         amount: "${data['amount']}",
                                         paidDate: "${data['date']}",
-                                        onPressed: () =>
-                                            print("Select ${data['type']}"),
+                                        onPressed: () => Navigator.of(context)
+                                            .pushNamed(SpecificPaymentScreen
+                                                .routeName),
                                       );
                                     },
                                   ),

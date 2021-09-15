@@ -6,6 +6,7 @@ const kBrandAlternativeDarkerColor = Color(0xFF202CBB);
 const kStrokeColor = Color(0xFF1999F2);
 const kBrandTitleColor = Color(0xFF212121);
 const kBrandLighterColor = Color(0xFF8BCAF5);
+const kDrawerColor = Color(0xFFDFE0EB); 
 
 const kAlternativeColor = Color(0xFF7D7676);
 
