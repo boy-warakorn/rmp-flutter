@@ -42,8 +42,9 @@ class PaymentResultScreen extends StatelessWidget {
                 Container(
                   child: CustomButton(
                     text: "BACK TO HOME",
-                    onPressed: () =>
-                        Navigator.of(context).pushNamed(MainScreen.routeName),
+                    onPressed: () => Navigator.of(context)
+                        .pushNamedAndRemoveUntil(
+                            MainScreen.routeName, (_) => false),
                     padding: EdgeInsets.symmetric(
                       horizontal: kSizeS,
                       vertical: kSizeXS,

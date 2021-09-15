@@ -19,7 +19,7 @@ class MainScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    const isResident = true;
+    const isResident = false;
 
     final _condoTabs = [
       const DashboardScreen(),

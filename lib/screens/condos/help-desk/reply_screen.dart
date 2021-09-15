@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/screens/condos/help-desk/help_desk_screen.dart';
+import 'package:rmp_flutter/screens/main_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/layout/card_template.dart';
@@ -67,7 +69,9 @@ class ReplyScreen extends HookWidget {
                           width: kSizeXL,
                           child: CustomButton(
                             text: "SUBMIT",
-                            onPressed: () => Navigator.of(context).pop(),
+                            onPressed: () => Navigator.of(context)
+                                .pushNamedAndRemoveUntil(
+                                    MainScreen.routeName, (_) => false),
                           ),
                         ),
                       ],

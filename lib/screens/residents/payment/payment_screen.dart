@@ -140,7 +140,7 @@ class PaymentScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "My Payments",
+                                  "My Payment",
                                   style: Theme.of(context).textTheme.headline3,
                                 ),
                                 kSizedBoxVerticalS,
