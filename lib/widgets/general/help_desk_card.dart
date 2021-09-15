@@ -14,7 +14,7 @@ class HelpDeskCard extends StatelessWidget {
     required this.title,
     required this.date,
     required this.detail,
-    required this.actionButton,
+    this.actionButton,
   }) : super(key: key);
 
   @override
