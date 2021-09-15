@@ -26,9 +26,10 @@ class ContactSupportScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: kSizeS * 1.5,
-              vertical: kSizeS,
+            padding: EdgeInsets.only(
+              left: kSizeS * 1.5,
+              top: kSizeS * 1.5,
+              bottom: kSizeS,
             ),
             child: Column(
               children: [
@@ -65,7 +66,6 @@ class ContactSupportScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                   ),
-                  kSizedBoxVerticalXS,
                   kSizedBoxVerticalS,
                   Expanded(
                     child: ListView.builder(
