@@ -7,7 +7,7 @@ class HelpDeskCard extends StatelessWidget {
   final String title;
   final String date;
   final String detail;
-  final Widget actionButton;
+  final Widget? actionButton;
 
   const HelpDeskCard({
     Key? key,
@@ -53,14 +53,15 @@ class HelpDeskCard extends StatelessWidget {
             ],
           ),
           kSizedBoxVerticalXS,
-          Row(
-            children: [
-              Expanded(
-                child: SizedBox(),
-              ),
-              Container(width: kSizeXL, child: actionButton),
-            ],
-          ),
+          if (actionButton != null)
+            Row(
+              children: [
+                const Expanded(
+                  child: SizedBox(),
+                ),
+                SizedBox(width: kSizeXL, child: actionButton),
+              ],
+            ),
         ],
       ),
     );
