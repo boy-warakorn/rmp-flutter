@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/screens/residents/contact-support/report_detail_screen.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
 import 'package:rmp_flutter/widgets/general/entity_card_status.dart';
-import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
 
 class ContactSupportScreen extends StatelessWidget {
   static const routeName = "/resident/contact-support";
@@ -11,85 +11,82 @@ class ContactSupportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MainAppBar(
-        haveFilter: true,
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-            colors: <Color>[
-              kBrandColor,
-              kBrandAlternativeDarkerColor,
-            ],
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: <Color>[
+            kBrandColor,
+            kBrandAlternativeDarkerColor,
+          ],
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: kSizeS * 1.5,
-                vertical: kSizeS,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.only(
+              left: kSizeS * 1.5,
+              top: kSizeS * 1.5,
+              bottom: kSizeS,
+            ),
+            child: Column(
+              children: [
+                Text(
+                  "Contact Support",
+                  style: Theme.of(context).textTheme.headline3?.copyWith(
+                        color: kLightColor,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(
+                kSizeS * 1.5,
+              ),
+              decoration: BoxDecoration(
+                color: kBgColor,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(
+                    kSizeS,
+                  ),
+                ),
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Contact Support",
-                    style: Theme.of(context).textTheme.headline3?.copyWith(
-                          color: kLightColor,
+                    "All Reports",
+                    style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                          fontSize: kFontSizeHeadline3,
+                          color: kBrandDarkerColor,
+                          fontWeight: FontWeight.bold,
                         ),
+                  ),
+                  kSizedBoxVerticalS,
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: 10,
+                      itemBuilder: (ctx, index) => EntityCard(
+                        title: "This is title",
+                        date: "13/9/2021",
+                        entityStatus: EntityCardStatus(
+                          text: "Recieved",
+                          color: kSuccessColor,
+                        ),
+                        onPressed: () => Navigator.of(context)
+                            .pushNamed(ReportDetailScreen.routeName),
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.all(
-                  kSizeS * 1.5,
-                ),
-                decoration: BoxDecoration(
-                  color: kBgColor,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(
-                      kSizeS,
-                    ),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "All Reports",
-                      style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                            fontSize: kFontSizeHeadline3,
-                            color: kBrandDarkerColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    kSizedBoxVerticalXS,
-                    kSizedBoxVerticalS,
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: 10,
-                        itemBuilder: (ctx, index) => EntityCard(
-                          title: "This is title",
-                          date: "13/9/2021",
-                          entityStatus: EntityCardStatus(
-                            text: "Recieved",
-                            color: kSuccessColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

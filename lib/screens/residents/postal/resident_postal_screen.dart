@@ -96,6 +96,17 @@ class ResidentPostalScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            kSizedBoxVerticalXS,
+                            kSizedBoxVerticalS,
+                            Text(
+                              "All Packages",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline3
+                                  ?.copyWith(
+                                    color: kLightColor,
+                                  ),
+                            ),
                           ],
                         ),
                       ),
@@ -110,16 +121,10 @@ class ResidentPostalScreen extends StatelessWidget {
                             ),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(kSizeS),
+                            padding: const EdgeInsets.all(kSizeS * 1.5),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "All Packages",
-                                  style: Theme.of(context).textTheme.headline3,
-                                ),
-                                kSizedBoxVerticalS,
-                                kSizedBoxVerticalXS,
                                 Expanded(
                                   child: ListView.builder(
                                     itemCount: _dummyData.length,
@@ -127,16 +132,18 @@ class ResidentPostalScreen extends StatelessWidget {
                                       final data = _dummyData[index];
 
                                       return EntityCard(
-                                          title: "${data['title']}",
-                                          date: "${data['date']}",
-                                          entityStatus:
-                                              data['status'] == "recieved"
-                                                  ? EntityCardStatus(
-                                                      text: "Recieved",
-                                                      color: kSuccessColor)
-                                                  : EntityCardStatus(
-                                                      text: "In-office",
-                                                      color: kWarningColor));
+                                        onPressed: () => print('Postal detail'),
+                                        title: "${data['title']}",
+                                        date: "${data['date']}",
+                                        entityStatus:
+                                            data['status'] == "recieved"
+                                                ? EntityCardStatus(
+                                                    text: "Recieved",
+                                                    color: kSuccessColor)
+                                                : EntityCardStatus(
+                                                    text: "In-office",
+                                                    color: kWarningColor),
+                                      );
                                     },
                                   ),
                                 ),
@@ -147,6 +154,10 @@ class ResidentPostalScreen extends StatelessWidget {
                                     CustomButton(
                                       text: "SHOW IDENTIFICATION",
                                       onPressed: () => print("IDEN"),
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: kSizeXS,
+                                        horizontal: kSizeS,
+                                      ),
                                     ),
                                   ],
                                 ),

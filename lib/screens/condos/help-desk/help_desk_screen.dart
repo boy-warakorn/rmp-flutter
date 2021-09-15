@@ -5,8 +5,6 @@ import 'package:rmp_flutter/screens/condos/help-desk/reply_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_slider.dart';
 import 'package:rmp_flutter/widgets/general/help_desk_card.dart';
-import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
-import 'package:rmp_flutter/widgets/navigations/main_drawer.dart';
 
 const loremIpsum =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare accumsan nulla non accumsan. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eget pharetra lacus. Maecenas et dolor blandit, sodales justo pharetra,";
@@ -51,44 +49,38 @@ class HelpDeskScreen extends HookWidget {
           .toList();
     }
 
-    return Scaffold(
-      appBar: MainAppBar(
-        haveFilter: true,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: kSizeS * (24 / 16),
       ),
-      drawer: MainDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: kSizeS * (24 / 16),
-        ),
-        child: Column(
-          children: [
-            kSizedBoxVerticalS,
-            kSizedBoxVerticalXS,
-            CustomSlider(
-              isResponded: _isResponded.value,
-              onValueChanged: (switchTo) => switchResponded(switchTo),
-            ),
-            kSizedBoxVerticalS,
-            kSizedBoxHorizontalXS,
-            Expanded(
-              child: ListView.builder(
-                itemCount: filterList().length,
-                itemBuilder: (context, index) => HelpDeskCard(
-                  title: "${filterList()[index]["title"]}",
-                  date: "${filterList()[index]["date"]}",
-                  detail: "${filterList()[index]["detail"]}",
-                  actionButton: filterList()[index]["isResponded"] as bool
-                      ? const SizedBox()
-                      : CustomButton(
-                          onPressed: () => Navigator.of(context)
-                              .pushNamed(ReplyScreen.routeName),
-                          text: "REPLY",
-                        ),
-                ),
+      child: Column(
+        children: [
+          kSizedBoxVerticalS,
+          kSizedBoxVerticalXS,
+          CustomSlider(
+            isResponded: _isResponded.value,
+            onValueChanged: (switchTo) => switchResponded(switchTo),
+          ),
+          kSizedBoxVerticalS,
+          kSizedBoxHorizontalXS,
+          Expanded(
+            child: ListView.builder(
+              itemCount: filterList().length,
+              itemBuilder: (context, index) => HelpDeskCard(
+                title: "${filterList()[index]["title"]}",
+                date: "${filterList()[index]["date"]}",
+                detail: "${filterList()[index]["detail"]}",
+                actionButton: filterList()[index]["isResponded"] as bool
+                    ? const SizedBox()
+                    : CustomButton(
+                        onPressed: () => Navigator.of(context)
+                            .pushNamed(ReplyScreen.routeName),
+                        text: "REPLY",
+                      ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -14,8 +14,8 @@ class MainDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.only(
-        topRight: Radius.circular(kSizeS),
-        bottomRight: Radius.circular(kSizeS),
+        topRight: Radius.circular(kSizeXS * 1.5),
+        bottomRight: Radius.circular(kSizeXS * 1.5),
       ),
       child: Drawer(
         child: ListView(
@@ -30,7 +30,10 @@ class MainDrawer extends StatelessWidget {
                   width: kSizeM,
                 ),
                 brandTitle: 'Condominium'),
-            Divider(),
+            Divider(
+              color: kDrawerColor,
+              thickness: 1,
+            ),
             kSizedBoxVerticalS,
             DrawerButton(
               text: "Profile Settings",
@@ -52,14 +55,17 @@ class MainDrawer extends StatelessWidget {
                 color: kBlackColor,
               ),
             ),
-            Divider(),
-            kSizedBoxVerticalXXS,
+            Divider(
+              color: kDrawerColor,
+              thickness: 1,
+            ),
+            kSizedBoxVerticalS,
             DrawerButton(
               text: "Log Out",
               onPressed: () =>
                   Navigator.of(context).pushNamed(LoginScreen.routeName),
               icon: Icon(
-                Icons.logout_outlined,
+                Icons.logout_rounded,
                 size: kSizeM,
                 color: kBlackColor,
               ),

@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/condos/login_screen.dart';
-import 'package:rmp_flutter/screens/main_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 
