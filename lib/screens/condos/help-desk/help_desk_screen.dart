@@ -5,8 +5,6 @@ import 'package:rmp_flutter/screens/condos/help-desk/reply_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_slider.dart';
 import 'package:rmp_flutter/widgets/general/help_desk_card.dart';
-import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
-import 'package:rmp_flutter/widgets/navigations/main_drawer.dart';
 
 const loremIpsum =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare accumsan nulla non accumsan. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eget pharetra lacus. Maecenas et dolor blandit, sodales justo pharetra,";

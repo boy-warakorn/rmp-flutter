@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/screens/residents/payment/payment_result_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/specific_payment_screen.dart';
 import 'package:rmp_flutter/widgets/general/payment_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';

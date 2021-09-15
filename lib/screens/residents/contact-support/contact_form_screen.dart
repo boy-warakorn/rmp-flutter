@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/screens/main_screen.dart';
+import 'package:rmp_flutter/screens/residents/contact-support/contact_result_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
 import 'package:rmp_flutter/widgets/general/alert_box.dart';
@@ -26,7 +26,7 @@ class ContactFormScreen extends HookWidget {
           padding: EdgeInsets.only(
             left: kSizeS * 1.5,
             right: kSizeS * 1.5,
-            top: kSizeS,
+            top: kSizeS * 1.75,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +42,7 @@ class ContactFormScreen extends HookWidget {
                 minLine: 10,
                 maxLine: 20,
               ),
-              kSizedBoxVerticalM,
+              kSizedBoxVerticalL,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -66,7 +66,7 @@ class ContactFormScreen extends HookWidget {
                             message: "Are you sure?",
                             onNegative: () => Navigator.of(context).pop(),
                             onPositive: () => Navigator.of(context)
-                                .pushNamed(MainScreen.routeName),
+                                .pushNamed(ContactResultScreen.routeName),
                           ),
                         ),
                       },

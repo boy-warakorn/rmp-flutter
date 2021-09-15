@@ -6,10 +6,8 @@ import 'package:rmp_flutter/screens/condos/help-desk/help_desk_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_support_screen.dart';
 import 'package:rmp_flutter/screens/residents/home_screen.dart';
-import 'package:rmp_flutter/screens/residents/payment/specific_payment_screen.dart';
 import 'package:rmp_flutter/screens/residents/postal/resident_postal_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/payment_screen.dart';
-import 'package:rmp_flutter/screens/widget_preview_screen.dart';
 import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
 import 'package:rmp_flutter/widgets/navigations/bottom_bar.dart';
 import 'package:rmp_flutter/widgets/navigations/main_drawer.dart';
@@ -45,7 +43,7 @@ class MainScreen extends HookWidget {
     return Scaffold(
       backgroundColor: kBgColor,
       appBar: MainAppBar(
-        haveFilter: false,
+        haveFilter: _currentTabIndex.value > 0 ? true : false,
       ),
       drawer: MainDrawer(),
       body: isResident

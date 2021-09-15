@@ -4,8 +4,6 @@ import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
-import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
-import 'package:rmp_flutter/widgets/navigations/main_drawer.dart';
 
 class PostalScreen extends StatelessWidget {
   static const routeName = "/condo/postal";

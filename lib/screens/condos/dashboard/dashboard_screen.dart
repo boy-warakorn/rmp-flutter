@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/widgets/general/summary_entity.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 import 'package:rmp_flutter/widgets/layout/card_template.dart';
-import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
-import 'package:rmp_flutter/widgets/navigations/main_drawer.dart';
 
 class DashboardScreen extends StatelessWidget {
   static const routeName = "/condo/dashboard";
