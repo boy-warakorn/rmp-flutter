@@ -8,7 +8,9 @@ import 'package:rmp_flutter/widgets/navigations/drawer_button.dart';
 import 'package:rmp_flutter/widgets/general/brand_title.dart';
 
 class MainDrawer extends StatelessWidget {
-  const MainDrawer({Key? key}) : super(key: key);
+  const MainDrawer({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +64,8 @@ class MainDrawer extends StatelessWidget {
             kSizedBoxVerticalS,
             DrawerButton(
               text: "Log Out",
-              onPressed: () =>
-                  Navigator.of(context).pushNamed(LoginScreen.routeName),
+              onPressed: () => Navigator.of(context)
+                  .pushNamedAndRemoveUntil(LoginScreen.routeName, (_) => false),
               icon: Icon(
                 Icons.logout_rounded,
                 size: kSizeM,

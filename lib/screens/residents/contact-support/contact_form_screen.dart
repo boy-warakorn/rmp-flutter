@@ -60,15 +60,8 @@ class ContactFormScreen extends HookWidget {
                     child: CustomButton(
                       text: "SEND",
                       onPressed: () => {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertBox(
-                            message: "Are you sure?",
-                            onNegative: () => Navigator.of(context).pop(),
-                            onPositive: () => Navigator.of(context)
-                                .pushNamed(ContactResultScreen.routeName),
-                          ),
-                        ),
+                        Navigator.of(context)
+                            .pushNamed(ContactResultScreen.routeName),
                       },
                     ),
                   ),

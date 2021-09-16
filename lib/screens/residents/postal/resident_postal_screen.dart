@@ -121,7 +121,12 @@ class ResidentPostalScreen extends StatelessWidget {
                             ),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(kSizeS * 1.5),
+                            padding: const EdgeInsets.only(
+                              top: kSizeS * 1.5,
+                              left: kSizeS * 1.5,
+                              right: kSizeS * 1.5,
+                              bottom: kSizeS,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

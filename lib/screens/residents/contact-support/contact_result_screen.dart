@@ -11,7 +11,7 @@ class ContactResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBgColor,
+      backgroundColor: kLightColor,
       body: Container(
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
@@ -30,7 +30,7 @@ class ContactResultScreen extends StatelessWidget {
                     color: kBlackColor,
                   ),
             ),
-            kSizedBoxVerticalS,
+            kSizedBoxVerticalXS,
             Text(
               'We will be reaching to you soon',
               style: Theme.of(context).textTheme.headline4,
@@ -42,8 +42,9 @@ class ContactResultScreen extends StatelessWidget {
                 Container(
                   child: CustomButton(
                     text: "BACK TO HOME",
-                    onPressed: () =>
-                        Navigator.of(context).pushNamed(MainScreen.routeName),
+                    onPressed: () => Navigator.of(context)
+                        .pushNamedAndRemoveUntil(
+                            MainScreen.routeName, (_) => false),
                     padding: EdgeInsets.symmetric(
                       horizontal: kSizeS,
                       vertical: kSizeXS,

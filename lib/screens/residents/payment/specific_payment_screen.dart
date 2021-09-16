@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/screens/residents/payment/confirm_payment_screen.dart';
 import 'package:rmp_flutter/widgets/general/card_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:image_picker/image_picker.dart';
@@ -72,7 +73,8 @@ class SpecificPaymentScreen extends StatelessWidget {
                     ),
                     CustomButton(
                       text: "UPLOAD RECEIPT",
-                      onPressed: () => _takePhoto,
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(ConfirmPaymentScreen.routeName),
                     ),
                   ],
                 ),
