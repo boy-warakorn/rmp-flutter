@@ -2,21 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/auths.dart';
+import 'package:rmp_flutter/repositories/auth_repository.dart';
 import 'package:rmp_flutter/screens/condos/forgot_password_screen.dart';
 import 'package:rmp_flutter/screens/main_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 
-class LoginScreen extends HookWidget {
+class LoginScreen extends HookConsumerWidget {
   static const routeName = "/login";
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final _username = useTextEditingController();
     final _password = useTextEditingController();
+
+    final _authRepository = ref.read(authRepositoryProvider);
 
     return Scaffold(
       backgroundColor: kBgColor,
@@ -36,7 +41,9 @@ class LoginScreen extends HookWidget {
                   ),
                 ],
                 borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(kSizeM),
+                  bottom: Radius.circular(
+                    kSizeM,
+                  ),
                 ),
               ),
               child: Column(
@@ -138,8 +145,11 @@ class LoginScreen extends HookWidget {
                         vertical: kSizeS * 1.2,
                       ),
                       text: "LOGIN",
-                      onPressed: () =>
-                          Navigator.of(context).pushNamed(MainScreen.routeName),
+                      onPressed: () async {
+                        final _authDto = AuthDto(
+                            username: _username.text, password: _password.text);
+                        await _authRepository.login(_authDto);
+                      },
                     ),
                   ),
                 ],
