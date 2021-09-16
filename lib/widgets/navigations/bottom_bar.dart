@@ -21,30 +21,30 @@ class BottomBar extends StatelessWidget {
     BottomNavigationBarItem(
       icon: Icon(
         Icons.home,
-        size: kSizeM,
+        size: kSizeS * 1.5,
       ),
-      label: 'HOME',
+      label: 'Home',
     ),
     BottomNavigationBarItem(
       icon: Icon(
         Icons.credit_card,
-        size: kSizeM,
+        size: kSizeS * 1.5,
       ),
-      label: 'PAYMENT',
+      label: 'Payment',
     ),
     BottomNavigationBarItem(
       icon: Icon(
         Icons.layers,
-        size: kSizeM,
+        size: kSizeS * 1.5,
       ),
-      label: 'POSTAL',
+      label: 'Postal',
     ),
     BottomNavigationBarItem(
       icon: Icon(
         Icons.chat_bubble_outline_rounded,
-        size: kSizeM,
+        size: kSizeS * 1.5,
       ),
-      label: 'HELPDESK',
+      label: 'Helpdesk',
     ),
   ];
 
@@ -54,23 +54,23 @@ class BottomBar extends StatelessWidget {
     BottomNavigationBarItem(
       icon: Icon(
         Icons.home,
-        size: kSizeM,
+        size: kSizeS * 1.5,
       ),
-      label: 'HOME',
+      label: 'Home',
     ),
     BottomNavigationBarItem(
       icon: Icon(
         Icons.chat_bubble_outline_rounded,
-        size: kSizeM,
+        size: kSizeS * 1.5,
       ),
-      label: 'HELPDESK',
+      label: 'Helpdesk',
     ),
     BottomNavigationBarItem(
       icon: Icon(
         Icons.layers,
-        size: kSizeM,
+        size: kSizeS * 1.5,
       ),
-      label: 'POSTAL',
+      label: 'Postal',
     ),
   ];
 
@@ -85,11 +85,11 @@ class BottomBar extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         currentIndex: currentIndex,
         onTap: onTap,
-        unselectedItemColor: kLightColor,
+        unselectedItemColor: Colors.grey[300]?.withOpacity(0.7),
         unselectedLabelStyle: GoogleFonts.montserrat(
           fontSize: kFontSizeSubtitle1,
         ),
-        selectedItemColor: kBlackColor,
+        selectedItemColor: kLightColor,
         selectedLabelStyle: GoogleFonts.montserrat(
           fontSize: kFontSizeSubtitle1,
         ),

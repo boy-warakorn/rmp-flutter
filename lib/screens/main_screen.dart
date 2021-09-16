@@ -1,9 +1,12 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
+import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/condos/dashboard/dashboard_screen.dart';
 import 'package:rmp_flutter/screens/condos/help-desk/help_desk_screen.dart';
+import 'package:rmp_flutter/screens/condos/postal/postal_add_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_screen.dart';
+import 'package:rmp_flutter/screens/residents/contact-support/contact_form_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_support_screen.dart';
 import 'package:rmp_flutter/screens/residents/home_screen.dart';
 import 'package:rmp_flutter/screens/residents/postal/resident_postal_screen.dart';
@@ -54,6 +57,20 @@ class MainScreen extends HookWidget {
         isResident: isResident,
         onTap: onTap,
       ),
+      floatingActionButton: (_currentTabIndex.value == 2 && !isResident) ||
+              (_currentTabIndex.value == 3 && isResident)
+          ? FloatingActionButton(
+              onPressed: () => isResident
+                  ? Navigator.of(context).pushNamed(ContactFormScreen.routeName)
+                  : Navigator.of(context).pushNamed(PostalAddScreen.routeName),
+              child: Icon(
+                Icons.add,
+                color: kLightColor,
+                size: kSizeM,
+              ),
+              backgroundColor: kBrandColor,
+            )
+          : null,
     );
   }
 }

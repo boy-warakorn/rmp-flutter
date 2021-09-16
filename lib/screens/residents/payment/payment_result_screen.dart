@@ -11,7 +11,7 @@ class PaymentResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBgColor,
+      backgroundColor: kLightColor,
       body: Container(
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
