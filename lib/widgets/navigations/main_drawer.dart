@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/condos/about/about_us_screen.dart';
-import 'package:rmp_flutter/screens/condos/login_screen.dart';
+import 'package:rmp_flutter/screens/login_screen.dart';
 import 'package:rmp_flutter/screens/condos/profile/profile_setting_screen.dart';
 import 'package:rmp_flutter/widgets/navigations/drawer_button.dart';
 import 'package:rmp_flutter/widgets/general/brand_title.dart';

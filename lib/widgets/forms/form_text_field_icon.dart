@@ -62,7 +62,13 @@ class FormTextFieldIcon extends HookWidget {
                     horizontal: kSizeS,
                   ),
                   child: Text(
-                    suffixText == '' ? '' : suffixText,
+                    suffixText.isEmpty
+                        ? ''
+                        : suffixText == "Show"
+                            ? !_isObscured.value
+                                ? suffixText
+                                : "Hide"
+                            : suffixText,
                     style: Theme.of(context).textTheme.headline4?.copyWith(
                           color: kBrandColor,
                         ),
