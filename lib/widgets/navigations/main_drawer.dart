@@ -16,27 +16,26 @@ class MainDrawer extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _curUser = ref.read(currentUser);
+    final _curUser = ref.watch(currentUser);
 
     return ClipRRect(
-      borderRadius: BorderRadius.only(
+      borderRadius: const BorderRadius.only(
         topRight: Radius.circular(kSizeXS * 1.5),
         bottomRight: Radius.circular(kSizeXS * 1.5),
       ),
       child: Drawer(
         child: ListView(
           children: [
-            SafeArea(
-              child: kSizedBoxVerticalS,
-            ),
+            kSizedBoxVerticalS,
             BrandTitle(
-                brandLogo: Image.network(
-                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
-                  height: kSizeM,
-                  width: kSizeM,
-                ),
-                brandTitle: 'Condominium'),
-            Divider(
+              brandLogo: Image.network(
+                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                height: kSizeM,
+                width: kSizeM,
+              ),
+              brandTitle: _curUser.user.businessName,
+            ),
+            const Divider(
               color: kDrawerColor,
               thickness: 1,
             ),
@@ -45,7 +44,7 @@ class MainDrawer extends HookConsumerWidget {
               text: "Profile Settings",
               onPressed: () => Navigator.of(context)
                   .pushNamed(ProfileSettingScreen.routeName),
-              icon: Icon(
+              icon: const Icon(
                 Icons.account_circle_outlined,
                 size: kSizeM,
                 color: kBlackColor,
@@ -55,13 +54,13 @@ class MainDrawer extends HookConsumerWidget {
               text: "About us",
               onPressed: () =>
                   Navigator.of(context).pushNamed(AboutUsScreen.routeName),
-              icon: Icon(
+              icon: const Icon(
                 Icons.info_outline_rounded,
                 size: kSizeM,
                 color: kBlackColor,
               ),
             ),
-            Divider(
+            const Divider(
               color: kDrawerColor,
               thickness: 1,
             ),
@@ -71,7 +70,7 @@ class MainDrawer extends HookConsumerWidget {
               onPressed: () => {
                 _curUser.clearUser(),
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.logout_rounded,
                 size: kSizeM,
                 color: kBlackColor,
