@@ -5,10 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/models/auths.dart';
+import 'package:rmp_flutter/models/providers/auth_provider.dart';
 import 'package:rmp_flutter/repositories/auth_repository.dart';
 import 'package:rmp_flutter/screens/condos/forgot_password_screen.dart';
-import 'package:rmp_flutter/screens/main_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 
@@ -37,10 +36,10 @@ class LoginScreen extends HookConsumerWidget {
                     color: Colors.grey.withOpacity(0.3),
                     spreadRadius: 5,
                     blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
+                    offset: const Offset(0, 3), // changes position of shadow
                   ),
                 ],
-                borderRadius: BorderRadius.vertical(
+                borderRadius: const BorderRadius.vertical(
                   bottom: Radius.circular(
                     kSizeM,
                   ),
@@ -76,10 +75,10 @@ class LoginScreen extends HookConsumerWidget {
                       0.0,
                     ),
                     height: kSizeXXS,
-                    margin: EdgeInsets.symmetric(
+                    margin: const EdgeInsets.symmetric(
                       horizontal: kSizeM * 1.4,
                     ),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: kBrandColor,
                       borderRadius: kBorderRadiusM,
                     ),
@@ -88,7 +87,7 @@ class LoginScreen extends HookConsumerWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: kSizeM,
               ),
               alignment: Alignment.center,
@@ -97,30 +96,26 @@ class LoginScreen extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   kSizedBoxVerticalM,
-                  Container(
-                    child: FormTextFieldIcon(
-                      fieldName: "Username",
-                      icon: Icon(
-                        Icons.account_circle,
-                        size: kSizeM,
-                      ),
-                      textEditingController: _username,
-                      suffixText: '',
-                      isPassword: false,
+                  FormTextFieldIcon(
+                    fieldName: "Username",
+                    icon: const Icon(
+                      Icons.account_circle,
+                      size: kSizeM,
                     ),
+                    textEditingController: _username,
+                    suffixText: '',
+                    isPassword: false,
                   ),
                   kSizedBoxVerticalS,
-                  Container(
-                    child: FormTextFieldIcon(
-                      fieldName: "Password",
-                      icon: Icon(
-                        Icons.lock_rounded,
-                        size: kSizeM,
-                      ),
-                      textEditingController: _password,
-                      suffixText: 'Show',
-                      isPassword: true,
+                  FormTextFieldIcon(
+                    fieldName: "Password",
+                    icon: const Icon(
+                      Icons.lock_rounded,
+                      size: kSizeM,
                     ),
+                    textEditingController: _password,
+                    suffixText: 'Show',
+                    isPassword: true,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -136,21 +131,16 @@ class LoginScreen extends HookConsumerWidget {
                     ),
                   ),
                   kSizedBoxVerticalM,
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: kSizeM * 1.25,
+                  CustomButton(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: kSizeS * 1.2,
                     ),
-                    child: CustomButton(
-                      padding: EdgeInsets.symmetric(
-                        vertical: kSizeS * 1.2,
-                      ),
-                      text: "LOGIN",
-                      onPressed: () async {
-                        final _authDto = AuthDto(
-                            username: _username.text, password: _password.text);
-                        await _authRepository.login(_authDto);
-                      },
-                    ),
+                    text: "LOGIN",
+                    onPressed: () async {
+                      final _authDto = AuthDto(
+                          username: _username.text, password: _password.text);
+                      await _authRepository.login(_authDto);
+                    },
                   ),
                 ],
               ),

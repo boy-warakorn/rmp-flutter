@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/providers/user_provider.dart';
 import 'package:rmp_flutter/screens/condos/about/about_us_screen.dart';
 import 'package:rmp_flutter/screens/login_screen.dart';
 import 'package:rmp_flutter/screens/condos/profile/profile_setting_screen.dart';
 import 'package:rmp_flutter/widgets/navigations/drawer_button.dart';
 import 'package:rmp_flutter/widgets/general/brand_title.dart';
 
-class MainDrawer extends StatelessWidget {
+class MainDrawer extends HookConsumerWidget {
   const MainDrawer({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _curUser = ref.read(currentUser);
+
     return ClipRRect(
       borderRadius: BorderRadius.only(
         topRight: Radius.circular(kSizeXS * 1.5),
@@ -64,8 +68,9 @@ class MainDrawer extends StatelessWidget {
             kSizedBoxVerticalS,
             DrawerButton(
               text: "Log Out",
-              onPressed: () => Navigator.of(context)
-                  .pushNamedAndRemoveUntil(LoginScreen.routeName, (_) => false),
+              onPressed: () => {
+                _curUser.clearUser(),
+              },
               icon: Icon(
                 Icons.logout_rounded,
                 size: kSizeM,

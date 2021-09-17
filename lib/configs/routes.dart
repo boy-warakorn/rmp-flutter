@@ -10,6 +10,7 @@ import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_screen.dart';
 import 'package:rmp_flutter/screens/condos/profile/profile_setting_screen.dart';
 import 'package:rmp_flutter/screens/main_screen.dart';
+import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_form_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_result_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_support_screen.dart';
@@ -46,4 +47,5 @@ final generalRoutes = {
   ConfirmPaymentScreen.routeName: (_) => const ConfirmPaymentScreen(),
   PaymentScreen.routeName: (_) => const PaymentScreen(),
   SpecificPaymentScreen.routeName: (_) => const SpecificPaymentScreen(),
+  PreLoadingScreen.routeName: (_) => const PreLoadingScreen(),
 };
