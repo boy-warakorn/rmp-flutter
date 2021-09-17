@@ -43,7 +43,7 @@ class FormTextFieldIcon extends HookWidget {
         Text(
           fieldName,
           style: Theme.of(context).textTheme.headline3?.copyWith(
-                color: fieldColor == '' ? kBlackColor : fieldColor,
+                color: fieldColor,
               ),
         ),
         kSizedBoxVerticalXS,
@@ -95,14 +95,12 @@ class FormTextFieldIcon extends HookWidget {
                 horizontal: kSizeS,
                 vertical: kSizeS / 1.7,
               ),
-              hintText: "Enter ${fieldName}",
+              hintText: "Enter $fieldName",
               hintStyle: Theme.of(context).textTheme.subtitle1,
             ),
             obscureText: isPassword ? !_isObscured.value : _isObscured.value,
             validator: (value) {
-              value == null || value.isEmpty
-                  ? '${fieldName} is required'
-                  : null;
+              value == null || value.isEmpty ? '$fieldName is required' : null;
             },
           ),
         ),

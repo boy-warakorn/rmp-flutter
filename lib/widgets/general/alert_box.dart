@@ -19,15 +19,13 @@ class AlertBox extends StatelessWidget {
     required bool isPositive,
     required void Function() onPressed,
   }) {
-    return Container(
-      child: CustomButton(
-        onPressed: onPressed,
-        text: isPositive ? "Yes" : "No",
-        color: isPositive ? kSuccessColor : kErrorColor,
-        padding: const EdgeInsets.symmetric(
-          vertical: kSizeXS,
-          horizontal: kSizeM,
-        ),
+    return CustomButton(
+      onPressed: onPressed,
+      text: isPositive ? "Yes" : "No",
+      color: isPositive ? kSuccessColor : kErrorColor,
+      padding: const EdgeInsets.symmetric(
+        vertical: kSizeXS,
+        horizontal: kSizeM,
       ),
     );
   }

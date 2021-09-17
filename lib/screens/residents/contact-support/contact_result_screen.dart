@@ -39,16 +39,14 @@ class ContactResultScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  child: CustomButton(
-                    text: "BACK TO HOME",
-                    onPressed: () => Navigator.of(context)
-                        .pushNamedAndRemoveUntil(
-                            MainScreen.routeName, (_) => false),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: kSizeS,
-                      vertical: kSizeXS,
-                    ),
+                CustomButton(
+                  text: "BACK TO HOME",
+                  onPressed: () => Navigator.of(context)
+                      .pushNamedAndRemoveUntil(
+                          MainScreen.routeName, (_) => false),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: kSizeS,
+                    vertical: kSizeXS,
                   ),
                 ),
               ],

@@ -66,7 +66,7 @@ class _FormTextFieldState extends State<FormTextField> {
                 vertical: kSizeS / 1.7,
               ),
               suffixIcon: widget.suffixIcon,
-              hintText: "${widget.fieldName}",
+              hintText: "$widget.fieldName",
               hintStyle: Theme.of(context).textTheme.subtitle1,
             ),
             validator: (value) {
