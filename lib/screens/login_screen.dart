@@ -137,8 +137,13 @@ class LoginScreen extends HookConsumerWidget {
                     ),
                     text: "LOGIN",
                     onPressed: () async {
+                      if (_username.text.isEmpty || _password.text.isEmpty) {
+                        return;
+                      }
                       final _authDto = AuthDto(
-                          username: _username.text, password: _password.text);
+                        username: _username.text.trim(),
+                        password: _password.text.trim(),
+                      );
                       await _authRepository.login(_authDto);
                     },
                   ),
