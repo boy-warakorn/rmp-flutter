@@ -1,3 +1,5 @@
-const baseApiUrl = "http://10.0.2.2:1234/api";
+const baseApiUrl = "http://localhost:1234/api";
 
 const baseAuthUrl = "$baseApiUrl/auth";
+
+const baseUserUrl = "$baseApiUrl/users";
