@@ -1,5 +1,5 @@
-const baseApiUrl = "http://localhost:1234/api";
+const baseApiUrl = "https://rmp.ryuhub.dev/api";
 
-const baseAuthUrl = "$baseApiUrl/auth";
+const baseAuthUrl = "$baseApiUrl/auth/mobile";
 
 const baseUserUrl = "$baseApiUrl/users";
