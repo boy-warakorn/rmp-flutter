@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_result_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
@@ -49,7 +50,10 @@ class ContactFormScreen extends HookWidget {
                     width: kSizeXL / 1.25,
                     child: CustomButton(
                       text: "CLEAR",
-                      onPressed: () => print('CLEAR'),
+                      onPressed: () {
+                        _title.text = "";
+                        _detail.text = "";
+                      },
                       color: kWarningColor,
                     ),
                   ),
@@ -58,9 +62,19 @@ class ContactFormScreen extends HookWidget {
                     width: kSizeXL / 1.25,
                     child: CustomButton(
                       text: "SEND",
-                      onPressed: () => {
+                      onPressed: () async {
+                        if (_title.text.isEmpty || _detail.text.isEmpty) return;
+                        try {
+                          await ReportRepository().createReport(
+                            CreateReportDto(
+                              detail: _detail.text,
+                              title: _title.text,
+                            ),
+                          );
+                        } catch (_) {}
+
                         Navigator.of(context)
-                            .pushNamed(ContactResultScreen.routeName),
+                            .pushNamed(ContactResultScreen.routeName);
                       },
                     ),
                   ),

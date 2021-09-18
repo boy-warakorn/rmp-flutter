@@ -43,7 +43,7 @@ class EntityCardStatus extends StatelessWidget {
           text,
           style: Theme.of(context).textTheme.bodyText1?.copyWith(
                 fontWeight: FontWeight.bold,
-                fontSize: kSizeS * (11 / 16),
+                fontSize: kSizeS * 0.85,
               ),
         ),
       ),

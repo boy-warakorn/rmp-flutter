@@ -12,11 +12,7 @@ class ResidentReplyScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _title = useTextEditingController(
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    );
-    String dummyText =
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Posuere urna, cras parturient venenatis porttitor platea. Auctor amet ultricies libero lectus convallis urna, lacinia.';
+    final _respondDetail = ModalRoute.of(context)?.settings.arguments as String;
 
     return Scaffold(
       appBar: BackAppBar(),
@@ -31,13 +27,18 @@ class ResidentReplyScreen extends HookWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FormTextArea(
-                fieldName: "Reply Detail",
-                textEditingController: _title,
-                minLine: 15,
-                maxLine: 20,
+              Text(
+                'Reply Detail',
+                style: Theme.of(context).textTheme.headline3,
               ),
               kSizedBoxVerticalM,
+              Container(
+                width: double.infinity,
+                child: Text(
+                  _respondDetail,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
             ],
           ),
         ),

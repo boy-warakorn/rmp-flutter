@@ -1,16 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/report.dart';
+import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/report_detail_screen.dart';
+import 'package:rmp_flutter/utils/date_format.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
 import 'package:rmp_flutter/widgets/general/entity_card_status.dart';
 
-class ContactSupportScreen extends StatelessWidget {
+class ContactSupportScreen extends HookConsumerWidget {
   static const routeName = "/resident/contact-support";
   const ContactSupportScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _reports = useState(ReportsModel(reports: []));
+    final _isLoading = useState(false);
+
+    void fetchReports() async {
+      _isLoading.value = true;
+      _reports.value = await ReportRepository().getReportsByResident();
+      _isLoading.value = false;
+    }
+
+    useEffect(() {
+      fetchReports();
+    }, []);
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -67,21 +85,32 @@ class ContactSupportScreen extends StatelessWidget {
                         ),
                   ),
                   kSizedBoxVerticalS,
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (ctx, index) => EntityCard(
-                        title: "This is title",
-                        date: "13/9/2021",
-                        entityStatus: EntityCardStatus(
-                          text: "Responded",
-                          color: kSuccessColor,
+                  _isLoading.value
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Expanded(
+                          child: ListView.builder(
+                            itemCount: _reports.value.reports.length,
+                            itemBuilder: (ctx, index) {
+                              final _currentReport =
+                                  _reports.value.reports[index];
+
+                              return EntityCard(
+                                title: _currentReport.title,
+                                date:
+                                    "Requested Date: ${formattedDate(_currentReport.requestedDate)}",
+                                entityStatus: EntityCardStatus(
+                                  text: _currentReport.status,
+                                  color: kSuccessColor,
+                                ),
+                                onPressed: () => Navigator.of(context)
+                                    .pushNamed(ReportDetailScreen.routeName,
+                                        arguments: _currentReport.id),
+                              );
+                            },
+                          ),
                         ),
-                        onPressed: () => Navigator.of(context)
-                            .pushNamed(ReportDetailScreen.routeName),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
