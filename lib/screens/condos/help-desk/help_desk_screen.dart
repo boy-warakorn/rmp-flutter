@@ -43,6 +43,11 @@ class HelpDeskScreen extends HookWidget {
       _isResponded.value = switchTo;
     }
 
+    useEffect(
+      () {},
+      [_isResponded.value],
+    );
+
     List<Map<String, dynamic>> filterList() {
       return dummy
           .where((ele) => ele["isResponded"] == _isResponded.value)
