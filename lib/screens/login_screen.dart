@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/providers/auth_provider.dart';
+import 'package:rmp_flutter/models/providers/user_provider.dart';
 import 'package:rmp_flutter/repositories/auth_repository.dart';
 import 'package:rmp_flutter/screens/condos/forgot_password_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
@@ -19,8 +20,37 @@ class LoginScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _username = useTextEditingController();
     final _password = useTextEditingController();
+    final _isLoading = useState(false);
 
     final _authRepository = ref.read(authRepositoryProvider);
+    final _curUser = ref.read(currentUser);
+
+    void _onLogin() async {
+      if (_username.text.isEmpty || _password.text.isEmpty) {
+        return;
+      }
+      final _authDto = AuthDto(
+        username: _username.text.trim(),
+        password: _password.text.trim(),
+      );
+      try {
+        _isLoading.value = true;
+        await _authRepository.login(_authDto);
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text("Error"),
+            content: Text(
+              e.toString(),
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+          ),
+        );
+      }
+      _isLoading.value = false;
+      await _curUser.getCurrentUser();
+    }
 
     return Scaffold(
       backgroundColor: kBgColor,
@@ -132,20 +162,12 @@ class LoginScreen extends HookConsumerWidget {
                   ),
                   kSizedBoxVerticalM,
                   CustomButton(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: kSizeS * 1.2,
+                    padding: EdgeInsets.symmetric(
+                      vertical: _isLoading.value ? kSizeS * 0.8 : kSizeS * 1.2,
                     ),
                     text: "LOGIN",
-                    onPressed: () async {
-                      if (_username.text.isEmpty || _password.text.isEmpty) {
-                        return;
-                      }
-                      final _authDto = AuthDto(
-                        username: _username.text.trim(),
-                        password: _password.text.trim(),
-                      );
-                      await _authRepository.login(_authDto);
-                    },
+                    isLoading: _isLoading.value,
+                    onPressed: _onLogin,
                   ),
                 ],
               ),

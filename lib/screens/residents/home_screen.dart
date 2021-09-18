@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/providers/user_provider.dart';
 import 'package:rmp_flutter/widgets/general/announcement_card.dart';
 
 const _dummyData = [
@@ -8,41 +10,15 @@ const _dummyData = [
     "title": "Free Pizza 1",
     "subtitle": "Come get free pizza at GYM",
   },
-  {
-    "title": "Free Pizza 2",
-    "subtitle": "Come get free pizza at GYM",
-  },
-  {
-    "title": "Free Pizza 3",
-    "subtitle": "Come get free pizza at GYM",
-  },
-  {
-    "title": "Free Pizza 4",
-    "subtitle": "Come get free pizza at GYM",
-  },
-  {
-    "title": "Free Pizza 5",
-    "subtitle": "Come get free pizza at GYM",
-  },
-  {
-    "title": "Free Pizza 6",
-    "subtitle": "Come get free pizza at GYM",
-  },
-  {
-    "title": "Free Pizza 7",
-    "subtitle": "Come get free pizza at GYM",
-  },
-  {
-    "title": "Free Pizza 8",
-    "subtitle": "Come get free pizza at GYM",
-  },
 ];
 
-class ResidentHomeScreen extends StatelessWidget {
+class ResidentHomeScreen extends HookConsumerWidget {
   const ResidentHomeScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _curUser = ref.watch(currentUser);
+
     return Row(
       children: [
         Expanded(
@@ -71,7 +47,7 @@ class ResidentHomeScreen extends StatelessWidget {
                           horizontal: kSizeS * (24 / 16),
                         ),
                         child: Text(
-                          "Hi, Warakorn",
+                          "Hi, ${_curUser.user.name}",
                           style:
                               Theme.of(context).textTheme.headline3?.copyWith(
                                     color: kLightColor,
@@ -119,8 +95,10 @@ class ResidentHomeScreen extends StatelessWidget {
                                     itemCount: _dummyData.length,
                                     itemBuilder: (context, index) {
                                       return AnnouncementCard(
-                                        title: _dummyData[index]['title'].toString(),
-                                        subtitle: _dummyData[index]['subtitle'].toString(),
+                                        title: _dummyData[index]['title']
+                                            .toString(),
+                                        subtitle: _dummyData[index]['subtitle']
+                                            .toString(),
                                       );
                                     },
                                   ),

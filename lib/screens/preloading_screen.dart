@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
@@ -14,9 +15,11 @@ class PreLoadingScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _curUser = ref.watch(currentUser);
 
-    if (_curUser.user.userId.isEmpty) {
-      _curUser.getCurrentUser();
-    }
+    useEffect(() {
+      if (_curUser.user.userId.isEmpty) {
+        _curUser.getCurrentUser();
+      }
+    }, []);
 
     return _curUser.user.userId.isEmpty
         ? _curUser.isLoading

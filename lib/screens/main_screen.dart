@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/providers/user_provider.dart';
 import 'package:rmp_flutter/screens/condos/dashboard/dashboard_screen.dart';
 import 'package:rmp_flutter/screens/condos/help-desk/help_desk_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_add_screen.dart';
@@ -36,6 +37,7 @@ class MainScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final _role = ref.read(currentUser).user.role;
     const isResident = false;
     final _currentTabIndex = useState(0);
 
@@ -49,9 +51,13 @@ class MainScreen extends HookConsumerWidget {
         haveFilter: _currentTabIndex.value > 0 ? true : false,
       ),
       drawer: MainDrawer(),
-      body: isResident
-          ? _residentTabs[_currentTabIndex.value]
-          : _condoTabs[_currentTabIndex.value],
+      body: _role.isEmpty
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : _role == "resident"
+              ? _residentTabs[_currentTabIndex.value]
+              : _condoTabs[_currentTabIndex.value],
       bottomNavigationBar: BottomBar(
         currentIndex: _currentTabIndex.value,
         isResident: isResident,

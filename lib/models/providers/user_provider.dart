@@ -15,11 +15,10 @@ class CurrentUser extends ChangeNotifier {
 
   Future<void> getCurrentUser() async {
     _isLoading = true;
-    // @Todo will remove this after deploy backend
-    await Future.delayed(const Duration(seconds: 2));
     final user = await userRepository.getCurrentUser();
-    _isLoading = false;
     _user = user;
+    _isLoading = false;
+
     notifyListeners();
   }
 

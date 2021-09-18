@@ -29,7 +29,7 @@ class UserRepository implements BaseUserRepository {
       }
       return UserModel(role: "", name: "", businessName: "", userId: "");
     } on DioError catch (_) {
-      throw const HttpException("Get Current User failed");
+      return UserModel(role: "", name: "", businessName: "", userId: "");
     }
   }
 }
