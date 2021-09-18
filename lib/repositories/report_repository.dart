@@ -10,6 +10,7 @@ abstract class BaseReportRepository {
   Future<ReportsModel> getReportsByResident();
   Future<Report> getReport(String id);
   Future<void> createReport(CreateReportDto createReportDto);
+  Future<ReportsModel> getAllReports(String filter);
 }
 
 class CreateReportDto {
@@ -80,6 +81,28 @@ class ReportRepository implements BaseReportRepository {
       );
     } on DioError catch (_) {
       throw HttpException("Create Report Failed");
+    }
+  }
+
+  @override
+  Future<ReportsModel> getAllReports(String filter) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      final result = await dio.get(
+        getReportsUrl,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+        queryParameters: {
+          'status': filter,
+        },
+      );
+      return ReportsModel.fromJson(result);
+    } on DioError catch (_) {
+      throw HttpException("Get Reports Failed");
     }
   }
 }

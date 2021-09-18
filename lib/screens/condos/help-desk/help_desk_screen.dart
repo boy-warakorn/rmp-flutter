@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/report.dart';
+import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/condos/help-desk/reply_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_slider.dart';
 import 'package:rmp_flutter/widgets/general/help_desk_card.dart';
+import 'package:rmp_flutter/utils/date_format.dart';
 
 const loremIpsum =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare accumsan nulla non accumsan. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eget pharetra lacus. Maecenas et dolor blandit, sodales justo pharetra,";
@@ -30,21 +34,37 @@ const dummy = [
   },
 ];
 
-class HelpDeskScreen extends HookWidget {
+class HelpDeskScreen extends HookConsumerWidget {
   static const routeName = "/condo/helpdesk";
 
   const HelpDeskScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final _isResponded = useState(true);
+
+    final _reports = useState(ReportsModel(reports: []));
+    final _isLoading = useState(false);
+    const String _filter = "pending";
+
+    void fetchReports() async {
+      _isLoading.value = true;
+      _reports.value = await ReportRepository().getAllReports(_filter);
+      _isLoading.value = false;
+    }
+
+    useEffect(() {
+      fetchReports();
+    }, []);
 
     void switchResponded(bool switchTo) {
       _isResponded.value = switchTo;
     }
 
     useEffect(
-      () {},
+      () {
+        fetchReports();
+      },
       [_isResponded.value],
     );
 
@@ -68,23 +88,39 @@ class HelpDeskScreen extends HookWidget {
           ),
           kSizedBoxVerticalS,
           kSizedBoxHorizontalXS,
-          Expanded(
-            child: ListView.builder(
-              itemCount: filterList().length,
-              itemBuilder: (context, index) => HelpDeskCard(
-                title: "${filterList()[index]["title"]}",
-                date: "${filterList()[index]["date"]}",
-                detail: "${filterList()[index]["detail"]}",
-                actionButton: filterList()[index]["isResponded"] as bool
-                    ? const SizedBox()
-                    : CustomButton(
-                        onPressed: () => Navigator.of(context)
-                            .pushNamed(ReplyScreen.routeName),
-                        text: "REPLY",
-                      ),
-              ),
-            ),
-          ),
+          _isLoading.value
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Expanded(
+                  child: ListView.builder(
+                    itemCount: _reports.value.reports.length,
+                    itemBuilder: (context, index) {
+                      final _currentReport = _reports.value.reports[index];
+                      if (_currentReport.status == "pending" &&
+                          !_isResponded.value) {
+                        return HelpDeskCard(
+                          title: _currentReport.title,
+                          date: formattedDate(_currentReport.requestedDate),
+                          detail: _currentReport.detail,
+                          actionButton: CustomButton(
+                            onPressed: () => Navigator.of(context).pushNamed(
+                              ReplyScreen.routeName,
+                              arguments: _currentReport.id,
+                            ),
+                            text: "REPLY",
+                          ),
+                        );
+                      } else {
+                        return HelpDeskCard(
+                          title: _currentReport.title,
+                          date: formattedDate(_currentReport.requestedDate),
+                          detail: _currentReport.detail,
+                        );
+                      }
+                    },
+                  ),
+                ),
         ],
       ),
     );

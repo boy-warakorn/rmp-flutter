@@ -30,7 +30,6 @@ class ReportDetailScreen extends HookConsumerWidget {
         status: "",
       ),
     );
-    final _title = useTextEditingController();
 
     void fetchReport() async {
       _isLoading.value = true;
@@ -41,10 +40,6 @@ class ReportDetailScreen extends HookConsumerWidget {
     useEffect(() {
       fetchReport();
     }, []);
-
-    useEffect(() {
-      _title.text = _report.value.detail;
-    }, [_report.value]);
 
     return Scaffold(
       appBar: BackAppBar(),
@@ -83,11 +78,24 @@ class ReportDetailScreen extends HookConsumerWidget {
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     kSizedBoxVerticalS,
-                    FormTextArea(
-                      fieldName: "Complaint Detail",
-                      textEditingController: _title,
-                      minLine: 10,
-                      maxLine: 20,
+                    Text(
+                      "Complaint Detail",
+                      style: Theme.of(context).textTheme.headline3?.copyWith(
+                            color: kBlackColor,
+                          ),
+                    ),
+                    kSizedBoxVerticalS,
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: kSizeXXL,
+                      padding: EdgeInsets.all(kSizeS),
+                      decoration: BoxDecoration(
+                        color: kLightColor,
+                      ),
+                      child: Text(
+                        _report.value.detail,
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
                     ),
                     kSizedBoxVerticalM,
                     if (_report.value.respondDetail!.isNotEmpty)
