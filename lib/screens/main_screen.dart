@@ -38,7 +38,7 @@ class MainScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _role = ref.read(currentUser).user.role;
-    const isResident = false;
+    final _isResident = _role == "resident";
     final _currentTabIndex = useState(0);
 
     void onTap(int index) {
@@ -55,18 +55,18 @@ class MainScreen extends HookConsumerWidget {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : _role == "resident"
+          : _isResident
               ? _residentTabs[_currentTabIndex.value]
               : _condoTabs[_currentTabIndex.value],
       bottomNavigationBar: BottomBar(
         currentIndex: _currentTabIndex.value,
-        isResident: isResident,
+        isResident: _isResident,
         onTap: onTap,
       ),
-      floatingActionButton: (_currentTabIndex.value == 2 && !isResident) ||
-              (_currentTabIndex.value == 3 && isResident)
+      floatingActionButton: (_currentTabIndex.value == 2 && !_isResident) ||
+              (_currentTabIndex.value == 3 && _isResident)
           ? FloatingActionButton(
-              onPressed: () => isResident
+              onPressed: () => _isResident
                   ? Navigator.of(context).pushNamed(ContactFormScreen.routeName)
                   : Navigator.of(context).pushNamed(PostalAddScreen.routeName),
               child: Icon(
