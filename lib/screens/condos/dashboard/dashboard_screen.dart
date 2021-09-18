@@ -48,62 +48,60 @@ class DashboardScreen extends StatelessWidget {
           padding: const EdgeInsets.all(
             kSizeS * (24 / 16),
           ),
-          child: Container(
-            child: Column(
-              children: [
-                _buildTitleCardGroup(
-                  context,
-                  header: "Postal Package",
-                  leftCard: TitleCard(
-                    title: "Recieved",
-                    subtitle: 5.toString(),
-                  ),
-                  rightCard: TitleCard(
-                    title: "Total",
-                    subtitle: 5.toString(),
-                  ),
+          child: Column(
+            children: [
+              _buildTitleCardGroup(
+                context,
+                header: "Postal Package",
+                leftCard: TitleCard(
+                  title: "Recieved",
+                  subtitle: 5.toString(),
                 ),
-                kSizedBoxVerticalS,
-                _buildTitleCardGroup(
-                  context,
-                  header: "Residential Report",
-                  leftCard: TitleCard(
-                    title: "Unread",
-                    subtitle: 5.toString(),
-                  ),
-                  rightCard: TitleCard(
-                    title: "Replied",
-                    subtitle: 5.toString(),
-                  ),
+                rightCard: TitleCard(
+                  title: "Total",
+                  subtitle: 5.toString(),
                 ),
-                kSizedBoxVerticalS,
-                CardTemplate(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "All Reports",
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                      kSizedBoxVerticalS,
-                      kSizedBoxVerticalXS,
-                      SummaryEntity(
-                        text: "Summ",
-                        count: 1,
-                      ),
-                      SummaryEntity(
-                        text: "Summ",
-                        count: 9,
-                      ),
-                      SummaryEntity(
-                        text: "Summ",
-                        count: 10,
-                      ),
-                    ],
-                  ),
+              ),
+              kSizedBoxVerticalS,
+              _buildTitleCardGroup(
+                context,
+                header: "Residential Report",
+                leftCard: TitleCard(
+                  title: "Unread",
+                  subtitle: 5.toString(),
                 ),
-              ],
-            ),
+                rightCard: TitleCard(
+                  title: "Replied",
+                  subtitle: 5.toString(),
+                ),
+              ),
+              kSizedBoxVerticalS,
+              CardTemplate(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "All Reports",
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                    kSizedBoxVerticalS,
+                    kSizedBoxVerticalXS,
+                    SummaryEntity(
+                      text: "Summ",
+                      count: 1,
+                    ),
+                    SummaryEntity(
+                      text: "Summ",
+                      count: 9,
+                    ),
+                    SummaryEntity(
+                      text: "Summ",
+                      count: 10,
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

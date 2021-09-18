@@ -1,7 +1,9 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/providers/user_provider.dart';
 import 'package:rmp_flutter/screens/condos/dashboard/dashboard_screen.dart';
 import 'package:rmp_flutter/screens/condos/help-desk/help_desk_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_add_screen.dart';
@@ -15,28 +17,28 @@ import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
 import 'package:rmp_flutter/widgets/navigations/bottom_bar.dart';
 import 'package:rmp_flutter/widgets/navigations/main_drawer.dart';
 
-class MainScreen extends HookWidget {
+final _condoTabs = [
+  const DashboardScreen(),
+  const HelpDeskScreen(),
+  const PostalScreen()
+];
+
+final _residentTabs = [
+  const ResidentHomeScreen(),
+  const PaymentScreen(),
+  const ResidentPostalScreen(),
+  const ContactSupportScreen(),
+];
+
+class MainScreen extends HookConsumerWidget {
   static const routeName = '/';
 
   const MainScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    const isResident = false;
-
-    final _condoTabs = [
-      const DashboardScreen(),
-      const HelpDeskScreen(),
-      const PostalScreen()
-    ];
-
-    final _residentTabs = [
-      const ResidentHomeScreen(),
-      const PaymentScreen(),
-      const ResidentPostalScreen(),
-      const ContactSupportScreen(),
-    ];
-
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _role = ref.read(currentUser).user.role;
+    final _isResident = _role == "resident";
     final _currentTabIndex = useState(0);
 
     void onTap(int index) {
@@ -49,18 +51,22 @@ class MainScreen extends HookWidget {
         haveFilter: _currentTabIndex.value > 0 ? true : false,
       ),
       drawer: MainDrawer(),
-      body: isResident
-          ? _residentTabs[_currentTabIndex.value]
-          : _condoTabs[_currentTabIndex.value],
+      body: _role.isEmpty
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : _isResident
+              ? _residentTabs[_currentTabIndex.value]
+              : _condoTabs[_currentTabIndex.value],
       bottomNavigationBar: BottomBar(
         currentIndex: _currentTabIndex.value,
-        isResident: isResident,
+        isResident: _isResident,
         onTap: onTap,
       ),
-      floatingActionButton: (_currentTabIndex.value == 2 && !isResident) ||
-              (_currentTabIndex.value == 3 && isResident)
+      floatingActionButton: (_currentTabIndex.value == 2 && !_isResident) ||
+              (_currentTabIndex.value == 3 && _isResident)
           ? FloatingActionButton(
-              onPressed: () => isResident
+              onPressed: () => _isResident
                   ? Navigator.of(context).pushNamed(ContactFormScreen.routeName)
                   : Navigator.of(context).pushNamed(PostalAddScreen.routeName),
               child: Icon(

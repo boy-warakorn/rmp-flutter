@@ -1,38 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/providers/user_provider.dart';
 import 'package:rmp_flutter/screens/condos/about/about_us_screen.dart';
-import 'package:rmp_flutter/screens/condos/login_screen.dart';
 import 'package:rmp_flutter/screens/condos/profile/profile_setting_screen.dart';
 import 'package:rmp_flutter/widgets/navigations/drawer_button.dart';
 import 'package:rmp_flutter/widgets/general/brand_title.dart';
 
-class MainDrawer extends StatelessWidget {
+class MainDrawer extends HookConsumerWidget {
   const MainDrawer({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _curUser = ref.watch(currentUser);
+
     return ClipRRect(
-      borderRadius: BorderRadius.only(
+      borderRadius: const BorderRadius.only(
         topRight: Radius.circular(kSizeXS * 1.5),
         bottomRight: Radius.circular(kSizeXS * 1.5),
       ),
       child: Drawer(
         child: ListView(
           children: [
-            SafeArea(
-              child: kSizedBoxVerticalS,
-            ),
+            kSizedBoxVerticalS,
             BrandTitle(
-                brandLogo: Image.network(
-                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
-                  height: kSizeM,
-                  width: kSizeM,
-                ),
-                brandTitle: 'Condominium'),
-            Divider(
+              brandLogo: Image.network(
+                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                height: kSizeM,
+                width: kSizeM,
+              ),
+              brandTitle: _curUser.user.businessName,
+            ),
+            const Divider(
               color: kDrawerColor,
               thickness: 1,
             ),
@@ -41,7 +43,7 @@ class MainDrawer extends StatelessWidget {
               text: "Profile Settings",
               onPressed: () => Navigator.of(context)
                   .pushNamed(ProfileSettingScreen.routeName),
-              icon: Icon(
+              icon: const Icon(
                 Icons.account_circle_outlined,
                 size: kSizeM,
                 color: kBlackColor,
@@ -51,22 +53,23 @@ class MainDrawer extends StatelessWidget {
               text: "About us",
               onPressed: () =>
                   Navigator.of(context).pushNamed(AboutUsScreen.routeName),
-              icon: Icon(
+              icon: const Icon(
                 Icons.info_outline_rounded,
                 size: kSizeM,
                 color: kBlackColor,
               ),
             ),
-            Divider(
+            const Divider(
               color: kDrawerColor,
               thickness: 1,
             ),
             kSizedBoxVerticalS,
             DrawerButton(
               text: "Log Out",
-              onPressed: () => Navigator.of(context)
-                  .pushNamedAndRemoveUntil(LoginScreen.routeName, (_) => false),
-              icon: Icon(
+              onPressed: () => {
+                _curUser.clearUser(),
+              },
+              icon: const Icon(
                 Icons.logout_rounded,
                 size: kSizeM,
                 color: kBlackColor,
