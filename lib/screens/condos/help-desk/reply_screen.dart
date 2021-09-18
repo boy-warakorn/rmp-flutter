@@ -54,8 +54,8 @@ class ReplyScreen extends HookWidget {
                     kSizedBoxVerticalXS,
                     FormTextArea(
                       fieldName: "Reply",
-                      minLine: 5,
-                      maxLine: 10,
+                      minLine: 10,
+                      maxLine: 15,
                       textEditingController: _reply,
                     ),
                     kSizedBoxVerticalS,
@@ -63,13 +63,23 @@ class ReplyScreen extends HookWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        SizedBox(
-                          width: kSizeXL,
-                          child: CustomButton(
-                            text: "SUBMIT",
-                            onPressed: () => Navigator.of(context)
-                                .pushNamedAndRemoveUntil(
-                                    MainScreen.routeName, (_) => false),
+                        CustomButton(
+                          text: "MARK AS RESOLVED",
+                          onPressed: () => print('Resolved'),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: kSizeM,
+                            vertical: kSizeXS,
+                          ),
+                        ),
+                        kSizedBoxHorizontalS,
+                        CustomButton(
+                          text: "SUBMIT",
+                          onPressed: () => Navigator.of(context)
+                              .pushNamedAndRemoveUntil(
+                                  MainScreen.routeName, (_) => false),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: kSizeS,
+                            vertical: kSizeXS,
                           ),
                         ),
                       ],

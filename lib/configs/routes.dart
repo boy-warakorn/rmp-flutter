@@ -15,6 +15,7 @@ import 'package:rmp_flutter/screens/residents/contact-support/contact_form_scree
 import 'package:rmp_flutter/screens/residents/contact-support/contact_result_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_support_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/report_detail_screen.dart';
+import 'package:rmp_flutter/screens/residents/contact-support/resident_reply_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/confirm_payment_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/payment_result_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/payment_screen.dart';
@@ -56,4 +57,5 @@ final residentRoutes = {
   ConfirmPaymentScreen.routeName: (_) => const ConfirmPaymentScreen(),
   PaymentScreen.routeName: (_) => const PaymentScreen(),
   SpecificPaymentScreen.routeName: (_) => const SpecificPaymentScreen(),
+  ResidentReplyScreen.routeName: (_) => const ResidentReplyScreen(),
 };
