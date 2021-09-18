@@ -41,7 +41,7 @@ class HelpDeskScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _isResponded = useState(true);
+    final _isResponded = useState(false);
 
     final _reports = useState(ReportsModel(reports: []));
     final _isLoading = useState(false);
@@ -59,6 +59,7 @@ class HelpDeskScreen extends HookConsumerWidget {
 
     void switchResponded(bool switchTo) {
       _isResponded.value = switchTo;
+      print(_isResponded.value);
     }
 
     useEffect(
@@ -67,12 +68,6 @@ class HelpDeskScreen extends HookConsumerWidget {
       },
       [_isResponded.value],
     );
-
-    List<Map<String, dynamic>> filterList() {
-      return dummy
-          .where((ele) => ele["isResponded"] == _isResponded.value)
-          .toList();
-    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -97,27 +92,22 @@ class HelpDeskScreen extends HookConsumerWidget {
                     itemCount: _reports.value.reports.length,
                     itemBuilder: (context, index) {
                       final _currentReport = _reports.value.reports[index];
-                      if (_currentReport.status == "pending" &&
-                          !_isResponded.value) {
-                        return HelpDeskCard(
-                          title: _currentReport.title,
-                          date: formattedDate(_currentReport.requestedDate),
-                          detail: _currentReport.detail,
-                          actionButton: CustomButton(
-                            onPressed: () => Navigator.of(context).pushNamed(
-                              ReplyScreen.routeName,
-                              arguments: _currentReport.id,
-                            ),
-                            text: "REPLY",
-                          ),
-                        );
-                      } else {
-                        return HelpDeskCard(
-                          title: _currentReport.title,
-                          date: formattedDate(_currentReport.requestedDate),
-                          detail: _currentReport.detail,
-                        );
-                      }
+
+                      return HelpDeskCard(
+                        title: _currentReport.title,
+                        date: formattedDate(_currentReport.requestedDate),
+                        detail: _currentReport.detail,
+                        actionButton: !_isResponded.value
+                            ? CustomButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pushNamed(
+                                  ReplyScreen.routeName,
+                                  arguments: _currentReport.id,
+                                ),
+                                text: "REPLY",
+                              )
+                            : Container(),
+                      );
                     },
                   ),
                 ),
