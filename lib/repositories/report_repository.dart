@@ -10,7 +10,7 @@ abstract class BaseReportRepository {
   Future<ReportsModel> getReportsByResident();
   Future<Report> getReport(String id);
   Future<void> createReport(CreateReportDto createReportDto);
-  Future<ReportsModel> getAllReports(String filter);
+  Future<ReportsModel> getAllReports(bool isResponded);
 }
 
 class CreateReportDto {
@@ -85,8 +85,14 @@ class ReportRepository implements BaseReportRepository {
   }
 
   @override
-  Future<ReportsModel> getAllReports(String filter) async {
+  Future<ReportsModel> getAllReports(bool isReponded) async {
     try {
+      String status;
+      if (isReponded) {
+        status = "responded";
+      } else {
+        status = "pending";
+      }
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
       final result = await dio.get(
@@ -97,7 +103,7 @@ class ReportRepository implements BaseReportRepository {
           },
         ),
         queryParameters: {
-          'status': filter,
+          'status': status,
         },
       );
       return ReportsModel.fromJson(result);

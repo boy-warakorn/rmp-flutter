@@ -45,11 +45,11 @@ class HelpDeskScreen extends HookConsumerWidget {
 
     final _reports = useState(ReportsModel(reports: []));
     final _isLoading = useState(false);
-    const String _filter = "pending";
 
     void fetchReports() async {
       _isLoading.value = true;
-      _reports.value = await ReportRepository().getAllReports(_filter);
+      _reports.value =
+          await ReportRepository().getAllReports(_isResponded.value);
       _isLoading.value = false;
     }
 
@@ -59,7 +59,6 @@ class HelpDeskScreen extends HookConsumerWidget {
 
     void switchResponded(bool switchTo) {
       _isResponded.value = switchTo;
-      print(_isResponded.value);
     }
 
     useEffect(
@@ -92,7 +91,6 @@ class HelpDeskScreen extends HookConsumerWidget {
                     itemCount: _reports.value.reports.length,
                     itemBuilder: (context, index) {
                       final _currentReport = _reports.value.reports[index];
-
                       return HelpDeskCard(
                         title: _currentReport.title,
                         date: formattedDate(_currentReport.requestedDate),
