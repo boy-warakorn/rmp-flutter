@@ -26,6 +26,34 @@ class EntityCardStatus extends StatelessWidget {
           color: kWarningColor,
         );
 
+  const EntityCardStatus.pending({Key? key})
+      : this(
+          key: key,
+          text: "Pending",
+          color: kWarningColor,
+        );
+
+  const EntityCardStatus.resolved({Key? key})
+      : this(
+          key: key,
+          text: "Resolved",
+          color: kSuccessColor,
+        );
+
+  const EntityCardStatus.responded({Key? key})
+      : this(
+          key: key,
+          text: "Responded",
+          color: kStrokeColor,
+        );
+
+  const EntityCardStatus.unknown({Key? key})
+      : this(
+          key: key,
+          text: "Unknown",
+          color: kBlackColor,
+        );
+
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -98,12 +98,9 @@ class ContactSupportScreen extends HookConsumerWidget {
 
                               return EntityCard(
                                 title: _currentReport.title,
-                                date:
+                                subtitle:
                                     "Requested Date: ${formattedDate(_currentReport.requestedDate)}",
-                                entityStatus: EntityCardStatus(
-                                  text: _currentReport.status,
-                                  color: kSuccessColor,
-                                ),
+                                statusKey: _currentReport.status,
                                 onPressed: () => Navigator.of(context)
                                     .pushNamed(ReportDetailScreen.routeName,
                                         arguments: _currentReport.id),
