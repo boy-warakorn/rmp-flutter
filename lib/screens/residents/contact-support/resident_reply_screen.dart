@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/screens/residents/contact-support/resident_reply_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
-class ReportDetailScreen extends HookWidget {
-  static const routeName = "/resident/report-detail";
-  const ReportDetailScreen({Key? key}) : super(key: key);
+class ResidentReplyScreen extends HookWidget {
+  static const routeName = "/resident/report-reply";
+  const ResidentReplyScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,40 +31,13 @@ class ReportDetailScreen extends HookWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Title",
-                style: Theme.of(context).textTheme.headline3?.copyWith(
-                      color: kBlackColor,
-                    ),
-              ),
-              kSizedBoxVerticalS,
-              Text(
-                dummyText,
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-              kSizedBoxVerticalS,
               FormTextArea(
-                fieldName: "Complaint Detail",
+                fieldName: "Reply Detail",
                 textEditingController: _title,
-                minLine: 10,
+                minLine: 15,
                 maxLine: 20,
               ),
               kSizedBoxVerticalM,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CustomButton(
-                    text: "See Reply",
-                    onPressed: () => Navigator.of(context).pushNamed(
-                      ResidentReplyScreen.routeName,
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: kSizeS,
-                      vertical: kSizeXS,
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
         ),

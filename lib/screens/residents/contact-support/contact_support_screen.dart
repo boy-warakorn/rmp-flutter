@@ -74,7 +74,7 @@ class ContactSupportScreen extends StatelessWidget {
                         title: "This is title",
                         date: "13/9/2021",
                         entityStatus: EntityCardStatus(
-                          text: "Recieved",
+                          text: "Responded",
                           color: kSuccessColor,
                         ),
                         onPressed: () => Navigator.of(context)
