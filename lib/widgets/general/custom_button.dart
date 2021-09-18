@@ -4,6 +4,7 @@ import 'package:rmp_flutter/configs/constants.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
+  final TextStyle? textStyle;
   final void Function() onPressed;
   final Color color;
   final EdgeInsets padding;
@@ -12,6 +13,7 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     Key? key,
     required this.text,
+    this.textStyle,
     required this.onPressed,
     this.isLoading = false,
     this.color = kBrandColor,
