@@ -93,7 +93,7 @@ class ReportDetailScreen extends HookConsumerWidget {
                       ),
                       child: Text(
                         _report.value.detail,
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
                     kSizedBoxVerticalM,
@@ -108,7 +108,7 @@ class ReportDetailScreen extends HookConsumerWidget {
                               arguments: _report.value.respondDetail,
                             ),
                             padding: EdgeInsets.symmetric(
-                              horizontal: kSizeS,
+                              horizontal: kSizeS * 1.5,
                               vertical: kSizeXS,
                             ),
                           ),

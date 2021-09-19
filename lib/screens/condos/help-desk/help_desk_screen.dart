@@ -104,13 +104,7 @@ class HelpDeskScreen extends HookConsumerWidget {
                                 ),
                                 text: "REPLY",
                               )
-                            : CustomButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pushNamed(
-                                      ReplyScreen.routeName,
-                                      arguments: _currentReport.id,
-                                    ),
-                                text: "See Detail"),
+                            : Container(),
                       );
                     },
                   ),

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/api.dart';
 import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/api.dart';

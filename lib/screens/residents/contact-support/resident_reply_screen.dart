@@ -27,11 +27,16 @@ class ResidentReplyScreen extends HookWidget {
             children: [
               Text(
                 'Reply Detail',
-                style: Theme.of(context).textTheme.headline3,
+                style: Theme.of(context).textTheme.headline3?.copyWith(
+                      color: kBlackColor,
+                    ),
               ),
               kSizedBoxVerticalM,
               Container(
-                width: double.infinity,
+                width: MediaQuery.of(context).size.width,
+                height: kSizeXXL,
+                padding: EdgeInsets.all(kSizeS),
+                color: kLightColor,
                 child: Text(
                   _respondDetail,
                   style: Theme.of(context).textTheme.bodyText1,

@@ -117,7 +117,7 @@ class ReplyScreen extends HookWidget {
                                       MainScreen.routeName, (_) => false);
                                 },
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: kSizeM,
+                                  horizontal: kSizeS * 1.5,
                                   vertical: kSizeXS,
                                 ),
                               ),
@@ -130,14 +130,15 @@ class ReplyScreen extends HookWidget {
                                     await ReportRepository().replyReport(
                                       _report.value.id,
                                       ReplyReportDto(
-                                          respondDetail: _reply.text),
+                                        respondDetail: _reply.text,
+                                      ),
                                     );
                                   } catch (_) {}
                                   Navigator.of(context).pushNamedAndRemoveUntil(
                                       MainScreen.routeName, (_) => false);
                                 },
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: kSizeS,
+                                  horizontal: kSizeS * 1.5,
                                   vertical: kSizeXS,
                                 ),
                               ),
