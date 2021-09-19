@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/room.dart';
+import 'package:rmp_flutter/repositories/package_repository.dart';
+import 'package:rmp_flutter/repositories/room_repository.dart';
 import 'package:rmp_flutter/screens/main_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
@@ -13,6 +16,7 @@ class PostalAddScreen extends HookWidget {
   static const routeName = "/condo/postal-add";
   const PostalAddScreen({Key? key}) : super(key: key);
 
+  // TODO: apply autocomplete textfield
   @override
   Widget build(BuildContext context) {
     final _roomNumber = useTextEditingController();
@@ -23,6 +27,46 @@ class PostalAddScreen extends HookWidget {
     final _receiveDate = useTextEditingController();
     final _status = useTextEditingController();
     final _note = useTextEditingController();
+
+    final _isLoading = useState(true);
+    final _roomNumberList = useState(RoomNumbersModel(roomNumbers: []));
+
+    void _fetchRoomNumbers() async {
+      _isLoading.value = true;
+      _roomNumberList.value = RoomNumbersModel(
+        roomNumbers: await RoomRepository().getRoomIdList(),
+      );
+      _isLoading.value = false;
+
+      print(_roomNumberList.value.roomNumbers);
+    }
+
+    void _createPackage(BuildContext context) async {
+      if (_roomNumberList.value.roomNumbers.contains(_roomNumber.text)) {
+        final packageDto = PackageDto(
+          roomNumber: _roomNumber.text,
+          arrivedAt: _deliveredDate.text,
+          postalService: _deliveredBy.text,
+          note: _note.text,
+        );
+
+        print(packageDto.roomNumber);
+        print(packageDto.arrivedAt);
+        print(packageDto.note);
+        print(packageDto.postalService);
+
+        await PackageRepository().createPackage(packageDto);
+      } else {
+        print("Invalid room");
+      }
+
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(MainScreen.routeName, (_) => false);
+    }
+
+    useEffect(() {
+      _fetchRoomNumbers();
+    }, []);
 
     return Scaffold(
       backgroundColor: kBgColor,
@@ -140,9 +184,9 @@ class PostalAddScreen extends HookWidget {
                           builder: (BuildContext context) => AlertBox(
                             message: "Are you sure?",
                             onNegative: () => Navigator.of(context).pop(),
-                            onPositive: () => Navigator.of(context)
-                                .pushNamedAndRemoveUntil(
-                                    MainScreen.routeName, (_) => false),
+                            onPositive: () {
+                              _createPackage(context);
+                            },
                           ),
                         ),
                       },
