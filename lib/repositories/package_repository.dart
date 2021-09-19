@@ -22,6 +22,7 @@ class PackageDto {
 
 abstract class BasePackageRepository {
   Future<PackagesModel> getPackages();
+  Future<PackagesModel> getPackageByResident();
   Future<Package?> getPackage(String id);
   Future<List<String>> getPackageMasterData();
   Future<void> createPackage(PackageDto package);
@@ -49,7 +50,7 @@ class PackageRepository implements BasePackageRepository {
         }),
       );
     } on DioError catch (_) {
-      throw HttpException("Create report failed");
+      throw HttpException("Create Package failed");
     }
   }
 
@@ -68,7 +69,7 @@ class PackageRepository implements BasePackageRepository {
 
       print("success");
     } on DioError catch (_) {
-      HttpException("Delete package failed");
+      throw HttpException("Delete package failed");
     }
   }
 
@@ -93,11 +94,13 @@ class PackageRepository implements BasePackageRepository {
       );
 
       print("success");
-    } on DioError catch (_) {}
+    } on DioError catch (_) {
+      throw HttpException("Edit package failed");
+    }
   }
 
   @override
-  Future<Package?> getPackage(String id) async {
+  Future<Package> getPackage(String id) async {
     try {
       final pref = await SharedPreferences.getInstance();
       final token = pref.getString("token");
@@ -111,7 +114,7 @@ class PackageRepository implements BasePackageRepository {
 
       return Package.fromJSON(response);
     } on DioError catch (_) {
-      HttpException("Get single package failed");
+      throw HttpException("Get single package failed");
     }
   }
 
@@ -136,7 +139,27 @@ class PackageRepository implements BasePackageRepository {
 
       return PackagesModel.fromJSON(response);
     } on DioError catch (_) {
-      throw HttpException("Get Reports Failed");
+      throw HttpException("Get Packages Failed");
+    }
+  }
+
+  @override
+  Future<PackagesModel> getPackageByResident() async {
+    try {
+      final pref = await SharedPreferences.getInstance();
+      final token = pref.getString("token");
+
+      final response = await dio.get(
+        getPackageByResidentUrl,
+        options: Options(headers: {
+          "Authorization": "Bearer $token",
+        }),
+      );
+
+      return PackagesModel.fromJSON(response);
+
+    } on DioError catch (_) {
+      throw HttpException("Failed to get Packages by Resident");
     }
   }
 }

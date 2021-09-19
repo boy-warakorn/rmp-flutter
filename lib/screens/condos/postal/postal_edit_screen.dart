@@ -40,7 +40,7 @@ class PostalEditScreen extends HookWidget {
 
     void _fetchPackageInfo() async {
       _isLoading.value = true;
-      pk = await PackageRepository().getPackage(id) as Package;
+      pk = await PackageRepository().getPackage(id);
       _package.value = pk;
       _deliveredBy.text = pk.postalService;
       _deliveredDate.text = pk.arrivedAt;

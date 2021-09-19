@@ -5,6 +5,7 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
+import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/general/alert_box.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/text_wall_display.dart';
@@ -32,8 +33,9 @@ class PackageDetailScreen extends HookWidget {
 
     void _deletePackage() async {
       await PackageRepository().deletePackage(id);
-      Navigator.pop(context);
-      Navigator.pop(context);
+      // Navigator.pop(context);
+      // Navigator.pop(context);
+      Navigator.popUntil(context, ModalRoute.withName(PreLoadingScreen.routeName));
     }
 
     Future<void> _showAlertBox() async {
@@ -49,7 +51,7 @@ class PackageDetailScreen extends HookWidget {
 
     void _fetchPackageInfo() async {
       _isLoading.value = true;
-      _package.value = await PackageRepository().getPackage(id) as Package;
+      _package.value = await PackageRepository().getPackage(id);
       _isLoading.value = false;
     }
 

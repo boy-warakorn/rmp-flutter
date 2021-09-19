@@ -6,6 +6,7 @@ import 'package:rmp_flutter/models/room.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/repositories/room_repository.dart';
 import 'package:rmp_flutter/screens/main_screen.dart';
+import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
 import 'package:rmp_flutter/widgets/general/alert_box.dart';
@@ -50,9 +51,7 @@ class PostalAddScreen extends HookWidget {
       } else {
         print("Invalid room");
       }
-
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(MainScreen.routeName, (_) => false);
+      Navigator.of(context).popUntil(ModalRoute.withName(PreLoadingScreen.routeName));
     }
 
     useEffect(() {
