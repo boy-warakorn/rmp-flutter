@@ -15,15 +15,11 @@ class CardTemplate extends StatelessWidget {
     this.color,
   }) : super(key: key);
 
-
-
   @override
   Widget build(BuildContext context) {
     return Card(
       color: color,
-      shape: RoundedRectangleBorder(
-        borderRadius: borderRadius
-      ),
+      shape: RoundedRectangleBorder(borderRadius: borderRadius),
       child: Padding(
         padding: padding,
         child: child,

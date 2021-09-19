@@ -139,11 +139,11 @@ class ResidentPostalScreen extends StatelessWidget {
                                       return EntityCard(
                                         onPressed: () => print('Postal detail'),
                                         title: "${data['title']}",
-                                        date: "${data['date']}",
+                                        date: "Ordered date: ${data['date']}",
                                         entityStatus:
                                             data['status'] == "recieved"
                                                 ? EntityCardStatus(
-                                                    text: "Recieved",
+                                                    text: "Received",
                                                     color: kSuccessColor)
                                                 : EntityCardStatus(
                                                     text: "In-office",

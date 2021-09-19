@@ -24,21 +24,18 @@ final List<String> imgList = [
 
 final List<Widget> imageSliders = imgList
     .map(
-      (item) => Container(
-        margin: EdgeInsets.all(kSizeXS),
-        child: ClipRRect(
-          borderRadius: BorderRadius.all(
-            Radius.circular(kSizeXS),
-          ),
-          child: Stack(
-            children: <Widget>[
-              Image.network(
-                item,
-                fit: BoxFit.cover,
-                width: kSizeXXXL * 2,
-              ),
-            ],
-          ),
+      (item) => ClipRRect(
+        borderRadius: BorderRadius.all(
+          Radius.circular(kSizeXS),
+        ),
+        child: Stack(
+          children: <Widget>[
+            Image.network(
+              item,
+              fit: BoxFit.cover,
+              width: kSizeXXXL * 2,
+            ),
+          ],
         ),
       ),
     )
@@ -106,7 +103,7 @@ class ResidentHomeScreen extends HookConsumerWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "SukJai Condo",
+                                  _curUser.user.businessName,
                                   style: Theme.of(context).textTheme.headline3,
                                 ),
                                 kSizedBoxVerticalS,
@@ -118,7 +115,6 @@ class ResidentHomeScreen extends HookConsumerWidget {
                                     options: CarouselOptions(
                                       autoPlay: true,
                                       enlargeCenterPage: true,
-                                      aspectRatio: 1,
                                     ),
                                     items: imageSliders,
                                   ),
