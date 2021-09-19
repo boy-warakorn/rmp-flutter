@@ -7,6 +7,7 @@ import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/resident_reply_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/general/text_with_value.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class ReportDetailScreen extends HookConsumerWidget {
@@ -77,24 +78,9 @@ class ReportDetailScreen extends HookConsumerWidget {
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     kSizedBoxVerticalS,
-                    Text(
-                      "Complaint Detail",
-                      style: Theme.of(context).textTheme.headline3?.copyWith(
-                            color: kBlackColor,
-                          ),
-                    ),
-                    kSizedBoxVerticalS,
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: kSizeXXL,
-                      padding: EdgeInsets.all(kSizeS),
-                      decoration: BoxDecoration(
-                        color: kLightColor,
-                      ),
-                      child: Text(
-                        _report.value.detail,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
+                    TextWithValue(
+                      head: "Complaint Detail",
+                      detail: _report.value.detail,
                     ),
                     kSizedBoxVerticalM,
                     if (_report.value.respondDetail!.isNotEmpty)

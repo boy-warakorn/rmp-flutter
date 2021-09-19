@@ -1,16 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/widgets/layout/card_template.dart';
 
 class HelpDeskCard extends StatelessWidget {
-  final String title;
+  final String owner;
   final String date;
   final String detail;
+  final String title;
   final Widget? actionButton;
 
   const HelpDeskCard({
     Key? key,
+    required this.owner,
     required this.title,
     required this.date,
     required this.detail,
@@ -29,7 +32,7 @@ class HelpDeskCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Owner: $title",
+                      "Owner: $owner",
                       style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: kFontSizeHeadline4,
@@ -44,6 +47,13 @@ class HelpDeskCard extends StatelessWidget {
                     ),
                     kSizedBoxVerticalXS,
                     Text(
+                      "Title: $title",
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    kSizedBoxVerticalXS,
+                    Text(
                       detail,
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
@@ -52,13 +62,10 @@ class HelpDeskCard extends StatelessWidget {
               ),
             ],
           ),
-          kSizedBoxVerticalXS,
           if (actionButton != null)
             Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const Expanded(
-                  child: SizedBox(),
-                ),
                 SizedBox(width: kSizeXL, child: actionButton),
               ],
             ),

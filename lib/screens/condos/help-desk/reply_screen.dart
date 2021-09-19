@@ -7,6 +7,7 @@ import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/main_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/general/text_with_value.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 const loremIpsum =
@@ -28,7 +29,6 @@ class ReplyScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _reply = useTextEditingController();
-
     final _reportId = ModalRoute.of(context)?.settings.arguments as String;
     final _isLoading = useState(false);
     final _report = useState(
@@ -41,6 +41,7 @@ class ReplyScreen extends HookWidget {
         title: "",
         detail: "",
         status: "",
+        respondDetail: "",
       ),
     );
 
@@ -82,6 +83,9 @@ class ReplyScreen extends HookWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildHeaderText(
+                              context, "Title: ${_report.value.title}"),
+                          kSizedBoxVerticalS,
+                          _buildHeaderText(
                               context, "Reply to ${_report.value.reportOwner}"),
                           kSizedBoxVerticalS,
                           _buildHeaderText(context,
@@ -95,12 +99,17 @@ class ReplyScreen extends HookWidget {
                           ),
                           kSizedBoxVerticalS,
                           kSizedBoxVerticalXS,
-                          FormTextArea(
-                            fieldName: "Reply",
-                            minLine: 10,
-                            maxLine: 15,
-                            textEditingController: _reply,
-                          ),
+                          _report.value.respondDetail!.isEmpty
+                              ? FormTextArea(
+                                  fieldName: "Reply",
+                                  minLine: 10,
+                                  maxLine: 15,
+                                  textEditingController: _reply,
+                                )
+                              : TextWithValue(
+                                  head: "Reply Detail",
+                                  detail: _report.value.respondDetail!,
+                                ),
                           kSizedBoxVerticalS,
                           kSizedBoxVerticalXS,
                           Row(
@@ -121,27 +130,36 @@ class ReplyScreen extends HookWidget {
                                   vertical: kSizeXS,
                                 ),
                               ),
-                              kSizedBoxHorizontalS,
-                              CustomButton(
-                                text: "SUBMIT",
-                                onPressed: () async {
-                                  if (_reply.text.isEmpty) return;
-                                  try {
-                                    await ReportRepository().replyReport(
-                                      _report.value.id,
-                                      ReplyReportDto(
-                                        respondDetail: _reply.text,
-                                      ),
-                                    );
-                                  } catch (_) {}
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                      MainScreen.routeName, (_) => false);
-                                },
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: kSizeS * 1.5,
-                                  vertical: kSizeXS,
-                                ),
-                              ),
+                              _report.value.respondDetail!.isEmpty
+                                  ? Row(
+                                      children: [
+                                        kSizedBoxHorizontalS,
+                                        CustomButton(
+                                          text: "SUBMIT",
+                                          onPressed: () async {
+                                            if (_reply.text.isEmpty) return;
+                                            try {
+                                              await ReportRepository()
+                                                  .replyReport(
+                                                _report.value.id,
+                                                ReplyReportDto(
+                                                  respondDetail: _reply.text,
+                                                ),
+                                              );
+                                            } catch (_) {}
+                                            Navigator.of(context)
+                                                .pushNamedAndRemoveUntil(
+                                                    MainScreen.routeName,
+                                                    (_) => false);
+                                          },
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: kSizeS * 1.5,
+                                            vertical: kSizeXS,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
                             ],
                           ),
                         ],

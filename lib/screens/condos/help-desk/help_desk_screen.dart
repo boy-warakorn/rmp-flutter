@@ -10,30 +10,6 @@ import 'package:rmp_flutter/widgets/general/custom_slider.dart';
 import 'package:rmp_flutter/widgets/general/help_desk_card.dart';
 import 'package:rmp_flutter/utils/date_format.dart';
 
-const loremIpsum =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare accumsan nulla non accumsan. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eget pharetra lacus. Maecenas et dolor blandit, sodales justo pharetra,";
-
-const dummy = [
-  {
-    "title": "T1",
-    "date": "20/20/2202",
-    "detail": loremIpsum,
-    "isResponded": true,
-  },
-  {
-    "title": "T2",
-    "date": "20/20/2202",
-    "detail": loremIpsum,
-    "isResponded": false,
-  },
-  {
-    "title": "T3",
-    "date": "20/20/2202",
-    "detail": loremIpsum,
-    "isResponded": true,
-  },
-];
-
 class HelpDeskScreen extends HookConsumerWidget {
   static const routeName = "/condo/helpdesk";
 
@@ -41,7 +17,7 @@ class HelpDeskScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _isResponded = useState(false);
+    final _isResponded = useState(true);
 
     final _reports = useState(ReportsModel(reports: []));
     final _isLoading = useState(false);
@@ -92,6 +68,7 @@ class HelpDeskScreen extends HookConsumerWidget {
                     itemBuilder: (context, index) {
                       final _currentReport = _reports.value.reports[index];
                       return HelpDeskCard(
+                        owner: _currentReport.reportOwner,
                         title: _currentReport.title,
                         date: formattedDate(_currentReport.requestedDate),
                         detail: _currentReport.detail,
@@ -104,7 +81,14 @@ class HelpDeskScreen extends HookConsumerWidget {
                                 ),
                                 text: "REPLY",
                               )
-                            : Container(),
+                            : CustomButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pushNamed(
+                                  ReplyScreen.routeName,
+                                  arguments: _currentReport.id,
+                                ),
+                                text: "See Detail",
+                              ),
                       );
                     },
                   ),
