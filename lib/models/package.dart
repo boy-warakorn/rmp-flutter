@@ -29,7 +29,7 @@ class Package {
   final String id;
   final String roomNumber;
   final String roomOwner;
-  final String? note;
+  final String note;
   final String arrivedAt;
   final String deliveredAt;
   final String status;

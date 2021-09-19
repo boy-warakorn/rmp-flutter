@@ -85,7 +85,7 @@ class PackageRepository implements BasePackageRepository {
       final token = pref.getString("token");
 
       final response = await dio.get(
-        getPackagesUrl,
+        "$getPackagesUrl/?status=in-storage",
         options: Options(headers: {
           "Authorization": "Bearer $token",
         }),

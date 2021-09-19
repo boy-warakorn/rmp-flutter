@@ -7,6 +7,7 @@ import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/repositories/room_repository.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
+import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
 
 class PostalScreen extends HookWidget {
@@ -16,16 +17,17 @@ class PostalScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _packages = useState(PackagesModel(packages: []));
+    final _isLoading = useState(true);
 
     void _fetchPackages() async {
-      PackagesModel pk = await PackageRepository().getPackages();
-      print(pk.packages.length);
+      _isLoading.value = true;
+      _packages.value = await PackageRepository().getPackages();
+      _isLoading.value = false;
     }
 
-    useEffect((){
+    useEffect(() {
       _fetchPackages();
     }, []);
-    
 
     return Container(
       decoration: BoxDecoration(
@@ -85,16 +87,21 @@ class PostalScreen extends HookWidget {
                   ),
                   kSizedBoxVerticalS,
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (ctx, index) => PackageCard(
-                        title: "Gaming Monitor",
-                        date: "13/9/2021",
-                        note: "24 inches monitor",
-                        onPressed: () => Navigator.of(context)
-                            .pushNamed(PackageDetailScreen.routeName),
-                      ),
-                    ),
+                    child: _isLoading.value
+                        ? CenteredProgressIndicator()
+                        : ListView.builder(
+                            itemCount: _packages.value.packages.length,
+                            itemBuilder: (ctx, index){
+                              Package pk = _packages.value.packages[index];
+                              return PackageCard(
+                              title: pk.roomNumber,
+                              date: pk.arrivedAt,
+                              note: pk.note.isEmpty ? "-" : pk.note,
+                              onPressed: () => Navigator.of(context)
+                                  .pushNamed(PackageDetailScreen.routeName),
+                            );
+                            },
+                          ),
                   ),
                 ],
               ),
