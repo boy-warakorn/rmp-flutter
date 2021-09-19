@@ -8,7 +8,6 @@ import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/report_detail_screen.dart';
 import 'package:rmp_flutter/utils/date_format.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
-import 'package:rmp_flutter/widgets/general/entity_card_status.dart';
 
 class ContactSupportScreen extends HookConsumerWidget {
   static const routeName = "/resident/contact-support";
