@@ -5,6 +5,7 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/providers/user_provider.dart';
 import 'package:rmp_flutter/screens/condos/about/about_us_screen.dart';
 import 'package:rmp_flutter/screens/condos/profile/profile_setting_screen.dart';
+import 'package:rmp_flutter/screens/login_screen.dart';
 import 'package:rmp_flutter/widgets/navigations/drawer_button.dart';
 import 'package:rmp_flutter/widgets/general/brand_title.dart';
 
@@ -68,6 +69,10 @@ class MainDrawer extends HookConsumerWidget {
               text: "Log Out",
               onPressed: () => {
                 _curUser.clearUser(),
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  LoginScreen.routeName,
+                  (_) => false,
+                )
               },
               icon: const Icon(
                 Icons.logout_rounded,

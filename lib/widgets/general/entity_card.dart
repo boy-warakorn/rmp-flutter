@@ -29,15 +29,16 @@ class EntityCard extends StatelessWidget {
               style: Theme.of(context).textTheme.headline4,
             ),
             kSizedBoxVerticalXS,
+            Text(
+              date,
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                    color: kSubtitleColor,
+                  ),
+            ),
+            kSizedBoxVerticalS,
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  "Ordered date: $date",
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                        color: kSubtitleColor,
-                      ),
-                ),
                 entityStatus,
               ],
             ),

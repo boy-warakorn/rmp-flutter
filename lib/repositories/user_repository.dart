@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:rmp_flutter/configs/api.dart';
 import 'package:rmp_flutter/models/user.dart';

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
-import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/general/text_with_value.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class ResidentReplyScreen extends HookWidget {
@@ -12,11 +11,7 @@ class ResidentReplyScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _title = useTextEditingController(
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    );
-    String dummyText =
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Posuere urna, cras parturient venenatis porttitor platea. Auctor amet ultricies libero lectus convallis urna, lacinia.';
+    final _respondDetail = ModalRoute.of(context)?.settings.arguments as String;
 
     return Scaffold(
       appBar: BackAppBar(),
@@ -31,13 +26,10 @@ class ResidentReplyScreen extends HookWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FormTextArea(
-                fieldName: "Reply Detail",
-                textEditingController: _title,
-                minLine: 15,
-                maxLine: 20,
+              TextWithValue(
+                head: "Reply Detail",
+                detail: _respondDetail,
               ),
-              kSizedBoxVerticalM,
             ],
           ),
         ),

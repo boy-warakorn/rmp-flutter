@@ -5,6 +5,7 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/general/text_with_value.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class PackageDetailScreen extends HookWidget {
@@ -74,11 +75,9 @@ class PackageDetailScreen extends HookWidget {
                     ),
               ),
               kSizedBoxVerticalXS,
-              FormTextArea(
-                fieldName: "Note",
-                textEditingController: _note,
-                minLine: 10,
-                maxLine: 20,
+              TextWithValue(
+                head: "Note",
+                detail: "",
               ),
               kSizedBoxVerticalL,
               Row(
