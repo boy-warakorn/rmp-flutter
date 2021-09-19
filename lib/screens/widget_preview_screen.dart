@@ -154,6 +154,7 @@ class WidgetPreviewScreen extends HookWidget {
                 color: Colors.blueGrey,
               ),
               HelpDeskCard(
+                owner: "",
                 title: "Title",
                 date: "20/20/2020",
                 detail: "Short detail",
@@ -162,6 +163,7 @@ class WidgetPreviewScreen extends HookWidget {
                     onPressed: () => print("HelpDeskCard: Pressed")),
               ),
               HelpDeskCard(
+                owner: "",
                 title: "Title long detail",
                 date: "20/20/2020",
                 detail: loremIpsum,
@@ -233,6 +235,7 @@ class WidgetPreviewScreen extends HookWidget {
                   onPressed: () => print("CustomButton - colored: Pressed"),
                   color: Colors.blueGrey),
               HelpDeskCard(
+                owner: "",
                 title: "Title",
                 date: "20/20/2020",
                 detail: "Short detail",
@@ -241,6 +244,7 @@ class WidgetPreviewScreen extends HookWidget {
                     onPressed: () => print("HelpDeskCard: Pressed")),
               ),
               HelpDeskCard(
+                owner: "",
                 title: "Title long detail",
                 date: "20/20/2020",
                 detail: loremIpsum,
