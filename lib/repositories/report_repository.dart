@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/api.dart';
 import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/api.dart';
@@ -10,7 +11,9 @@ abstract class BaseReportRepository {
   Future<ReportsModel> getReportsByResident();
   Future<Report> getReport(String id);
   Future<void> createReport(CreateReportDto createReportDto);
-  Future<ReportsModel> getAllReports(bool isResponded);
+  Future<ReportsModel> getReportsByCondo(bool isResponded);
+  Future<void> replyReport(String id, ReplyReportDto replyReportDto);
+  Future<void> setResolved(String id);
 }
 
 class CreateReportDto {
@@ -20,6 +23,14 @@ class CreateReportDto {
   CreateReportDto({
     required this.detail,
     required this.title,
+  });
+}
+
+class ReplyReportDto {
+  final String respondDetail;
+
+  ReplyReportDto({
+    required this.respondDetail,
   });
 }
 
@@ -85,14 +96,8 @@ class ReportRepository implements BaseReportRepository {
   }
 
   @override
-  Future<ReportsModel> getAllReports(bool isReponded) async {
+  Future<ReportsModel> getReportsByCondo(bool isResponded) async {
     try {
-      String status;
-      if (isReponded) {
-        status = "responded";
-      } else {
-        status = "pending";
-      }
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
       final result = await dio.get(
@@ -103,12 +108,54 @@ class ReportRepository implements BaseReportRepository {
           },
         ),
         queryParameters: {
-          'status': status,
+          'status': isResponded ? 'responded' : 'pending',
         },
       );
       return ReportsModel.fromJson(result);
     } on DioError catch (_) {
       throw HttpException("Get Reports Failed");
+    }
+  }
+
+  @override
+  Future<void> replyReport(String id, ReplyReportDto replyReportDto) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      await dio.post(
+        replyReportUrl(id),
+        data: {
+          "detail": replyReportDto.respondDetail,
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+    } on DioError catch (_) {
+      throw HttpException("Reply Reports Failed");
+    }
+  }
+
+  @override
+  Future<void> setResolved(String id) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      await dio.post(
+        resolveReportUrl(id),
+        data: {
+          "status": 'resolved',
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+    } on DioError catch (_) {
+      throw HttpException("Set Resolved on Report Failed");
     }
   }
 }

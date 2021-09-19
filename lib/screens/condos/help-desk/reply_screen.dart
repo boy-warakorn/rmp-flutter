@@ -108,7 +108,14 @@ class ReplyScreen extends HookWidget {
                             children: [
                               CustomButton(
                                 text: "MARK AS RESOLVED",
-                                onPressed: () => print('Resolved'),
+                                onPressed: () async {
+                                  try {
+                                    await ReportRepository()
+                                        .setResolved(_report.value.id);
+                                  } catch (_) {}
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      MainScreen.routeName, (_) => false);
+                                },
                                 padding: EdgeInsets.symmetric(
                                   horizontal: kSizeM,
                                   vertical: kSizeXS,
@@ -117,9 +124,18 @@ class ReplyScreen extends HookWidget {
                               kSizedBoxHorizontalS,
                               CustomButton(
                                 text: "SUBMIT",
-                                onPressed: () => Navigator.of(context)
-                                    .pushNamedAndRemoveUntil(
-                                        MainScreen.routeName, (_) => false),
+                                onPressed: () async {
+                                  if (_reply.text.isEmpty) return;
+                                  try {
+                                    await ReportRepository().replyReport(
+                                      _report.value.id,
+                                      ReplyReportDto(
+                                          respondDetail: _reply.text),
+                                    );
+                                  } catch (_) {}
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      MainScreen.routeName, (_) => false);
+                                },
                                 padding: EdgeInsets.symmetric(
                                   horizontal: kSizeS,
                                   vertical: kSizeXS,

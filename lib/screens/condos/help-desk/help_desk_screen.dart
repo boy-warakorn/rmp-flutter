@@ -49,7 +49,7 @@ class HelpDeskScreen extends HookConsumerWidget {
     void fetchReports() async {
       _isLoading.value = true;
       _reports.value =
-          await ReportRepository().getAllReports(_isResponded.value);
+          await ReportRepository().getReportsByCondo(_isResponded.value);
       _isLoading.value = false;
     }
 
@@ -104,7 +104,13 @@ class HelpDeskScreen extends HookConsumerWidget {
                                 ),
                                 text: "REPLY",
                               )
-                            : Container(),
+                            : CustomButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pushNamed(
+                                      ReplyScreen.routeName,
+                                      arguments: _currentReport.id,
+                                    ),
+                                text: "See Detail"),
                       );
                     },
                   ),
