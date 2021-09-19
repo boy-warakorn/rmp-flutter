@@ -20,12 +20,8 @@ class PostalAddScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _roomNumber = useTextEditingController();
-    final _owner = useTextEditingController();
     final _deliveredBy = useTextEditingController();
     final _deliveredDate = useTextEditingController();
-    final _receivedBy = useTextEditingController();
-    final _receiveDate = useTextEditingController();
-    final _status = useTextEditingController();
     final _note = useTextEditingController();
 
     final _isLoading = useState(true);
@@ -49,11 +45,6 @@ class PostalAddScreen extends HookWidget {
           postalService: _deliveredBy.text,
           note: _note.text,
         );
-
-        print(packageDto.roomNumber);
-        print(packageDto.arrivedAt);
-        print(packageDto.note);
-        print(packageDto.postalService);
 
         await PackageRepository().createPackage(packageDto);
       } else {
@@ -89,11 +80,6 @@ class PostalAddScreen extends HookWidget {
                 ),
               ),
               kSizedBoxVerticalS,
-              FormTextField(
-                fieldName: "Owner",
-                textEditingController: _owner,
-              ),
-              kSizedBoxVerticalS,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -119,31 +105,7 @@ class PostalAddScreen extends HookWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: FormTextField(
-                      fieldName: "Received By",
-                      textEditingController: _receivedBy,
-                    ),
-                  ),
-                  kSizedBoxHorizontalM,
-                  Expanded(
-                    child: FormTextField(
-                      fieldName: "Received Date",
-                      textEditingController: _receiveDate,
-                      suffixIcon: Icon(
-                        Icons.date_range_outlined,
-                      ),
-                    ),
-                  ),
                 ],
-              ),
-              kSizedBoxVerticalS,
-              Container(
-                width: MediaQuery.of(context).size.width * 0.4,
-                child: FormTextField(
-                  fieldName: "Status",
-                  textEditingController: _status,
-                ),
               ),
               kSizedBoxVerticalS,
               FormTextArea(
@@ -162,12 +124,8 @@ class PostalAddScreen extends HookWidget {
                       text: "CLEAR",
                       onPressed: () => {
                         _roomNumber.clear(),
-                        _owner.clear(),
                         _deliveredBy.clear(),
                         _deliveredDate.clear(),
-                        _receivedBy.clear(),
-                        _receiveDate.clear(),
-                        _status.clear(),
                         _note.clear(),
                       },
                       color: kWarningColor,

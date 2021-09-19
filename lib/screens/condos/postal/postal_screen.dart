@@ -1,16 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/package.dart';
+import 'package:rmp_flutter/repositories/package_repository.dart';
+import 'package:rmp_flutter/repositories/room_repository.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
 
-class PostalScreen extends StatelessWidget {
+class PostalScreen extends HookWidget {
   static const routeName = "/condo/postal";
   const PostalScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _packages = useState(PackagesModel(packages: []));
+
+    void _fetchPackages() async {
+      PackagesModel pk = await PackageRepository().getPackages();
+      print(pk.packages.length);
+    }
+
+    useEffect((){
+      _fetchPackages();
+    }, []);
+    
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(

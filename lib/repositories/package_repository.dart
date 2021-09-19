@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:rmp_flutter/configs/api.dart';
 import 'package:rmp_flutter/models/package.dart';
+import 'package:rmp_flutter/models/token.dart';
 import 'package:rmp_flutter/repositories/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,10 +49,8 @@ class PackageRepository implements BasePackageRepository {
           "Authorization": "Bearer $token",
         }),
       );
-
-      print("done");
     } on DioError catch (_) {
-      throw HttpException("Get Reports Failed");
+      throw HttpException("Create report failed");
     }
   }
 
@@ -80,8 +79,22 @@ class PackageRepository implements BasePackageRepository {
   }
 
   @override
-  Future<PackagesModel> getPackages() {
-    // TODO: implement getPackages
-    throw UnimplementedError();
+  Future<PackagesModel> getPackages() async {
+    try {
+      final pref = await SharedPreferences.getInstance();
+      final token = pref.getString("token");
+
+      final response = await dio.get(
+        getPackagesUrl,
+        options: Options(headers: {
+          "Authorization": "Bearer $token",
+        }),
+      );
+
+      return PackagesModel.fromJSON(response);
+
+    } on DioError catch (_) {
+      throw HttpException("Get Reports Failed");
+    }
   }
 }

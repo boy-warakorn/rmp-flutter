@@ -13,6 +13,7 @@ import 'package:rmp_flutter/screens/residents/contact-support/contact_support_sc
 import 'package:rmp_flutter/screens/residents/home_screen.dart';
 import 'package:rmp_flutter/screens/residents/postal/resident_postal_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/payment_screen.dart';
+import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
 import 'package:rmp_flutter/widgets/navigations/bottom_bar.dart';
 import 'package:rmp_flutter/widgets/navigations/main_drawer.dart';
@@ -52,9 +53,7 @@ class MainScreen extends HookConsumerWidget {
       ),
       drawer: MainDrawer(),
       body: _role.isEmpty
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
+          ? CenteredProgressIndicator()
           : _isResident
               ? _residentTabs[_currentTabIndex.value]
               : _condoTabs[_currentTabIndex.value],
