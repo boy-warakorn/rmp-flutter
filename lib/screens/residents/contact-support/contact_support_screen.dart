@@ -29,11 +29,11 @@ class ContactSupportScreen extends HookConsumerWidget {
       fetchReports();
     }, []);
 
-    Color changeColor(String text) {
+    Color getStatusColor(String text) {
       if (text == "pending") {
         return kWarningColor;
       } else if (text == "responded") {
-        return kBrandColor;
+        return kStrokeColor;
       }
       return kSuccessColor;
     }
@@ -111,7 +111,7 @@ class ContactSupportScreen extends HookConsumerWidget {
                                     "Requested Date: ${formattedDate(_currentReport.requestedDate)}",
                                 entityStatus: EntityCardStatus(
                                   text: _currentReport.status.toUpperCase(),
-                                  color: changeColor(_currentReport.status),
+                                  color: getStatusColor(_currentReport.status),
                                 ),
                                 onPressed: () => Navigator.of(context)
                                     .pushNamed(ReportDetailScreen.routeName,

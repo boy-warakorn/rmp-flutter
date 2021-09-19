@@ -111,7 +111,7 @@ class ReplyScreen extends HookWidget {
                                 onPressed: () async {
                                   try {
                                     await ReportRepository()
-                                        .setResolved(_report.value.id);
+                                        .setResolvedOnReport(_report.value.id);
                                   } catch (_) {}
                                   Navigator.of(context).pushNamedAndRemoveUntil(
                                       MainScreen.routeName, (_) => false);

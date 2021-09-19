@@ -12,7 +12,7 @@ abstract class BaseReportRepository {
   Future<void> createReport(CreateReportDto createReportDto);
   Future<ReportsModel> getReportsByCondo(bool isResponded);
   Future<void> replyReport(String id, ReplyReportDto replyReportDto);
-  Future<void> setResolved(String id);
+  Future<void> setResolvedOnReport(String id);
 }
 
 class CreateReportDto {
@@ -49,7 +49,7 @@ class ReportRepository implements BaseReportRepository {
       );
       return ReportsModel.fromJson(result);
     } on DioError catch (_) {
-      throw HttpException("Get Reports Failed");
+      throw HttpException("Get Reports By Resident Failed");
     }
   }
 
@@ -112,7 +112,7 @@ class ReportRepository implements BaseReportRepository {
       );
       return ReportsModel.fromJson(result);
     } on DioError catch (_) {
-      throw HttpException("Get Reports Failed");
+      throw HttpException("Get Reports By Condo Failed");
     }
   }
 
@@ -138,7 +138,7 @@ class ReportRepository implements BaseReportRepository {
   }
 
   @override
-  Future<void> setResolved(String id) async {
+  Future<void> setResolvedOnReport(String id) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
