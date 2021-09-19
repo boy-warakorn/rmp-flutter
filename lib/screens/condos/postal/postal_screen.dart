@@ -5,7 +5,6 @@ import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
-import 'package:rmp_flutter/repositories/room_repository.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
 import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
@@ -79,11 +78,7 @@ class PostalScreen extends HookWidget {
                 children: [
                   Text(
                     "All Packages",
-                    style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                          fontSize: kFontSizeHeadline3,
-                          color: kBrandDarkerColor,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    style: Theme.of(context).textTheme.headline3,
                   ),
                   kSizedBoxVerticalS,
                   Expanded(
@@ -91,15 +86,17 @@ class PostalScreen extends HookWidget {
                         ? CenteredProgressIndicator()
                         : ListView.builder(
                             itemCount: _packages.value.packages.length,
-                            itemBuilder: (ctx, index){
+                            itemBuilder: (ctx, index) {
                               Package pk = _packages.value.packages[index];
                               return PackageCard(
-                              title: pk.roomNumber,
-                              date: pk.arrivedAt,
-                              note: pk.note.isEmpty ? "-" : pk.note,
-                              onPressed: () => Navigator.of(context)
-                                  .pushNamed(PackageDetailScreen.routeName),
-                            );
+                                title: pk.roomNumber,
+                                date: pk.arrivedAt,
+                                note: pk.note.isEmpty ? "-" : pk.note,
+                                onPressed: () => Navigator.of(context)
+                                    .pushNamed(PackageDetailScreen.routeName,
+                                        arguments: pk.id)
+                                    .then((value) => _fetchPackages()),
+                              );
                             },
                           ),
                   ),

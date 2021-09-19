@@ -18,8 +18,11 @@ class TextWallDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     style ??= Theme.of(context).textTheme.bodyText1;
     return Container(
+      decoration: BoxDecoration(
+        color: kLightColor,
+        borderRadius: kBorderRadiusS,
+      ),
       padding: padding,
-      color: kLightColor,
       child: SingleChildScrollView(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,

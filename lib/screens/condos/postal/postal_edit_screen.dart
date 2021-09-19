@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/screens/main_screen.dart';
+import 'package:rmp_flutter/models/package.dart';
+import 'package:rmp_flutter/repositories/package_repository.dart';
+import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
-import 'package:rmp_flutter/widgets/general/alert_box.dart';
+import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
@@ -17,140 +19,128 @@ class PostalEditScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _deliveredBy = useTextEditingController();
     final _deliveredDate = useTextEditingController();
-    final _receivedBy = useTextEditingController();
-    final _receiveDate = useTextEditingController();
-    final _status = useTextEditingController();
     final _note = useTextEditingController();
+
+    final id = ModalRoute.of(context)?.settings.arguments as String;
+
+    late Package pk;
+
+    final _package = useState(
+      Package(
+          id: "",
+          roomNumber: "",
+          roomOwner: "",
+          note: "",
+          arrivedAt: "",
+          deliveredAt: "",
+          status: "",
+          postalService: ""),
+    );
+    final _isLoading = useState(true);
+
+    void _fetchPackageInfo() async {
+      _isLoading.value = true;
+      pk = await PackageRepository().getPackage(id) as Package;
+      _package.value = pk;
+      _deliveredBy.text = pk.postalService;
+      _deliveredDate.text = pk.arrivedAt;
+      _note.text = pk.note;
+      _isLoading.value = false;
+    }
+
+    void _submit() async {
+      await PackageRepository().editPackage(
+        PackageDto(
+            roomNumber: _package.value.roomNumber,
+            arrivedAt: _deliveredDate.text,
+            postalService: _deliveredBy.text,
+            note: _note.text,  
+          ),
+        id,
+      );
+
+      Navigator.popUntil(context, ModalRoute.withName(PackageDetailScreen.routeName));
+    }
+
+    useEffect(() {
+      _fetchPackageInfo();
+    }, []);
 
     return Scaffold(
       appBar: BackAppBar(),
       backgroundColor: kBgColor,
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(
-            left: kSizeS * 1.5,
-            right: kSizeS * 1.5,
-            top: kSizeS,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "You are editing CB2312",
-                style: Theme.of(context).textTheme.headline3?.copyWith(
-                      color: kBlackColor,
-                    ),
+      body: _isLoading.value
+          ? CenteredProgressIndicator()
+          : Container(
+              padding: EdgeInsets.only(
+                left: kSizeS * 1.5,
+                right: kSizeS * 1.5,
+                top: kSizeS,
               ),
-              kSizedBoxVerticalS,
-              kSizedBoxVerticalXS,
-              Text(
-                "Owner: Anawat Paothong",
-                style: Theme.of(context).textTheme.headline3?.copyWith(
-                      color: kBlackColor,
-                    ),
-              ),
-              kSizedBoxVerticalS,
-              kSizedBoxVerticalXS,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: FormTextField(
-                      fieldName: "Delivered By",
-                      textEditingController: _deliveredBy,
-                    ),
+                  Text(
+                    "You are editing ${_package.value.roomNumber}",
+                    style: Theme.of(context).textTheme.headline3?.copyWith(
+                          color: kBlackColor,
+                        ),
                   ),
-                  kSizedBoxHorizontalM,
-                  Expanded(
-                    child: FormTextField(
-                      fieldName: "Delivered Date",
-                      textEditingController: _deliveredDate,
-                      suffixIcon: Icon(
-                        Icons.date_range_outlined,
+                  kSizedBoxVerticalS,
+                  kSizedBoxVerticalXS,
+                  Text(
+                    "Owner: ${_package.value.roomOwner}",
+                    style: Theme.of(context).textTheme.headline3?.copyWith(
+                          color: kBlackColor,
+                        ),
+                  ),
+                  kSizedBoxVerticalS,
+                  kSizedBoxVerticalXS,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: FormTextField(
+                          fieldName: "Delivered By",
+                          textEditingController: _deliveredBy,
+                        ),
                       ),
-                    ),
-                  ),
-                ],
-              ),
-              kSizedBoxVerticalS,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: FormTextField(
-                      fieldName: "Received By",
-                      textEditingController: _receivedBy,
-                    ),
-                  ),
-                  kSizedBoxHorizontalM,
-                  Expanded(
-                    child: FormTextField(
-                      fieldName: "Received Date",
-                      textEditingController: _receiveDate,
-                      suffixIcon: Icon(
-                        Icons.date_range_outlined,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              kSizedBoxVerticalS,
-              Container(
-                width: MediaQuery.of(context).size.width * 0.4,
-                child: FormTextField(
-                  fieldName: "Status",
-                  textEditingController: _status,
-                ),
-              ),
-              kSizedBoxVerticalS,
-              FormTextArea(
-                fieldName: "Note",
-                textEditingController: _note,
-                minLine: 5,
-                maxLine: 10,
-              ),
-              kSizedBoxVerticalM,
-              kSizedBoxVerticalM,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    width: kSizeXL / 1.25,
-                    child: CustomButton(
-                      text: "DELETE",
-                      onPressed: () => {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertBox(
-                            message: "Are you sure?",
-                            onNegative: () => Navigator.of(context).pop(),
-                            onPositive: () => Navigator.of(context)
-                                .pushNamedAndRemoveUntil(
-                                    MainScreen.routeName, (_) => false),
+                      kSizedBoxHorizontalM,
+                      Expanded(
+                        child: FormTextField(
+                          fieldName: "Delivered Date",
+                          textEditingController: _deliveredDate,
+                          suffixIcon: Icon(
+                            Icons.date_range_outlined,
                           ),
                         ),
-                      },
-                      color: kErrorColor,
-                    ),
+                      ),
+                    ],
                   ),
-                  kSizedBoxHorizontalS,
-                  Container(
-                    width: kSizeXL / 1.25,
-                    child: CustomButton(
-                      text: "SUBMIT",
-                      onPressed: () {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            MainScreen.routeName, (_) => false);
-                      },
-                    ),
+                  kSizedBoxVerticalS,
+                  FormTextArea(
+                    fieldName: "Note",
+                    textEditingController: _note,
+                    minLine: 5,
+                    maxLine: 10,
                   ),
+                  Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        width: kSizeXL / 1.25,
+                        child: CustomButton(
+                          text: "SUBMIT",
+                          onPressed: _submit,
+                        ),
+                      ),
+                    ],
+                  ),
+                  kSizedBoxVerticalM,
                 ],
               ),
-              kSizedBoxVerticalM,
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

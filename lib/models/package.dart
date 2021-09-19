@@ -45,4 +45,21 @@ class Package {
     required this.status,
     required this.postalService,
   });
+
+  factory Package.fromJSON(dynamic fetchedResult) {
+    Map<String, dynamic> pk = jsonDecode(fetchedResult.toString());
+    
+    print(pk);
+
+    return Package(
+      id: pk["id"],
+      roomNumber: pk["roomNumber"],
+      roomOwner: pk["roomOwner"] ?? "-",
+      note: pk["note"],
+      arrivedAt: pk["arrivedAt"],
+      deliveredAt: pk["deliveredAt"],
+      status: pk["status"],
+      postalService: pk["postalService"],
+    );
+  }
 }

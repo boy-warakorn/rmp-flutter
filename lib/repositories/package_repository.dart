@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:rmp_flutter/configs/api.dart';
 import 'package:rmp_flutter/models/package.dart';
-import 'package:rmp_flutter/models/token.dart';
 import 'package:rmp_flutter/repositories/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,7 +22,7 @@ class PackageDto {
 
 abstract class BasePackageRepository {
   Future<PackagesModel> getPackages();
-  Future<Package> getPackage(String id);
+  Future<Package?> getPackage(String id);
   Future<List<String>> getPackageMasterData();
   Future<void> createPackage(PackageDto package);
   Future<void> editPackage(PackageDto package, String id);
@@ -55,21 +54,65 @@ class PackageRepository implements BasePackageRepository {
   }
 
   @override
-  Future<void> deletePackage(String id) {
-    // TODO: implement deletePackage
-    throw UnimplementedError();
+  Future<void> deletePackage(String id) async {
+    try {
+      final pref = await SharedPreferences.getInstance();
+      final token = pref.getString("token");
+
+      await dio.delete(getDeletePackageUrl(id),
+          options: Options(
+            headers: {
+              "Authorization": "Bearer $token",
+            },
+          ));
+
+      print("success");
+    } on DioError catch (_) {
+      HttpException("Delete package failed");
+    }
   }
 
   @override
-  Future<void> editPackage(PackageDto package, String id) {
-    // TODO: implement editPackage
-    throw UnimplementedError();
+  Future<void> editPackage(PackageDto package, String id) async {
+    try {
+      final pref = await SharedPreferences.getInstance();
+      final token = pref.getString("token");
+
+      await dio.post(
+        getEditPackageUrl(id),
+        data: {
+          "note": package.note,
+          "arrivedAt": package.arrivedAt,
+          "postalService": package.arrivedAt,
+        },
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+
+      print("success");
+    } on DioError catch (_) {}
   }
 
   @override
-  Future<Package> getPackage(String id) {
-    // TODO: implement getPackage
-    throw UnimplementedError();
+  Future<Package?> getPackage(String id) async {
+    try {
+      final pref = await SharedPreferences.getInstance();
+      final token = pref.getString("token");
+
+      final response = await dio.get(
+        getPackageByIdUrl(id),
+        options: Options(headers: {
+          "Authorization": "Bearer $token",
+        }),
+      );
+
+      return Package.fromJSON(response);
+    } on DioError catch (_) {
+      HttpException("Get single package failed");
+    }
   }
 
   @override
@@ -92,7 +135,6 @@ class PackageRepository implements BasePackageRepository {
       );
 
       return PackagesModel.fromJSON(response);
-
     } on DioError catch (_) {
       throw HttpException("Get Reports Failed");
     }
