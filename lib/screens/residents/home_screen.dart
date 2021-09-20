@@ -69,7 +69,7 @@ class ResidentHomeScreen extends HookConsumerWidget {
                       kSizedBoxHorizontalXXS,
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: kSizeS * (24 / 16),
+                          horizontal: kSizeS * 1.5,
                         ),
                         child: Text(
                           "Hi, ${_curUser.user.name}",

@@ -75,7 +75,7 @@ class ResidentPostalScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: TitleCard(
-                                    title: "Recieved",
+                                    title: "Received",
                                     subtitle: 100.toString(),
                                     icon: Icon(
                                       Icons.ac_unit,
@@ -86,7 +86,7 @@ class ResidentPostalScreen extends StatelessWidget {
                                 kSizedBoxHorizontalS,
                                 Expanded(
                                   child: TitleCard(
-                                    title: "Not Recieved",
+                                    title: "Not Received",
                                     subtitle: 100.toString(),
                                     icon: Icon(
                                       Icons.ac_unit,
@@ -144,10 +144,12 @@ class ResidentPostalScreen extends StatelessWidget {
                                             data['status'] == "recieved"
                                                 ? EntityCardStatus(
                                                     text: "Received",
-                                                    color: kSuccessColor)
+                                                    color: kSuccessColor,
+                                                  )
                                                 : EntityCardStatus(
                                                     text: "In-office",
-                                                    color: kWarningColor),
+                                                    color: kWarningColor,
+                                                  ),
                                       );
                                     },
                                   ),
