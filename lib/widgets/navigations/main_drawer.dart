@@ -6,6 +6,7 @@ import 'package:rmp_flutter/models/providers/user_provider.dart';
 import 'package:rmp_flutter/screens/condos/about/about_us_screen.dart';
 import 'package:rmp_flutter/screens/condos/profile/profile_setting_screen.dart';
 import 'package:rmp_flutter/screens/login_screen.dart';
+import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/navigations/drawer_button.dart';
 import 'package:rmp_flutter/widgets/general/brand_title.dart';
 
@@ -70,7 +71,7 @@ class MainDrawer extends HookConsumerWidget {
               onPressed: () => {
                 _curUser.clearUser(),
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                  LoginScreen.routeName,
+                  PreLoadingScreen.routeName,
                   (_) => false,
                 )
               },

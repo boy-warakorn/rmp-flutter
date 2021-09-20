@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/main_screen.dart';
+import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 
 class PaymentResultScreen extends StatelessWidget {
@@ -43,7 +44,7 @@ class PaymentResultScreen extends StatelessWidget {
                   text: "BACK TO HOME",
                   onPressed: () => Navigator.of(context)
                       .pushNamedAndRemoveUntil(
-                          MainScreen.routeName, (_) => false),
+                          PreLoadingScreen.routeName, (_) => false),
                   padding: EdgeInsets.symmetric(
                     horizontal: kSizeS * 1.5,
                     vertical: kSizeXS,
