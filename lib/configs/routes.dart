@@ -20,6 +20,7 @@ import 'package:rmp_flutter/screens/residents/payment/confirm_payment_screen.dar
 import 'package:rmp_flutter/screens/residents/payment/payment_result_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/payment_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/specific_payment_screen.dart';
+import 'package:rmp_flutter/screens/residents/postal/profile_card_screen.dart';
 import 'package:rmp_flutter/screens/residents/postal/resident_postal_screen.dart';
 
 final routes = {
@@ -58,4 +59,5 @@ final residentRoutes = {
   PaymentScreen.routeName: (_) => const PaymentScreen(),
   SpecificPaymentScreen.routeName: (_) => const SpecificPaymentScreen(),
   ResidentReplyScreen.routeName: (_) => const ResidentReplyScreen(),
+  ProfileCardScreen.routeName: (_) => const ProfileCardScreen(),
 };
