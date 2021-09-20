@@ -73,8 +73,7 @@ class SpecificPaymentScreen extends StatelessWidget {
                     ),
                     CustomButton(
                       text: "UPLOAD RECEIPT",
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(ConfirmPaymentScreen.routeName),
+                      onPressed: () => _takePhoto(),
                     ),
                   ],
                 ),
