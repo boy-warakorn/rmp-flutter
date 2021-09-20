@@ -71,7 +71,7 @@ class PaymentScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Recent Payment",
+                              "Recently Payment",
                               style: Theme.of(context)
                                   .textTheme
                                   .headline3

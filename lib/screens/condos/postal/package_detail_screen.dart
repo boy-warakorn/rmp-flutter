@@ -7,6 +7,7 @@ import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/general/alert_box.dart';
+
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/text_wall_display.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
@@ -17,6 +18,7 @@ class PackageDetailScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final id = ModalRoute.of(context)?.settings.arguments as String;
     final _isLoading = useState(true);
     final _package = useState(
@@ -59,6 +61,7 @@ class PackageDetailScreen extends HookWidget {
     useEffect(() {
       _fetchPackageInfo();
     }, []);
+
 
     return Scaffold(
       appBar: BackAppBar(),
