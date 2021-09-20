@@ -12,10 +12,10 @@ class EntityCardStatus extends StatelessWidget {
     required this.color,
   }) : super(key: key);
 
-  const EntityCardStatus.recieved({Key? key})
+  const EntityCardStatus.delivered({Key? key})
       : this(
           key: key,
-          text: "Recieved",
+          text: "Delivered",
           color: kSuccessColor,
         );
 

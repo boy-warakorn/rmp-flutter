@@ -14,7 +14,7 @@ class PackagesModel {
               (e) => Package(
                   id: e["id"],
                   roomNumber: e["roomNumber"],
-                  roomOwner: e["roomOwner"],
+                  roomOwner: e["roomOwner"] ?? "-",
                   note: e["note"],
                   arrivedAt: e["arrivedAt"],
                   deliveredAt: e["deliveredAt"],
