@@ -5,5 +5,5 @@ const entityStatusPresets = {
   "responded": EntityCardStatus.responded(),
   "resolved": EntityCardStatus.resolved(),
   "delivered": EntityCardStatus.delivered(),
-  "inoffice": EntityCardStatus.inoffice(),
+  "in-storage": EntityCardStatus.inStorage(),
 };

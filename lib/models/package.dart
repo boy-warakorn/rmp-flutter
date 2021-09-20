@@ -11,15 +11,15 @@ class PackagesModel {
     return PackagesModel(
         packages: packagesIt
             .map(
-              (e) => Package(
-                  id: e["id"],
-                  roomNumber: e["roomNumber"],
-                  roomOwner: e["roomOwner"] ?? "-",
-                  note: e["note"],
-                  arrivedAt: e["arrivedAt"],
-                  deliveredAt: e["deliveredAt"],
-                  status: e["status"],
-                  postalService: e["postalService"]),
+              (pkItem) => Package(
+                  id: pkItem["id"],
+                  roomNumber: pkItem["roomNumber"],
+                  roomOwner: pkItem["roomOwner"] ?? "-",
+                  note: pkItem["note"],
+                  arrivedAt: pkItem["arrivedAt"],
+                  deliveredAt: pkItem["deliveredAt"],
+                  status: pkItem["status"],
+                  postalService: pkItem["postalService"]),
             )
             .toList());
   }
@@ -47,19 +47,17 @@ class Package {
   });
 
   factory Package.fromJSON(dynamic fetchedResult) {
-    Map<String, dynamic> pk = jsonDecode(fetchedResult.toString());
+    Map<String, dynamic> pkItem = jsonDecode(fetchedResult.toString());
     
-    print(pk);
-
     return Package(
-      id: pk["id"],
-      roomNumber: pk["roomNumber"],
-      roomOwner: pk["roomOwner"] ?? "-",
-      note: pk["note"],
-      arrivedAt: pk["arrivedAt"],
-      deliveredAt: pk["deliveredAt"],
-      status: pk["status"],
-      postalService: pk["postalService"],
+      id: pkItem["id"],
+      roomNumber: pkItem["roomNumber"],
+      roomOwner: pkItem["roomOwner"] ?? "-",
+      note: pkItem["note"],
+      arrivedAt: pkItem["arrivedAt"],
+      deliveredAt: pkItem["deliveredAt"],
+      status: pkItem["status"],
+      postalService: pkItem["postalService"],
     );
   }
 }

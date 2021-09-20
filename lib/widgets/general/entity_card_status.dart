@@ -19,10 +19,10 @@ class EntityCardStatus extends StatelessWidget {
           color: kSuccessColor,
         );
 
-  const EntityCardStatus.inoffice({Key? key})
+  const EntityCardStatus.inStorage({Key? key})
       : this(
           key: key,
-          text: "In-office",
+          text: "In storage",
           color: kWarningColor,
         );
 

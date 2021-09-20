@@ -67,7 +67,6 @@ class PackageRepository implements BasePackageRepository {
             },
           ));
 
-      print("success");
     } on DioError catch (_) {
       throw HttpException("Delete package failed");
     }
@@ -93,7 +92,6 @@ class PackageRepository implements BasePackageRepository {
         ),
       );
 
-      print("success");
     } on DioError catch (_) {
       throw HttpException("Edit package failed");
     }

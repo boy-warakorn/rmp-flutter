@@ -13,8 +13,6 @@ abstract class BaseRoomRepository {
 class RoomRepository implements BaseRoomRepository {
   @override
   Future<List<String>> getRoomIdList() async {
-    print("triggered");
-
     try {
       final pref = await SharedPreferences.getInstance();
       final token = pref.getString("token");
@@ -26,9 +24,9 @@ class RoomRepository implements BaseRoomRepository {
             },
           ));
 
-      Iterable idList = jsonDecode(response.toString())["roomNumbers"];
+      Iterable roomNumIt = jsonDecode(response.toString())["roomNumbers"];
 
-      return idList.map((e) => e.toString()).toList();
+      return roomNumIt.map((roomNum) => roomNum.toString()).toList();
     } on DioError catch (_) {
       throw HttpException("Get room id list failed");
     }
