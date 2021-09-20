@@ -28,6 +28,7 @@ abstract class BasePackageRepository {
   Future<void> createPackage(PackageDto package);
   Future<void> editPackage(PackageDto package, String id);
   Future<void> deletePackage(String id);
+  Future<void> confirmPackage(String id);
 }
 
 class PackageRepository implements BasePackageRepository {
@@ -66,7 +67,6 @@ class PackageRepository implements BasePackageRepository {
               "Authorization": "Bearer $token",
             },
           ));
-
     } on DioError catch (_) {
       throw HttpException("Delete package failed");
     }
@@ -91,7 +91,6 @@ class PackageRepository implements BasePackageRepository {
           },
         ),
       );
-
     } on DioError catch (_) {
       throw HttpException("Edit package failed");
     }
@@ -157,6 +156,25 @@ class PackageRepository implements BasePackageRepository {
       return PackagesModel.fromJSON(response);
     } on DioError catch (_) {
       throw HttpException("Failed to get Packages by Resident");
+    }
+  }
+
+  @override
+  Future<void> confirmPackage(String id) async {
+    try {
+      final pref = await SharedPreferences.getInstance();
+      final token = pref.getString("token");
+
+      await dio.post(
+        getConfirmDeliveryUrl(id),
+        options: Options(
+          headers: {
+            "Authorization": "Bear $token",
+          },
+        ),
+      );
+    } on DioError catch (_) {
+      throw HttpException("Failed to confirm package");
     }
   }
 }

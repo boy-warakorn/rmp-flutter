@@ -38,6 +38,13 @@ class PackageDetailScreen extends HookWidget {
           context, ModalRoute.withName(PreLoadingScreen.routeName));
     }
 
+    void _confirmPackage() async {
+      await PackageRepository().confirmPackage(id);
+      Navigator.of(context).popUntil(
+        ModalRoute.withName(PreLoadingScreen.routeName),
+      );
+    }
+
     Future<void> _showDeleteAlertBox() async {
       return showDialog(
         context: context,
@@ -45,6 +52,17 @@ class PackageDetailScreen extends HookWidget {
           message: "Are you sure?",
           onNegative: () => Navigator.pop(context),
           onPositive: _deletePackage,
+        ),
+      );
+    }
+
+    Future<void> _showConfirmDialog() async {
+      return showDialog(
+        context: context,
+        builder: (ctx) => AlertBox(
+          message: "Confirm this delivery?",
+          onNegative: () => Navigator.pop(context),
+          onPositive: _confirmPackage,
         ),
       );
     }
@@ -142,7 +160,7 @@ class PackageDetailScreen extends HookWidget {
             Divider(),
             CustomButton(
               text: "CONFIRM",
-              onPressed: () => print("Confirm"),
+              onPressed: _showConfirmDialog,
             ),
           ],
         ),
