@@ -9,7 +9,6 @@ import 'package:rmp_flutter/models/providers/auth_provider.dart';
 import 'package:rmp_flutter/models/providers/user_provider.dart';
 import 'package:rmp_flutter/repositories/auth_repository.dart';
 import 'package:rmp_flutter/screens/condos/forgot_password_screen.dart';
-import 'package:rmp_flutter/screens/main_screen.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';

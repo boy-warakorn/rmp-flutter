@@ -131,7 +131,7 @@ class PostalAddScreen extends HookWidget {
                         ),
                         enableInteractiveSelection: false,
                         onTap: () {
-                          FocusScope.of(context).requestFocus(new FocusNode());
+                          FocusScope.of(context).requestFocus(FocusNode());
                           DatePicker.showDateTimePicker(
                             context,
                             showTitleActions: true,
