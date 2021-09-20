@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/package.dart';
+import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
-import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
+import 'package:rmp_flutter/screens/preloading_screen.dart';
+import 'package:rmp_flutter/widgets/general/alert_box.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
-import 'package:rmp_flutter/widgets/general/text_with_value.dart';
+import 'package:rmp_flutter/widgets/general/text_wall_display.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class PackageDetailScreen extends HookWidget {
@@ -14,7 +17,49 @@ class PackageDetailScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _note = useTextEditingController();
+    final id = ModalRoute.of(context)?.settings.arguments as String;
+    final _isLoading = useState(true);
+    final _package = useState(
+      Package(
+          id: "",
+          roomNumber: "",
+          roomOwner: "",
+          note: "",
+          arrivedAt: "",
+          deliveredAt: "",
+          status: "",
+          postalService: ""),
+    );
+
+    void _deletePackage() async {
+      await PackageRepository().deletePackage(id);
+      // Navigator.pop(context);
+      // Navigator.pop(context);
+      Navigator.popUntil(
+          context, ModalRoute.withName(PreLoadingScreen.routeName));
+    }
+
+    Future<void> _showAlertBox() async {
+      return showDialog(
+        context: context,
+        builder: (ctx) => AlertBox(
+          message: "Are you sure?",
+          onNegative: () => Navigator.pop(context),
+          onPositive: _deletePackage,
+        ),
+      );
+    }
+
+    void _fetchPackageInfo() async {
+      _isLoading.value = true;
+      _package.value = await PackageRepository().getPackage(id);
+      _isLoading.value = false;
+    }
+
+    useEffect(() {
+      _fetchPackageInfo();
+    }, []);
+
     return Scaffold(
       appBar: BackAppBar(),
       body: Container(
@@ -22,79 +67,80 @@ class PackageDetailScreen extends HookWidget {
           horizontal: kSizeS * 1.5,
           vertical: kSizeS,
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "CB2312",
-                style: Theme.of(context).textTheme.headline3?.copyWith(
-                      color: kBlackColor,
-                    ),
-              ),
-              kSizedBoxVerticalS,
-              Text(
-                "Owner: Anawat Paothong",
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontSize: kFontSizeHeadline4,
-                    ),
-              ),
-              kSizedBoxVerticalXS,
-              Text(
-                "Delivered By: Thailand Postal",
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontSize: kFontSizeHeadline4,
-                    ),
-              ),
-              kSizedBoxVerticalXS,
-              Text(
-                "Arrival Date: 4/3/2021",
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontSize: kFontSizeHeadline4,
-                    ),
-              ),
-              kSizedBoxVerticalXS,
-              Text(
-                "Received By: Warakorn",
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontSize: kFontSizeHeadline4,
-                    ),
-              ),
-              kSizedBoxVerticalXS,
-              Text(
-                "Received Date: 4/3/2021",
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontSize: kFontSizeHeadline4,
-                    ),
-              ),
-              kSizedBoxVerticalXS,
-              Text(
-                "Status: Arrived",
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontSize: kFontSizeHeadline4,
-                    ),
-              ),
-              kSizedBoxVerticalXS,
-              TextWithValue(
-                head: "Note",
-                detail: "",
-              ),
-              kSizedBoxVerticalL,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    width: kSizeXL,
-                    child: CustomButton(
-                      text: "EDIT",
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(PostalEditScreen.routeName),
-                    ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              _package.value.roomNumber,
+              style: Theme.of(context).textTheme.headline3?.copyWith(
+                    color: kBlackColor,
                   ),
-                ],
-              ),
-            ],
-          ),
+            ),
+            kSizedBoxVerticalS,
+            Text(
+              "Owner: ${_package.value.roomOwner}",
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                    fontSize: kFontSizeHeadline4,
+                  ),
+            ),
+            kSizedBoxVerticalXS,
+            Text(
+              "Delivered By: ${_package.value.postalService}",
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                    fontSize: kFontSizeHeadline4,
+                  ),
+            ),
+            kSizedBoxVerticalXS,
+            Text(
+              "Arrival Date: ${_package.value.arrivedAt}",
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                    fontSize: kFontSizeHeadline4,
+                  ),
+            ),
+            kSizedBoxVerticalXS,
+            Text(
+              "Status: ${_package.value.deliveredAt.isEmpty ? "Arrived" : "Delivered"}",
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                    fontSize: kFontSizeHeadline4,
+                  ),
+            ),
+            kSizedBoxVerticalXS,
+            Text(
+              "Note",
+              style: Theme.of(context).textTheme.headline3?.copyWith(
+                    color: kBlackColor,
+                  ),
+            ),
+            kSizedBoxVerticalS,
+            Expanded(
+                child: TextWallDisplay(
+              text: _package.value.note,
+            )),
+            kSizedBoxVerticalL,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  width: kSizeXL,
+                  child: CustomButton(
+                    color: kErrorColor,
+                    text: "DELETE",
+                    onPressed: _showAlertBox,
+                  ),
+                ),
+                kSizedBoxHorizontalS,
+                Container(
+                  width: kSizeXL,
+                  child: CustomButton(
+                    text: "EDIT",
+                    onPressed: () => Navigator.of(context)
+                        .pushNamed(PostalEditScreen.routeName, arguments: id)
+                        .then((value) => _fetchPackageInfo()),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

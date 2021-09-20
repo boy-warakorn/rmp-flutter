@@ -1,16 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/package.dart';
+import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
+import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
 
-class PostalScreen extends StatelessWidget {
+class PostalScreen extends HookWidget {
   static const routeName = "/condo/postal";
   const PostalScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _packages = useState(PackagesModel(packages: []));
+    final _isLoading = useState(true);
+
+    void _fetchPackages() async {
+      _isLoading.value = true;
+      _packages.value = await PackageRepository().getPackages();
+      _isLoading.value = false;
+    }
+
+    useEffect(() {
+      _fetchPackages();
+    }, []);
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -61,24 +78,27 @@ class PostalScreen extends StatelessWidget {
                 children: [
                   Text(
                     "All Packages",
-                    style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                          fontSize: kFontSizeHeadline3,
-                          color: kBrandDarkerColor,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    style: Theme.of(context).textTheme.headline3,
                   ),
                   kSizedBoxVerticalS,
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (ctx, index) => PackageCard(
-                        title: "Gaming Monitor",
-                        date: "13/9/2021",
-                        note: "24 inches monitor",
-                        onPressed: () => Navigator.of(context)
-                            .pushNamed(PackageDetailScreen.routeName),
-                      ),
-                    ),
+                    child: _isLoading.value
+                        ? CenteredProgressIndicator()
+                        : ListView.builder(
+                            itemCount: _packages.value.packages.length,
+                            itemBuilder: (ctx, index) {
+                              Package pk = _packages.value.packages[index];
+                              return PackageCard(
+                                title: pk.roomNumber,
+                                date: pk.arrivedAt,
+                                note: pk.note.isEmpty ? "-" : pk.note,
+                                onPressed: () => Navigator.of(context)
+                                    .pushNamed(PackageDetailScreen.routeName,
+                                        arguments: pk.id)
+                                    .then((value) => _fetchPackages()),
+                              );
+                            },
+                          ),
                   ),
                 ],
               ),

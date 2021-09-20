@@ -29,8 +29,6 @@ final routes = {
 };
 
 final generalRoutes = {
-  MainScreen.routeName: (_) => const MainScreen(),
-  LoginScreen.routeName: (_) => const LoginScreen(),
   ProfileSettingScreen.routeName: (_) => const ProfileSettingScreen(),
   AboutUsScreen.routeName: (_) => const AboutUsScreen(),
   ForgotPasswordScreen.routeName: (_) => const ForgotPasswordScreen(),

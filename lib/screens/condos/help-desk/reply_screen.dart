@@ -5,6 +5,7 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/main_screen.dart';
+import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/text_with_value.dart';
@@ -123,7 +124,7 @@ class ReplyScreen extends HookWidget {
                                         .setResolvedOnReport(_report.value.id);
                                   } catch (_) {}
                                   Navigator.of(context).pushNamedAndRemoveUntil(
-                                      MainScreen.routeName, (_) => false);
+                                      PreLoadingScreen.routeName, (_) => false);
                                 },
                                 padding: EdgeInsets.symmetric(
                                   horizontal: kSizeS * 1.5,
@@ -149,7 +150,7 @@ class ReplyScreen extends HookWidget {
                                             } catch (_) {}
                                             Navigator.of(context)
                                                 .pushNamedAndRemoveUntil(
-                                                    MainScreen.routeName,
+                                                    PreLoadingScreen.routeName,
                                                     (_) => false);
                                           },
                                           padding: EdgeInsets.symmetric(
