@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/widgets/general/profile_card.dart';
 import 'package:rmp_flutter/widgets/general/profile_text.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
@@ -29,7 +30,6 @@ class ProfileCardScreen extends StatelessWidget {
           ),
           child: Column(
             children: [
-              kSizedBoxVerticalM,
               Image.asset("assets/images/129.png"),
               kSizedBoxVerticalM,
               ProfileText(
@@ -41,7 +41,6 @@ class ProfileCardScreen extends StatelessWidget {
                 isBold: true,
               ),
               kSizedBoxVerticalS,
-              kSizedBoxVerticalXS,
               ProfileText(
                 text: "ID",
               ),
@@ -51,7 +50,6 @@ class ProfileCardScreen extends StatelessWidget {
                 isBold: true,
               ),
               kSizedBoxVerticalS,
-              kSizedBoxVerticalXS,
               ProfileText(
                 text: "Phone",
               ),
@@ -61,7 +59,6 @@ class ProfileCardScreen extends StatelessWidget {
                 isBold: true,
               ),
               kSizedBoxVerticalS,
-              kSizedBoxVerticalXS,
               ProfileText(
                 text: "Room number",
               ),
@@ -71,7 +68,6 @@ class ProfileCardScreen extends StatelessWidget {
                 isBold: true,
               ),
               kSizedBoxVerticalS,
-              kSizedBoxVerticalXS,
               ProfileText(
                 text: "Moved in since",
               ),
@@ -81,7 +77,6 @@ class ProfileCardScreen extends StatelessWidget {
                 isBold: true,
               ),
               kSizedBoxVerticalS,
-              kSizedBoxVerticalXS,
               ProfileText(
                 text: "Room expires",
               ),
@@ -90,7 +85,7 @@ class ProfileCardScreen extends StatelessWidget {
                 text: "2021/9/19",
                 isBold: true,
               ),
-              kSizedBoxVerticalM,
+              kSizedBoxS,
             ],
           ),
         ),

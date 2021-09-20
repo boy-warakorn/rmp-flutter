@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/screens/residents/postal/id_card_screen.dart';
 import 'package:rmp_flutter/screens/residents/postal/profile_card_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
@@ -163,7 +164,7 @@ class ResidentPostalScreen extends StatelessWidget {
                                       text: "SHOW IDENTIFICATION",
                                       onPressed: () =>
                                           Navigator.of(context).pushNamed(
-                                        ProfileCardScreen.routeName,
+                                        IDCardScreen.routeName,
                                       ),
                                       padding: EdgeInsets.symmetric(
                                         vertical: kSizeXS,
