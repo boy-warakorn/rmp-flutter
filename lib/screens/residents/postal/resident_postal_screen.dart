@@ -113,19 +113,6 @@ class ResidentPostalScreen extends HookWidget {
                               ),
                             ),
                             kSizedBoxVerticalS,
-                            Text(
-                              "All Packages",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3
-                                  ?.copyWith(
-                                    color: kLightColor,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      kSizedBoxVerticalS,
                             Expanded(
                               child: Container(
                                 decoration: BoxDecoration(
@@ -170,7 +157,10 @@ class ResidentPostalScreen extends HookWidget {
                                         children: [
                                           CustomButton(
                                             text: "SHOW IDENTIFICATION",
-                                            onPressed: () => print("IDEN"),
+                                            onPressed: () =>
+                                                Navigator.of(context).pushNamed(
+                                              IDCardScreen.routeName,
+                                            ),
                                             padding: EdgeInsets.symmetric(
                                               vertical: kSizeXS,
                                               horizontal: kSizeS,
