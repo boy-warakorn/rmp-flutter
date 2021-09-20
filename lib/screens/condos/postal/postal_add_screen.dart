@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:intl/intl.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/room.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/repositories/room_repository.dart';
-import 'package:rmp_flutter/screens/main_screen.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
-import 'package:rmp_flutter/widgets/general/alert_box.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
@@ -26,6 +26,7 @@ class PostalAddScreen extends HookWidget {
     final _note = useTextEditingController();
 
     final _isLoading = useState(true);
+    final _haveDate = useState(false);
     final _roomNumberList = useState(RoomNumbersModel(roomNumbers: []));
 
     void _fetchRoomNumbers() async {
@@ -80,31 +81,73 @@ class PostalAddScreen extends HookWidget {
                 ),
               ),
               kSizedBoxVerticalS,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              FormTextField(
+                fieldName: "Delivered By",
+                textEditingController: _deliveredBy,
+              ),
+              kSizedBoxHorizontalM,
+              kSizedBoxVerticalS,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: FormTextField(
-                      fieldName: "Delivered By",
-                      textEditingController: _deliveredBy,
-                    ),
+                  Text(
+                    "Delivered Date",
+                    style: Theme.of(context).textTheme.headline3?.copyWith(
+                          color: kBlackColor,
+                        ),
                   ),
-                  kSizedBoxHorizontalM,
-                  Expanded(
-                    child: FormTextField(
-                      fieldName: "Delivered Date",
-                      textEditingController: _deliveredDate,
-                      suffixIcon: Icon(
-                        Icons.date_range_outlined,
+                  kSizedBoxVerticalXS,
+                  InkWell(
+                    child: Container(
+                      height: kSizeM,
+                      width: kSizeXXXL,
+                      child: TextFormField(
+                        controller: _deliveredDate,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: kLightColor,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: kBorderRadiusM,
+                            borderSide: BorderSide(
+                              color: kInputBorderColor,
+                              width: kSizeXXXS / 2,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: kBorderRadiusM,
+                            borderSide: BorderSide(
+                              color: kInputBorderColor,
+                              width: kSizeXXXS / 2,
+                            ),
+                          ),
+                          focusColor: kInputBorderColor,
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: kSizeS,
+                            vertical: kSizeS / 1.7,
+                          ),
+                          hintText: "Delivered Date",
+                          hintStyle: Theme.of(context).textTheme.subtitle1,
+                        ),
+                        enableInteractiveSelection: false,
+                        onTap: () {
+                          FocusScope.of(context).requestFocus(new FocusNode());
+                          DatePicker.showDateTimePicker(
+                            context,
+                            showTitleActions: true,
+                            minTime: DateTime.now().subtract(Duration(days: 0)),
+                            onConfirm: (date) {
+                              String dateString =
+                                  DateFormat("yyyy-MM-dd – kk:mm").format(date);
+                              _deliveredDate.text = dateString;
+                              _haveDate.value = true;
+                            },
+                          );
+                        },
                       ),
                     ),
                   ),
                 ],
-              ),
-              kSizedBoxVerticalS,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [],
               ),
               kSizedBoxVerticalS,
               FormTextArea(
