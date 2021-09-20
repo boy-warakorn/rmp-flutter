@@ -35,7 +35,8 @@ class PackageDetailScreen extends HookWidget {
       await PackageRepository().deletePackage(id);
       // Navigator.pop(context);
       // Navigator.pop(context);
-      Navigator.popUntil(context, ModalRoute.withName(PreLoadingScreen.routeName));
+      Navigator.popUntil(
+          context, ModalRoute.withName(PreLoadingScreen.routeName));
     }
 
     Future<void> _showAlertBox() async {
@@ -70,7 +71,7 @@ class PackageDetailScreen extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "CB2312",
+              _package.value.roomNumber,
               style: Theme.of(context).textTheme.headline3?.copyWith(
                     color: kBlackColor,
                   ),
@@ -92,20 +93,6 @@ class PackageDetailScreen extends HookWidget {
             kSizedBoxVerticalXS,
             Text(
               "Arrival Date: ${_package.value.arrivedAt}",
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: kFontSizeHeadline4,
-                  ),
-            ),
-            kSizedBoxVerticalXS,
-            Text(
-              "Received By: Warakorn",
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: kFontSizeHeadline4,
-                  ),
-            ),
-            kSizedBoxVerticalXS,
-            Text(
-              "Received Date: ${_package.value.deliveredAt.isEmpty ? "-" : _package.value.deliveredAt}",
               style: Theme.of(context).textTheme.bodyText1?.copyWith(
                     fontSize: kFontSizeHeadline4,
                   ),
@@ -147,7 +134,8 @@ class PackageDetailScreen extends HookWidget {
                   child: CustomButton(
                     text: "EDIT",
                     onPressed: () => Navigator.of(context)
-                        .pushNamed(PostalEditScreen.routeName, arguments: id).then((value) =>_fetchPackageInfo()),
+                        .pushNamed(PostalEditScreen.routeName, arguments: id)
+                        .then((value) => _fetchPackageInfo()),
                   ),
                 ),
               ],

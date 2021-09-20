@@ -51,7 +51,8 @@ class PostalAddScreen extends HookWidget {
       } else {
         print("Invalid room");
       }
-      Navigator.of(context).popUntil(ModalRoute.withName(PreLoadingScreen.routeName));
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(PreLoadingScreen.routeName, (_) => false);
     }
 
     useEffect(() {
@@ -103,8 +104,7 @@ class PostalAddScreen extends HookWidget {
               kSizedBoxVerticalS,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                ],
+                children: [],
               ),
               kSizedBoxVerticalS,
               FormTextArea(
@@ -135,18 +135,7 @@ class PostalAddScreen extends HookWidget {
                     width: kSizeXL / 1.25,
                     child: CustomButton(
                       text: "ADD",
-                      onPressed: () => {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertBox(
-                            message: "Are you sure?",
-                            onNegative: () => Navigator.of(context).pop(),
-                            onPositive: () {
-                              _createPackage(context);
-                            },
-                          ),
-                        ),
-                      },
+                      onPressed: () => _createPackage(context),
                     ),
                   ),
                 ],

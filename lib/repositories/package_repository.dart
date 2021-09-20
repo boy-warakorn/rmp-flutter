@@ -157,7 +157,6 @@ class PackageRepository implements BasePackageRepository {
       );
 
       return PackagesModel.fromJSON(response);
-
     } on DioError catch (_) {
       throw HttpException("Failed to get Packages by Resident");
     }

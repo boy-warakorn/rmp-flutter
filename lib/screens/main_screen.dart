@@ -32,8 +32,6 @@ final _residentTabs = [
 ];
 
 class MainScreen extends HookConsumerWidget {
-  static const routeName = '/';
-
   const MainScreen({Key? key}) : super(key: key);
 
   @override
