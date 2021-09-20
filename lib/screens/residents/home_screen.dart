@@ -28,14 +28,10 @@ final List<Widget> imageSliders = imgList
         borderRadius: BorderRadius.all(
           Radius.circular(kSizeXS),
         ),
-        child: Stack(
-          children: <Widget>[
-            Image.network(
-              item,
-              fit: BoxFit.cover,
-              width: kSizeXXXL * 2,
-            ),
-          ],
+        child: Image.network(
+          item,
+          fit: BoxFit.cover,
+          width: kSizeXXXL * 2,
         ),
       ),
     )
