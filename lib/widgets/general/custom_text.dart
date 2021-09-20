@@ -1,32 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:rmp_flutter/configs/colors.dart';
 
 class CustomText extends StatelessWidget {
   final String text;
-  TextStyle? style;
+  final TextStyle? style;
 
-  CustomText({
-    Key? key,
-    required this.text,
+  const CustomText(
+    this.text, {
     this.style,
+    Key? key,
   }) : super(key: key);
 
-  CustomText.sectionHeader({
+  CustomText.sectionHeader(
+    String text,
+    BuildContext context, {
     Key? key,
-    required String text,
-    required BuildContext context,
   }) : this(
-          key: key,
-          text: text,
+          text,
           style: Theme.of(context).textTheme.headline3,
+          key: key,
+        );
+
+  CustomText.sectionHeaderLight(
+    String text,
+    BuildContext context, {
+    Key? key,
+  }) : this(
+          text,
+          style: Theme.of(context).textTheme.headline3?.copyWith(
+                color: kLightColor,
+              ),
+          key: key,
         );
 
   @override
   Widget build(BuildContext context) {
-    style ??= Theme.of(context).textTheme.bodyText1;
-
     return Text(
       text,
-      style: style,
+      style: style ?? Theme.of(context).textTheme.bodyText1,
     );
   }
 }

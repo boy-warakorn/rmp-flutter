@@ -4,6 +4,7 @@ import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/providers/user_provider.dart';
 import 'package:rmp_flutter/widgets/general/announcement_card.dart';
+import 'package:rmp_flutter/widgets/general/custom_text.dart';
 
 const _dummyData = [
   {
@@ -46,12 +47,9 @@ class ResidentHomeScreen extends HookConsumerWidget {
                         padding: const EdgeInsets.symmetric(
                           horizontal: kSizeS * (24 / 16),
                         ),
-                        child: Text(
+                        child: CustomText.sectionHeaderLight(
                           "Hi, ${_curUser.user.name}",
-                          style:
-                              Theme.of(context).textTheme.headline3?.copyWith(
-                                    color: kLightColor,
-                                  ),
+                          context,
                         ),
                       ),
                       kSizedBoxVerticalS,
@@ -73,9 +71,9 @@ class ResidentHomeScreen extends HookConsumerWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "SukJai Condo",
-                                  style: Theme.of(context).textTheme.headline3,
+                                CustomText.sectionHeader(
+                                  "Sukjai Condo",
+                                  context,
                                 ),
                                 kSizedBoxVerticalS,
                                 kSizedBoxVerticalXS,
@@ -85,9 +83,9 @@ class ResidentHomeScreen extends HookConsumerWidget {
                                 ),
                                 kSizedBoxVerticalS,
                                 kSizedBoxVerticalXS,
-                                Text(
+                                CustomText.sectionHeader(
                                   "Announcement",
-                                  style: Theme.of(context).textTheme.headline3,
+                                  context,
                                 ),
                                 kSizedBoxVerticalS,
                                 Expanded(

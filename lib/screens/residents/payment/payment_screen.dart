@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/residents/payment/specific_payment_screen.dart';
+import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/payment_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 
@@ -70,14 +71,9 @@ class PaymentScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            CustomText.sectionHeaderLight(
                               "Recent Payment",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3
-                                  ?.copyWith(
-                                    color: kLightColor,
-                                  ),
+                              context,
                             ),
                             kSizedBoxHorizontalS,
                             kSizedBoxVerticalXS,
@@ -139,9 +135,9 @@ class PaymentScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                CustomText.sectionHeader(
                                   "My Payment",
-                                  style: Theme.of(context).textTheme.headline3,
+                                  context,
                                 ),
                                 kSizedBoxVerticalS,
                                 kSizedBoxVerticalXS,
