@@ -64,6 +64,7 @@ class PackageDetailScreen extends HookWidget {
     void _fetchPackageInfo() async {
       _isLoading.value = true;
       _package.value = await PackageRepository().getPackage(id);
+      print(_package.value.arrivedAt);
       _isLoading.value = false;
     }
 
@@ -101,7 +102,7 @@ class PackageDetailScreen extends HookWidget {
             ),
             kSizedBoxVerticalXS,
             Text(
-              "Arrival Date: ${formattedDate(_package.value.arrivedAt)}",
+              "Arrival Date: ${_package.value.arrivedAt}",
               style: Theme.of(context).textTheme.bodyText1?.copyWith(
                     fontSize: kFontSizeHeadline4,
                   ),
