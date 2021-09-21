@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/widgets/general/profile_card.dart';
 import 'package:rmp_flutter/widgets/general/profile_text.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 

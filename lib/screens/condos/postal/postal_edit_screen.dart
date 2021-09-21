@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:intl/intl.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/package.dart';
@@ -24,6 +26,7 @@ class PostalEditScreen extends HookWidget {
     final _deliveredBy = useTextEditingController();
     final _deliveredDate = useTextEditingController();
     final _note = useTextEditingController();
+    final _haveDate = useState(false);
 
     final id = ModalRoute.of(context)?.settings.arguments as String;
 
