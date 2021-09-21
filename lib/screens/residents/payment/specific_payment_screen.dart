@@ -8,8 +8,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/payment.dart';
-import 'package:rmp_flutter/repositories/payment_repository.dart';
-import 'package:rmp_flutter/screens/residents/contact-support/contact_form_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/confirm_payment_screen.dart';
 import 'package:rmp_flutter/widgets/general/card_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
@@ -66,7 +64,7 @@ class SpecificPaymentScreen extends HookConsumerWidget {
                           ),
                           kSizedBoxVerticalS,
                           Text(
-                            "Amount  ${_paymentObj.amount} BAHT",
+                            "Amount:  ${_paymentObj.amount} BAHT",
                             style: Theme.of(context).textTheme.headline5,
                           ),
                           kSizedBoxVerticalS,

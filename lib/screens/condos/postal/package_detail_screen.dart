@@ -18,7 +18,6 @@ class PackageDetailScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final id = ModalRoute.of(context)?.settings.arguments as String;
     final _isLoading = useState(true);
     final _package = useState(
@@ -62,88 +61,90 @@ class PackageDetailScreen extends HookWidget {
       _fetchPackageInfo();
     }, []);
 
-
     return Scaffold(
       appBar: BackAppBar(),
-      body: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: kSizeS * 1.5,
-          vertical: kSizeS,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              _package.value.roomNumber,
-              style: Theme.of(context).textTheme.headline3?.copyWith(
-                    color: kBlackColor,
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.symmetric(
+            horizontal: kSizeS * 1.5,
+            vertical: kSizeS,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                _package.value.roomNumber,
+                style: Theme.of(context).textTheme.headline3?.copyWith(
+                      color: kBlackColor,
+                    ),
+              ),
+              kSizedBoxVerticalS,
+              Text(
+                "Owner: ${_package.value.roomOwner}",
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      fontSize: kFontSizeHeadline4,
+                    ),
+              ),
+              kSizedBoxVerticalXS,
+              Text(
+                "Delivered By: ${_package.value.postalService}",
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      fontSize: kFontSizeHeadline4,
+                    ),
+              ),
+              kSizedBoxVerticalXS,
+              Text(
+                "Arrival Date: ${_package.value.arrivedAt}",
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      fontSize: kFontSizeHeadline4,
+                    ),
+              ),
+              kSizedBoxVerticalXS,
+              Text(
+                "Status: ${_package.value.deliveredAt.isEmpty ? "Arrived" : "Delivered"}",
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      fontSize: kFontSizeHeadline4,
+                    ),
+              ),
+              kSizedBoxVerticalXS,
+              Text(
+                "Note",
+                style: Theme.of(context).textTheme.headline3?.copyWith(
+                      color: kBlackColor,
+                    ),
+              ),
+              kSizedBoxVerticalS,
+              Expanded(
+                  child: TextWallDisplay(
+                text: _package.value.note,
+              )),
+              kSizedBoxVerticalL,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: kSizeXL,
+                    child: CustomButton(
+                      color: kErrorColor,
+                      text: "DELETE",
+                      onPressed: _showAlertBox,
+                    ),
                   ),
-            ),
-            kSizedBoxVerticalS,
-            Text(
-              "Owner: ${_package.value.roomOwner}",
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: kFontSizeHeadline4,
+                  kSizedBoxHorizontalS,
+                  Container(
+                    width: kSizeXL,
+                    child: CustomButton(
+                      text: "EDIT",
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(PostalEditScreen.routeName, arguments: id)
+                          .then((value) => _fetchPackageInfo()),
+                    ),
                   ),
-            ),
-            kSizedBoxVerticalXS,
-            Text(
-              "Delivered By: ${_package.value.postalService}",
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: kFontSizeHeadline4,
-                  ),
-            ),
-            kSizedBoxVerticalXS,
-            Text(
-              "Arrival Date: ${_package.value.arrivedAt}",
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: kFontSizeHeadline4,
-                  ),
-            ),
-            kSizedBoxVerticalXS,
-            Text(
-              "Status: ${_package.value.deliveredAt.isEmpty ? "Arrived" : "Delivered"}",
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: kFontSizeHeadline4,
-                  ),
-            ),
-            kSizedBoxVerticalXS,
-            Text(
-              "Note",
-              style: Theme.of(context).textTheme.headline3?.copyWith(
-                    color: kBlackColor,
-                  ),
-            ),
-            kSizedBoxVerticalS,
-            Expanded(
-                child: TextWallDisplay(
-              text: _package.value.note,
-            )),
-            kSizedBoxVerticalL,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width: kSizeXL,
-                  child: CustomButton(
-                    color: kErrorColor,
-                    text: "DELETE",
-                    onPressed: _showAlertBox,
-                  ),
-                ),
-                kSizedBoxHorizontalS,
-                Container(
-                  width: kSizeXL,
-                  child: CustomButton(
-                    text: "EDIT",
-                    onPressed: () => Navigator.of(context)
-                        .pushNamed(PostalEditScreen.routeName, arguments: id)
-                        .then((value) => _fetchPackageInfo()),
-                  ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

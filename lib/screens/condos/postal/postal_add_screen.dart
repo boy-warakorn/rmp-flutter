@@ -35,8 +35,6 @@ class PostalAddScreen extends HookWidget {
         roomNumbers: await RoomRepository().getRoomIdList(),
       );
       _isLoading.value = false;
-
-      print(_roomNumberList.value.roomNumbers);
     }
 
     void _createPackage(BuildContext context) async {

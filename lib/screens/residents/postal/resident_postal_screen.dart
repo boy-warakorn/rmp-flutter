@@ -4,13 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-
-import 'package:rmp_flutter/screens/residents/postal/id_card_screen.dart';
-
 import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
+import 'package:rmp_flutter/screens/residents/postal/profile_card_screen.dart';
 import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
-
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
@@ -159,7 +156,7 @@ class ResidentPostalScreen extends HookWidget {
                                             text: "SHOW IDENTIFICATION",
                                             onPressed: () =>
                                                 Navigator.of(context).pushNamed(
-                                              IDCardScreen.routeName,
+                                              ProfileCardScreen.routeName,
                                             ),
                                             padding: EdgeInsets.symmetric(
                                               vertical: kSizeXS,

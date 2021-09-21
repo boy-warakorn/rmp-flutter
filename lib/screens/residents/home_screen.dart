@@ -44,110 +44,121 @@ class ResidentHomeScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _curUser = ref.watch(currentUser);
 
-    return Row(
-      children: [
-        Expanded(
-          child: Column(
-            children: [
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: const <Color>[
-                        kBrandColor,
-                        kBrandAlternativeDarkerColor,
-                      ],
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      kSizedBoxVerticalS,
-                      kSizedBoxVerticalXS,
-                      kSizedBoxHorizontalXXS,
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: kSizeS * 1.5,
+    return SingleChildScrollView(
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: const <Color>[
+                            kBrandColor,
+                            kBrandAlternativeDarkerColor,
+                          ],
                         ),
-                        child: Text(
-                          "Hi, ${_curUser.user.name}",
-                          style:
-                              Theme.of(context).textTheme.headline3?.copyWith(
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          kSizedBoxVerticalS,
+                          kSizedBoxVerticalXS,
+                          kSizedBoxHorizontalXXS,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: kSizeS * 1.5,
+                            ),
+                            child: Text(
+                              "Hi, ${_curUser.user.name}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline3
+                                  ?.copyWith(
                                     color: kLightColor,
                                   ),
-                        ),
-                      ),
-                      kSizedBoxVerticalS,
-                      kSizedBoxVerticalXS,
-                      kSizedBoxHorizontalXXS,
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: kLightColor,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(kSizeS),
-                              topRight: Radius.circular(kSizeS),
                             ),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(
-                              kSizeS * (20 / 16),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  _curUser.user.businessName,
-                                  style: Theme.of(context).textTheme.headline3,
+                          kSizedBoxVerticalS,
+                          kSizedBoxVerticalXS,
+                          kSizedBoxHorizontalXXS,
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: kLightColor,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(kSizeS),
+                                  topRight: Radius.circular(kSizeS),
                                 ),
-                                kSizedBoxVerticalS,
-                                kSizedBoxVerticalXS,
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: kSizeXL * 1.25,
-                                  child: CarouselSlider(
-                                    options: CarouselOptions(
-                                      autoPlay: true,
-                                      enlargeCenterPage: true,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(
+                                  kSizeS * (20 / 16),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      _curUser.user.businessName,
+                                      style:
+                                          Theme.of(context).textTheme.headline3,
                                     ),
-                                    items: imageSliders,
-                                  ),
+                                    kSizedBoxVerticalS,
+                                    kSizedBoxVerticalXS,
+                                    Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: kSizeXL * 1.25,
+                                      child: CarouselSlider(
+                                        options: CarouselOptions(
+                                          autoPlay: true,
+                                          enlargeCenterPage: true,
+                                        ),
+                                        items: imageSliders,
+                                      ),
+                                    ),
+                                    kSizedBoxVerticalS,
+                                    kSizedBoxVerticalXS,
+                                    Text(
+                                      "Announcement",
+                                      style:
+                                          Theme.of(context).textTheme.headline3,
+                                    ),
+                                    kSizedBoxVerticalS,
+                                    Expanded(
+                                      child: ListView.builder(
+                                        itemCount: _dummyData.length,
+                                        itemBuilder: (context, index) {
+                                          return AnnouncementCard(
+                                            title: _dummyData[index]['title']
+                                                .toString(),
+                                            subtitle: _dummyData[index]
+                                                    ['subtitle']
+                                                .toString(),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                kSizedBoxVerticalS,
-                                kSizedBoxVerticalXS,
-                                Text(
-                                  "Announcement",
-                                  style: Theme.of(context).textTheme.headline3,
-                                ),
-                                kSizedBoxVerticalS,
-                                Expanded(
-                                  child: ListView.builder(
-                                    itemCount: _dummyData.length,
-                                    itemBuilder: (context, index) {
-                                      return AnnouncementCard(
-                                        title: _dummyData[index]['title']
-                                            .toString(),
-                                        subtitle: _dummyData[index]['subtitle']
-                                            .toString(),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

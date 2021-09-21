@@ -28,15 +28,6 @@ class ContactSupportScreen extends HookConsumerWidget {
       fetchReports();
     }, []);
 
-    Color getStatusColor(String text) {
-      if (text == "pending") {
-        return kWarningColor;
-      } else if (text == "responded") {
-        return kStrokeColor;
-      }
-      return kSuccessColor;
-    }
-
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(

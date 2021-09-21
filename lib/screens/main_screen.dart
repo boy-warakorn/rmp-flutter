@@ -47,7 +47,7 @@ class MainScreen extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: kBgColor,
       appBar: MainAppBar(
-        haveFilter: _currentTabIndex.value > 0 ? true : false,
+        haveFilter: false, //_currentTabIndex.value > 0 ? true :
       ),
       drawer: MainDrawer(),
       body: _role.isEmpty

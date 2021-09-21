@@ -75,124 +75,131 @@ class PostalEditScreen extends HookWidget {
       backgroundColor: kBgColor,
       body: _isLoading.value
           ? CenteredProgressIndicator()
-          : Container(
-              padding: EdgeInsets.only(
-                left: kSizeS * 1.5,
-                right: kSizeS * 1.5,
-                top: kSizeS,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "You are editing ${_package.value.roomNumber}",
-                    style: Theme.of(context).textTheme.headline3?.copyWith(
-                          color: kBlackColor,
+          : SingleChildScrollView(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                padding: EdgeInsets.only(
+                  left: kSizeS * 1.5,
+                  right: kSizeS * 1.5,
+                  top: kSizeS,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "You are editing ${_package.value.roomNumber}",
+                      style: Theme.of(context).textTheme.headline3?.copyWith(
+                            color: kBlackColor,
+                          ),
+                    ),
+                    kSizedBoxVerticalS,
+                    kSizedBoxVerticalXS,
+                    Text(
+                      "Owner: ${_package.value.roomOwner}",
+                      style: Theme.of(context).textTheme.headline3?.copyWith(
+                            color: kBlackColor,
+                          ),
+                    ),
+                    kSizedBoxVerticalS,
+                    kSizedBoxVerticalXS,
+                    FormTextField(
+                      fieldName: "Delivered By",
+                      textEditingController: _deliveredBy,
+                    ),
+                    kSizedBoxHorizontalM,
+                    kSizedBoxVerticalS,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Delivered Date",
+                          style:
+                              Theme.of(context).textTheme.headline3?.copyWith(
+                                    color: kBlackColor,
+                                  ),
                         ),
-                  ),
-                  kSizedBoxVerticalS,
-                  kSizedBoxVerticalXS,
-                  Text(
-                    "Owner: ${_package.value.roomOwner}",
-                    style: Theme.of(context).textTheme.headline3?.copyWith(
-                          color: kBlackColor,
-                        ),
-                  ),
-                  kSizedBoxVerticalS,
-                  kSizedBoxVerticalXS,
-                  FormTextField(
-                    fieldName: "Delivered By",
-                    textEditingController: _deliveredBy,
-                  ),
-                  kSizedBoxHorizontalM,
-                  kSizedBoxVerticalS,
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Delivered Date",
-                        style: Theme.of(context).textTheme.headline3?.copyWith(
-                              color: kBlackColor,
-                            ),
-                      ),
-                      kSizedBoxVerticalXS,
-                      InkWell(
-                        child: Container(
-                          height: kSizeM,
-                          width: kSizeXXXL,
-                          child: TextFormField(
-                            controller: _deliveredDate,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: kLightColor,
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: kBorderRadiusM,
-                                borderSide: BorderSide(
-                                  color: kInputBorderColor,
-                                  width: kSizeXXXS / 2,
+                        kSizedBoxVerticalXS,
+                        InkWell(
+                          child: Container(
+                            height: kSizeM,
+                            width: kSizeXXXL,
+                            child: TextFormField(
+                              controller: _deliveredDate,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: kLightColor,
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: kBorderRadiusM,
+                                  borderSide: BorderSide(
+                                    color: kInputBorderColor,
+                                    width: kSizeXXXS / 2,
+                                  ),
                                 ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: kBorderRadiusM,
-                                borderSide: BorderSide(
-                                  color: kInputBorderColor,
-                                  width: kSizeXXXS / 2,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: kBorderRadiusM,
+                                  borderSide: BorderSide(
+                                    color: kInputBorderColor,
+                                    width: kSizeXXXS / 2,
+                                  ),
                                 ),
+                                focusColor: kInputBorderColor,
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: kSizeS,
+                                  vertical: kSizeS / 1.7,
+                                ),
+                                hintText: "Delivered Date",
+                                hintStyle:
+                                    Theme.of(context).textTheme.subtitle1,
                               ),
-                              focusColor: kInputBorderColor,
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: kSizeS,
-                                vertical: kSizeS / 1.7,
-                              ),
-                              hintText: "Delivered Date",
-                              hintStyle: Theme.of(context).textTheme.subtitle1,
+                              enableInteractiveSelection: false,
+                              onTap: () {
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
+                                DatePicker.showDateTimePicker(
+                                  context,
+                                  showTitleActions: true,
+                                  minTime: DateTime.now()
+                                      .subtract(Duration(days: 0)),
+                                  onConfirm: (date) {
+                                    String dateString =
+                                        DateFormat("yyyy-MM-dd – kk:mm")
+                                            .format(date);
+                                    _deliveredDate.text = dateString;
+                                    _haveDate.value = true;
+                                  },
+                                );
+                              },
                             ),
-                            enableInteractiveSelection: false,
-                            onTap: () {
-                              FocusScope.of(context).requestFocus(FocusNode());
-                              DatePicker.showDateTimePicker(
-                                context,
-                                showTitleActions: true,
-                                minTime:
-                                    DateTime.now().subtract(Duration(days: 0)),
-                                onConfirm: (date) {
-                                  String dateString =
-                                      DateFormat("yyyy-MM-dd – kk:mm")
-                                          .format(date);
-                                  _deliveredDate.text = dateString;
-                                  _haveDate.value = true;
-                                },
-                              );
-                            },
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  kSizedBoxVerticalS,
-                  kSizedBoxVerticalS,
-                  FormTextArea(
-                    fieldName: "Note",
-                    textEditingController: _note,
-                    minLine: 5,
-                    maxLine: 10,
-                  ),
-                  Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        width: kSizeXL / 1.25,
-                        child: CustomButton(
-                          text: "SUBMIT",
-                          onPressed: _submit,
+                      ],
+                    ),
+                    kSizedBoxVerticalS,
+                    kSizedBoxVerticalS,
+                    FormTextArea(
+                      fieldName: "Note",
+                      textEditingController: _note,
+                      minLine: 5,
+                      maxLine: 10,
+                    ),
+                    Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          width: kSizeXL / 1.25,
+                          child: CustomButton(
+                            text: "SUBMIT",
+                            onPressed: _submit,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  kSizedBoxVerticalM,
-                ],
+                      ],
+                    ),
+                    kSizedBoxVerticalM,
+                  ],
+                ),
               ),
             ),
     );

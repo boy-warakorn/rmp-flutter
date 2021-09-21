@@ -17,12 +17,14 @@ class CreatePaymentDto {
   final String paidAt;
   final int amount;
   final String status;
+  final String receivedUrl;
 
   CreatePaymentDto({
     required this.id,
     required this.paidAt,
     required this.amount,
     required this.status,
+    required this.receivedUrl,
   });
 }
 

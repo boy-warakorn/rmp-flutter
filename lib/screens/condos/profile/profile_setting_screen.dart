@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/providers/user_provider.dart';
-import 'package:rmp_flutter/screens/main_screen.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
@@ -19,7 +18,8 @@ class ProfileSettingScreen extends HookConsumerWidget {
     final _role = ref.read(currentUser).user.role;
     final _name = ref.read(currentUser).user.name;
     final _nameController = useTextEditingController(text: _name);
-    final _phoneNumber = useTextEditingController(text: "0933264415");
+    final _phoneNumber = useTextEditingController(
+        text: "0933264415"); //TODO: will add phone number data
     final _roleController = useTextEditingController(text: _role);
 
     return Scaffold(

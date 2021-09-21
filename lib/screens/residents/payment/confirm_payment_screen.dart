@@ -3,7 +3,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/residents/payment/payment_result_screen.dart';
@@ -36,19 +35,17 @@ class ConfirmPaymentScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Center(
-                        child: _photo == null
-                            ? Text(
-                                "No Image",
-                              )
-                            : Image.file(_photo),
+                        child: Image.file(_photo),
                       ),
                     ),
                     kSizedBoxVerticalS,
                     kSizedBoxVerticalXS,
                     CustomButton(
                       text: "SUBMIT RECEIPT",
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(PaymentResultScreen.routeName),
+                      onPressed: () => Navigator.of(context).pushNamed(
+                        PaymentResultScreen.routeName,
+                        arguments: _photo,
+                      ),
                     ),
                   ],
                 ),

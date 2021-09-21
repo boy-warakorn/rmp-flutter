@@ -104,7 +104,7 @@ class PaymentScreen extends HookConsumerWidget {
                                 Expanded(
                                   child: TitleCard(
                                     title: "Electricity",
-                                    subtitle: "100 BAHT",
+                                    subtitle: "1000 BAHT",
                                     icon: Icon(
                                       Icons.bolt,
                                       color: kWarningColor,
@@ -115,7 +115,7 @@ class PaymentScreen extends HookConsumerWidget {
                                 Expanded(
                                   child: TitleCard(
                                     title: "Water",
-                                    subtitle: "1500 BAHT",
+                                    subtitle: "150 BAHT",
                                     icon: Icon(
                                       Icons.water_damage_outlined,
                                       color: kStrokeColor,
@@ -181,7 +181,7 @@ class PaymentScreen extends HookConsumerWidget {
                                                   .toString(),
                                               paidDate:
                                                   _currentPayment.paidAt.isEmpty
-                                                      ? "Not Paid"
+                                                      ? "-"
                                                       : _currentPayment.paidAt,
                                               onPressed: () =>
                                                   Navigator.of(context)
