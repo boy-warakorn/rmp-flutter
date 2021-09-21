@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/widgets/general/profile_text.dart';
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard({Key? key}) : super(key: key);

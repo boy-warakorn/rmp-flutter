@@ -5,16 +5,13 @@ import 'package:rmp_flutter/configs/constants.dart';
 class FormTextField extends StatefulWidget {
   final String fieldName;
   final TextEditingController textEditingController;
-  final Icon suffixIcon;
+  final Icon? suffixIcon;
 
   const FormTextField({
     Key? key,
     required this.fieldName,
     required this.textEditingController,
-    this.suffixIcon = const Icon(
-      null,
-      size: 0,
-    ),
+    this.suffixIcon,
   }) : super(key: key);
 
   @override

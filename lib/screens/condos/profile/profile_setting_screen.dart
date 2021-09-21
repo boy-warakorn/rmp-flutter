@@ -15,7 +15,7 @@ class ProfileSettingScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _username = useTextEditingController(text: "John Doe");
-    final _gender = useTextEditingController(text: "Male");
+    final _phoneNumber = useTextEditingController(text: "0933264415");
     final _age = useTextEditingController(text: "20");
     final _role = useTextEditingController(text: "Condomiunium Manager");
 
@@ -66,31 +66,16 @@ class ProfileSettingScreen extends HookWidget {
                     child: Column(
                       children: [
                         FormTextFieldIcon(
-                          fieldName: "Username",
+                          fieldName: "Your name",
                           textEditingController: _username,
                           fieldColor: kBrandDarkerColor,
                         ),
                         kSizedBoxVerticalXS,
                         kSizedBoxVerticalS,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: FormTextFieldIcon(
-                                fieldName: "Gender",
-                                textEditingController: _gender,
-                                fieldColor: kBrandDarkerColor,
-                              ),
-                            ),
-                            kSizedBoxHorizontalM,
-                            Expanded(
-                              child: FormTextFieldIcon(
-                                fieldName: "Age",
-                                textEditingController: _age,
-                                fieldColor: kBrandDarkerColor,
-                              ),
-                            ),
-                          ],
+                        FormTextFieldIcon(
+                          fieldName: "Phone number",
+                          textEditingController: _phoneNumber,
+                          fieldColor: kBrandDarkerColor,
                         ),
                         kSizedBoxVerticalXS,
                         kSizedBoxVerticalS,
