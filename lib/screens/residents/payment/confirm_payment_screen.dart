@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/residents/payment/payment_result_screen.dart';
@@ -16,6 +19,8 @@ class ConfirmPaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _photo = ModalRoute.of(context)?.settings.arguments as File;
+
     return Scaffold(
       backgroundColor: kBgColor,
       appBar: BackAppBar(),
@@ -31,9 +36,11 @@ class ConfirmPaymentScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Center(
-                        child: Image(
-                          image: NetworkImage(slip),
-                        ),
+                        child: _photo == null
+                            ? Text(
+                                "No Image",
+                              )
+                            : Image.file(_photo),
                       ),
                     ),
                     kSizedBoxVerticalS,

@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/payment.dart';
+import 'package:rmp_flutter/repositories/payment_repository.dart';
 import 'package:rmp_flutter/screens/residents/payment/specific_payment_screen.dart';
 import 'package:rmp_flutter/widgets/general/payment_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
@@ -35,12 +39,26 @@ const _dummyData = [
   },
 ];
 
-class PaymentScreen extends StatelessWidget {
+class PaymentScreen extends HookConsumerWidget {
   static const routeName = "/resident/payment";
   const PaymentScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _payments = useState(PaymentModel(payments: []));
+
+    final _isLoading = useState(false);
+
+    void fetchPayment() async {
+      _isLoading.value = true;
+      _payments.value = await PaymentRepository().getPaymentByResident();
+      _isLoading.value = false;
+    }
+
+    useEffect(() {
+      fetchPayment();
+    }, []);
+
     return Row(
       children: [
         Expanded(
@@ -86,7 +104,7 @@ class PaymentScreen extends StatelessWidget {
                                 Expanded(
                                   child: TitleCard(
                                     title: "Electricity",
-                                    subtitle: "\$100",
+                                    subtitle: "100 BAHT",
                                     icon: Icon(
                                       Icons.bolt,
                                       color: kWarningColor,
@@ -97,7 +115,7 @@ class PaymentScreen extends StatelessWidget {
                                 Expanded(
                                   child: TitleCard(
                                     title: "Water",
-                                    subtitle: "\$1500",
+                                    subtitle: "1500 BAHT",
                                     icon: Icon(
                                       Icons.water_damage_outlined,
                                       color: kStrokeColor,
@@ -116,7 +134,7 @@ class PaymentScreen extends StatelessWidget {
                                       color: kSuccessColor,
                                     ),
                                     title: "Common Charge",
-                                    subtitle: '\$500',
+                                    subtitle: '3000 BAHT',
                                   ),
                                 ),
                               ],
@@ -146,20 +164,34 @@ class PaymentScreen extends StatelessWidget {
                                 kSizedBoxVerticalS,
                                 kSizedBoxVerticalXS,
                                 Expanded(
-                                  child: ListView.builder(
-                                    itemCount: 5,
-                                    itemBuilder: (context, index) {
-                                      final data = _dummyData[index];
-                                      return PaymentCard(
-                                        type: "${data['type']}",
-                                        amount: "${data['amount']}",
-                                        paidDate: "${data['date']}",
-                                        onPressed: () => Navigator.of(context)
-                                            .pushNamed(SpecificPaymentScreen
-                                                .routeName),
-                                      );
-                                    },
-                                  ),
+                                  child: _isLoading.value
+                                      ? Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : ListView.builder(
+                                          itemCount:
+                                              _payments.value.payments.length,
+                                          itemBuilder: (context, index) {
+                                            final _currentPayment =
+                                                _payments.value.payments[index];
+                                            final data = _dummyData[index];
+                                            return PaymentCard(
+                                              type: _currentPayment.type,
+                                              amount: _currentPayment.amount
+                                                  .toString(),
+                                              paidDate:
+                                                  _currentPayment.paidAt.isEmpty
+                                                      ? "Not Paid"
+                                                      : _currentPayment.paidAt,
+                                              onPressed: () =>
+                                                  Navigator.of(context)
+                                                      .pushNamed(
+                                                SpecificPaymentScreen.routeName,
+                                                arguments: _currentPayment,
+                                              ),
+                                            );
+                                          },
+                                        ),
                                 ),
                               ],
                             ),

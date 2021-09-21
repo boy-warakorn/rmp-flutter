@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/providers/user_provider.dart';
 import 'package:rmp_flutter/screens/main_screen.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
-class ProfileSettingScreen extends HookWidget {
+class ProfileSettingScreen extends HookConsumerWidget {
   static const routeName = "/profile";
   const ProfileSettingScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final _username = useTextEditingController(text: "John Doe");
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _role = ref.read(currentUser).user.role;
+    final _name = ref.read(currentUser).user.name;
+    final _nameController = useTextEditingController(text: _name);
     final _phoneNumber = useTextEditingController(text: "0933264415");
-    final _age = useTextEditingController(text: "20");
-    final _role = useTextEditingController(text: "Condomiunium Manager");
+    final _roleController = useTextEditingController(text: _role);
 
     return Scaffold(
       appBar: BackAppBar(
@@ -67,7 +70,7 @@ class ProfileSettingScreen extends HookWidget {
                       children: [
                         FormTextFieldIcon(
                           fieldName: "Your name",
-                          textEditingController: _username,
+                          textEditingController: _nameController,
                           fieldColor: kBrandDarkerColor,
                         ),
                         kSizedBoxVerticalXS,
@@ -81,7 +84,7 @@ class ProfileSettingScreen extends HookWidget {
                         kSizedBoxVerticalS,
                         FormTextFieldIcon(
                           fieldName: "Your Role",
-                          textEditingController: _role,
+                          textEditingController: _roleController,
                           fieldColor: kBrandDarkerColor,
                         ),
                         kSizedBoxVerticalM,

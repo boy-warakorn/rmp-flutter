@@ -66,7 +66,6 @@ class PackageRepository implements BasePackageRepository {
               "Authorization": "Bearer $token",
             },
           ));
-
     } on DioError catch (_) {
       throw HttpException("Delete package failed");
     }
@@ -91,7 +90,6 @@ class PackageRepository implements BasePackageRepository {
           },
         ),
       );
-
     } on DioError catch (_) {
       throw HttpException("Edit package failed");
     }
@@ -148,7 +146,7 @@ class PackageRepository implements BasePackageRepository {
       final token = pref.getString("token");
 
       final response = await dio.get(
-        getPackageByResidentUrl,
+        getPackagesByResidentUrl,
         options: Options(headers: {
           "Authorization": "Bearer $token",
         }),

@@ -86,18 +86,18 @@ class DashboardScreen extends StatelessWidget {
                     ),
                     kSizedBoxVerticalS,
                     kSizedBoxVerticalXS,
-                    SummaryEntity(
-                      text: "Summ",
-                      count: 1,
-                    ),
-                    SummaryEntity(
-                      text: "Summ",
-                      count: 9,
-                    ),
-                    SummaryEntity(
-                      text: "Summ",
-                      count: 10,
-                    ),
+                    // SummaryEntity(
+                    //   text: "Summ",
+                    //   count: 1,
+                    // ),
+                    // SummaryEntity(
+                    //   text: "Summ",
+                    //   count: 9,
+                    // ),
+                    // SummaryEntity(
+                    //   text: "Summ",
+                    //   count: 10,
+                    // ),
                   ],
                 ),
               ),

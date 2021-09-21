@@ -11,8 +11,8 @@ const basePackageUrl = "$baseApiUrl/packages";
 
 const getPackagesUrl = basePackageUrl;
 const getCreatePackageUrl = basePackageUrl;
-const getPackageMasterDataUrl = "$basePackageUrl/master-data";
-const getPackageByResidentUrl = "$basePackageUrl/residents";
+const getPackagesMasterDataUrl = "$basePackageUrl/master-data";
+const getPackagesByResidentUrl = "$basePackageUrl/residents";
 String getPackageByIdUrl(String id) => "$basePackageUrl/$id";
 String getEditPackageUrl(String id) => "$basePackageUrl/$id/update";
 String getDeletePackageUrl(String id) => "$basePackageUrl/$id/delete";
@@ -27,3 +27,10 @@ const createReportUrl = baseReportUrl;
 String getReportUrl(String id) => "$baseReportUrl/$id";
 String replyReportUrl(String id) => "$baseReportUrl/$id/reply";
 String resolveReportUrl(String id) => "$baseReportUrl/$id/resolve";
+
+//payment
+const basePaymentUrl = "$baseApiUrl/payments";
+const getPaymentsUrl = "$basePaymentUrl/residents";
+const getCommonChargeUrl = "$basePaymentUrl/common-charge";
+
+String paySpecificPayment(String id) => "$basePaymentUrl/$id";
