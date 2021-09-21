@@ -27,7 +27,13 @@ class TextWithValue extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: kSizeXXL,
           padding: EdgeInsets.all(kSizeS),
-          color: kLightColor,
+          decoration: BoxDecoration(
+              borderRadius: kBorderRadiusS,
+              color: kLightColor,
+              border: Border.all(
+                color: kInputBorderColor,
+                width: kSizeXXXS / 2,
+              )),
           child: Text(
             detail,
             style: Theme.of(context).textTheme.bodyText1,

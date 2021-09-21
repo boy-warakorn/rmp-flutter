@@ -45,7 +45,7 @@ class PaymentResultScreen extends StatelessWidget {
                       .pushNamedAndRemoveUntil(
                           PreLoadingScreen.routeName, (_) => false),
                   padding: EdgeInsets.symmetric(
-                    horizontal: kSizeS,
+                    horizontal: kSizeS * 1.5,
                     vertical: kSizeXS,
                   ),
                 ),
