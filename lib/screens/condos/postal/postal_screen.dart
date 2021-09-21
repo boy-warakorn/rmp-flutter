@@ -6,6 +6,7 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
+import 'package:rmp_flutter/utils/date_format.dart';
 import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
 
@@ -90,7 +91,7 @@ class PostalScreen extends HookWidget {
                               Package pk = _packages.value.packages[index];
                               return PackageCard(
                                 title: pk.roomNumber,
-                                date: pk.arrivedAt,
+                                date: formattedDate(pk.arrivedAt),
                                 note: pk.note.isEmpty ? "-" : pk.note,
                                 onPressed: () => Navigator.of(context)
                                     .pushNamed(PackageDetailScreen.routeName,

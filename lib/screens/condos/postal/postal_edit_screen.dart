@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
+import 'package:rmp_flutter/utils/date_format.dart';
 import 'package:rmp_flutter/widgets/forms/autocomplete_text_field.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
-import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
 import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
@@ -24,6 +25,7 @@ class PostalEditScreen extends HookWidget {
     final _deliveredBy = useTextEditingController();
     final _deliveredDate = useTextEditingController();
     final _note = useTextEditingController();
+    final _haveDate = useState(false);
 
     final id = ModalRoute.of(context)?.settings.arguments as String;
 
@@ -89,24 +91,18 @@ class PostalEditScreen extends HookWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    CustomText.sectionHeaderBlack(
                       "You are editing ${_package.value.roomNumber}",
-                      style: Theme.of(context).textTheme.headline3?.copyWith(
-                            color: kBlackColor,
-                          ),
+                      context,
                     ),
                     kSizedBoxVerticalS,
-                    kSizedBoxVerticalXS,
-                    Text(
+                    CustomText.sectionHeaderBlack(
                       "Owner: ${_package.value.roomOwner}",
-                      style: Theme.of(context).textTheme.headline3?.copyWith(
-                            color: kBlackColor,
-                          ),
+                      context,
                     ),
                     kSizedBoxVerticalS,
-                    kSizedBoxVerticalXS,
                     CustomText.sectionHeaderBlack("Delivered by", context),
-                    kSizedBoxVerticalS,
+                    kSizedBoxVerticalXS,
                     AutoCompleteTextField(
                       context,
                       textEditingController: _deliveredBy,
@@ -121,19 +117,74 @@ class PostalEditScreen extends HookWidget {
                       },
                     ),
                     kSizedBoxVerticalS,
-                    FormTextField(
-                      fieldName: "Delivered Date",
-                      textEditingController: _deliveredDate,
-                      suffixIcon: Icon(
-                        Icons.date_range_outlined,
-                      ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText.sectionHeaderBlack(
+                          "Delivered Date",
+                          context,
+                        ),
+                        kSizedBoxVerticalXS,
+                        InkWell(
+                          child: Container(
+                            height: kSizeM,
+                            width: kSizeXXXL,
+                            child: TextFormField(
+                              controller: _deliveredDate,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: kLightColor,
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: kBorderRadiusM,
+                                  borderSide: BorderSide(
+                                    color: kInputBorderColor,
+                                    width: kSizeXXXS / 2,
+                                  ),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: kBorderRadiusM,
+                                  borderSide: BorderSide(
+                                    color: kInputBorderColor,
+                                    width: kSizeXXXS / 2,
+                                  ),
+                                ),
+                                focusColor: kInputBorderColor,
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: kSizeS,
+                                  vertical: kSizeS / 1.7,
+                                ),
+                                hintText: "Delivered Date",
+                                hintStyle:
+                                    Theme.of(context).textTheme.subtitle1,
+                              ),
+                              enableInteractiveSelection: false,
+                              onTap: () {
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
+                                DatePicker.showDateTimePicker(
+                                  context,
+                                  showTitleActions: true,
+                                  maxTime: DateTime.now(),
+                                  onConfirm: (date) {
+                                    _deliveredDate.text = getDateTimeString(date);
+                                    _haveDate.value = true;
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
+                    kSizedBoxVerticalS,
                     FormTextArea(
                       fieldName: "Note",
                       textEditingController: _note,
                       minLine: 5,
                       maxLine: 10,
                     ),
+                    kSizedBoxVerticalS,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [

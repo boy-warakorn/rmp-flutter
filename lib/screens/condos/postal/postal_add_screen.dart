@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:rmp_flutter/utils/date_format.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/package.dart';
@@ -9,8 +10,8 @@ import 'package:rmp_flutter/repositories/room_repository.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/forms/autocomplete_text_field.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
-import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
 import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
@@ -42,6 +43,7 @@ class PostalAddScreen extends HookWidget {
     final _note = useTextEditingController();
 
     final _isLoading = useState(true);
+    final _haveDate = useState(false);
     final _roomNumberList = useState(RoomNumbersModel(roomNumbers: []));
     final _serviceList = useState(PackageMasterModel(postalService: []));
 
@@ -100,10 +102,10 @@ class PostalAddScreen extends HookWidget {
           right: kSizeS * 1.5,
           top: kSizeS,
         ),
-        child: SingleChildScrollView(
-          child: _isLoading.value
-              ? CenteredProgressIndicator()
-              : Column(
+        child: _isLoading.value
+            ? CenteredProgressIndicator()
+            : SingleChildScrollView(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText.sectionHeaderBlack("Room Number", context),
@@ -153,17 +155,54 @@ class PostalAddScreen extends HookWidget {
                       },
                     ),
                     kSizedBoxVerticalS,
-                    FormTextField(
-                      fieldName: "Delivered Date",
-                      textEditingController: _deliveredDate,
-                      suffixIcon: Icon(
-                        Icons.date_range_outlined,
+                    CustomText.sectionHeaderBlack("Delivered Date", context),
+                    kSizedBoxVerticalXS,
+                    InkWell(
+                      child: Container(
+                        height: kSizeM,
+                        width: kSizeXXXL,
+                        child: TextFormField(
+                          controller: _deliveredDate,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: kLightColor,
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: kBorderRadiusM,
+                              borderSide: BorderSide(
+                                color: kInputBorderColor,
+                                width: kSizeXXXS / 2,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: kBorderRadiusM,
+                              borderSide: BorderSide(
+                                color: kInputBorderColor,
+                                width: kSizeXXXS / 2,
+                              ),
+                            ),
+                            focusColor: kInputBorderColor,
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: kSizeS,
+                              vertical: kSizeS / 1.7,
+                            ),
+                            hintText: "Delivered Date",
+                            hintStyle: Theme.of(context).textTheme.subtitle1,
+                          ),
+                          enableInteractiveSelection: false,
+                          onTap: () {
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            DatePicker.showDateTimePicker(
+                              context,
+                              showTitleActions: true,
+                              maxTime: DateTime.now(),
+                              onConfirm: (date) {
+                                _deliveredDate.text = getDateTimeString(date);
+                                _haveDate.value = true;
+                              },
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                    kSizedBoxVerticalS,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [],
                     ),
                     kSizedBoxVerticalS,
                     FormTextArea(
@@ -172,7 +211,7 @@ class PostalAddScreen extends HookWidget {
                       minLine: 5,
                       maxLine: 10,
                     ),
-                    kSizedBoxVerticalM,
+                    kSizedBoxVerticalS,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -187,7 +226,8 @@ class PostalAddScreen extends HookWidget {
                             color: kWarningColor,
                           ),
                         ),
-                        if (_isValidRoom.value)
+                        if (_isValidRoom.value &&
+                            _deliveredDate.text.isNotEmpty)
                           Row(
                             children: [
                               kSizedBoxHorizontalS,
@@ -202,10 +242,9 @@ class PostalAddScreen extends HookWidget {
                           ),
                       ],
                     ),
-                    kSizedBoxVerticalM,
                   ],
                 ),
-        ),
+              ),
       ),
     );
   }
