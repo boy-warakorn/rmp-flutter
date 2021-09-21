@@ -8,6 +8,6 @@ class RoomNumbersModel{
   factory RoomNumbersModel.fromJSON(dynamic fetchedResult){
     Iterable idList = jsonDecode(fetchedResult.toString())["roomNumbers"];
 
-    return RoomNumbersModel(roomNumbers: idList.map((e) => e.toString()).toList());
+    return RoomNumbersModel(roomNumbers: idList.map((room) => room.toString()).toList());
   }
 }

@@ -33,6 +33,18 @@ class CustomText extends StatelessWidget {
           key: key,
         );
 
+  CustomText.sectionHeaderBlack(
+    String text,
+    BuildContext context, {
+    Key? key,
+  }) : this(
+          text,
+          style: Theme.of(context).textTheme.headline3?.copyWith(
+                color: kBlackColor,
+              ),
+          key: key,
+        );
+
   @override
   Widget build(BuildContext context) {
     return Text(

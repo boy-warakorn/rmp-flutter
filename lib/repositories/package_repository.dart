@@ -24,7 +24,7 @@ abstract class BasePackageRepository {
   Future<PackagesModel> getPackages();
   Future<PackagesModel> getPackageByResident();
   Future<Package?> getPackage(String id);
-  Future<List<String>> getPackageMasterData();
+  Future<PackageMasterModel> getPackageMasterData();
   Future<void> createPackage(PackageDto package);
   Future<void> editPackage(PackageDto package, String id);
   Future<void> deletePackage(String id);
@@ -116,9 +116,24 @@ class PackageRepository implements BasePackageRepository {
   }
 
   @override
-  Future<List<String>> getPackageMasterData() {
-    // TODO: implement getPackageMasterData
-    throw UnimplementedError();
+  Future<PackageMasterModel> getPackageMasterData() async {
+    try {
+      final pref = await SharedPreferences.getInstance();
+      final token = pref.getString("token");
+
+      final response = await dio.get(
+        getPackageMasterDataUrl,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+
+      return PackageMasterModel.fromJSON(response);
+    } on DioError catch (_) {
+      throw HttpException("Failed to get package master");
+    }
   }
 
   @override

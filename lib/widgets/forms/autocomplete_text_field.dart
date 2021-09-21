@@ -8,6 +8,7 @@ class AutoCompleteTextField extends StatelessWidget {
   final String? hintText;
   final List<String> optionList;
   final void Function(String)? onChanged;
+  final void Function(String)? onSelected;
 
   const AutoCompleteTextField(
     this.context, {
@@ -16,6 +17,7 @@ class AutoCompleteTextField extends StatelessWidget {
     this.hintText,
     required this.optionList,
     this.onChanged,
+    this.onSelected,
   }) : super(key: key);
 
   @override
@@ -23,7 +25,10 @@ class AutoCompleteTextField extends StatelessWidget {
     return Autocomplete<String>(
       fieldViewBuilder: (context, controller, focusNode, onSubmitted) =>
           TextField(
-        onChanged: onChanged,
+        onChanged: (value) {
+          onChanged!(value);
+          textEditingController.text = value;
+        },
         style: Theme.of(context).textTheme.bodyText1,
         controller: controller,
         focusNode: focusNode,
@@ -62,6 +67,10 @@ class AutoCompleteTextField extends StatelessWidget {
                 textEditingValue.text.toLowerCase(),
               ),
         );
+      },
+      onSelected: (value) {
+        onChanged!(value);
+        textEditingController.text = value;
       },
     );
   }
