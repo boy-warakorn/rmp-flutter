@@ -74,8 +74,11 @@ class PostalAddScreen extends HookWidget {
     void _createPackage(BuildContext context) async {
       final packageDto = PackageDto(
         roomNumber: _roomNumber.text,
-        arrivedAt: _deliveredDate.text,
-        postalService: _deliveredBy.text,
+        arrivedAt: _deliveredDate.text.isEmpty
+            ? "2020-02-20 05:20"
+            : _deliveredDate.text,
+        postalService:
+            _deliveredBy.text.isEmpty ? "Unspecified" : _deliveredBy.text,
         note: _note.text,
       );
 
@@ -178,8 +181,6 @@ class PostalAddScreen extends HookWidget {
                           child: CustomButton(
                             text: "CLEAR",
                             onPressed: () => {
-                              _roomNumber.clear(),
-                              _deliveredBy.clear(),
                               _deliveredDate.clear(),
                               _note.clear(),
                             },

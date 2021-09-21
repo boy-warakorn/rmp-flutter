@@ -8,8 +8,8 @@ import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/general/alert_box.dart';
 import 'package:rmp_flutter/widgets/general/circle_icon_button.dart';
-
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/text_wall_display.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
@@ -19,19 +19,10 @@ class PackageDetailScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final id = ModalRoute.of(context)?.settings.arguments as String;
     final _isLoading = useState(true);
     final _package = useState(
-      Package(
-          id: "",
-          roomNumber: "",
-          roomOwner: "",
-          note: "",
-          arrivedAt: "",
-          deliveredAt: "",
-          status: "",
-          postalService: ""),
+      Package.empty(),
     );
 
     void _deletePackage() async {
@@ -79,7 +70,6 @@ class PackageDetailScreen extends HookWidget {
       _fetchPackageInfo();
     }, []);
 
-
     return Scaffold(
       appBar: BackAppBar(),
       body: Container(
@@ -90,11 +80,9 @@ class PackageDetailScreen extends HookWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            CustomText.sectionHeaderBlack(
               _package.value.roomNumber,
-              style: Theme.of(context).textTheme.headline3?.copyWith(
-                    color: kBlackColor,
-                  ),
+              context,
             ),
             kSizedBoxVerticalS,
             Text(
@@ -125,16 +113,14 @@ class PackageDetailScreen extends HookWidget {
                   ),
             ),
             kSizedBoxVerticalXS,
-            Text(
+            CustomText.sectionHeaderBlack(
               "Note",
-              style: Theme.of(context).textTheme.headline3?.copyWith(
-                    color: kBlackColor,
-                  ),
+              context,
             ),
             kSizedBoxVerticalS,
             Expanded(
               child: TextWallDisplay(
-                text: _package.value.note,
+                text: _package.value.note.isEmpty ? "-" : _package.value.note,
               ),
             ),
             kSizedBoxVerticalS,

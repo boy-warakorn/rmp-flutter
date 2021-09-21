@@ -83,7 +83,7 @@ class PackageRepository implements BasePackageRepository {
         data: {
           "note": package.note,
           "arrivedAt": package.arrivedAt,
-          "postalService": package.arrivedAt,
+          "postalService": package.postalService,
         },
         options: Options(
           headers: {

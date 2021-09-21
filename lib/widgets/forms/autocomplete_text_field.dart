@@ -4,30 +4,39 @@ import 'package:rmp_flutter/configs/constants.dart';
 
 class AutoCompleteTextField extends StatelessWidget {
   final BuildContext context;
-  final TextEditingController textEditingController;
+  final TextEditingController? textEditingController;
   final String? hintText;
   final List<String> optionList;
   final void Function(String)? onChanged;
   final void Function(String)? onSelected;
+  final String? initialText;
 
   const AutoCompleteTextField(
     this.context, {
     Key? key,
-    required this.textEditingController,
+    this.textEditingController,
     this.hintText,
     required this.optionList,
     this.onChanged,
     this.onSelected,
+    this.initialText,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    TextEditingValue? initialValue = initialText == null
+        ? null
+        : TextEditingValue(
+            text: initialText as String,
+          );
+
     return Autocomplete<String>(
+      initialValue: initialValue,
       fieldViewBuilder: (context, controller, focusNode, onSubmitted) =>
           TextField(
         onChanged: (value) {
           onChanged!(value);
-          textEditingController.text = value;
+          textEditingController?.text = value;
         },
         style: Theme.of(context).textTheme.bodyText1,
         controller: controller,
@@ -70,7 +79,7 @@ class AutoCompleteTextField extends StatelessWidget {
       },
       onSelected: (value) {
         onChanged!(value);
-        textEditingController.text = value;
+        textEditingController?.text = value;
       },
     );
   }

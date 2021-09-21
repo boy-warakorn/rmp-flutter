@@ -59,6 +59,18 @@ class Package {
     required this.postalService,
   });
 
+  Package.empty()
+      : this(
+          id: "",
+          roomNumber: "",
+          roomOwner: "",
+          note: "",
+          arrivedAt: "",
+          deliveredAt: "",
+          status: "",
+          postalService: "",
+        );
+
   factory Package.fromJSON(dynamic fetchedResult) {
     Map<String, dynamic> pkItem = jsonDecode(fetchedResult.toString());
 
