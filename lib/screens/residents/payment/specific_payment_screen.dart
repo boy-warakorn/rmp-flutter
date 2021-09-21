@@ -24,17 +24,14 @@ class SpecificPaymentScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _paymentObj = ModalRoute.of(context)?.settings.arguments as Payment;
     final _isLoading = useState(false);
-    final Image _photo;
 
     Future<void> _takePhoto() async {
       final ImagePicker _picker = ImagePicker();
       final XFile? slipPhoto =
           await _picker.pickImage(source: ImageSource.camera);
       final _image = File(slipPhoto!.path);
-      Navigator.of(context).pushNamed(
-        ConfirmPaymentScreen.routeName,
-        arguments: _image,
-      );
+      Navigator.of(context)
+          .pushNamed(ConfirmPaymentScreen.routeName, arguments: _image);
     }
 
     Future<void> _openGallery() async {
@@ -42,10 +39,8 @@ class SpecificPaymentScreen extends HookConsumerWidget {
       final XFile? slipPhoto =
           await _picker.pickImage(source: ImageSource.gallery);
       final _image = File(slipPhoto!.path);
-      Navigator.of(context).pushNamed(
-        ConfirmPaymentScreen.routeName,
-        arguments: _image,
-      );
+      Navigator.of(context)
+          .pushNamed(ConfirmPaymentScreen.routeName, arguments: _image);
     }
 
     return Scaffold(
@@ -132,10 +127,6 @@ class SpecificPaymentScreen extends HookConsumerWidget {
                                                 text: "Upload Photo",
                                                 onPressed: () {
                                                   _openGallery();
-                                                  Navigator.of(context)
-                                                      .pushNamed(
-                                                          ConfirmPaymentScreen
-                                                              .routeName);
                                                 },
                                                 color: kWarningColor,
                                                 padding: EdgeInsets.symmetric(
