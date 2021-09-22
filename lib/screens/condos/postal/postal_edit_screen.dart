@@ -193,7 +193,7 @@ class PostalEditScreen extends HookWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        if (_deliveredBy.text.isNotEmpty)
+                        if (_allowSubmit.value)
                           Container(
                             width: kSizeXL / 1.25,
                             child: CustomButton(
