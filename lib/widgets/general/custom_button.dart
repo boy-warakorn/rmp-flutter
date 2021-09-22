@@ -9,17 +9,21 @@ class CustomButton extends StatelessWidget {
   final Color color;
   final EdgeInsets padding;
   final bool isLoading;
+  final bool enabled;
 
   const CustomButton({
     Key? key,
     required this.text,
     this.textStyle,
     required this.onPressed,
+
+    @Deprecated("Use [enabled] to allow/disallow the button instead")
     this.isLoading = false,
     this.color = kBrandColor,
     this.padding = const EdgeInsets.all(
       kSizeXXS,
     ),
+    this.enabled = true,
   }) : super(key: key);
 
   @override
@@ -30,7 +34,11 @@ class CustomButton extends StatelessWidget {
         padding: padding,
         shape: const RoundedRectangleBorder(borderRadius: kBorderRadiusXXL),
       ),
-      onPressed: isLoading ? () {} : onPressed,
+      onPressed: enabled
+          ? isLoading
+              ? () {}
+              : onPressed
+          : null,
       child: Center(
         child: isLoading
             ? CircularProgressIndicator(
