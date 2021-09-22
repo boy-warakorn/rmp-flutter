@@ -9,6 +9,7 @@ import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/residents/postal/profile_card_screen.dart';
 import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 
@@ -93,14 +94,9 @@ class ResidentPostalScreen extends HookWidget {
                             ),
                             kSizedBoxVerticalXS,
                             kSizedBoxVerticalS,
-                            Text(
+                            CustomText.sectionHeaderLight(
                               "All Packages",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3
-                                  ?.copyWith(
-                                    color: kLightColor,
-                                  ),
+                              context,
                             ),
                           ],
                         ),

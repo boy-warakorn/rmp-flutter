@@ -8,6 +8,7 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/payment.dart';
 import 'package:rmp_flutter/repositories/payment_repository.dart';
 import 'package:rmp_flutter/screens/residents/payment/specific_payment_screen.dart';
+import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/payment_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 
@@ -88,14 +89,9 @@ class PaymentScreen extends HookConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Recently Payment",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3
-                                  ?.copyWith(
-                                    color: kLightColor,
-                                  ),
+                            CustomText.sectionHeaderLight(
+                              "Recent Payment",
+                              context,
                             ),
                             kSizedBoxHorizontalS,
                             kSizedBoxVerticalXS,
@@ -157,9 +153,9 @@ class PaymentScreen extends HookConsumerWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                CustomText.sectionHeader(
                                   "My Payment",
-                                  style: Theme.of(context).textTheme.headline3,
+                                  context,
                                 ),
                                 kSizedBoxVerticalS,
                                 kSizedBoxVerticalXS,

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:intl/intl.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
+import 'package:rmp_flutter/utils/date_format.dart';
+import 'package:rmp_flutter/widgets/forms/autocomplete_text_field.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
-import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
 import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class PostalEditScreen extends HookWidget {
@@ -19,6 +20,8 @@ class PostalEditScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _serviceList = useState(PackageMasterModel(postalService: []));
+
     final _deliveredBy = useTextEditingController();
     final _deliveredDate = useTextEditingController();
     final _note = useTextEditingController();
@@ -28,27 +31,34 @@ class PostalEditScreen extends HookWidget {
 
     late Package pk;
 
-    final _package = useState(
-      Package(
-          id: "",
-          roomNumber: "",
-          roomOwner: "",
-          note: "",
-          arrivedAt: "",
-          deliveredAt: "",
-          status: "",
-          postalService: ""),
-    );
-    final _isLoading = useState(true);
+    final _package = useState(Package.empty());
 
-    void _fetchPackageInfo() async {
+    final _isLoading = useState(true);
+    final _allowSubmit = useState(false);
+
+    void _checkAllowSubmit() {
+      _allowSubmit.value =
+          _deliveredDate.text.isNotEmpty && _deliveredBy.text.isNotEmpty;
+    }
+
+    void _fetchMasterData() async {
       _isLoading.value = true;
+
+      _serviceList.value = await PackageRepository().getPackageMasterData();
+
       pk = await PackageRepository().getPackage(id);
       _package.value = pk;
       _deliveredBy.text = pk.postalService;
       _deliveredDate.text = pk.arrivedAt;
       _note.text = pk.note;
+
       _isLoading.value = false;
+    }
+
+    void _updateEditingController(
+        String value, TextEditingController controller) {
+      controller.text = value;
+      _checkAllowSubmit();
     }
 
     void _submit() async {
@@ -67,18 +77,16 @@ class PostalEditScreen extends HookWidget {
     }
 
     useEffect(() {
-      _fetchPackageInfo();
+      _fetchMasterData();
     }, []);
 
     return Scaffold(
       appBar: BackAppBar(),
       backgroundColor: kBgColor,
-      body: _isLoading.value
-          ? CenteredProgressIndicator()
-          : SingleChildScrollView(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
+      body: SingleChildScrollView(
+        child: _isLoading.value
+            ? CenteredProgressIndicator()
+            : Container(
                 padding: EdgeInsets.only(
                   left: kSizeS * 1.5,
                   right: kSizeS * 1.5,
@@ -87,38 +95,39 @@ class PostalEditScreen extends HookWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    CustomText.sectionHeaderBlack(
                       "You are editing ${_package.value.roomNumber}",
-                      style: Theme.of(context).textTheme.headline3?.copyWith(
-                            color: kBlackColor,
-                          ),
+                      context,
                     ),
                     kSizedBoxVerticalS,
-                    kSizedBoxVerticalXS,
-                    Text(
+                    CustomText.sectionHeaderBlack(
                       "Owner: ${_package.value.roomOwner}",
-                      style: Theme.of(context).textTheme.headline3?.copyWith(
-                            color: kBlackColor,
-                          ),
+                      context,
                     ),
                     kSizedBoxVerticalS,
+                    CustomText.sectionHeaderBlack("Delivered by", context),
                     kSizedBoxVerticalXS,
-                    FormTextField(
-                      fieldName: "Delivered By",
+                    AutoCompleteTextField(
+                      context,
                       textEditingController: _deliveredBy,
+                      initialText: _package.value.postalService,
+                      optionList: _serviceList.value.postalService,
+                      hintText: "Delivery person or service",
+                      onChanged: (value) {
+                        _updateEditingController(value, _deliveredBy);
+                      },
+                      onSelected: (value) {
+                        _updateEditingController(value, _deliveredBy);
+                      },
                     ),
-                    kSizedBoxHorizontalM,
                     kSizedBoxVerticalS,
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        CustomText.sectionHeaderBlack(
                           "Delivered Date",
-                          style:
-                              Theme.of(context).textTheme.headline3?.copyWith(
-                                    color: kBlackColor,
-                                  ),
+                          context,
                         ),
                         kSizedBoxVerticalXS,
                         InkWell(
@@ -160,13 +169,10 @@ class PostalEditScreen extends HookWidget {
                                 DatePicker.showDateTimePicker(
                                   context,
                                   showTitleActions: true,
-                                  minTime: DateTime.now()
-                                      .subtract(Duration(days: 0)),
+                                  maxTime: DateTime.now(),
                                   onConfirm: (date) {
-                                    String dateString =
-                                        DateFormat("yyyy-MM-dd – kk:mm")
-                                            .format(date);
-                                    _deliveredDate.text = dateString;
+                                    _deliveredDate.text =
+                                        getDateTimeString(date);
                                     _haveDate.value = true;
                                   },
                                 );
@@ -177,31 +183,31 @@ class PostalEditScreen extends HookWidget {
                       ],
                     ),
                     kSizedBoxVerticalS,
-                    kSizedBoxVerticalS,
                     FormTextArea(
                       fieldName: "Note",
                       textEditingController: _note,
                       minLine: 5,
                       maxLine: 10,
                     ),
-                    Spacer(),
+                    kSizedBoxVerticalS,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Container(
-                          width: kSizeXL / 1.25,
-                          child: CustomButton(
-                            text: "SUBMIT",
-                            onPressed: _submit,
+                        if (_allowSubmit.value)
+                          Container(
+                            width: kSizeXL / 1.25,
+                            child: CustomButton(
+                              text: "SUBMIT",
+                              onPressed: _submit,
+                            ),
                           ),
-                        ),
                       ],
                     ),
                     kSizedBoxVerticalM,
                   ],
                 ),
               ),
-            ),
+      ),
     );
   }
 }

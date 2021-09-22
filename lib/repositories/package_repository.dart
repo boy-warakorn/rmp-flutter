@@ -24,10 +24,11 @@ abstract class BasePackageRepository {
   Future<PackagesModel> getPackages();
   Future<PackagesModel> getPackageByResident();
   Future<Package?> getPackage(String id);
-  Future<List<String>> getPackageMasterData();
+  Future<PackageMasterModel> getPackageMasterData();
   Future<void> createPackage(PackageDto package);
   Future<void> editPackage(PackageDto package, String id);
   Future<void> deletePackage(String id);
+  Future<void> confirmPackage(String id);
 }
 
 class PackageRepository implements BasePackageRepository {
@@ -82,7 +83,7 @@ class PackageRepository implements BasePackageRepository {
         data: {
           "note": package.note,
           "arrivedAt": package.arrivedAt,
-          "postalService": package.arrivedAt,
+          "postalService": package.postalService,
         },
         options: Options(
           headers: {
@@ -115,8 +116,24 @@ class PackageRepository implements BasePackageRepository {
   }
 
   @override
-  Future<List<String>> getPackageMasterData() {
-    throw UnimplementedError();
+  Future<PackageMasterModel> getPackageMasterData() async {
+    try {
+      final pref = await SharedPreferences.getInstance();
+      final token = pref.getString("token");
+
+      final response = await dio.get(
+        getPackagesMasterDataUrl,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+
+      return PackageMasterModel.fromJSON(response);
+    } on DioError catch (_) {
+      throw HttpException("Failed to get package master");
+    }
   }
 
   @override
@@ -154,6 +171,25 @@ class PackageRepository implements BasePackageRepository {
       return PackagesModel.fromJSON(response);
     } on DioError catch (_) {
       throw HttpException("Failed to get Packages by Resident");
+    }
+  }
+
+  @override
+  Future<void> confirmPackage(String id) async {
+    try {
+      final pref = await SharedPreferences.getInstance();
+      final token = pref.getString("token");
+
+      await dio.post(
+        getConfirmDeliveryUrl(id),
+        options: Options(
+          headers: {
+            "Authorization": "Bear $token",
+          },
+        ),
+      );
+    } on DioError catch (_) {
+      throw HttpException("Failed to confirm package");
     }
   }
 }
