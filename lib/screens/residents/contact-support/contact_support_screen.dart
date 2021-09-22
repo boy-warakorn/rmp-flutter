@@ -7,6 +7,7 @@ import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/report_detail_screen.dart';
 import 'package:rmp_flutter/utils/date_format.dart';
+import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
 
 class ContactSupportScreen extends HookConsumerWidget {
@@ -27,15 +28,6 @@ class ContactSupportScreen extends HookConsumerWidget {
     useEffect(() {
       fetchReports();
     }, []);
-
-    Color getStatusColor(String text) {
-      if (text == "pending") {
-        return kWarningColor;
-      } else if (text == "responded") {
-        return kStrokeColor;
-      }
-      return kSuccessColor;
-    }
 
     return Container(
       decoration: BoxDecoration(
@@ -59,11 +51,9 @@ class ContactSupportScreen extends HookConsumerWidget {
             ),
             child: Column(
               children: [
-                Text(
+                CustomText.sectionHeaderLight(
                   "Contact Support",
-                  style: Theme.of(context).textTheme.headline3?.copyWith(
-                        color: kLightColor,
-                      ),
+                  context,
                 ),
               ],
             ),
@@ -84,13 +74,9 @@ class ContactSupportScreen extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  CustomText.sectionHeader(
                     "All Reports",
-                    style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                          fontSize: kFontSizeHeadline3,
-                          color: kBrandDarkerColor,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    context,
                   ),
                   kSizedBoxVerticalS,
                   _isLoading.value

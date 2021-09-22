@@ -7,8 +7,9 @@ import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/general/alert_box.dart';
-
+import 'package:rmp_flutter/widgets/general/circle_icon_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/text_wall_display.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
@@ -18,36 +19,43 @@ class PackageDetailScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final id = ModalRoute.of(context)?.settings.arguments as String;
     final _isLoading = useState(true);
     final _package = useState(
-      Package(
-          id: "",
-          roomNumber: "",
-          roomOwner: "",
-          note: "",
-          arrivedAt: "",
-          deliveredAt: "",
-          status: "",
-          postalService: ""),
+      Package.empty(),
     );
 
     void _deletePackage() async {
       await PackageRepository().deletePackage(id);
-      // Navigator.pop(context);
-      // Navigator.pop(context);
       Navigator.popUntil(
           context, ModalRoute.withName(PreLoadingScreen.routeName));
     }
 
-    Future<void> _showAlertBox() async {
+    void _confirmPackage() async {
+      await PackageRepository().confirmPackage(id);
+      Navigator.of(context).popUntil(
+        ModalRoute.withName(PreLoadingScreen.routeName),
+      );
+    }
+
+    Future<void> _showDeleteAlertBox() async {
       return showDialog(
         context: context,
         builder: (ctx) => AlertBox(
           message: "Are you sure?",
           onNegative: () => Navigator.pop(context),
           onPositive: _deletePackage,
+        ),
+      );
+    }
+
+    Future<void> _showConfirmDialog() async {
+      return showDialog(
+        context: context,
+        builder: (ctx) => AlertBox(
+          message: "Confirm this delivery?",
+          onNegative: () => Navigator.pop(context),
+          onPositive: _confirmPackage,
         ),
       );
     }
@@ -62,7 +70,6 @@ class PackageDetailScreen extends HookWidget {
       _fetchPackageInfo();
     }, []);
 
-
     return Scaffold(
       appBar: BackAppBar(),
       body: Container(
@@ -73,11 +80,9 @@ class PackageDetailScreen extends HookWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            CustomText.sectionHeaderBlack(
               _package.value.roomNumber,
-              style: Theme.of(context).textTheme.headline3?.copyWith(
-                    color: kBlackColor,
-                  ),
+              context,
             ),
             kSizedBoxVerticalS,
             Text(
@@ -108,40 +113,43 @@ class PackageDetailScreen extends HookWidget {
                   ),
             ),
             kSizedBoxVerticalXS,
-            Text(
+            CustomText.sectionHeaderBlack(
               "Note",
-              style: Theme.of(context).textTheme.headline3?.copyWith(
-                    color: kBlackColor,
-                  ),
+              context,
             ),
             kSizedBoxVerticalS,
             Expanded(
-                child: TextWallDisplay(
-              text: _package.value.note,
-            )),
-            kSizedBoxVerticalL,
+              child: TextWallDisplay(
+                text: _package.value.note.isEmpty ? "-" : _package.value.note,
+              ),
+            ),
+            kSizedBoxVerticalS,
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-                  width: kSizeXL,
-                  child: CustomButton(
-                    color: kErrorColor,
-                    text: "DELETE",
-                    onPressed: _showAlertBox,
-                  ),
+                CircleIconButton(
+                  color: kErrorColor,
+                  onPressed: _showDeleteAlertBox,
+                  icon: Icons.delete,
                 ),
                 kSizedBoxHorizontalS,
-                Container(
-                  width: kSizeXL,
-                  child: CustomButton(
-                    text: "EDIT",
-                    onPressed: () => Navigator.of(context)
+                CircleIconButton(
+                  onPressed: () {
+                    Navigator.of(context)
                         .pushNamed(PostalEditScreen.routeName, arguments: id)
-                        .then((value) => _fetchPackageInfo()),
-                  ),
+                        .then(
+                          (value) => _fetchPackageInfo(),
+                        );
+                  },
+                  icon: Icons.edit,
                 ),
               ],
+            ),
+            kSizedBoxVerticalS,
+            Divider(),
+            CustomButton(
+              text: "CONFIRM",
+              onPressed: _showConfirmDialog,
             ),
           ],
         ),

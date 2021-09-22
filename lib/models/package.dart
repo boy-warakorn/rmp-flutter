@@ -1,5 +1,18 @@
 import 'dart:convert';
 
+class PackageMasterModel {
+  final List<String> postalService;
+
+  PackageMasterModel({required this.postalService});
+
+  factory PackageMasterModel.fromJSON(dynamic fethcedResult) {
+    Iterable serviceIt = jsonDecode(fethcedResult.toString())["postalService"];
+
+    return PackageMasterModel(
+        postalService: serviceIt.map((service) => service.toString()).toList());
+  }
+}
+
 class PackagesModel {
   final List<Package> packages;
 
@@ -46,9 +59,21 @@ class Package {
     required this.postalService,
   });
 
+  Package.empty()
+      : this(
+          id: "",
+          roomNumber: "",
+          roomOwner: "",
+          note: "",
+          arrivedAt: "",
+          deliveredAt: "",
+          status: "",
+          postalService: "",
+        );
+
   factory Package.fromJSON(dynamic fetchedResult) {
     Map<String, dynamic> pkItem = jsonDecode(fetchedResult.toString());
-    
+
     return Package(
       id: pkItem["id"],
       roomNumber: pkItem["roomNumber"],
