@@ -71,6 +71,7 @@ class ConfirmPaymentScreen extends HookWidget {
                     kSizedBoxVerticalS,
                     kSizedBoxVerticalXS,
                     CustomButton(
+                      isLoading: _isLoading.value,
                       text: "SUBMIT RECEIPT",
                       onPressed: _uploadPhoto,
                     ),
