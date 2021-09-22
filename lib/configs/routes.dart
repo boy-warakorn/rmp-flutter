@@ -8,6 +8,7 @@ import 'package:rmp_flutter/screens/condos/postal/postal_add_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_screen.dart';
 import 'package:rmp_flutter/screens/condos/profile/profile_setting_screen.dart';
+import 'package:rmp_flutter/screens/login_screen.dart';
 
 import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_form_screen.dart';
@@ -31,6 +32,7 @@ final routes = {
 
 final generalRoutes = {
   ProfileSettingScreen.routeName: (_) => const ProfileSettingScreen(),
+  LoginScreen.routeName: (_) => const LoginScreen(),
   AboutUsScreen.routeName: (_) => const AboutUsScreen(),
   ForgotPasswordScreen.routeName: (_) => const ForgotPasswordScreen(),
   PreLoadingScreen.routeName: (_) => const PreLoadingScreen(),

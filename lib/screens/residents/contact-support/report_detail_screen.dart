@@ -19,16 +19,7 @@ class ReportDetailScreen extends HookConsumerWidget {
     final _reportId = ModalRoute.of(context)?.settings.arguments as String;
     final _isLoading = useState(false);
     final _report = useState(
-      Report(
-        id: "",
-        roomNumber: "",
-        reportOwner: "",
-        requestedDate: "",
-        resolvedDate: "",
-        title: "",
-        detail: "",
-        status: "",
-      ),
+      Report.empty(),
     );
 
     void fetchReport() async {

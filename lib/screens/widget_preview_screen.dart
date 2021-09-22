@@ -124,6 +124,7 @@ class WidgetPreviewScreen extends HookWidget {
                 ],
               ),
               PaymentCard(
+                status: "",
                 type: "Pay type",
                 amount: "500 THB",
                 paidDate: "20/20/2020",

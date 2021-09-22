@@ -14,79 +14,78 @@ class ProfileCardScreen extends StatelessWidget {
       appBar: BackAppBar(
         isGradient: true,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: <Color>[
-                kBrandColor,
-                kBrandAlternativeDarkerColor,
-              ],
-            ),
-          ),
-          child: Column(
-            children: [
-              Image.asset("assets/images/129.png"),
-              kSizedBoxVerticalM,
-              ProfileText(
-                text: "Name",
-              ),
-              kSizedBoxVerticalXS,
-              ProfileText(
-                text: "Anawat Paothong",
-                isBold: true,
-              ),
-              kSizedBoxVerticalS,
-              ProfileText(
-                text: "ID",
-              ),
-              kSizedBoxVerticalXS,
-              ProfileText(
-                text: "1100702921723",
-                isBold: true,
-              ),
-              kSizedBoxVerticalS,
-              ProfileText(
-                text: "Phone",
-              ),
-              kSizedBoxVerticalXS,
-              ProfileText(
-                text: "0933264415",
-                isBold: true,
-              ),
-              kSizedBoxVerticalS,
-              ProfileText(
-                text: "Room number",
-              ),
-              kSizedBoxVerticalXS,
-              ProfileText(
-                text: "A001",
-                isBold: true,
-              ),
-              kSizedBoxVerticalS,
-              ProfileText(
-                text: "Moved in since",
-              ),
-              kSizedBoxVerticalXS,
-              ProfileText(
-                text: "2020/9/19",
-                isBold: true,
-              ),
-              kSizedBoxVerticalS,
-              ProfileText(
-                text: "Room expires",
-              ),
-              kSizedBoxVerticalXS,
-              ProfileText(
-                text: "2021/9/19",
-                isBold: true,
-              ),
-              kSizedBoxS,
+      body: Container(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: <Color>[
+              kBrandColor,
+              kBrandAlternativeDarkerColor,
             ],
           ),
+        ),
+        child: Column(
+          children: [
+            Image.asset("assets/images/129.png"),
+            kSizedBoxVerticalM,
+            ProfileText(
+              text: "Name",
+            ),
+            kSizedBoxVerticalXS,
+            ProfileText(
+              text: "Anawat Paothong",
+              isBold: true,
+            ),
+            kSizedBoxVerticalS,
+            ProfileText(
+              text: "ID",
+            ),
+            kSizedBoxVerticalXS,
+            ProfileText(
+              text: "1100702921723",
+              isBold: true,
+            ),
+            kSizedBoxVerticalS,
+            ProfileText(
+              text: "Phone",
+            ),
+            kSizedBoxVerticalXS,
+            ProfileText(
+              text: "0933264415",
+              isBold: true,
+            ),
+            kSizedBoxVerticalS,
+            ProfileText(
+              text: "Room number",
+            ),
+            kSizedBoxVerticalXS,
+            ProfileText(
+              text: "A001",
+              isBold: true,
+            ),
+            kSizedBoxVerticalS,
+            ProfileText(
+              text: "Moved in since",
+            ),
+            kSizedBoxVerticalXS,
+            ProfileText(
+              text: "2020/9/19",
+              isBold: true,
+            ),
+            kSizedBoxVerticalS,
+            ProfileText(
+              text: "Room expires",
+            ),
+            kSizedBoxVerticalXS,
+            ProfileText(
+              text: "2021/9/19",
+              isBold: true,
+            ),
+            kSizedBoxVerticalS,
+          ],
         ),
       ),
     );

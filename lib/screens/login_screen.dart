@@ -150,19 +150,19 @@ class LoginScreen extends HookConsumerWidget {
                     suffixText: 'Show',
                     isPassword: true,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(ForgotPasswordScreen.routeName);
-                    },
-                    child: Text(
-                      "Forgot Password?",
-                      style: Theme.of(context).textTheme.headline5?.copyWith(
-                            fontSize: kFontSizeHeadline4,
-                          ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.of(context)
+                  //         .pushNamed(ForgotPasswordScreen.routeName);
+                  //   },
+                  //   child: Text(
+                  //     "Forgot Password?",
+                  //     style: Theme.of(context).textTheme.headline5?.copyWith(
+                  //           fontSize: kFontSizeHeadline4,
+                  //         ),
+                  //     textAlign: TextAlign.left,
+                  //   ),
+                  // ),
                   kSizedBoxVerticalM,
                   CustomButton(
                     padding: EdgeInsets.symmetric(

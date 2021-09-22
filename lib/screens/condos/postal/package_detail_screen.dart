@@ -27,6 +27,7 @@ class PackageDetailScreen extends HookWidget {
 
     void _deletePackage() async {
       await PackageRepository().deletePackage(id);
+
       Navigator.popUntil(
           context, ModalRoute.withName(PreLoadingScreen.routeName));
     }

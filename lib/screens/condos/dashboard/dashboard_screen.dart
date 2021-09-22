@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/widgets/general/summary_entity.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
-import 'package:rmp_flutter/widgets/layout/card_template.dart';
 
 class DashboardScreen extends StatelessWidget {
   static const routeName = "/condo/dashboard";
@@ -76,31 +74,31 @@ class DashboardScreen extends StatelessWidget {
                 ),
               ),
               kSizedBoxVerticalS,
-              CardTemplate(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "All Reports",
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    kSizedBoxVerticalS,
-                    kSizedBoxVerticalXS,
-                    SummaryEntity(
-                      text: "Summ",
-                      count: 1,
-                    ),
-                    SummaryEntity(
-                      text: "Summ",
-                      count: 9,
-                    ),
-                    SummaryEntity(
-                      text: "Summ",
-                      count: 10,
-                    ),
-                  ],
-                ),
-              ),
+              // CardTemplate(
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              // Text(
+              //   "All Reports",
+              //   style: Theme.of(context).textTheme.headline4,
+              // ),
+              // kSizedBoxVerticalS,
+              // kSizedBoxVerticalXS,
+              // SummaryEntity(
+              //   text: "Summ",
+              //   count: 1,
+              // ),
+              // SummaryEntity(
+              //   text: "Summ",
+              //   count: 9,
+              // ),
+              // SummaryEntity(
+              //   text: "Summ",
+              //   count: 10,
+              // ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

@@ -4,13 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-
-import 'package:rmp_flutter/screens/residents/postal/id_card_screen.dart';
-
 import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
+import 'package:rmp_flutter/screens/residents/postal/profile_card_screen.dart';
 import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
-
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
@@ -52,85 +49,82 @@ class ResidentPostalScreen extends HookWidget {
                       ],
                     ),
                   ),
-                  child: _isLoading.value
-                      ? CenteredProgressIndicator()
-                      : Column(
+                  child: Column(
+                    children: [
+                      kSizedBoxHorizontalS,
+                      kSizedBoxHorizontalXS,
+                      kSizedBoxVerticalXXS,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: kSizeS * (24 / 16),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            kSizedBoxHorizontalS,
-                            kSizedBoxHorizontalXS,
-                            kSizedBoxVerticalXXS,
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: kSizeS * (24 / 16),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: TitleCard(
-                                          title: "Recieved",
-                                          subtitle: _packages.value.packages
-                                              .where((e) =>
-                                                  e.status == "delivered")
-                                              .length
-                                              .toString(),
-                                          icon: Icon(
-                                            Icons.ac_unit,
-                                            color: kStrokeColor,
-                                          ),
-                                        ),
-                                      ),
-                                      kSizedBoxHorizontalS,
-                                      Expanded(
-                                        child: TitleCard(
-                                          title: "Not Recieved",
-                                          subtitle: _packages.value.packages
-                                              .where((e) =>
-                                                  e.status != "delivered")
-                                              .length
-                                              .toString(),
-                                          icon: Icon(
-                                            Icons.ac_unit,
-                                            color: kErrorColor,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  kSizedBoxVerticalXS,
-                                  kSizedBoxVerticalS,
-                                  CustomText.sectionHeaderLight(
-                                    "All Packages",
-                                    context,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            kSizedBoxVerticalS,
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: kLightColor,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(kSizeS),
-                                    topRight: Radius.circular(kSizeS),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TitleCard(
+                                    title: "Received",
+                                    subtitle: _packages.value.packages
+                                        .where((e) => e.status == "delivered")
+                                        .length
+                                        .toString(),
+                                    icon: Icon(
+                                      Icons.ac_unit,
+                                      color: kStrokeColor,
+                                    ),
                                   ),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                    top: kSizeS * 1.5,
-                                    left: kSizeS * 1.5,
-                                    right: kSizeS * 1.5,
-                                    bottom: kSizeS,
+                                kSizedBoxHorizontalS,
+                                Expanded(
+                                  child: TitleCard(
+                                    title: "Storage",
+                                    subtitle: _packages.value.packages
+                                        .where((e) => e.status != "delivered")
+                                        .length
+                                        .toString(),
+                                    icon: Icon(
+                                      Icons.ac_unit,
+                                      color: kErrorColor,
+                                    ),
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: ListView.builder(
+                                ),
+                              ],
+                            ),
+                            kSizedBoxVerticalXS,
+                            kSizedBoxVerticalS,
+                            CustomText.sectionHeaderLight(
+                              "All Packages",
+                              context,
+                            ),
+                          ],
+                        ),
+                      ),
+                      kSizedBoxVerticalS,
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: kLightColor,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(kSizeS),
+                              topRight: Radius.circular(kSizeS),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              top: kSizeS * 1.5,
+                              left: kSizeS * 1.5,
+                              right: kSizeS * 1.5,
+                              bottom: kSizeS,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: _isLoading.value
+                                      ? CenteredProgressIndicator()
+                                      : ListView.builder(
                                           itemCount:
                                               _packages.value.packages.length,
                                           itemBuilder: (context, index) {
@@ -145,32 +139,30 @@ class ResidentPostalScreen extends HookWidget {
                                                 statusKey: pk.status);
                                           },
                                         ),
-                                      ),
-                                      kSizedBoxVerticalS,
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          CustomButton(
-                                            text: "SHOW IDENTIFICATION",
-                                            onPressed: () =>
-                                                Navigator.of(context).pushNamed(
-                                              IDCardScreen.routeName,
-                                            ),
-                                            padding: EdgeInsets.symmetric(
-                                              vertical: kSizeXS,
-                                              horizontal: kSizeS,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
                                 ),
-                              ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    CustomButton(
+                                      text: "SHOW IDENTIFICATION",
+                                      onPressed: () =>
+                                          Navigator.of(context).pushNamed(
+                                        ProfileCardScreen.routeName,
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: kSizeXS,
+                                        horizontal: kSizeS,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

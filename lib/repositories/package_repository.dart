@@ -122,7 +122,7 @@ class PackageRepository implements BasePackageRepository {
       final token = pref.getString("token");
 
       final response = await dio.get(
-        getPackageMasterDataUrl,
+        getPackagesMasterDataUrl,
         options: Options(
           headers: {
             "Authorization": "Bearer $token",
@@ -162,7 +162,7 @@ class PackageRepository implements BasePackageRepository {
       final token = pref.getString("token");
 
       final response = await dio.get(
-        getPackageByResidentUrl,
+        getPackagesByResidentUrl,
         options: Options(headers: {
           "Authorization": "Bearer $token",
         }),

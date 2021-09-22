@@ -23,7 +23,9 @@ dependencies:
   intl: ^0.17.0
   flutter_datetime_picker: ^1.5.1
   carousel_slider: ^4.0.0
-
+  firebase_storage: ^10.0.3
+  firebase_core: ^1.6.0
+  path: ^1.8.0
 
 dev_dependencies:
   flutter_test:

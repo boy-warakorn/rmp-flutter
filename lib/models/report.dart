@@ -43,6 +43,19 @@ class Report {
     this.respondDetail,
   });
 
+  static Report empty() {
+    return Report(
+      id: "",
+      roomNumber: "",
+      reportOwner: "",
+      requestedDate: "",
+      resolvedDate: "",
+      title: "",
+      detail: "",
+      status: "",
+    );
+  }
+
   factory Report.fromJson(dynamic fetchedResult, bool isGetReport) {
     final _reportResult =
         isGetReport ? jsonDecode(fetchedResult) : fetchedResult;
