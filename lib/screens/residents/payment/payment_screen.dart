@@ -99,31 +99,31 @@ class PaymentScreen extends HookConsumerWidget {
                             ),
                             kSizedBoxHorizontalS,
                             kSizedBoxVerticalXS,
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: TitleCard(
-                                    title: "Electricity",
-                                    subtitle: "1000 Baht",
-                                    icon: Icon(
-                                      Icons.bolt,
-                                      color: kWarningColor,
-                                    ),
-                                  ),
-                                ),
-                                kSizedBoxHorizontalS,
-                                Expanded(
-                                  child: TitleCard(
-                                    title: "Water",
-                                    subtitle: "150 Baht",
-                                    icon: Icon(
-                                      Icons.water_damage_outlined,
-                                      color: kStrokeColor,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //     Expanded(
+                            //       child: TitleCard(
+                            //         title: "Electricity",
+                            //         subtitle: "1000 Baht",
+                            //         icon: Icon(
+                            //           Icons.bolt,
+                            //           color: kWarningColor,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //     kSizedBoxHorizontalS,
+                            //     Expanded(
+                            //       child: TitleCard(
+                            //         title: "Water",
+                            //         subtitle: "150 Baht",
+                            //         icon: Icon(
+                            //           Icons.water_damage_outlined,
+                            //           color: kStrokeColor,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                             kSizedBoxVerticalXS,
                             Row(
                               children: [
@@ -182,6 +182,7 @@ class PaymentScreen extends HookConsumerWidget {
                                                   _currentPayment.paidAt.isEmpty
                                                       ? "-"
                                                       : _currentPayment.paidAt,
+                                              status: _currentPayment.status,
                                               onPressed: () =>
                                                   Navigator.of(context)
                                                       .pushNamed(

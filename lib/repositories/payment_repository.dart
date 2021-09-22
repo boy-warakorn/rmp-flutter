@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 abstract class BasePaymentRepository {
   Future<PaymentModel> getPaymentByResident();
   Future<Payment> getCommonCharge();
-  // Future<void> paySpecificPayment(String id, CreatePaymentDto createPaymentDto);
+  Future<void> paySpecificPayment(String id, String receiptUrl);
 }
 
 class CreatePaymentDto {
@@ -68,5 +68,24 @@ class PaymentRepository implements BasePaymentRepository {
     } on DioError catch (_) {
       throw HttpException("Get Common Charge Failed");
     }
+  }
+
+  @override
+  Future<void> paySpecificPayment(String id, String receiptUrl) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      await dio.post(
+        paySpecificPaymentUrl(id),
+        data: {
+          "receiptUrl": receiptUrl,
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+    } on DioError catch (_) {}
   }
 }

@@ -78,7 +78,7 @@ class ResidentPostalScreen extends HookWidget {
                                 kSizedBoxHorizontalS,
                                 Expanded(
                                   child: TitleCard(
-                                    title: "Not Recieved",
+                                    title: "Storage",
                                     subtitle: _packages.value.packages
                                         .where((e) => e.status != "delivered")
                                         .length
@@ -144,7 +144,6 @@ class ResidentPostalScreen extends HookWidget {
                                           },
                                         ),
                                 ),
-                                kSizedBoxVerticalS,
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [

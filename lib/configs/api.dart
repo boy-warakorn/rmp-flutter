@@ -33,4 +33,4 @@ const basePaymentUrl = "$baseApiUrl/payments";
 const getPaymentsUrl = "$basePaymentUrl/residents";
 const getCommonChargeUrl = "$basePaymentUrl/common-charge";
 
-String paySpecificPayment(String id) => "$basePaymentUrl/$id";
+String paySpecificPaymentUrl(String id) => "$basePaymentUrl/$id";

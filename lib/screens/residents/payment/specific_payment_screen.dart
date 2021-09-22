@@ -20,7 +20,7 @@ class SpecificPaymentScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _paymentObj = ModalRoute.of(context)?.settings.arguments as Payment;
+    final _payment = ModalRoute.of(context)?.settings.arguments as Payment;
     final _isLoading = useState(false);
 
     Future<void> _takePhoto() async {
@@ -28,8 +28,8 @@ class SpecificPaymentScreen extends HookConsumerWidget {
       final XFile? slipPhoto =
           await _picker.pickImage(source: ImageSource.camera);
       final _image = File(slipPhoto!.path);
-      Navigator.of(context)
-          .pushNamed(ConfirmPaymentScreen.routeName, arguments: _image);
+      Navigator.of(context).pushNamed(ConfirmPaymentScreen.routeName,
+          arguments: [_image, _payment]);
     }
 
     Future<void> _openGallery() async {
@@ -37,8 +37,8 @@ class SpecificPaymentScreen extends HookConsumerWidget {
       final XFile? slipPhoto =
           await _picker.pickImage(source: ImageSource.gallery);
       final _image = File(slipPhoto!.path);
-      Navigator.of(context)
-          .pushNamed(ConfirmPaymentScreen.routeName, arguments: _image);
+      Navigator.of(context).pushNamed(ConfirmPaymentScreen.routeName,
+          arguments: [_image, _payment]);
     }
 
     return Scaffold(
@@ -59,12 +59,12 @@ class SpecificPaymentScreen extends HookConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Pay ${_paymentObj.type}",
+                            "Pay ${_payment.type}",
                             style: Theme.of(context).textTheme.headline3,
                           ),
                           kSizedBoxVerticalS,
                           Text(
-                            "Amount:  ${_paymentObj.amount} BAHT",
+                            "Amount:  ${_payment.amount} BAHT",
                             style: Theme.of(context).textTheme.headline5,
                           ),
                           kSizedBoxVerticalS,
@@ -100,58 +100,51 @@ class SpecificPaymentScreen extends HookConsumerWidget {
                               showModalBottomSheet<dynamic>(
                                 isScrollControlled: true,
                                 context: context,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(kSizeS),
+                                    topRight: Radius.circular(kSizeS),
+                                  ),
+                                ),
                                 builder: (context) {
                                   return Container(
-                                    height:
-                                        MediaQuery.of(context).size.width / 3,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: kSizeL * 1.5,
-                                    ),
-                                    child: Wrap(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.2,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            kSizedBoxVerticalS,
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.75,
-                                              child: CustomButton(
-                                                text: "Upload Photo",
-                                                onPressed: () {
-                                                  _openGallery();
-                                                },
-                                                color: kWarningColor,
-                                                padding: EdgeInsets.symmetric(
-                                                  vertical: kSizeS,
-                                                  horizontal: kSizeS,
-                                                ),
-                                              ),
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.7,
+                                          child: CustomButton(
+                                            text: "Take a photo",
+                                            onPressed: _takePhoto,
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: kSizeXS,
+                                              horizontal: kSizeXS,
                                             ),
-                                            kSizedBoxVerticalS,
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.75,
-                                              child: CustomButton(
-                                                text: "Take a photo",
-                                                onPressed: () {
-                                                  _takePhoto();
-                                                },
-                                                padding: EdgeInsets.symmetric(
-                                                  vertical: kSizeS,
-                                                  horizontal: kSizeS,
-                                                ),
-                                              ),
+                                          ),
+                                        ),
+                                        kSizedBoxVerticalXS,
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.7,
+                                          child: CustomButton(
+                                            text: "Choose from gallery",
+                                            onPressed: _openGallery,
+                                            color: kWarningColor,
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: kSizeXS,
+                                              horizontal: kSizeXS,
                                             ),
-                                            kSizedBoxVerticalS,
-                                          ],
+                                          ),
                                         ),
                                       ],
                                     ),
