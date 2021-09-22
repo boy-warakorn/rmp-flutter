@@ -25,7 +25,7 @@ class PostalEditScreen extends HookWidget {
     final _deliveredBy = useTextEditingController();
     final _deliveredDate = useTextEditingController();
     final _note = useTextEditingController();
-    final _haveDate = useState(false);
+    final _haveDate = useState(true);
 
     final id = ModalRoute.of(context)?.settings.arguments as String;
 
@@ -34,11 +34,14 @@ class PostalEditScreen extends HookWidget {
     final _package = useState(Package.empty());
 
     final _isLoading = useState(true);
-    final _allowSubmit = useState(false);
+    final _haveService = useState(true);
 
-    void _checkAllowSubmit() {
-      _allowSubmit.value =
-          _deliveredDate.text.isNotEmpty && _deliveredBy.text.isNotEmpty;
+    bool _submitAllowed() {
+      return _haveService.value && _haveDate.value;
+    }
+
+    void _updateHaveService(String serviceInput) {
+      _haveService.value = serviceInput.isNotEmpty;
     }
 
     void _fetchMasterData() async {
@@ -53,12 +56,6 @@ class PostalEditScreen extends HookWidget {
       _note.text = pk.note;
 
       _isLoading.value = false;
-    }
-
-    void _updateEditingController(
-        String value, TextEditingController controller) {
-      controller.text = value;
-      _checkAllowSubmit();
     }
 
     void _submit() async {
@@ -113,12 +110,8 @@ class PostalEditScreen extends HookWidget {
                       initialText: _package.value.postalService,
                       optionList: _serviceList.value.postalService,
                       hintText: "Delivery person or service",
-                      onChanged: (value) {
-                        _updateEditingController(value, _deliveredBy);
-                      },
-                      onSelected: (value) {
-                        _updateEditingController(value, _deliveredBy);
-                      },
+                      onChanged: _updateHaveService,
+                      onSelected: _updateHaveService,
                     ),
                     kSizedBoxVerticalS,
                     Column(
@@ -193,14 +186,14 @@ class PostalEditScreen extends HookWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        if (_allowSubmit.value)
-                          Container(
-                            width: kSizeXL / 1.25,
-                            child: CustomButton(
-                              text: "SUBMIT",
-                              onPressed: _submit,
-                            ),
+                        Container(
+                          width: kSizeXL / 1.25,
+                          child: CustomButton(
+                            enabled: _submitAllowed(),
+                            text: "SUBMIT",
+                            onPressed: _submit,
                           ),
+                        ),
                       ],
                     ),
                     kSizedBoxVerticalM,

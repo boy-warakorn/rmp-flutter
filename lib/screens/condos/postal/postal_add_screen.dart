@@ -48,25 +48,22 @@ class PostalAddScreen extends HookWidget {
     final _serviceList = useState(PackageMasterModel(postalService: []));
 
     final _isValidRoom = useState(false);
+    final _haveService = useState(false);
     final _showRoomValidity = useState(false);
-    final _allowSubmit = useState(false);
 
-    void _checkAllowSubmit() {
-      _allowSubmit.value = _isValidRoom.value &&
-          _deliveredDate.text.isNotEmpty &&
-          _deliveredBy.text.isNotEmpty;
+    bool _submitAllowed() {
+      return _isValidRoom.value && _haveService.value && _haveDate.value;
     }
 
-    void _updateRoomValid(String roomInput) {
+    void _updateValidRoom(String roomInput) {
       _showRoomValidity.value = roomInput.isNotEmpty;
+
       _isValidRoom.value = _roomNumberList.value.roomNumbers
           .any((masterItem) => masterItem == roomInput);
     }
 
-    void _updateEditingController(
-        String value, TextEditingController controller) {
-      controller.text = value;
-      _checkAllowSubmit();
+    void _updateHaveService(String serviceInput) {
+      _haveService.value = serviceInput.isNotEmpty;
     }
 
     void _fetchMasterData() async {
@@ -123,14 +120,8 @@ class PostalAddScreen extends HookWidget {
                             hintText: "Room Number",
                             textEditingController: _roomNumber,
                             optionList: _roomNumberList.value.roomNumbers,
-                            onChanged: (value) {
-                              _updateRoomValid(value);
-                              _updateEditingController(value, _roomNumber);
-                            },
-                            onSelected: (value) {
-                              _updateRoomValid(value);
-                              _updateEditingController(value, _roomNumber);
-                            },
+                            onChanged: _updateValidRoom,
+                            onSelected: _updateValidRoom,
                           ),
                         ),
                         kSizedBoxHorizontalXS,
@@ -151,12 +142,8 @@ class PostalAddScreen extends HookWidget {
                       textEditingController: _deliveredBy,
                       optionList: _serviceList.value.postalService,
                       hintText: "Delivery person or service",
-                      onChanged: (value) {
-                        _updateEditingController(value, _deliveredBy);
-                      },
-                      onSelected: (value) {
-                        _updateEditingController(value, _deliveredBy);
-                      },
+                      onChanged: _updateHaveService,
+                      onSelected: _updateHaveService,
                     ),
                     kSizedBoxVerticalS,
                     CustomText.sectionHeaderBlack("Delivered Date", context),
@@ -230,19 +217,19 @@ class PostalAddScreen extends HookWidget {
                             color: kWarningColor,
                           ),
                         ),
-                        if (_allowSubmit.value)
-                          Row(
-                            children: [
-                              kSizedBoxHorizontalS,
-                              Container(
-                                width: kSizeXL / 1.25,
-                                child: CustomButton(
-                                  text: "ADD",
-                                  onPressed: () => _createPackage(context),
-                                ),
+                        Row(
+                          children: [
+                            kSizedBoxHorizontalS,
+                            Container(
+                              width: kSizeXL / 1.25,
+                              child: CustomButton(
+                                enabled: _submitAllowed(),
+                                text: "ADD",
+                                onPressed: () => _createPackage(context),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ],
