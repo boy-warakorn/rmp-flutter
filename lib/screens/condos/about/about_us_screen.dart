@@ -138,6 +138,7 @@ class AboutUsScreen extends StatelessWidget {
                       )
                     ],
                   ),
+                  kSizedBoxVerticalL,
                 ],
               ),
             ],
