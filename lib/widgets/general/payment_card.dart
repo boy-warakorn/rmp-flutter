@@ -49,10 +49,28 @@ class PaymentCard extends StatelessWidget {
                           "Paid date: $paidDate",
                           style: contentStyle,
                         ),
+                        kSizedBoxVerticalXS,
+                        Row(
+                          children: [
+                            Text(
+                              "Status: ",
+                              style: contentStyle,
+                            ),
+                            Text(
+                              status,
+                              style: contentStyle?.copyWith(
+                                color: status == "complete"
+                                    ? kSuccessColor
+                                    : status == "pending"
+                                        ? kWarningColor
+                                        : kErrorColor,
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
-                  kSizedBoxHorizontalXS,
                   if (paidDate == "-")
                     const Icon(
                       Icons.arrow_forward_ios,
@@ -60,36 +78,7 @@ class PaymentCard extends StatelessWidget {
                     )
                 ],
               ),
-              kSizedBoxVerticalS,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: status == "complete"
-                            ? kSuccessColor
-                            : status == "pending"
-                                ? kWarningColor
-                                : kErrorColor,
-                        width: kSizeXXXS,
-                      ),
-                      borderRadius: kBorderRadiusL,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: kSizeXS, horizontal: kSizeM),
-                      child: Text(
-                        status,
-                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: kSizeS * 0.85,
-                            ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+              kSizedBoxVerticalXXS,
             ],
           ),
         ),

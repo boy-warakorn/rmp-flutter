@@ -28,10 +28,10 @@ class MainDrawer extends HookConsumerWidget {
           children: [
             kSizedBoxVerticalS,
             BrandTitle(
-              brandLogo: Image.network(
-                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
-                height: kSizeM,
-                width: kSizeM,
+              brandLogo: Image.asset(
+                'assets/images/rmp_ex.png',
+                height: kSizeM * 1.5,
+                width: kSizeM * 1.5,
               ),
               brandTitle: _curUser.user.businessName,
             ),
