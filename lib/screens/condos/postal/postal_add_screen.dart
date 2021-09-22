@@ -49,10 +49,16 @@ class PostalAddScreen extends HookWidget {
 
     final _isValidRoom = useState(false);
     final _showRoomValidity = useState(false);
+    final _allowSubmit = useState(false);
+
+    void _checkAllowSubmit() {
+      _allowSubmit.value = _isValidRoom.value &&
+          _deliveredDate.text.isNotEmpty &&
+          _deliveredBy.text.isNotEmpty;
+    }
 
     void _updateRoomValid(String roomInput) {
       _showRoomValidity.value = roomInput.isNotEmpty;
-
       _isValidRoom.value = _roomNumberList.value.roomNumbers
           .any((masterItem) => masterItem == roomInput);
     }
@@ -60,6 +66,7 @@ class PostalAddScreen extends HookWidget {
     void _updateEditingController(
         String value, TextEditingController controller) {
       controller.text = value;
+      _checkAllowSubmit();
     }
 
     void _fetchMasterData() async {
@@ -76,11 +83,8 @@ class PostalAddScreen extends HookWidget {
     void _createPackage(BuildContext context) async {
       final packageDto = PackageDto(
         roomNumber: _roomNumber.text,
-        arrivedAt: _deliveredDate.text.isEmpty
-            ? "2020-02-20 05:20"
-            : _deliveredDate.text,
-        postalService:
-            _deliveredBy.text.isEmpty ? "Unspecified" : _deliveredBy.text,
+        arrivedAt: _deliveredDate.text,
+        postalService: _deliveredBy.text,
         note: _note.text,
       );
 
@@ -226,8 +230,7 @@ class PostalAddScreen extends HookWidget {
                             color: kWarningColor,
                           ),
                         ),
-                        if (_isValidRoom.value &&
-                            _deliveredDate.text.isNotEmpty)
+                        if (_allowSubmit.value)
                           Row(
                             children: [
                               kSizedBoxHorizontalS,

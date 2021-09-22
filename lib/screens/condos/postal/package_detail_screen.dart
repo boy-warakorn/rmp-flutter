@@ -6,7 +6,6 @@ import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
-import 'package:rmp_flutter/utils/date_format.dart';
 import 'package:rmp_flutter/widgets/general/alert_box.dart';
 import 'package:rmp_flutter/widgets/general/circle_icon_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
@@ -64,7 +63,6 @@ class PackageDetailScreen extends HookWidget {
     void _fetchPackageInfo() async {
       _isLoading.value = true;
       _package.value = await PackageRepository().getPackage(id);
-      print(_package.value.arrivedAt);
       _isLoading.value = false;
     }
 

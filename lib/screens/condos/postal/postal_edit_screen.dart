@@ -34,6 +34,12 @@ class PostalEditScreen extends HookWidget {
     final _package = useState(Package.empty());
 
     final _isLoading = useState(true);
+    final _allowSubmit = useState(false);
+
+    void _checkAllowSubmit() {
+      _allowSubmit.value =
+          _deliveredDate.text.isNotEmpty && _deliveredBy.text.isNotEmpty;
+    }
 
     void _fetchMasterData() async {
       _isLoading.value = true;
@@ -52,17 +58,15 @@ class PostalEditScreen extends HookWidget {
     void _updateEditingController(
         String value, TextEditingController controller) {
       controller.text = value;
+      _checkAllowSubmit();
     }
 
     void _submit() async {
       await PackageRepository().editPackage(
         PackageDto(
           roomNumber: _package.value.roomNumber,
-          arrivedAt: _deliveredDate.text.isEmpty
-              ? "2020-02-20 05:20"
-              : _deliveredDate.text,
-          postalService:
-              _deliveredBy.text.isEmpty ? "Unspecified" : _deliveredBy.text,
+          arrivedAt: _deliveredDate.text,
+          postalService: _deliveredBy.text,
           note: _note.text,
         ),
         id,
@@ -167,7 +171,8 @@ class PostalEditScreen extends HookWidget {
                                   showTitleActions: true,
                                   maxTime: DateTime.now(),
                                   onConfirm: (date) {
-                                    _deliveredDate.text = getDateTimeString(date);
+                                    _deliveredDate.text =
+                                        getDateTimeString(date);
                                     _haveDate.value = true;
                                   },
                                 );
@@ -188,13 +193,14 @@ class PostalEditScreen extends HookWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Container(
-                          width: kSizeXL / 1.25,
-                          child: CustomButton(
-                            text: "SUBMIT",
-                            onPressed: _submit,
+                        if (_deliveredBy.text.isNotEmpty)
+                          Container(
+                            width: kSizeXL / 1.25,
+                            child: CustomButton(
+                              text: "SUBMIT",
+                              onPressed: _submit,
+                            ),
                           ),
-                        ),
                       ],
                     ),
                     kSizedBoxVerticalM,
