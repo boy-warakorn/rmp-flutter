@@ -119,8 +119,8 @@ class SpecificPaymentScreen extends HookConsumerWidget {
                                             Container(
                                               width: MediaQuery.of(context)
                                                       .size
-                                                      .width /
-                                                  1.5,
+                                                      .width *
+                                                  0.75,
                                               child: CustomButton(
                                                 text: "Upload Photo",
                                                 onPressed: () {
@@ -137,8 +137,8 @@ class SpecificPaymentScreen extends HookConsumerWidget {
                                             Container(
                                               width: MediaQuery.of(context)
                                                       .size
-                                                      .width /
-                                                  1.5,
+                                                      .width *
+                                                  0.75,
                                               child: CustomButton(
                                                 text: "Take a photo",
                                                 onPressed: () {
@@ -150,6 +150,7 @@ class SpecificPaymentScreen extends HookConsumerWidget {
                                                 ),
                                               ),
                                             ),
+                                            kSizedBoxVerticalS,
                                           ],
                                         ),
                                       ],

@@ -29,13 +29,12 @@ class PackageDetailScreen extends HookWidget {
           arrivedAt: "",
           deliveredAt: "",
           status: "",
-          postalService: ""),
+          postalService: "",),
     );
 
     void _deletePackage() async {
       await PackageRepository().deletePackage(id);
-      // Navigator.pop(context);
-      // Navigator.pop(context);
+
       Navigator.popUntil(
           context, ModalRoute.withName(PreLoadingScreen.routeName));
     }

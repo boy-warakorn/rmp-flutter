@@ -31,19 +31,7 @@ class ReplyScreen extends HookWidget {
     final _reply = useTextEditingController();
     final _reportId = ModalRoute.of(context)?.settings.arguments as String;
     final _isLoading = useState(false);
-    final _report = useState(
-      Report(
-        id: "",
-        roomNumber: "",
-        reportOwner: "",
-        requestedDate: "",
-        resolvedDate: "",
-        title: "",
-        detail: "",
-        status: "",
-        respondDetail: "",
-      ),
-    );
+    final _report = useState(Report.empty());
 
     void fetchReport() async {
       _isLoading.value = true;

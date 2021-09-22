@@ -104,7 +104,7 @@ class PaymentScreen extends HookConsumerWidget {
                                 Expanded(
                                   child: TitleCard(
                                     title: "Electricity",
-                                    subtitle: "1000 BAHT",
+                                    subtitle: "1000 Baht",
                                     icon: Icon(
                                       Icons.bolt,
                                       color: kWarningColor,
@@ -115,7 +115,7 @@ class PaymentScreen extends HookConsumerWidget {
                                 Expanded(
                                   child: TitleCard(
                                     title: "Water",
-                                    subtitle: "150 BAHT",
+                                    subtitle: "150 Baht",
                                     icon: Icon(
                                       Icons.water_damage_outlined,
                                       color: kStrokeColor,
@@ -134,7 +134,7 @@ class PaymentScreen extends HookConsumerWidget {
                                       color: kSuccessColor,
                                     ),
                                     title: "Common Charge",
-                                    subtitle: '3000 BAHT',
+                                    subtitle: '3000 Baht',
                                   ),
                                 ),
                               ],
@@ -174,7 +174,6 @@ class PaymentScreen extends HookConsumerWidget {
                                           itemBuilder: (context, index) {
                                             final _currentPayment =
                                                 _payments.value.payments[index];
-                                            final data = _dummyData[index];
                                             return PaymentCard(
                                               type: _currentPayment.type,
                                               amount: _currentPayment.amount
