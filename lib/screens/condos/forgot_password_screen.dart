@@ -4,12 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/login_screen.dart';
+import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 
 class ForgotPasswordScreen extends HookWidget {
   static const routeName = "/forgot-password";
   const ForgotPasswordScreen({Key? key}) : super(key: key);
+
+  //TODO: apply forgot password in back-end
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +133,7 @@ class ForgotPasswordScreen extends HookWidget {
                       ),
                       text: "SUBMIT",
                       onPressed: () => Navigator.of(context)
-                          .pushNamed(LoginScreen.routeName),
+                          .pushNamed(PreLoadingScreen.routeName),
                     ),
                   ),
                 ],

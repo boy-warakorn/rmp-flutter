@@ -10,7 +10,6 @@ import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/payment.dart';
 import 'package:rmp_flutter/repositories/payment_repository.dart';
-import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/payment_result_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
@@ -41,8 +40,8 @@ class ConfirmPaymentScreen extends HookWidget {
         await storageRef.putFile(_photo);
         final receiptUrl = await storageRef.getDownloadURL();
         PaymentRepository().paySpecificPayment(_payment.id, receiptUrl);
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil(PreLoadingScreen.routeName, (_) => false);
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            PaymentResultScreen.routeName, (_) => false);
       } catch (e) {
         _isLoading.value = false;
       }

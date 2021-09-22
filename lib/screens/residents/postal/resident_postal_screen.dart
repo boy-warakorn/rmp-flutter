@@ -64,7 +64,7 @@ class ResidentPostalScreen extends HookWidget {
                               children: [
                                 Expanded(
                                   child: TitleCard(
-                                    title: "Recieved",
+                                    title: "Received",
                                     subtitle: _packages.value.packages
                                         .where((e) => e.status == "delivered")
                                         .length
