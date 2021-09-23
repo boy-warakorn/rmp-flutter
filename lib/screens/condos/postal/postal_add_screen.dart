@@ -210,9 +210,10 @@ class PostalAddScreen extends HookWidget {
                           width: kSizeXL / 1.25,
                           child: CustomButton(
                             text: "CLEAR",
-                            onPressed: () => {
-                              _deliveredDate.clear(),
-                              _note.clear(),
+                            onPressed: () {
+                              _deliveredDate.clear();
+                              _haveDate.value = false;
+                              _note.clear();
                             },
                             color: kWarningColor,
                           ),
