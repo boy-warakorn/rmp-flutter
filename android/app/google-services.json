@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "24408399801",
+    "project_id": "rmp-management",
+    "storage_bucket": "rmp-management.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24408399801:android:a62d314349261efcdfe068",
+        "android_client_info": {
+          "package_name": "com.example.rmp_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24408399801-qu5nraaavac87r8oq8fjf3vgbh2k0qv9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAMUgzuwxukurtoSF50ufPG-q1fRoYqTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24408399801-qu5nraaavac87r8oq8fjf3vgbh2k0qv9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
