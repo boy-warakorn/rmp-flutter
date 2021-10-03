@@ -72,23 +72,15 @@ class HelpDeskScreen extends HookConsumerWidget {
                         title: _currentReport.title,
                         date: formattedDate(_currentReport.requestedDate),
                         detail: _currentReport.detail,
-                        actionButton: !_isResponded.value
-                            ? CustomButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pushNamed(
-                                  ReplyScreen.routeName,
-                                  arguments: _currentReport.id,
-                                ),
-                                text: "REPLY",
-                              )
-                            : CustomButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pushNamed(
-                                  ReplyScreen.routeName,
-                                  arguments: _currentReport.id,
-                                ),
-                                text: "See Detail",
-                              ),
+                        actionButton: CustomButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(ReplyScreen.routeName,
+                                    arguments: _currentReport.id)
+                                .then((value) => fetchReports());
+                          },
+                          text: !_isResponded.value ? "Reply" : "See detail",
+                        ),
                       );
                     },
                   ),
