@@ -5,26 +5,16 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
+import 'package:rmp_flutter/widgets/dialogs/resolve_issue_dialog.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/text_with_value.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
-
-const loremIpsum =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sodales et lacus vel consequat. Duis ac sem id lorem congue mollis ac et turpis. Nulla ultrices tempus laoreet. Proin finibus tincidunt lobortis. Morbi cursus velit non dictum tincidunt. Nunc dignissim rutrum urna nec imperdiet. Fusce rhoncus ultrices tincidunt. Quisque ut lacus dolor.";
 
 class ReplyScreen extends HookWidget {
   static const routeName = "/condo/reply";
   const ReplyScreen({Key? key}) : super(key: key);
-
-  Widget _buildHeaderText(BuildContext context, String text) {
-    return Text(
-      text,
-      style: Theme.of(context).textTheme.headline3?.copyWith(
-            color: kBlackColor,
-          ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +23,36 @@ class ReplyScreen extends HookWidget {
     final _isLoading = useState(false);
     final _report = useState(Report.empty());
 
+    final _resolveDetail = useTextEditingController();
+
     void fetchReport() async {
       _isLoading.value = true;
       _report.value = await ReportRepository().getReport(_reportId);
       _isLoading.value = false;
+    }
+
+    void _submitResolve() async {
+      try {
+        await ReportRepository().setResolvedOnReport(
+          _reportId,
+          ResolveReportDto(
+            detail: _resolveDetail.text,
+            resolveBy: "condos personnel",
+          ),
+        );
+        Navigator.of(context).popUntil(ModalRoute.withName(PreLoadingScreen.routeName));
+      } catch (_) {}
+    }
+
+    void _showResolveDialog(BuildContext context) async {
+      return showDialog(
+        context: context,
+        builder: (ctx) => ResolveIssueDialog(
+          onDismiss: () => Navigator.of(context).pop(),
+          onSubmit: () => _submitResolve(),
+          controller: _resolveDetail,
+        ),
+      );
     }
 
     useEffect(() {
@@ -70,16 +86,25 @@ class ReplyScreen extends HookWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildHeaderText(
-                              context, "Title: ${_report.value.title}"),
+                          CustomText.sectionHeaderBlack(
+                            "Title: ${_report.value.title}",
+                            context,
+                          ),
                           kSizedBoxVerticalS,
-                          _buildHeaderText(
-                              context, "Reply to ${_report.value.reportOwner}"),
+                          CustomText.sectionHeaderBlack(
+                            "Reply to ${_report.value.reportOwner}",
+                            context,
+                          ),
                           kSizedBoxVerticalS,
-                          _buildHeaderText(context,
-                              "Room number: ${_report.value.roomNumber}"),
+                          CustomText.sectionHeaderBlack(
+                            "Room number: ${_report.value.roomNumber}",
+                            context,
+                          ),
                           kSizedBoxVerticalS,
-                          _buildHeaderText(context, "Complaint Detail"),
+                          CustomText.sectionHeaderBlack(
+                            "Complaint Detail",
+                            context,
+                          ),
                           kSizedBoxVerticalS,
                           Text(
                             _report.value.detail,
@@ -105,14 +130,7 @@ class ReplyScreen extends HookWidget {
                             children: [
                               CustomButton(
                                 text: "MARK AS RESOLVED",
-                                onPressed: () async {
-                                  try {
-                                    await ReportRepository()
-                                        .setResolvedOnReport(_report.value.id);
-                                  } catch (_) {}
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                      PreLoadingScreen.routeName, (_) => false);
-                                },
+                                onPressed: () => _showResolveDialog(context),
                                 padding: EdgeInsets.symmetric(
                                   horizontal: kSizeS * 1.5,
                                   vertical: kSizeXS,

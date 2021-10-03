@@ -97,7 +97,8 @@ class ContactSupportScreen extends HookConsumerWidget {
                                 statusKey: _currentReport.status,
                                 onPressed: () => Navigator.of(context)
                                     .pushNamed(ReportDetailScreen.routeName,
-                                        arguments: _currentReport.id),
+                                        arguments: _currentReport.id)
+                                    .then((value) => fetchReports()),
                               );
                             },
                           ),

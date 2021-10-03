@@ -12,7 +12,8 @@ abstract class BaseReportRepository {
   Future<void> createReport(CreateReportDto createReportDto);
   Future<ReportsModel> getReportsByCondo(bool isResponded);
   Future<void> replyReport(String id, ReplyReportDto replyReportDto);
-  Future<void> setResolvedOnReport(String id);
+  Future<void> setResolvedOnReport(
+      String id, ResolveReportDto resolveReportDto);
 }
 
 class CreateReportDto {
@@ -31,6 +32,13 @@ class ReplyReportDto {
   ReplyReportDto({
     required this.respondDetail,
   });
+}
+
+class ResolveReportDto {
+  final String detail;
+  final String resolveBy;
+
+  const ResolveReportDto({required this.detail, required this.resolveBy});
 }
 
 class ReportRepository implements BaseReportRepository {
@@ -138,14 +146,17 @@ class ReportRepository implements BaseReportRepository {
   }
 
   @override
-  Future<void> setResolvedOnReport(String id) async {
+  Future<void> setResolvedOnReport(
+      String id, ResolveReportDto resolveReportDto) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
+
       await dio.post(
         resolveReportUrl(id),
         data: {
-          "status": 'resolved',
+          "detail": resolveReportDto.detail,
+          "resolveBy": resolveReportDto.resolveBy,
         },
         options: Options(
           headers: {

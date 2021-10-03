@@ -5,7 +5,9 @@ import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
+import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/resident_reply_screen.dart';
+import 'package:rmp_flutter/widgets/dialogs/abort_issue_dialog.dart';
 import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/text_with_value.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
@@ -21,6 +23,28 @@ class ReportDetailScreen extends HookConsumerWidget {
     final _report = useState(
       Report.empty(),
     );
+
+    final _abortDetail = useTextEditingController();
+
+    void _submitAbort() async {
+      await ReportRepository().setResolvedOnReport(
+        _reportId,
+        ResolveReportDto(detail: _abortDetail.text, resolveBy: "resident"),
+      );
+      Navigator.of(context)
+          .popUntil(ModalRoute.withName(PreLoadingScreen.routeName));
+    }
+
+    Future<void> _showAbortDialog(BuildContext context) async {
+      return showDialog(
+        context: context,
+        builder: (ctx) => AbortIssueDialog(
+          onDismiss: () => Navigator.of(context).pop(),
+          onSubmit: () => _submitAbort(),
+          controller: _abortDetail,
+        ),
+      );
+    }
 
     void fetchReport() async {
       _isLoading.value = true;
@@ -74,23 +98,40 @@ class ReportDetailScreen extends HookConsumerWidget {
                       detail: _report.value.detail,
                     ),
                     kSizedBoxVerticalM,
-                    if (_report.value.respondDetail!.isNotEmpty)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        if (_report.value.status != "resolved")
                           CustomButton(
-                            text: "See Reply",
-                            onPressed: () => Navigator.of(context).pushNamed(
-                              ResidentReplyScreen.routeName,
-                              arguments: _report.value.respondDetail,
-                            ),
+                            text: "Abort Issue",
+                            onPressed: () => _showAbortDialog(context),
+                            color: kErrorColor,
                             padding: EdgeInsets.symmetric(
                               horizontal: kSizeS * 1.5,
                               vertical: kSizeXS,
                             ),
                           ),
-                        ],
-                      ),
+                        kSizedBoxHorizontalXS,
+                        if (_report.value.respondDetail!.isNotEmpty)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              CustomButton(
+                                text: "See Reply",
+                                onPressed: () =>
+                                    Navigator.of(context).pushNamed(
+                                  ResidentReplyScreen.routeName,
+                                  arguments: _report.value.respondDetail,
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: kSizeS * 1.5,
+                                  vertical: kSizeXS,
+                                ),
+                              ),
+                            ],
+                          ),
+                      ],
+                    ),
                   ],
                 ),
               ),

@@ -10,15 +10,16 @@ class CustomButton extends StatelessWidget {
   final EdgeInsets padding;
   final bool isLoading;
   final bool enabled;
+  final bool isDominant;
 
   const CustomButton({
     Key? key,
     required this.text,
     this.textStyle,
     required this.onPressed,
-
+    this.isDominant = true,
     @Deprecated("Use [enabled] to allow/disallow the button instead")
-    this.isLoading = false,
+        this.isLoading = false,
     this.color = kBrandColor,
     this.padding = const EdgeInsets.all(
       kSizeXXS,
@@ -30,8 +31,12 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: color,
+        primary: isDominant ? color : kLightColor,
         padding: padding,
+        side: BorderSide(
+          width: isDominant ? 0 : kSizeXXXS * 0.5,
+          color: color,
+        ),
         shape: const RoundedRectangleBorder(borderRadius: kBorderRadiusXXL),
       ),
       onPressed: enabled
@@ -46,9 +51,13 @@ class CustomButton extends StatelessWidget {
               )
             : Text(
                 text,
-                style: textStyle ??
-                    Theme.of(context).textTheme.bodyText1?.copyWith(
-                          color: Colors.white,
+                style: isDominant
+                    ? textStyle ??
+                        Theme.of(context).textTheme.bodyText1?.copyWith(
+                              color: Colors.white,
+                            )
+                    : Theme.of(context).textTheme.bodyText1?.copyWith(
+                          color: color,
                         ),
               ),
       ),
