@@ -94,7 +94,7 @@ class ReportDetailScreen extends HookConsumerWidget {
                     ),
                     kSizedBoxVerticalS,
                     TextWithValue(
-                      head: "Complaint Detail",
+                      head: "Issue Detail",
                       detail: _report.value.detail,
                     ),
                     kSizedBoxVerticalM,
