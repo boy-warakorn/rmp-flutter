@@ -81,7 +81,7 @@ class ResidentPostalScreen extends HookWidget {
                                   child: TitleCard(
                                     title: "Storage",
                                     subtitle: _packages.value.packages
-                                        .where((e) => e.status != "in-storage")
+                                        .where((e) => e.status == "in-storage")
                                         .length
                                         .toString(),
                                     icon: Icon(

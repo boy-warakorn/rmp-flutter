@@ -75,7 +75,7 @@ class ContactSupportScreen extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomText.sectionHeader(
-                    "All Reports",
+                    "All Issues",
                     context,
                   ),
                   kSizedBoxVerticalS,
