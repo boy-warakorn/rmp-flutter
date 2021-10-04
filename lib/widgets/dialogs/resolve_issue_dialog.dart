@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 
-class ResolveIssueDialog extends StatelessWidget {
+class ResolveIssueDialog extends HookWidget {
   final void Function() onDismiss;
   final void Function() onSubmit;
   final TextEditingController controller;
@@ -11,12 +12,14 @@ class ResolveIssueDialog extends StatelessWidget {
   Widget _buildActionButton({
     required bool isSubmit,
     required void Function() onPressed,
+    required bool enabled,
   }) {
     return CustomButton(
       onPressed: onPressed,
       text: isSubmit ? "Confirm" : "Close",
       color: isSubmit ? kBrandColor : kBlackColor,
       isDominant: isSubmit,
+      enabled: enabled,
       padding:
           const EdgeInsets.symmetric(vertical: kSizeXS, horizontal: kSizeM),
     );
@@ -31,6 +34,8 @@ class ResolveIssueDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _detail = useState("");
+
     return AlertDialog(
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,9 +78,12 @@ class ResolveIssueDialog extends StatelessWidget {
               contentPadding: EdgeInsets.all(
                 kSizeS,
               ),
-              hintText: "Your detail",
+              hintText: "Resolve detail",
               hintStyle: Theme.of(context).textTheme.subtitle1,
             ),
+            onChanged: (text) {
+              _detail.value = text;
+            },
           ),
           kSizedBoxVerticalXS,
           kSizedBoxVerticalXXS,
@@ -85,11 +93,13 @@ class ResolveIssueDialog extends StatelessWidget {
               _buildActionButton(
                 isSubmit: false,
                 onPressed: onDismiss,
+                enabled: true,
               ),
               kSizedBoxHorizontalS,
               _buildActionButton(
                 isSubmit: true,
                 onPressed: onSubmit,
+                enabled: _detail.value.trim().isNotEmpty,
               ),
             ],
           ),

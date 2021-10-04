@@ -12,34 +12,6 @@ import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/payment_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 
-const _dummyData = [
-  {
-    "type": "Pay1",
-    "amount": 50,
-    "date": "20/02/2002",
-  },
-  {
-    "type": "Pay2",
-    "amount": 5000,
-    "date": "20/02/2002",
-  },
-  {
-    "type": "Pay3",
-    "amount": 4500,
-    "date": "20/02/2002",
-  },
-  {
-    "type": "Pay4",
-    "amount": 50000,
-    "date": "20/02/2002",
-  },
-  {
-    "type": "Pay5",
-    "amount": 50500,
-    "date": "20/02/2002",
-  },
-];
-
 class PaymentScreen extends HookConsumerWidget {
   static const routeName = "/resident/payment";
   const PaymentScreen({Key? key}) : super(key: key);

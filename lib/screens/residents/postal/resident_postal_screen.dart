@@ -8,10 +8,10 @@ import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/residents/postal/profile_card_screen.dart';
 import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
-import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
+import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 
 class ResidentPostalScreen extends HookWidget {
   static const routeName = "/resident/postal";
@@ -67,11 +67,11 @@ class ResidentPostalScreen extends HookWidget {
                                   child: TitleCard(
                                     title: "Received",
                                     subtitle: _packages.value.packages
-                                        .where((e) => e.status == "delivered")
+                                        .where((e) => e.status == "received")
                                         .length
                                         .toString(),
                                     icon: Icon(
-                                      Icons.ac_unit,
+                                      Icons.done,
                                       color: kStrokeColor,
                                     ),
                                   ),
@@ -81,11 +81,11 @@ class ResidentPostalScreen extends HookWidget {
                                   child: TitleCard(
                                     title: "Storage",
                                     subtitle: _packages.value.packages
-                                        .where((e) => e.status != "delivered")
+                                        .where((e) => e.status != "in-storage")
                                         .length
                                         .toString(),
                                     icon: Icon(
-                                      Icons.ac_unit,
+                                      Icons.all_inbox,
                                       color: kErrorColor,
                                     ),
                                   ),

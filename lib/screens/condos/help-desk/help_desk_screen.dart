@@ -5,10 +5,10 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/condos/help-desk/reply_screen.dart';
-import 'package:rmp_flutter/widgets/general/custom_button.dart';
-import 'package:rmp_flutter/widgets/general/custom_slider.dart';
 import 'package:rmp_flutter/widgets/general/help_desk_card.dart';
 import 'package:rmp_flutter/utils/date_format.dart';
+import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
+import 'package:rmp_flutter/widgets/interactions/custom_slider.dart';
 
 class HelpDeskScreen extends HookConsumerWidget {
   static const routeName = "/condo/helpdesk";

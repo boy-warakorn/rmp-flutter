@@ -8,8 +8,8 @@ import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/resident_reply_screen.dart';
 import 'package:rmp_flutter/widgets/dialogs/abort_issue_dialog.dart';
-import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:rmp_flutter/widgets/general/text_with_value.dart';
+import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class ReportDetailScreen extends HookConsumerWidget {

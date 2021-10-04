@@ -6,7 +6,7 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/login_screen.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
-import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 
 class ForgotPasswordScreen extends HookWidget {
   static const routeName = "/forgot-password";

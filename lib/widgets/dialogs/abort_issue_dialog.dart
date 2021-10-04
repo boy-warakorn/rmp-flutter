@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/widgets/general/custom_button.dart';
+import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 
 class AbortIssueDialog extends HookWidget {
   final void Function() onDismiss;
@@ -19,12 +19,14 @@ class AbortIssueDialog extends HookWidget {
   Widget _buildActionButton({
     required bool isSubmit,
     required void Function() onPressed,
+    required bool enabled,
   }) {
     return CustomButton(
       onPressed: onPressed,
       text: isSubmit ? "Abort" : "Close",
       color: isSubmit ? kErrorColor : kBlackColor,
       isDominant: isSubmit,
+      enabled: enabled,
       padding:
           const EdgeInsets.symmetric(vertical: kSizeXS, horizontal: kSizeM),
     );
@@ -32,6 +34,8 @@ class AbortIssueDialog extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _detail = useState("");
+
     return AlertDialog(
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,9 +78,12 @@ class AbortIssueDialog extends HookWidget {
               contentPadding: EdgeInsets.all(
                 kSizeS,
               ),
-              hintText: "Your reason",
+              hintText: "Specify your reason",
               hintStyle: Theme.of(context).textTheme.subtitle1,
             ),
+            onChanged: (text){
+              _detail.value = text;
+            },
           ),
           kSizedBoxVerticalXS,
           kSizedBoxVerticalXXS,
@@ -95,11 +102,13 @@ class AbortIssueDialog extends HookWidget {
               _buildActionButton(
                 isSubmit: false,
                 onPressed: onDismiss,
+                enabled: true,
               ),
               kSizedBoxHorizontalS,
               _buildActionButton(
                 isSubmit: true,
                 onPressed: onSubmit,
+                enabled: _detail.value.trim().isNotEmpty
               ),
             ],
           ),

@@ -34,7 +34,7 @@ class CustomButton extends StatelessWidget {
         primary: isDominant ? color : kLightColor,
         padding: padding,
         side: BorderSide(
-          width: isDominant ? 0 : kSizeXXXS * 0.5,
+          width: isDominant && !enabled ? 0 : kSizeXXXS * 0.5,
           color: color,
         ),
         shape: const RoundedRectangleBorder(borderRadius: kBorderRadiusXXL),

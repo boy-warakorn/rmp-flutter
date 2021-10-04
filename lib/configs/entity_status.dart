@@ -4,6 +4,6 @@ const entityStatusPresets = {
   "pending": EntityCardStatus.pending(),
   "responded": EntityCardStatus.responded(),
   "resolved": EntityCardStatus.resolved(),
-  "delivered": EntityCardStatus.delivered(),
+  "received": EntityCardStatus.received(),
   "in-storage": EntityCardStatus.inStorage(),
 };
