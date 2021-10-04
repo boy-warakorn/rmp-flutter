@@ -67,11 +67,11 @@ class ResidentPostalScreen extends HookWidget {
                                   child: TitleCard(
                                     title: "Received",
                                     subtitle: _packages.value.packages
-                                        .where((e) => e.status == "delivered")
+                                        .where((e) => e.status == "received")
                                         .length
                                         .toString(),
                                     icon: Icon(
-                                      Icons.ac_unit,
+                                      Icons.done,
                                       color: kStrokeColor,
                                     ),
                                   ),
@@ -81,11 +81,11 @@ class ResidentPostalScreen extends HookWidget {
                                   child: TitleCard(
                                     title: "Storage",
                                     subtitle: _packages.value.packages
-                                        .where((e) => e.status != "delivered")
+                                        .where((e) => e.status != "in-storage")
                                         .length
                                         .toString(),
                                     icon: Icon(
-                                      Icons.ac_unit,
+                                      Icons.all_inbox,
                                       color: kErrorColor,
                                     ),
                                   ),
