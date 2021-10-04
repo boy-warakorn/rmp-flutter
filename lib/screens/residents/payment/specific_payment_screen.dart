@@ -9,9 +9,9 @@ import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/payment.dart';
 import 'package:rmp_flutter/screens/residents/payment/confirm_payment_screen.dart';
-import 'package:rmp_flutter/widgets/general/card_button.dart';
-import 'package:rmp_flutter/widgets/general/custom_button.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rmp_flutter/widgets/interactions/card_button.dart';
+import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class SpecificPaymentScreen extends HookConsumerWidget {

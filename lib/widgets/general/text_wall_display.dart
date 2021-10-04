@@ -33,7 +33,7 @@ class TextWallDisplay extends StatelessWidget {
                 children: [
                   Text(
                     text,
-                    style: style,
+                    style: style, 
                   ),
                 ],
               ),
