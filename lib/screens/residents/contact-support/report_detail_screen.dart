@@ -107,7 +107,7 @@ class ReportDetailScreen extends HookConsumerWidget {
                     GridView.builder(
                       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                         maxCrossAxisExtent: 180,
-                        childAspectRatio: 1,
+                        childAspectRatio: 1.5,
                         crossAxisSpacing: kSizeS,
                         mainAxisSpacing: kSizeS,
                       ),

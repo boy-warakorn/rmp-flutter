@@ -73,86 +73,99 @@ class PackageDetailScreen extends HookWidget {
 
     return Scaffold(
       appBar: BackAppBar(),
-      body: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: kSizeS * 1.5,
-          vertical: kSizeS,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomText.sectionHeaderBlack(
-              _package.value.roomNumber,
-              context,
-            ),
-            kSizedBoxVerticalS,
-            Text(
-              "Owner: ${_package.value.roomOwner}",
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: kFontSizeHeadline4,
-                  ),
-            ),
-            kSizedBoxVerticalXS,
-            Text(
-              "Delivered By: ${_package.value.postalService}",
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: kFontSizeHeadline4,
-                  ),
-            ),
-            kSizedBoxVerticalXS,
-            Text(
-              "Arrival Date: ${_package.value.arrivedAt}",
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: kFontSizeHeadline4,
-                  ),
-            ),
-            kSizedBoxVerticalXS,
-            Text(
-              "Status: ${_package.value.deliveredAt.isEmpty ? "Arrived" : "Delivered"}",
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: kFontSizeHeadline4,
-                  ),
-            ),
-            kSizedBoxVerticalXS,
-            CustomText.sectionHeaderBlack(
-              "Note",
-              context,
-            ),
-            kSizedBoxVerticalS,
-            Expanded(
-              child: TextWallDisplay(
-                text: _package.value.note.isEmpty ? "-" : _package.value.note,
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: kSizeS * 1.5,
+            vertical: kSizeS,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomText.sectionHeaderBlack(
+                _package.value.roomNumber,
+                context,
               ),
-            ),
-            kSizedBoxVerticalS,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CircleIconButton(
-                  color: kErrorColor,
-                  onPressed: _showDeleteAlertBox,
-                  icon: Icons.delete,
+              kSizedBoxVerticalS,
+              Text(
+                "Owner: ${_package.value.roomOwner}",
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      fontSize: kFontSizeHeadline4,
+                    ),
+              ),
+              kSizedBoxVerticalXS,
+              Text(
+                "Delivered By: ${_package.value.postalService}",
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      fontSize: kFontSizeHeadline4,
+                    ),
+              ),
+              kSizedBoxVerticalXS,
+              Text(
+                "Arrival Date: ${_package.value.arrivedAt}",
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      fontSize: kFontSizeHeadline4,
+                    ),
+              ),
+              kSizedBoxVerticalXS,
+              Text(
+                "Status: ${_package.value.deliveredAt.isEmpty ? "Arrived" : "Delivered"}",
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      fontSize: kFontSizeHeadline4,
+                    ),
+              ),
+              kSizedBoxVerticalXS,
+              CustomText.sectionHeaderBlack(
+                "Note",
+                context,
+              ),
+              kSizedBoxVerticalS,
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: kSizeXL * 1.5,
+                child: TextWallDisplay(
+                  text: _package.value.note.isEmpty ? "-" : _package.value.note,
                 ),
-                kSizedBoxHorizontalS,
-                CircleIconButton(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(PostalEditScreen.routeName, arguments: id)
-                        .then(
-                          (value) => _fetchPackageInfo(),
-                        );
-                  },
-                  icon: Icons.edit,
-                ),
-              ],
-            ),
-            kSizedBoxVerticalS,
-            Divider(),
-            CustomButton(
-              text: "CONFIRM",
-              onPressed: _showConfirmDialog,
-            ),
-          ],
+              ),
+              kSizedBoxVerticalS,
+              CustomText.sectionHeaderBlack(
+                "Package Photo",
+                context,
+              ),
+              kSizedBoxVerticalS,
+              Image.network(
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png',
+              ),
+              kSizedBoxVerticalM,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CircleIconButton(
+                    color: kErrorColor,
+                    onPressed: _showDeleteAlertBox,
+                    icon: Icons.delete,
+                  ),
+                  kSizedBoxHorizontalS,
+                  CircleIconButton(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(PostalEditScreen.routeName, arguments: id)
+                          .then(
+                            (value) => _fetchPackageInfo(),
+                          );
+                    },
+                    icon: Icons.edit,
+                  ),
+                ],
+              ),
+              kSizedBoxVerticalM,
+              Divider(),
+              CustomButton(
+                text: "CONFIRM",
+                onPressed: _showConfirmDialog,
+              ),
+            ],
+          ),
         ),
       ),
     );

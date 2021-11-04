@@ -25,7 +25,7 @@ class CustomSlider extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: kSizeXS,
-        horizontal: kSizeM,
+        horizontal: kSizeS,
       ),
       child: Text(
         text,
