@@ -98,6 +98,28 @@ class ReportDetailScreen extends HookConsumerWidget {
                       detail: _report.value.detail,
                     ),
                     kSizedBoxVerticalM,
+                    Text(
+                      "Evidences",
+                      style: Theme.of(context).textTheme.headline3?.copyWith(
+                            color: kBlackColor,
+                          ),
+                    ),
+                    GridView.builder(
+                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 180,
+                        childAspectRatio: 1,
+                        crossAxisSpacing: kSizeS,
+                        mainAxisSpacing: kSizeS,
+                      ),
+                      itemCount: 2,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Image.network(
+                          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png',
+                        );
+                      },
+                    ),
+                    kSizedBoxVerticalM,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -132,15 +154,7 @@ class ReportDetailScreen extends HookConsumerWidget {
                           ),
                       ],
                     ),
-                    kSizedBoxVerticalS,
-                    kSizedBoxHorizontalXS,
-                    Text(
-                      "Evidences",
-                      style: Theme.of(context).textTheme.headline3?.copyWith(
-                            color: kBlackColor,
-                          ),
-                    ),
-                    kSizedBoxVerticalS,
+                    kSizedBoxVerticalM,
                   ],
                 ),
               ),
