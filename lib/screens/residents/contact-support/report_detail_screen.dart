@@ -132,6 +132,15 @@ class ReportDetailScreen extends HookConsumerWidget {
                           ),
                       ],
                     ),
+                    kSizedBoxVerticalS,
+                    kSizedBoxHorizontalXS,
+                    Text(
+                      "Evidences",
+                      style: Theme.of(context).textTheme.headline3?.copyWith(
+                            color: kBlackColor,
+                          ),
+                    ),
+                    kSizedBoxVerticalS,
                   ],
                 ),
               ),

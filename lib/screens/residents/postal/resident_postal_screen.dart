@@ -12,6 +12,7 @@ import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
+import 'package:rmp_flutter/widgets/interactions/custom_slider.dart';
 
 class ResidentPostalScreen extends HookWidget {
   static const routeName = "/resident/postal";
@@ -21,154 +22,69 @@ class ResidentPostalScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _isLoading = useState(true);
     final _packages = useState(PackagesModel(packages: []));
+    final _isReceived = useState(true);
+    String imageUrl =
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png";
 
     void _fetchPackages() async {
       _isLoading.value = true;
-      _packages.value = await PackageRepository().getPackageByResident();
+      _packages.value =
+          await PackageRepository().getPackageByResident(_isReceived.value);
       _isLoading.value = false;
     }
 
     useEffect(() {
       _fetchPackages();
-    }, []);
+    }, [_isReceived.value]);
 
-    return Row(
-      children: [
-        Expanded(
-          child: Column(
-            children: [
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: const <Color>[
-                        kBrandColor,
-                        kBrandAlternativeDarkerColor,
-                      ],
+    void switchResponded(bool switchTo) {
+      _isReceived.value = switchTo;
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: kSizeS * (24 / 16),
+      ),
+      child: Column(
+        children: [
+          kSizedBoxVerticalS,
+          kSizedBoxVerticalXS,
+          CustomSlider(
+            isResponded: _isReceived.value,
+            onValueChanged: (switchTo) => switchResponded(switchTo),
+            primaryText: "Received",
+            secondaryText: "Not Received",
+          ),
+          kSizedBoxVerticalS,
+          kSizedBoxHorizontalXS,
+          _isLoading.value
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Expanded(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 180,
+                      childAspectRatio: 1 / 1.5,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: kSizeS,
                     ),
-                  ),
-                  child: Column(
-                    children: [
-                      kSizedBoxHorizontalS,
-                      kSizedBoxHorizontalXS,
-                      kSizedBoxVerticalXXS,
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: kSizeS * (24 / 16),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: TitleCard(
-                                    title: "Received",
-                                    subtitle: _packages.value.packages
-                                        .where((e) => e.status == "received")
-                                        .length
-                                        .toString(),
-                                    icon: Icon(
-                                      Icons.done,
-                                      color: kStrokeColor,
-                                    ),
-                                  ),
-                                ),
-                                kSizedBoxHorizontalS,
-                                Expanded(
-                                  child: TitleCard(
-                                    title: "Storage",
-                                    subtitle: _packages.value.packages
-                                        .where((e) => e.status == "in-storage")
-                                        .length
-                                        .toString(),
-                                    icon: Icon(
-                                      Icons.all_inbox,
-                                      color: kErrorColor,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            kSizedBoxVerticalXS,
-                            kSizedBoxVerticalS,
-                            CustomText.sectionHeaderLight(
-                              "All Packages",
-                              context,
-                            ),
-                          ],
-                        ),
-                      ),
-                      kSizedBoxVerticalS,
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: kLightColor,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(kSizeS),
-                              topRight: Radius.circular(kSizeS),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              top: kSizeS * 1.5,
-                              left: kSizeS * 1.5,
-                              right: kSizeS * 1.5,
-                              bottom: kSizeS,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: _isLoading.value
-                                      ? CenteredProgressIndicator()
-                                      : ListView.builder(
-                                          itemCount:
-                                              _packages.value.packages.length,
-                                          itemBuilder: (context, index) {
-                                            final pk =
-                                                _packages.value.packages[index];
-
-                                            return EntityCard(
-                                                onPressed: () {},
-                                                title: pk.postalService,
-                                                subtitle:
-                                                    "Arrived ${pk.arrivedAt}",
-                                                statusKey: pk.status);
-                                          },
-                                        ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    CustomButton(
-                                      text: "SHOW IDENTIFICATION",
-                                      onPressed: () =>
-                                          Navigator.of(context).pushNamed(
-                                        ProfileCardScreen.routeName,
-                                      ),
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: kSizeXS,
-                                        horizontal: kSizeS,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    itemCount: _packages.value.packages.length,
+                    itemBuilder: (context, index) {
+                      final pk = _packages.value.packages[index];
+                      return EntityCard(
+                        title: pk.postalService,
+                        onPressed: () {},
+                        subtitle: "Arrived ${pk.arrivedAt}",
+                        statusKey: pk.status,
+                        imageUrl: imageUrl,
+                        isPostal: true,
+                      );
+                    },
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

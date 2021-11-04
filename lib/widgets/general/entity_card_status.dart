@@ -5,11 +5,13 @@ import 'package:rmp_flutter/configs/constants.dart';
 class EntityCardStatus extends StatelessWidget {
   final String text;
   final Color color;
+  final bool isResident;
 
   const EntityCardStatus({
     Key? key,
     required this.text,
     required this.color,
+    this.isResident = false,
   }) : super(key: key);
 
   const EntityCardStatus.received({Key? key})
@@ -17,6 +19,7 @@ class EntityCardStatus extends StatelessWidget {
           key: key,
           text: "Received",
           color: kSuccessColor,
+          isResident: true,
         );
 
   const EntityCardStatus.inStorage({Key? key})
@@ -24,6 +27,7 @@ class EntityCardStatus extends StatelessWidget {
           key: key,
           text: "In storage",
           color: kWarningColor,
+          isResident: true,
         );
 
   const EntityCardStatus.pending({Key? key})
@@ -65,13 +69,15 @@ class EntityCardStatus extends StatelessWidget {
         borderRadius: kBorderRadiusL,
       ),
       child: Padding(
-        padding:
-            const EdgeInsets.symmetric(vertical: kSizeXS, horizontal: kSizeM),
+        padding: EdgeInsets.symmetric(
+          vertical: isResident ? kSizeXXS : kSizeXS,
+          horizontal: isResident ? kSizeS : kSizeM,
+        ),
         child: Text(
           text,
           style: Theme.of(context).textTheme.bodyText1?.copyWith(
                 fontWeight: FontWeight.bold,
-                fontSize: kSizeS * 0.85,
+                fontSize: isResident ? kFontSizeBody2 : kSizeS * 0.85,
               ),
         ),
       ),
