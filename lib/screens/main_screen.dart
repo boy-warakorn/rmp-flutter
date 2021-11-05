@@ -13,6 +13,7 @@ import 'package:rmp_flutter/screens/residents/contact-support/contact_support_sc
 import 'package:rmp_flutter/screens/residents/home_screen.dart';
 import 'package:rmp_flutter/screens/residents/postal/resident_postal_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/payment_screen.dart';
+import 'package:rmp_flutter/screens/residents/repair/repair_screen.dart';
 import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
 import 'package:rmp_flutter/widgets/navigations/bottom_bar.dart';
@@ -29,6 +30,7 @@ final _residentTabs = [
   const PaymentScreen(),
   const ResidentPostalScreen(),
   const ContactSupportScreen(),
+  const RepairScreen(),
 ];
 
 class MainScreen extends HookConsumerWidget {

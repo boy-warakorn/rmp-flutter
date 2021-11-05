@@ -67,7 +67,7 @@ class ResidentPostalScreen extends HookWidget {
                       maxCrossAxisExtent: 180,
                       childAspectRatio: 1 / 1.5,
                       crossAxisSpacing: 20,
-                      mainAxisSpacing: kSizeS,
+                      mainAxisSpacing: kSizeS * 1.5,
                     ),
                     itemCount: _packages.value.packages.length,
                     itemBuilder: (context, index) {

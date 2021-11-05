@@ -1,12 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_result_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
@@ -14,52 +9,14 @@ import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
-class ContactFormScreen extends HookWidget {
-  static const routeName = "/resident/contact-form";
-  const ContactFormScreen({Key? key}) : super(key: key);
+class RepairFormScreen extends HookWidget {
+  static const routeName = "/resident/repair-form";
+  const RepairFormScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _title = useTextEditingController();
     final _detail = useTextEditingController();
-    List<Asset> _images = <Asset>[];
-    String _error = 'No Error';
-
-    Future<void> _takePhoto() async {
-      final ImagePicker _picker = ImagePicker();
-      final XFile? slipPhoto =
-          await _picker.pickImage(source: ImageSource.camera);
-      final _image = File(slipPhoto!.path);
-      print(_image);
-      // Navigator.of(context)
-      //     .pushNamed(ContactResultScreen.routeName, arguments: [
-      //   _image,
-      // ]);
-    }
-
-    Future<void> _openGallery() async {
-      List<Asset> resultList = <Asset>[];
-      try {
-        resultList = await MultiImagePicker.pickImages(
-          maxImages: 300,
-          enableCamera: true,
-          selectedAssets: _images,
-          cupertinoOptions: CupertinoOptions(
-            takePhotoIcon: "chat",
-            doneButtonTitle: "Fatto",
-          ),
-          materialOptions: MaterialOptions(
-            actionBarColor: "#abcdef",
-            actionBarTitle: "Example App",
-            allViewTitle: "All Photos",
-            useDetailsView: false,
-            selectCircleStrokeColor: "#000000",
-          ),
-        );
-      } on Exception catch (e) {
-        print("Error is " + e.toString());
-      }
-    }
 
     return Scaffold(
       appBar: BackAppBar(),
@@ -121,7 +78,9 @@ class ContactFormScreen extends HookWidget {
                                       MediaQuery.of(context).size.width * 0.7,
                                   child: CustomButton(
                                     text: "Take a photo",
-                                    onPressed: _takePhoto,
+                                    onPressed: () {
+                                      print("photo here");
+                                    },
                                     padding: EdgeInsets.symmetric(
                                       vertical: kSizeXS,
                                       horizontal: kSizeXS,
@@ -134,7 +93,9 @@ class ContactFormScreen extends HookWidget {
                                       MediaQuery.of(context).size.width * 0.7,
                                   child: CustomButton(
                                     text: "Choose from gallery",
-                                    onPressed: _openGallery,
+                                    onPressed: () {
+                                      print("photo here");
+                                    },
                                     color: kWarningColor,
                                     padding: EdgeInsets.symmetric(
                                       vertical: kSizeXS,
@@ -172,16 +133,6 @@ class ContactFormScreen extends HookWidget {
                     child: CustomButton(
                       text: "SEND",
                       onPressed: () async {
-                        if (_title.text.isEmpty || _detail.text.isEmpty) return;
-                        try {
-                          await ReportRepository().createReport(
-                            CreateReportDto(
-                              detail: _detail.text,
-                              title: _title.text,
-                            ),
-                          );
-                        } catch (_) {}
-
                         Navigator.of(context)
                             .pushNamed(ContactResultScreen.routeName);
                       },
