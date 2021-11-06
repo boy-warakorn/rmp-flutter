@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/package.dart';
@@ -42,6 +45,22 @@ class PostalEditScreen extends HookWidget {
 
     void _updateHaveService(String serviceInput) {
       _haveService.value = serviceInput.isNotEmpty;
+    }
+
+    Future<void> _takePhoto() async {
+      final ImagePicker _picker = ImagePicker();
+      final XFile? slipPhoto =
+      await _picker.pickImage(source: ImageSource.camera);
+      final _image = File(slipPhoto!.path);
+      print(_image);
+    }
+
+    Future<void> _openGallery() async {
+      final ImagePicker _picker = ImagePicker();
+      final XFile? slipPhoto =
+      await _picker.pickImage(source: ImageSource.gallery);
+      final _image = File(slipPhoto!.path);
+      print(_image);
     }
 
     void _fetchMasterData() async {
@@ -183,6 +202,76 @@ class PostalEditScreen extends HookWidget {
                       maxLine: 10,
                     ),
                     kSizedBoxVerticalS,
+                    Row(
+                      children: [
+                        CustomText.sectionHeaderBlack(
+                          "Upload Photos (Optional)",
+                          context,
+                        ),
+                        kSizedBoxHorizontalXS,
+                        IconButton(
+                          splashRadius: kSizeS * 1.5,
+                          icon: Icon(
+                            Icons.cloud_upload_outlined,
+                          ),
+                          color: kBrandColor,
+                          onPressed: () {
+                            showModalBottomSheet<dynamic>(
+                              isScrollControlled: true,
+                              context: context,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(kSizeS),
+                                  topRight: Radius.circular(kSizeS),
+                                ),
+                              ),
+                              builder: (context) {
+                                return Container(
+                                  height:
+                                  MediaQuery.of(context).size.height * 0.2,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width:
+                                        MediaQuery.of(context).size.width *
+                                            0.7,
+                                        child: CustomButton(
+                                          text: "Take a photo",
+                                          onPressed: _takePhoto,
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: kSizeXS,
+                                            horizontal: kSizeXS,
+                                          ),
+                                        ),
+                                      ),
+                                      kSizedBoxVerticalXS,
+                                      Container(
+                                        width:
+                                        MediaQuery.of(context).size.width *
+                                            0.7,
+                                        child: CustomButton(
+                                          text: "Choose from gallery",
+                                          onPressed: _openGallery,
+                                          color: kWarningColor,
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: kSizeXS,
+                                            horizontal: kSizeXS,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    kSizedBoxVerticalL,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
