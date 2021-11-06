@@ -22,42 +22,25 @@ class ContactFormScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _title = useTextEditingController();
     final _detail = useTextEditingController();
-    List<Asset> _images = <Asset>[];
-    String _error = 'No Error';
-
-    Future<void> _takePhoto() async {
-      final ImagePicker _picker = ImagePicker();
-      final XFile? slipPhoto =
-          await _picker.pickImage(source: ImageSource.camera);
-      final _image = File(slipPhoto!.path);
-      print(_image);
-      // Navigator.of(context)
-      //     .pushNamed(ContactResultScreen.routeName, arguments: [
-      //   _image,
-      // ]);
-    }
+    List<Asset> images = <Asset>[];
 
     Future<void> _openGallery() async {
       List<Asset> resultList = <Asset>[];
-      try {
-        resultList = await MultiImagePicker.pickImages(
-          maxImages: 300,
-          enableCamera: true,
-          selectedAssets: _images,
-          cupertinoOptions: CupertinoOptions(
-            takePhotoIcon: "chat",
-            doneButtonTitle: "Fatto",
-          ),
-          materialOptions: MaterialOptions(
-            actionBarColor: "#abcdef",
-            actionBarTitle: "Example App",
-            allViewTitle: "All Photos",
-            useDetailsView: false,
-            selectCircleStrokeColor: "#000000",
-          ),
-        );
-      } on Exception catch (e) {
-        print("Error is " + e.toString());
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 20,
+        enableCamera: true,
+        selectedAssets: images,
+        materialOptions: MaterialOptions(
+          actionBarColor: "#3A49F8",
+          actionBarTitle: "Choose from Gallery",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#000000",
+        ),
+      );
+      images = resultList;
+      for(int i = 0; i < images.length; i++){
+        print(images[i].name! + " ");
       }
     }
 
@@ -99,55 +82,7 @@ class ContactFormScreen extends HookWidget {
                       Icons.cloud_upload_outlined,
                     ),
                     color: kBrandColor,
-                    onPressed: () {
-                      showModalBottomSheet<dynamic>(
-                        isScrollControlled: true,
-                        context: context,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(kSizeS),
-                            topRight: Radius.circular(kSizeS),
-                          ),
-                        ),
-                        builder: (context) {
-                          return Container(
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  child: CustomButton(
-                                    text: "Take a photo",
-                                    onPressed: _takePhoto,
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: kSizeXS,
-                                      horizontal: kSizeXS,
-                                    ),
-                                  ),
-                                ),
-                                kSizedBoxVerticalXS,
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  child: CustomButton(
-                                    text: "Choose from gallery",
-                                    onPressed: _openGallery,
-                                    color: kWarningColor,
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: kSizeXS,
-                                      horizontal: kSizeXS,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    },
+                    onPressed: () => _openGallery(),
                   ),
                 ],
               ),

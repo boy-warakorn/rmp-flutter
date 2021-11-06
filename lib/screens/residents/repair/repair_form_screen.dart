@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_result_screen.dart';
@@ -17,6 +18,27 @@ class RepairFormScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _title = useTextEditingController();
     final _detail = useTextEditingController();
+    List<Asset> images = <Asset>[];
+
+    Future<void> _openGallery() async {
+      List<Asset> resultList = <Asset>[];
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 20,
+        enableCamera: true,
+        selectedAssets: images,
+        materialOptions: MaterialOptions(
+          actionBarColor: "#3A49F8",
+          actionBarTitle: "Choose from Gallery",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#000000",
+        ),
+      );
+      images = resultList;
+      for(int i = 0; i < images.length; i++){
+        print(images[i].name! + " ");
+      }
+    }
 
     return Scaffold(
       appBar: BackAppBar(),
@@ -37,7 +59,7 @@ class RepairFormScreen extends HookWidget {
               ),
               kSizedBoxVerticalS,
               FormTextArea(
-                fieldName: "Complaint Detail",
+                fieldName: "Repair Detail",
                 textEditingController: _detail,
                 minLine: 10,
                 maxLine: 20,
@@ -56,59 +78,7 @@ class RepairFormScreen extends HookWidget {
                       Icons.cloud_upload_outlined,
                     ),
                     color: kBrandColor,
-                    onPressed: () {
-                      showModalBottomSheet<dynamic>(
-                        isScrollControlled: true,
-                        context: context,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(kSizeS),
-                            topRight: Radius.circular(kSizeS),
-                          ),
-                        ),
-                        builder: (context) {
-                          return Container(
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  child: CustomButton(
-                                    text: "Take a photo",
-                                    onPressed: () {
-                                      print("photo here");
-                                    },
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: kSizeXS,
-                                      horizontal: kSizeXS,
-                                    ),
-                                  ),
-                                ),
-                                kSizedBoxVerticalXS,
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  child: CustomButton(
-                                    text: "Choose from gallery",
-                                    onPressed: () {
-                                      print("photo here");
-                                    },
-                                    color: kWarningColor,
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: kSizeXS,
-                                      horizontal: kSizeXS,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    },
+                    onPressed: () => _openGallery(),
                   ),
                 ],
               ),

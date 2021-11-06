@@ -104,6 +104,7 @@ class ReportDetailScreen extends HookConsumerWidget {
                             color: kBlackColor,
                           ),
                     ),
+                    kSizedBoxVerticalS,
                     GridView.builder(
                       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                         maxCrossAxisExtent: 180,
@@ -119,7 +120,7 @@ class ReportDetailScreen extends HookConsumerWidget {
                         );
                       },
                     ),
-                    kSizedBoxVerticalM,
+                    kSizedBoxVerticalL,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
