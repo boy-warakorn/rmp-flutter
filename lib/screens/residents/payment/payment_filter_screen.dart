@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/models/payment.dart';
+import 'package:rmp_flutter/repositories/payment_repository.dart';
+import 'package:rmp_flutter/screens/residents/payment/specific_payment_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
-import 'package:rmp_flutter/widgets/general/entity_card.dart';
 import 'package:rmp_flutter/widgets/general/payment_card.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 
@@ -13,10 +15,22 @@ class PaymentFilterScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _isDominant = useState(false);
-    final _isCompleted = useState(false);
-    final _isPending = useState(false);
-    final _isActive = useState(true);
+    final _payments = useState(PaymentModel(payments: []));
+    final _isLoading = useState(false);
+    final _changeStatus = useState([false, true, true]);
+    const String _complete = "complete";
+    const String _pending = "pending";
+    const String _active = "active";
+
+    void fetchPayment(String status) async {
+      _isLoading.value = true;
+      _payments.value = await PaymentRepository().filterPaymentByStatus(status);
+      _isLoading.value = false;
+    }
+
+    useEffect(() {
+      fetchPayment("complete");
+    }, []);
 
     return Container(
       decoration: BoxDecoration(
@@ -51,41 +65,50 @@ class PaymentFilterScreen extends HookWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     CustomButton(
-                      text: "Complete (4)",
+                      text: "Complete",
                       onPressed: () {
-                        _isCompleted.value = !_isCompleted.value;
+                        _changeStatus.value[0] = !_changeStatus.value[0];
+                        _changeStatus.value[1] = true;
+                        _changeStatus.value[2] = true;
+                        fetchPayment(_complete);
                       },
                       padding: EdgeInsets.symmetric(
                         horizontal: kSizeS * 1.25,
                         vertical: kSizeXS,
                       ),
-                      isDominant: _isCompleted.value,
+                      isDominant: _changeStatus.value[0],
                       color: kSuccessColor,
                     ),
                     kSizedBoxHorizontalS,
                     CustomButton(
-                      text: "Pending (2)",
+                      text: "Pending",
                       onPressed: () {
-                        _isPending.value = !_isPending.value;
+                        _changeStatus.value[1] = !_changeStatus.value[1];
+                        _changeStatus.value[0] = true;
+                        _changeStatus.value[2] = true;
+                        fetchPayment(_pending);
                       },
                       padding: EdgeInsets.symmetric(
                         horizontal: kSizeS * 1.25,
                         vertical: kSizeXS,
                       ),
-                      isDominant: _isPending.value,
+                      isDominant: _changeStatus.value[1],
                       color: kWarningColor,
                     ),
                     kSizedBoxHorizontalS,
                     CustomButton(
-                      text: "Active (3)",
+                      text: "Active",
                       onPressed: () {
-                        _isActive.value = !_isActive.value;
+                        _changeStatus.value[2] = !_changeStatus.value[2];
+                        _changeStatus.value[0] = true;
+                        _changeStatus.value[1] = true;
+                        fetchPayment(_active);
                       },
                       padding: EdgeInsets.symmetric(
                         horizontal: kSizeS * 1.25,
                         vertical: kSizeXS,
                       ),
-                      isDominant: _isActive.value,
+                      isDominant: _changeStatus.value[2],
                       color: kErrorColor,
                     ),
                   ],
@@ -110,20 +133,30 @@ class PaymentFilterScreen extends HookWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: 2,
-                      itemBuilder: (ctx, index) {
-                        return PaymentCard(
-                          type: "Test",
-                          amount: "1000",
-                          status: "-",
-                          paidDate: "1/1/2021",
-                          onPressed: () => {
-                            print('Hello'),
-                          },
-                        );
-                      },
-                    ),
+                    child: _isLoading.value
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : ListView.builder(
+                            itemCount: _payments.value.payments.length,
+                            itemBuilder: (context, index) {
+                              final _currentPayment =
+                                  _payments.value.payments[index];
+                              return PaymentCard(
+                                type: _currentPayment.type,
+                                amount: _currentPayment.amount.toString(),
+                                paidDate: _currentPayment.paidAt.isEmpty
+                                    ? "-"
+                                    : _currentPayment.paidAt,
+                                status: _currentPayment.status,
+                                onPressed: () =>
+                                    Navigator.of(context).pushNamed(
+                                  SpecificPaymentScreen.routeName,
+                                  arguments: _currentPayment,
+                                ),
+                              );
+                            },
+                          ),
                   ),
                 ],
               ),

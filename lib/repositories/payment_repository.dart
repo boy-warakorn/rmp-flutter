@@ -10,6 +10,7 @@ abstract class BasePaymentRepository {
   Future<PaymentModel> getPaymentByResident();
   Future<Payment> getCommonCharge();
   Future<void> paySpecificPayment(String id, String receiptUrl);
+  Future<PaymentModel> filterPaymentByStatus(String status);
 }
 
 class CreatePaymentDto {
@@ -87,5 +88,27 @@ class PaymentRepository implements BasePaymentRepository {
         ),
       );
     } on DioError catch (_) {}
+  }
+
+  @override
+  Future<PaymentModel> filterPaymentByStatus(String status) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      final result = await dio.get(
+        basePaymentUrl,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+        queryParameters: {
+          'status': status,
+        },
+      );
+      return PaymentModel.fromJson(result);
+    } on DioError catch (_) {
+      throw HttpException("Get Filter Payment By Status Failed");
+    }
   }
 }
