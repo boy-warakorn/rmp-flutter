@@ -31,7 +31,7 @@ final _condoTabs = [
 
 final _residentTabs = [
   const ResidentHomeScreen(),
-  const PaymentFilterScreen(),
+  const PaymentScreen(),
   const ResidentPostalScreen(),
   const ContactSupportScreen(),
   const RepairScreen(),
@@ -47,10 +47,6 @@ class MainScreen extends HookConsumerWidget {
     final _currentTabIndex = useState(0);
     final PersistentTabController _controller =
         PersistentTabController(initialIndex: _currentTabIndex.value);
-
-    useEffect(() {
-      print(_controller.index);
-    });
 
     return Scaffold(
       backgroundColor: kBgColor,
