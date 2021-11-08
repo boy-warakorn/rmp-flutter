@@ -21,6 +21,7 @@ class PaymentFilterScreen extends HookWidget {
     const String _complete = "complete";
     const String _pending = "pending";
     const String _active = "active";
+    final _currentStatus = useState("complete");
 
     void fetchPayment(String status) async {
       _isLoading.value = true;
@@ -56,7 +57,7 @@ class PaymentFilterScreen extends HookWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomText.sectionHeaderLight(
-                  "Filter",
+                  "Your Payment",
                   context,
                 ),
                 kSizedBoxVerticalS,
@@ -67,48 +68,42 @@ class PaymentFilterScreen extends HookWidget {
                     CustomButton(
                       text: "Complete",
                       onPressed: () {
-                        _changeStatus.value[0] = !_changeStatus.value[0];
-                        _changeStatus.value[1] = true;
-                        _changeStatus.value[2] = true;
-                        fetchPayment(_complete);
+                        _currentStatus.value = "complete";
+                        fetchPayment(_currentStatus.value);
                       },
                       padding: EdgeInsets.symmetric(
                         horizontal: kSizeS * 1.25,
                         vertical: kSizeXS,
                       ),
-                      isDominant: _changeStatus.value[0],
+                      isDominant: _currentStatus.value == "complete",
                       color: kSuccessColor,
                     ),
                     kSizedBoxHorizontalS,
                     CustomButton(
                       text: "Pending",
                       onPressed: () {
-                        _changeStatus.value[1] = !_changeStatus.value[1];
-                        _changeStatus.value[0] = true;
-                        _changeStatus.value[2] = true;
-                        fetchPayment(_pending);
+                        _currentStatus.value = "pending";
+                        fetchPayment(_currentStatus.value);
                       },
                       padding: EdgeInsets.symmetric(
                         horizontal: kSizeS * 1.25,
                         vertical: kSizeXS,
                       ),
-                      isDominant: _changeStatus.value[1],
+                      isDominant: _currentStatus.value == "pending",
                       color: kWarningColor,
                     ),
                     kSizedBoxHorizontalS,
                     CustomButton(
                       text: "Active",
                       onPressed: () {
-                        _changeStatus.value[2] = !_changeStatus.value[2];
-                        _changeStatus.value[0] = true;
-                        _changeStatus.value[1] = true;
-                        fetchPayment(_active);
+                        _currentStatus.value = "active";
+                        fetchPayment(_currentStatus.value);
                       },
                       padding: EdgeInsets.symmetric(
                         horizontal: kSizeS * 1.25,
                         vertical: kSizeXS,
                       ),
-                      isDominant: _changeStatus.value[2],
+                      isDominant: _currentStatus.value == "active",
                       color: kErrorColor,
                     ),
                   ],

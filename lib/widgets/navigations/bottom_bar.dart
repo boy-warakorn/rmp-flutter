@@ -46,13 +46,6 @@ class BottomBar extends StatelessWidget {
       ),
       label: 'Helpdesk',
     ),
-    BottomNavigationBarItem(
-      icon: Icon(
-        Icons.home_repair_service_outlined,
-        size: kSizeS * 1.5,
-      ),
-      label: 'Repair',
-    ),
   ];
 
   // Personnel BottomNavigationBarItem

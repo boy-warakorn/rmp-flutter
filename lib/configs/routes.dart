@@ -24,9 +24,6 @@ import 'package:rmp_flutter/screens/residents/payment/specific_payment_screen.da
 import 'package:rmp_flutter/screens/residents/postal/id_card_screen.dart';
 import 'package:rmp_flutter/screens/residents/postal/profile_card_screen.dart';
 import 'package:rmp_flutter/screens/residents/postal/resident_postal_screen.dart';
-import 'package:rmp_flutter/screens/residents/repair/repair_detail_screen.dart';
-import 'package:rmp_flutter/screens/residents/repair/repair_form_screen.dart';
-import 'package:rmp_flutter/screens/residents/repair/repair_screen.dart';
 
 final routes = {
   ...generalRoutes,
@@ -65,8 +62,5 @@ final residentRoutes = {
   ResidentReplyScreen.routeName: (_) => const ResidentReplyScreen(),
   ProfileCardScreen.routeName: (_) => const ProfileCardScreen(),
   IDCardScreen.routeName: (_) => const IDCardScreen(),
-  RepairScreen.routeName: (_) => const RepairScreen(),
-  RepairDetailScreen.routeName: (_) => const RepairDetailScreen(),
-  RepairFormScreen.routeName: (_) => const RepairFormScreen(),
   PaymentFilterScreen.routeName: (_) => const PaymentFilterScreen(),
 };
