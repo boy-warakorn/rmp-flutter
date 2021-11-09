@@ -19,9 +19,6 @@ class FormTextField extends StatefulWidget {
 }
 
 class _FormTextFieldState extends State<FormTextField> {
-  void printText() {
-    print("Text changed: ${widget.textEditingController.text}");
-  }
 
   @override
   Widget build(BuildContext context) {

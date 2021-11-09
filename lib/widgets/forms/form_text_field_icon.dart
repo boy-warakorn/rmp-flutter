@@ -24,10 +24,6 @@ class FormTextFieldIcon extends HookWidget {
     this.isPassword = false,
   }) : super(key: key);
 
-  void printText() {
-    print("Text changed: ${textEditingController.text}");
-  }
-
   @override
   Widget build(BuildContext context) {
     final _isObscured = useState(false);

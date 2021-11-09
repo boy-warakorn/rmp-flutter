@@ -1,7 +1,6 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/providers/user_provider.dart';
@@ -14,7 +13,6 @@ import 'package:rmp_flutter/screens/residents/contact-support/contact_support_sc
 import 'package:rmp_flutter/screens/residents/home_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/payment_filter_screen.dart';
 import 'package:rmp_flutter/screens/residents/postal/resident_postal_screen.dart';
-import 'package:rmp_flutter/screens/residents/payment/payment_screen.dart';
 import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
 import 'package:rmp_flutter/widgets/navigations/bottom_bar.dart';
@@ -41,8 +39,6 @@ class MainScreen extends HookConsumerWidget {
     final _role = ref.read(currentUser).user.role;
     final _isResident = _role == "resident";
     final _currentTabIndex = useState(0);
-    final PersistentTabController _controller =
-        PersistentTabController(initialIndex: _currentTabIndex.value);
 
     void onTap(int index) {
       _currentTabIndex.value = index;

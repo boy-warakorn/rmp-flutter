@@ -17,10 +17,6 @@ class PaymentFilterScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _payments = useState(PaymentModel(payments: []));
     final _isLoading = useState(false);
-    final _changeStatus = useState([false, true, true]);
-    const String _complete = "complete";
-    const String _pending = "pending";
-    const String _active = "active";
     final _currentStatus = useState("complete");
 
     void fetchPayment(String status) async {
