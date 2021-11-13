@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
-
-// TODO: apply const color
+import 'package:rmp_flutter/configs/constants.dart';
 
 class TextTab extends StatelessWidget {
-  final List<String> items;
+  final List<String> labels;
   final double tabWidth;
   final double underlineHeight;
   final double verticalPadding;
@@ -14,78 +13,96 @@ class TextTab extends StatelessWidget {
 
   const TextTab({
     Key? key,
-    required this.items,
-    this.tabWidth = 120,
-    this.underlineHeight = 4,
-    this.verticalPadding = 16,
+    required this.labels,
+    this.tabWidth = kSizeXL - kSizeXS,
+    this.underlineHeight = kSizeXXS,
+    this.verticalPadding = kSizeS,
     this.selectedColor = kBrandColor,
     this.selectedIndex = -1,
     this.onSelect,
   }) : super(key: key);
 
-  Widget _buildUnderline({bool visible = false}) {
-    return Container(
-      height: underlineHeight,
-      color: visible ? selectedColor : null,
+  Widget _buildTabBound({
+    bool useFlex = false,
+    Widget? child,
+    required int index,
+  }) {
+    final body = GestureDetector(
+      onTap: () => onSelect!(index),
+      child: Container(
+        color: Colors.transparent,
+        width: useFlex ? null : tabWidth,
+        child: child,
+      ),
+    );
+
+    return useFlex
+        ? Expanded(
+            child: body,
+          )
+        : body;
+  }
+
+  Widget _buildTabBody(
+    BuildContext context, {
+    bool selected = false,
+    String label = "",
+  }) {
+    final baseTextTheme = Theme.of(context).textTheme;
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom: verticalPadding - underlineHeight,
+                  top: verticalPadding,
+                ),
+                child: Text(
+                  label,
+                  style: selected
+                      ? baseTextTheme.headline4?.copyWith(
+                          color: selectedColor,
+                        )
+                      : baseTextTheme.headline5?.copyWith(
+                          color: kAlternativeColor,
+                        ),
+                ),
+              ),
+              Container(
+                height: underlineHeight,
+                color: selected ? selectedColor : null,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
   Widget _buildTabs(
     BuildContext context, {
+    bool useFlex = false,
     void Function(int)? onSelect,
   }) {
     List<Widget> contents = [];
-    for (int i = 0; i < items.length; i++) {
+    for (int i = 0; i < labels.length; i++) {
       contents.add(
-        _buildTabItem(
-          context,
-          text: items[i],
-          selected: selectedIndex == i,
-          onSelect: onSelect == null ? null : () => onSelect(i),
+        _buildTabBound(
+          index: i,
+          useFlex: useFlex,
+          child: _buildTabBody(
+            context,
+            selected: i == selectedIndex,
+            label: labels[i],
+          ),
         ),
       );
     }
 
     return Row(
       children: contents,
-    );
-  }
-
-  Widget _buildTabItem(
-    BuildContext context, {
-    required String text,
-    bool selected = false,
-    void Function()? onSelect,
-  }) {
-    final contextTextTheme = Theme.of(context).textTheme;
-
-    return GestureDetector(
-      onTap: onSelect,
-      child: Container(
-        color: Colors.transparent,
-        width: tabWidth,
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                top: verticalPadding,
-                bottom: verticalPadding - underlineHeight,
-              ),
-              child: Text(
-                text,
-                style: selected
-                    ? contextTextTheme.headline4?.copyWith(color: kBrandColor)
-                    : contextTextTheme.headline5?.copyWith(
-                        color: kAlternativeColor,
-                      ),
-              ),
-            ),
-            _buildUnderline(
-              visible: selected,
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -100,14 +117,32 @@ class TextTab extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: kAlternativeColor,
-                  blurRadius: 4,
-                  offset: Offset(0, 4),
+                  blurRadius: kSizeXXS,
+                  offset: Offset(0, kSizeXXS),
                 )
               ],
             ),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: _buildTabs(context, onSelect: onSelect),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final screenWidth = MediaQuery.of(context).size.width;
+                final tabSpace = tabWidth * labels.length;
+                if (tabSpace > screenWidth) {
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: _buildTabs(
+                      context,
+                      onSelect: onSelect,
+                      useFlex: false,
+                    ),
+                  );
+                } else {
+                  return _buildTabs(
+                    context,
+                    onSelect: onSelect,
+                    useFlex: true,
+                  );
+                }
+              },
             ),
           ),
         ),
