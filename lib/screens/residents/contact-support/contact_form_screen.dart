@@ -23,22 +23,30 @@ class ContactFormScreen extends HookWidget {
 
     Future<void> _openGallery() async {
       List<Asset> resultList = <Asset>[];
-      resultList = await MultiImagePicker.pickImages(
-        maxImages: 20,
-        enableCamera: true,
-        selectedAssets: images,
-        materialOptions: MaterialOptions(
-          actionBarColor: "#3A49F8",
-          actionBarTitle: "Choose from Gallery",
-          allViewTitle: "All Photos",
-          useDetailsView: false,
-          selectCircleStrokeColor: "#000000",
-        ),
-      );
-      images = resultList;
-      for(int i = 0; i < images.length; i++){
-        print(images[i].name! + " ");
+      try {
+        resultList = await MultiImagePicker.pickImages(
+          maxImages: 20,
+          enableCamera: true,
+          selectedAssets: images,
+          materialOptions: MaterialOptions(
+            actionBarColor: "#3A49F8",
+            actionBarTitle: "Choose from Gallery",
+            allViewTitle: "All Photos",
+            useDetailsView: false,
+            selectCircleStrokeColor: "#000000",
+          ),
+        );
+        images = resultList;
+        for (int i = 0; i < images.length; i++) {
+          print(images[i].name! + " ");
+        }
+      } catch (e) {
+        print(e.toString());
       }
+    }
+
+    Future<void> _uploadPhoto() async{
+      
     }
 
     return Scaffold(

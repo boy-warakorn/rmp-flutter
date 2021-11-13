@@ -24,7 +24,6 @@ class PaymentCard extends StatelessWidget {
     final contentStyle = Theme.of(context).textTheme.bodyText1;
 
     return CardTemplate(
-      color: kBgColor,
       padding: EdgeInsets.zero,
       child: InkWell(
         onTap: paidDate == "-" ? onPressed : null,

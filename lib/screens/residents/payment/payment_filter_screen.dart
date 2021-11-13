@@ -8,6 +8,7 @@ import 'package:rmp_flutter/screens/residents/payment/specific_payment_screen.da
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/payment_card.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
+import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
 
 class PaymentFilterScreen extends HookWidget {
   static const routeName = "/resident/payment-filter";
@@ -18,6 +19,13 @@ class PaymentFilterScreen extends HookWidget {
     final _payments = useState(PaymentModel(payments: []));
     final _isLoading = useState(false);
     final _currentStatus = useState("complete");
+    final _tabIndex = useState(0);
+
+    final List<String> _item = [
+      "Complete",
+      "Pending",
+      "Active",
+    ];
 
     void fetchPayment(String status) async {
       _isLoading.value = true;
@@ -57,56 +65,17 @@ class PaymentFilterScreen extends HookWidget {
                   context,
                 ),
                 kSizedBoxVerticalS,
-                kSizedBoxVerticalXS,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    CustomButton(
-                      text: "Complete",
-                      onPressed: () {
-                        _currentStatus.value = "complete";
-                        fetchPayment(_currentStatus.value);
-                      },
-                      padding: EdgeInsets.symmetric(
-                        horizontal: kSizeS * 1.25,
-                        vertical: kSizeXS,
-                      ),
-                      isDominant: _currentStatus.value == "complete",
-                      color: kSuccessColor,
-                    ),
-                    kSizedBoxHorizontalS,
-                    CustomButton(
-                      text: "Pending",
-                      onPressed: () {
-                        _currentStatus.value = "pending";
-                        fetchPayment(_currentStatus.value);
-                      },
-                      padding: EdgeInsets.symmetric(
-                        horizontal: kSizeS * 1.25,
-                        vertical: kSizeXS,
-                      ),
-                      isDominant: _currentStatus.value == "pending",
-                      color: kWarningColor,
-                    ),
-                    kSizedBoxHorizontalS,
-                    CustomButton(
-                      text: "Active",
-                      onPressed: () {
-                        _currentStatus.value = "active";
-                        fetchPayment(_currentStatus.value);
-                      },
-                      padding: EdgeInsets.symmetric(
-                        horizontal: kSizeS * 1.25,
-                        vertical: kSizeXS,
-                      ),
-                      isDominant: _currentStatus.value == "active",
-                      color: kErrorColor,
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
+          TextTab(
+            labels: _item,
+            onSelect: (p0) {
+             _tabIndex.value = p0;
+            },
+
+          ),
+
           Expanded(
             child: Container(
               padding: EdgeInsets.all(
@@ -114,11 +83,7 @@ class PaymentFilterScreen extends HookWidget {
               ),
               decoration: BoxDecoration(
                 color: kBgColor,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(
-                    kSizeS,
-                  ),
-                ),
+
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
