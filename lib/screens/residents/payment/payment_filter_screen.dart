@@ -7,7 +7,6 @@ import 'package:rmp_flutter/repositories/payment_repository.dart';
 import 'package:rmp_flutter/screens/residents/payment/specific_payment_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/payment_card.dart';
-import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
 
 class PaymentFilterScreen extends HookWidget {
@@ -18,7 +17,6 @@ class PaymentFilterScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _payments = useState(PaymentModel(payments: []));
     final _isLoading = useState(false);
-    final _currentStatus = useState("complete");
     final _tabIndex = useState(0);
 
     final List<String> _item = [
@@ -27,15 +25,17 @@ class PaymentFilterScreen extends HookWidget {
       "Active",
     ];
 
-    void fetchPayment(String status) async {
+    void fetchPayment() async {
+      final paymentStatus = _item[_tabIndex.value].toLowerCase();
+
       _isLoading.value = true;
-      _payments.value = await PaymentRepository().filterPaymentByStatus(status);
+      _payments.value = await PaymentRepository().getPaymentByStatus(paymentStatus);
       _isLoading.value = false;
     }
 
     useEffect(() {
-      fetchPayment("complete");
-    }, []);
+      fetchPayment();
+    }, [_tabIndex.value]);
 
     return Container(
       decoration: BoxDecoration(
@@ -69,13 +69,12 @@ class PaymentFilterScreen extends HookWidget {
             ),
           ),
           TextTab(
+            selectedIndex: _tabIndex.value,
             labels: _item,
             onSelect: (p0) {
-             _tabIndex.value = p0;
+              _tabIndex.value = p0;
             },
-
           ),
-
           Expanded(
             child: Container(
               padding: EdgeInsets.all(
@@ -83,7 +82,6 @@ class PaymentFilterScreen extends HookWidget {
               ),
               decoration: BoxDecoration(
                 color: kBgColor,
-
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

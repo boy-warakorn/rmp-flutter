@@ -10,7 +10,7 @@ abstract class BasePaymentRepository {
   Future<PaymentModel> getPaymentByResident();
   Future<Payment> getCommonCharge();
   Future<void> paySpecificPayment(String id, String receiptUrl);
-  Future<PaymentModel> filterPaymentByStatus(String status);
+  Future<PaymentModel> getPaymentByStatus(String status);
 }
 
 class CreatePaymentDto {
@@ -91,7 +91,7 @@ class PaymentRepository implements BasePaymentRepository {
   }
 
   @override
-  Future<PaymentModel> filterPaymentByStatus(String status) async {
+  Future<PaymentModel> getPaymentByStatus(String status) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
