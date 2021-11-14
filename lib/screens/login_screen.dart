@@ -8,8 +8,8 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/providers/auth_provider.dart';
 import 'package:rmp_flutter/models/providers/user_provider.dart';
 import 'package:rmp_flutter/repositories/auth_repository.dart';
-import 'package:rmp_flutter/screens/condos/forgot_password_screen.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
+import 'package:rmp_flutter/widgets/dialogs/notice_dialog.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 
@@ -27,32 +27,41 @@ class LoginScreen extends HookConsumerWidget {
     final _curUser = ref.read(currentUser);
 
     void _onLogin() async {
-      if (_username.text.isEmpty || _password.text.isEmpty) {
-        return;
-      }
-      final _authDto = AuthDto(
-        username: _username.text.trim(),
-        password: _password.text.trim(),
-      );
-      try {
-        _isLoading.value = true;
-        await _authRepository.login(_authDto);
-      } catch (e) {
+      final username = _username.text.trim();
+      final password = _password.text.trim();
+
+      if (username.isEmpty || password.isEmpty) {
         showDialog(
           context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: Text("Error"),
-            content: Text(
-              e.toString(),
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
+          builder: (ctx) => NoticeDialog(
+            description: "Email and password are required.",
           ),
         );
+      } else {
+        final _authDto = AuthDto(
+          username: username,
+          password: password,
+        );
+        try {
+          _isLoading.value = true;
+          await _authRepository.login(_authDto);
+        } catch (e) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text("Error"),
+              content: Text(
+                e.toString(),
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ),
+          );
+        }
+        _isLoading.value = false;
+        await _curUser.getCurrentUser();
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil(PreLoadingScreen.routeName, (_) => false);
       }
-      _isLoading.value = false;
-      await _curUser.getCurrentUser();
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(PreLoadingScreen.routeName, (_) => false);
     }
 
     return Scaffold(
@@ -181,4 +190,3 @@ class LoginScreen extends HookConsumerWidget {
     );
   }
 }
- 
