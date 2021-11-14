@@ -29,7 +29,8 @@ class PaymentFilterScreen extends HookWidget {
       final paymentStatus = _item[_tabIndex.value].toLowerCase();
 
       _isLoading.value = true;
-      _payments.value = await PaymentRepository().getPaymentByStatus(paymentStatus);
+      _payments.value =
+          await PaymentRepository().getPaymentByStatus(paymentStatus);
       _isLoading.value = false;
     }
 
@@ -68,49 +69,52 @@ class PaymentFilterScreen extends HookWidget {
               ],
             ),
           ),
-          TextTab(
-            selectedIndex: _tabIndex.value,
-            labels: _item,
-            onSelect: (p0) {
-              _tabIndex.value = p0;
-            },
-          ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.all(
-                kSizeS * 1.5,
-              ),
+              // padding: EdgeInsets.all(
+              //   kSizeS * 1.5,
+              // ),
               decoration: BoxDecoration(
                 color: kBgColor,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  TextTab(
+                    selectedIndex: _tabIndex.value,
+                    labels: _item,
+                    onSelect: (p0) {
+                      _tabIndex.value = p0;
+                    },
+                  ),
                   Expanded(
-                    child: _isLoading.value
-                        ? Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : ListView.builder(
-                            itemCount: _payments.value.payments.length,
-                            itemBuilder: (context, index) {
-                              final _currentPayment =
-                                  _payments.value.payments[index];
-                              return PaymentCard(
-                                type: _currentPayment.type,
-                                amount: _currentPayment.amount.toString(),
-                                paidDate: _currentPayment.paidAt.isEmpty
-                                    ? "-"
-                                    : _currentPayment.paidAt,
-                                status: _currentPayment.status,
-                                onPressed: () =>
-                                    Navigator.of(context).pushNamed(
-                                  SpecificPaymentScreen.routeName,
-                                  arguments: _currentPayment,
-                                ),
-                              );
-                            },
-                          ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(kSizeS * 1.5),
+                      child: _isLoading.value
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : ListView.builder(
+                              itemCount: _payments.value.payments.length,
+                              itemBuilder: (context, index) {
+                                final _currentPayment =
+                                    _payments.value.payments[index];
+                                return PaymentCard(
+                                  type: _currentPayment.type,
+                                  amount: _currentPayment.amount.toString(),
+                                  paidDate: _currentPayment.paidAt.isEmpty
+                                      ? "-"
+                                      : _currentPayment.paidAt,
+                                  status: _currentPayment.status,
+                                  onPressed: () =>
+                                      Navigator.of(context).pushNamed(
+                                    SpecificPaymentScreen.routeName,
+                                    arguments: _currentPayment,
+                                  ),
+                                );
+                              },
+                            ),
+                    ),
                   ),
                 ],
               ),
