@@ -11,8 +11,8 @@ import 'package:rmp_flutter/screens/condos/postal/postal_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_form_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_support_screen.dart';
 import 'package:rmp_flutter/screens/residents/home_screen.dart';
+import 'package:rmp_flutter/screens/residents/payment/payment_filter_screen.dart';
 import 'package:rmp_flutter/screens/residents/postal/resident_postal_screen.dart';
-import 'package:rmp_flutter/screens/residents/payment/payment_screen.dart';
 import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/navigations/app_bar.dart';
 import 'package:rmp_flutter/widgets/navigations/bottom_bar.dart';
@@ -26,7 +26,7 @@ final _condoTabs = [
 
 final _residentTabs = [
   const ResidentHomeScreen(),
-  const PaymentScreen(),
+  const PaymentFilterScreen(),
   const ResidentPostalScreen(),
   const ContactSupportScreen(),
 ];

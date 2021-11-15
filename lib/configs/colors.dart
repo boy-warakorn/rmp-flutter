@@ -17,7 +17,7 @@ const kInputBorderColor = Color(0xFFE8E8E8);
 const kErrorColor = Color(0xFFFB3143);
 const kSuccessColor = Color(0xFF5DB075);
 const kWarningColor = Color(0xFFFDA027);
-const kBgColor = Color(0xFFF4F7FA);
+const kBgColor = Color(0xFFF0F0F0);
 const kLightColor = Colors.white;
 const kBlackColor = Colors.black;
 

@@ -6,11 +6,15 @@ import 'package:rmp_flutter/configs/constants.dart';
 class CustomSlider extends StatelessWidget {
   final bool isResponded;
   final void Function(dynamic) onValueChanged;
+  final String primaryText;
+  final String secondaryText;
 
   const CustomSlider({
     Key? key,
     required this.isResponded,
     required this.onValueChanged,
+    this.primaryText = "Responded",
+    this.secondaryText = "Response Required",
   }) : super(key: key);
 
   Widget _buildSelectionItem(
@@ -21,6 +25,7 @@ class CustomSlider extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: kSizeXS,
+        horizontal: kSizeS,
       ),
       child: Text(
         text,
@@ -39,12 +44,12 @@ class CustomSlider extends StatelessWidget {
       children: {
         true: _buildSelectionItem(
           context,
-          text: "Responded",
+          text: primaryText,
           isSelected: isResponded,
         ),
         false: _buildSelectionItem(
           context,
-          text: "Response Required",
+          text: secondaryText,
           isSelected: !isResponded,
         ),
       },

@@ -22,7 +22,7 @@ class PackageDto {
 
 abstract class BasePackageRepository {
   Future<PackagesModel> getPackages();
-  Future<PackagesModel> getPackageByResident();
+  Future<PackagesModel> getPackageByResident(bool isReceived);
   Future<Package?> getPackage(String id);
   Future<PackageMasterModel> getPackageMasterData();
   Future<void> createPackage(PackageDto package);
@@ -156,17 +156,20 @@ class PackageRepository implements BasePackageRepository {
   }
 
   @override
-  Future<PackagesModel> getPackageByResident() async {
+  Future<PackagesModel> getPackageByResident(bool isReceived) async {
     try {
       final pref = await SharedPreferences.getInstance();
       final token = pref.getString("token");
 
-      final response = await dio.get(
-        getPackagesByResidentUrl,
-        options: Options(headers: {
-          "Authorization": "Bearer $token",
-        }),
-      );
+      final response = await dio.get(getPackagesUrl,
+          options: Options(
+            headers: {
+              "Authorization": "Bearer $token",
+            },
+          ),
+          queryParameters: {
+            'status': isReceived ? 'received' : 'in-storage',
+          });
 
       return PackagesModel.fromJSON(response);
     } on DioError catch (_) {

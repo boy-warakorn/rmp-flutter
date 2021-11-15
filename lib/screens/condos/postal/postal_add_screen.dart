@@ -1,5 +1,8 @@
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:path/path.dart';
 import 'package:rmp_flutter/utils/date_format.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
@@ -15,6 +18,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PostalAddScreen extends HookWidget {
   static const routeName = "/condo/postal-add";
@@ -50,6 +54,9 @@ class PostalAddScreen extends HookWidget {
     final _isValidRoom = useState(false);
     final _haveService = useState(false);
     final _showRoomValidity = useState(false);
+    
+    String _fileName = '';
+    File _packagePhoto = File('');
 
     bool _submitAllowed() {
       return _isValidRoom.value && _haveService.value && _haveDate.value;
@@ -88,6 +95,39 @@ class PostalAddScreen extends HookWidget {
       await PackageRepository().createPackage(packageDto);
       Navigator.of(context)
           .pushNamedAndRemoveUntil(PreLoadingScreen.routeName, (_) => false);
+    }
+
+    Future<void> _takePhoto() async {
+      final ImagePicker _picker = ImagePicker();
+      final XFile? slipPhoto =
+          await _picker.pickImage(source: ImageSource.camera);
+      final _image = File(slipPhoto!.path);
+      _fileName = basename(_image.path);
+      _packagePhoto = _image;
+      print(_fileName);
+    }
+
+    Future<void> _openGallery() async {
+      final ImagePicker _picker = ImagePicker();
+      final XFile? slipPhoto =
+          await _picker.pickImage(source: ImageSource.gallery);
+      final _image = File(slipPhoto!.path);
+      _fileName = basename(_image.path);
+      _packagePhoto = _image;
+      print(_fileName);
+    }
+    
+    Future<void> uploadAndCreatePackage() async{
+      try{
+        final storageRef = FirebaseStorage.instance
+            .ref()
+            .child('packagePhoto/${_roomNumberList.value}/$_fileName');
+        await storageRef.putFile(_packagePhoto);
+        final photoUrl = await storageRef.getDownloadURL();
+        // wait for API
+      }catch(e){
+        print(e.toString());
+      }
     }
 
     useEffect(() {
@@ -204,6 +244,76 @@ class PostalAddScreen extends HookWidget {
                     ),
                     kSizedBoxVerticalS,
                     Row(
+                      children: [
+                        CustomText.sectionHeaderBlack(
+                          "Upload Photos (Optional)",
+                          context,
+                        ),
+                        kSizedBoxHorizontalXS,
+                        IconButton(
+                          splashRadius: kSizeS * 1.5,
+                          icon: Icon(
+                            Icons.cloud_upload_outlined,
+                          ),
+                          color: kBrandColor,
+                          onPressed: () {
+                            showModalBottomSheet<dynamic>(
+                              isScrollControlled: true,
+                              context: context,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(kSizeS),
+                                  topRight: Radius.circular(kSizeS),
+                                ),
+                              ),
+                              builder: (context) {
+                                return Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.2,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.7,
+                                        child: CustomButton(
+                                          text: "Take a photo",
+                                          onPressed: _takePhoto,
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: kSizeXS,
+                                            horizontal: kSizeXS,
+                                          ),
+                                        ),
+                                      ),
+                                      kSizedBoxVerticalXS,
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.7,
+                                        child: CustomButton(
+                                          text: "Choose from gallery",
+                                          onPressed: _openGallery,
+                                          color: kWarningColor,
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: kSizeXS,
+                                            horizontal: kSizeXS,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    kSizedBoxVerticalL,
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Container(
@@ -233,6 +343,7 @@ class PostalAddScreen extends HookWidget {
                         ),
                       ],
                     ),
+                    kSizedBoxVerticalM,
                   ],
                 ),
               ),

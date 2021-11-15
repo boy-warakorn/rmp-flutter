@@ -40,7 +40,8 @@ class ReplyScreen extends HookWidget {
             resolveBy: "condos personnel",
           ),
         );
-        Navigator.of(context).popUntil(ModalRoute.withName(PreLoadingScreen.routeName));
+        Navigator.of(context)
+            .popUntil(ModalRoute.withName(PreLoadingScreen.routeName));
       } catch (_) {}
     }
 
@@ -123,6 +124,29 @@ class ReplyScreen extends HookWidget {
                                   head: "Reply Detail",
                                   detail: _report.value.respondDetail!,
                                 ),
+                          kSizedBoxVerticalS,
+                          kSizedBoxVerticalXS,
+                          CustomText.sectionHeaderBlack(
+                            "Evidences",
+                            context,
+                          ),
+                          kSizedBoxVerticalS,
+                          GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 180,
+                              childAspectRatio: 1.5,
+                              mainAxisSpacing: kSizeS,
+                              crossAxisSpacing: kSizeS,
+                            ),
+                            itemCount: 4,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Image.network(
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png',
+                              );
+                            },
+                          ),
                           kSizedBoxVerticalS,
                           kSizedBoxVerticalXS,
                           Row(
