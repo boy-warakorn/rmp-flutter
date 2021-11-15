@@ -161,7 +161,7 @@ class PackageRepository implements BasePackageRepository {
       final pref = await SharedPreferences.getInstance();
       final token = pref.getString("token");
 
-      final response = await dio.get(getPackagesUrl,
+      final response = await dio.get(getPackagesByResidentUrl,
           options: Options(
             headers: {
               "Authorization": "Bearer $token",
