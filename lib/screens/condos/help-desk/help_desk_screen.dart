@@ -8,7 +8,7 @@ import 'package:rmp_flutter/screens/condos/help-desk/reply_screen.dart';
 import 'package:rmp_flutter/widgets/general/help_desk_card.dart';
 import 'package:rmp_flutter/utils/date_format.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
-import 'package:rmp_flutter/widgets/interactions/custom_slider.dart';
+import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
 
 class HelpDeskScreen extends HookConsumerWidget {
   static const routeName = "/condo/helpdesk";
@@ -17,52 +17,45 @@ class HelpDeskScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _isResponded = useState(true);
-
+    final _tabIndex = useState(0);
     final _reports = useState(ReportsModel(reports: []));
     final _isLoading = useState(false);
 
     void fetchReports() async {
       _isLoading.value = true;
       _reports.value =
-          await ReportRepository().getReportsByCondo(_isResponded.value);
+          await ReportRepository().getReportsByCondo(_tabIndex.value == 1);
       _isLoading.value = false;
-    }
-
-    useEffect(() {
-      fetchReports();
-    }, []);
-
-    void switchResponded(bool switchTo) {
-      _isResponded.value = switchTo;
     }
 
     useEffect(
       () {
         fetchReports();
       },
-      [_isResponded.value],
+      [_tabIndex.value],
     );
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: kSizeS * (24 / 16),
-      ),
-      child: Column(
-        children: [
-          kSizedBoxVerticalS,
-          kSizedBoxVerticalXS,
-          CustomSlider(
-            isResponded: _isResponded.value,
-            onValueChanged: (switchTo) => switchResponded(switchTo),
-          ),
-          kSizedBoxVerticalS,
-          kSizedBoxHorizontalXS,
-          _isLoading.value
+    return Column(
+      children: [
+        TextTab(
+          labels: [
+            "Incoming",
+            "Responded",
+          ],
+          selectedIndex: _tabIndex.value,
+          onSelect: (i) {
+            _tabIndex.value = i;
+          },
+        ),
+        Expanded(
+          child: _isLoading.value
               ? Center(
                   child: CircularProgressIndicator(),
                 )
-              : Expanded(
+              : Padding(
+                  padding: const EdgeInsets.all(
+                    kSizeS * (24 / 16),
+                  ),
                   child: ListView.builder(
                     itemCount: _reports.value.reports.length,
                     itemBuilder: (context, index) {
@@ -79,14 +72,15 @@ class HelpDeskScreen extends HookConsumerWidget {
                                     arguments: _currentReport.id)
                                 .then((value) => fetchReports());
                           },
-                          text: !_isResponded.value ? "Reply" : "See detail",
+                          text:
+                              !(_tabIndex.value == 1) ? "Reply" : "See detail",
                         ),
                       );
                     },
                   ),
                 ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
