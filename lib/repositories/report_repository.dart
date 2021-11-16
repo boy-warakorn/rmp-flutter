@@ -7,7 +7,7 @@ import 'package:rmp_flutter/repositories/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class BaseReportRepository {
-  Future<ReportsModel> getReportsByResident();
+  Future<ReportsModel> getReportsByResident(String status);
   Future<Report> getReport(String id);
   Future<void> createReport(CreateReportDto createReportDto);
   Future<ReportsModel> getReportsByCondo(bool isResponded);
@@ -43,7 +43,7 @@ class ResolveReportDto {
 
 class ReportRepository implements BaseReportRepository {
   @override
-  Future<ReportsModel> getReportsByResident() async {
+  Future<ReportsModel> getReportsByResident(String status) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
@@ -54,6 +54,9 @@ class ReportRepository implements BaseReportRepository {
             'Authorization': 'Bearer $token',
           },
         ),
+        queryParameters: {
+          'status' : status,
+        }
       );
       return ReportsModel.fromJson(result);
     } on DioError catch (_) {

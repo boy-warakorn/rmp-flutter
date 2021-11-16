@@ -7,7 +7,6 @@ import 'package:rmp_flutter/repositories/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class BasePaymentRepository {
-  Future<PaymentModel> getPaymentByResident();
   Future<Payment> getCommonCharge();
   Future<void> paySpecificPayment(String id, String receiptUrl);
   Future<PaymentModel> getPaymentByStatus(String status);
@@ -30,25 +29,6 @@ class CreatePaymentDto {
 }
 
 class PaymentRepository implements BasePaymentRepository {
-  @override
-  Future<PaymentModel> getPaymentByResident() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('token');
-      final result = await dio.get(
-        getPaymentsUrl,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
-        ),
-      );
-      return PaymentModel.fromJson(result);
-    } on DioError catch (_) {
-      throw HttpException("Get Payment By Resident Failed");
-    }
-  }
-
   @override
   Future<Payment> getCommonCharge() async {
     try {

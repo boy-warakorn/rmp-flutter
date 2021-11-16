@@ -9,6 +9,7 @@ import 'package:rmp_flutter/screens/residents/contact-support/report_detail_scre
 import 'package:rmp_flutter/utils/date_format.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
+import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
 
 class ContactSupportScreen extends HookConsumerWidget {
   static const routeName = "/resident/contact-support";
@@ -18,16 +19,20 @@ class ContactSupportScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _reports = useState(ReportsModel(reports: []));
     final _isLoading = useState(false);
+    final List<String> _items = ["Responded", "Pending", "Resolved"];
+    final _tabIndex = useState(0);
 
     void fetchReports() async {
+      final reportStatus = _items[_tabIndex.value].toLowerCase();
       _isLoading.value = true;
-      _reports.value = await ReportRepository().getReportsByResident();
+      _reports.value =
+          await ReportRepository().getReportsByResident(reportStatus);
       _isLoading.value = false;
     }
 
     useEffect(() {
       fetchReports();
-    }, []);
+    }, [_tabIndex.value]);
 
     return Container(
       decoration: BoxDecoration(
@@ -55,14 +60,15 @@ class ContactSupportScreen extends HookConsumerWidget {
                   "Contact Support",
                   context,
                 ),
+                kSizedBoxVerticalS,
               ],
             ),
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.all(
-                kSizeS * 1.5,
-              ),
+              // padding: EdgeInsets.all(
+              //   kSizeS * 1.5,
+              // ),
               decoration: BoxDecoration(
                 color: kBgColor,
                 borderRadius: BorderRadius.vertical(
@@ -74,9 +80,12 @@ class ContactSupportScreen extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomText.sectionHeader(
-                    "All Issues",
-                    context,
+                  TextTab(
+                    labels: _items,
+                    selectedIndex: _tabIndex.value,
+                    onSelect: (p0){
+                      _tabIndex.value = p0;
+                    },
                   ),
                   kSizedBoxVerticalS,
                   _isLoading.value
@@ -90,15 +99,20 @@ class ContactSupportScreen extends HookConsumerWidget {
                               final _currentReport =
                                   _reports.value.reports[index];
 
-                              return EntityCard(
-                                title: _currentReport.title,
-                                subtitle:
-                                    "Requested Date: ${formattedDate(_currentReport.requestedDate)}",
-                                statusKey: _currentReport.status,
-                                onPressed: () => Navigator.of(context)
-                                    .pushNamed(ReportDetailScreen.routeName,
-                                        arguments: _currentReport.id)
-                                    .then((value) => fetchReports()),
+                              return Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: kSizeS * 1.5,
+                                ),
+                                child: EntityCard(
+                                  title: _currentReport.title,
+                                  subtitle:
+                                      "Requested Date: ${formattedDate(_currentReport.requestedDate)}",
+                                  statusKey: _currentReport.status,
+                                  onPressed: () => Navigator.of(context)
+                                      .pushNamed(ReportDetailScreen.routeName,
+                                          arguments: _currentReport.id)
+                                      .then((value) => fetchReports()),
+                                ),
                               );
                             },
                           ),

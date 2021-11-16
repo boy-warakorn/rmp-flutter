@@ -6,7 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/payment.dart';
-import 'package:rmp_flutter/repositories/payment_repository.dart';
 import 'package:rmp_flutter/screens/residents/payment/specific_payment_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/payment_card.dart';
@@ -24,7 +23,7 @@ class PaymentScreen extends HookConsumerWidget {
 
     void fetchPayment() async {
       _isLoading.value = true;
-      _payments.value = await PaymentRepository().getPaymentByResident();
+      // _payments.value = await PaymentRepository().getPaymentByResident();
       _isLoading.value = false;
     }
 

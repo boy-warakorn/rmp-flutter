@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
@@ -19,34 +23,26 @@ class ContactFormScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _title = useTextEditingController();
     final _detail = useTextEditingController();
-    List<Asset> images = <Asset>[];
+    final List<String> _listOfUrl = [];
 
-    Future<void> _openGallery() async {
-      List<Asset> resultList = <Asset>[];
+    Future<void> _openAndUpload() async {
+      final ImagePicker _picker = ImagePicker();
+      final List<XFile>? pickedFileList = await _picker.pickMultiImage();
       try {
-        resultList = await MultiImagePicker.pickImages(
-          maxImages: 20,
-          enableCamera: true,
-          selectedAssets: images,
-          materialOptions: MaterialOptions(
-            actionBarColor: "#3A49F8",
-            actionBarTitle: "Choose from Gallery",
-            allViewTitle: "All Photos",
-            useDetailsView: false,
-            selectCircleStrokeColor: "#000000",
-          ),
-        );
-        images = resultList;
-        for (int i = 0; i < images.length; i++) {
-          print(images[i].name! + " ");
+        if (pickedFileList!.isNotEmpty) {
+          for(int i = 0; i < pickedFileList.length; i++){
+            final _fileName = basename(pickedFileList[i].path);
+            final storageRef = FirebaseStorage.instance.ref().child('evidences/$_fileName');
+            await storageRef.putFile(File(pickedFileList[i].path));
+            final url = await storageRef.getDownloadURL();
+            print(url.toString());
+            _listOfUrl.add(url.toString());
+          }
         }
+
       } catch (e) {
         print(e.toString());
       }
-    }
-
-    Future<void> _uploadPhoto() async{
-      
     }
 
     return Scaffold(
@@ -87,7 +83,7 @@ class ContactFormScreen extends HookWidget {
                       Icons.cloud_upload_outlined,
                     ),
                     color: kBrandColor,
-                    onPressed: () => _openGallery(),
+                    onPressed: () => _openAndUpload(),
                   ),
                 ],
               ),
@@ -121,7 +117,6 @@ class ContactFormScreen extends HookWidget {
                             ),
                           );
                         } catch (_) {}
-
                         Navigator.of(context)
                             .pushNamed(ContactResultScreen.routeName);
                       },
