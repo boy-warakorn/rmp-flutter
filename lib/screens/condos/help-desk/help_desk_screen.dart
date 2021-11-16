@@ -17,9 +17,7 @@ class HelpDeskScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _isResponded = useState(true);
     final _tabIndex = useState(0);
-
     final _reports = useState(ReportsModel(reports: []));
     final _isLoading = useState(false);
 
@@ -79,7 +77,7 @@ class HelpDeskScreen extends HookConsumerWidget {
                                           arguments: _currentReport.id)
                                       .then((value) => fetchReports());
                                 },
-                                text: !_isResponded.value
+                                text: !(_tabIndex.value == 1)
                                     ? "Reply"
                                     : "See detail",
                               ),
