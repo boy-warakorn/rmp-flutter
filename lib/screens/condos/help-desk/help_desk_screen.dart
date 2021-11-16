@@ -48,46 +48,37 @@ class HelpDeskScreen extends HookConsumerWidget {
           },
         ),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: kSizeS * (24 / 16),
-              vertical: kSizeS * (24 / 16),
-            ),
-            child: Column(
-              children: [
-                _isLoading.value
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Expanded(
-                        child: ListView.builder(
-                          itemCount: _reports.value.reports.length,
-                          itemBuilder: (context, index) {
-                            final _currentReport =
-                                _reports.value.reports[index];
-                            return HelpDeskCard(
-                              owner: _currentReport.reportOwner,
-                              title: _currentReport.title,
-                              date: formattedDate(_currentReport.requestedDate),
-                              detail: _currentReport.detail,
-                              actionButton: CustomButton(
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pushNamed(ReplyScreen.routeName,
-                                          arguments: _currentReport.id)
-                                      .then((value) => fetchReports());
-                                },
-                                text: !(_tabIndex.value == 1)
-                                    ? "Reply"
-                                    : "See detail",
-                              ),
-                            );
+          child: _isLoading.value
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(
+                    kSizeS * (24 / 16),
+                  ),
+                  child: ListView.builder(
+                    itemCount: _reports.value.reports.length,
+                    itemBuilder: (context, index) {
+                      final _currentReport = _reports.value.reports[index];
+                      return HelpDeskCard(
+                        owner: _currentReport.reportOwner,
+                        title: _currentReport.title,
+                        date: formattedDate(_currentReport.requestedDate),
+                        detail: _currentReport.detail,
+                        actionButton: CustomButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(ReplyScreen.routeName,
+                                    arguments: _currentReport.id)
+                                .then((value) => fetchReports());
                           },
+                          text:
+                              !(_tabIndex.value == 1) ? "Reply" : "See detail",
                         ),
-                      ),
-              ],
-            ),
-          ),
+                      );
+                    },
+                  ),
+                ),
         ),
       ],
     );
