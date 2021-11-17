@@ -37,7 +37,7 @@ class TextWallDisplay extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
