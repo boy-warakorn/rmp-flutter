@@ -112,11 +112,11 @@ class ReportDetailScreen extends HookConsumerWidget {
                         crossAxisSpacing: kSizeS,
                         mainAxisSpacing: kSizeS,
                       ),
-                      itemCount: 2,
+                      itemCount: _report.value.imgList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return Image.network(
-                          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png',
+                          _report.value.imgList[index],
                         );
                       },
                     ),

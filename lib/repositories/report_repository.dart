@@ -19,10 +19,12 @@ abstract class BaseReportRepository {
 class CreateReportDto {
   final String title;
   final String detail;
+  final List<String> imgList;
 
   CreateReportDto({
     required this.detail,
     required this.title,
+    required this.imgList,
   });
 }
 
@@ -92,7 +94,8 @@ class ReportRepository implements BaseReportRepository {
         createReportUrl,
         data: {
           "title": createReportDto.title,
-          "detail": createReportDto.detail
+          "detail": createReportDto.detail,
+          "imgList": createReportDto.imgList,
         },
         options: Options(
           headers: {

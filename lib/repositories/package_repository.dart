@@ -11,12 +11,14 @@ class PackageDto {
   final String note;
   final String arrivedAt;
   final String postalService;
+  final List<String> imgList;
 
   PackageDto({
     required this.roomNumber,
     this.note = "",
     required this.arrivedAt,
     required this.postalService,
+    required this.imgList,
   });
 }
 
@@ -45,6 +47,7 @@ class PackageRepository implements BasePackageRepository {
           "note": package.note,
           "arrivedAt": package.arrivedAt,
           "postalService": package.postalService,
+          "imgList" : package.imgList,
         },
         options: Options(headers: {
           "Authorization": "Bearer $token",
@@ -84,6 +87,7 @@ class PackageRepository implements BasePackageRepository {
           "note": package.note,
           "arrivedAt": package.arrivedAt,
           "postalService": package.postalService,
+          "imgList" : package.imgList,
         },
         options: Options(
           headers: {

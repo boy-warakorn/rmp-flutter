@@ -34,7 +34,6 @@ class ContactFormScreen extends HookWidget {
           for(int i = 0; i < pickedFileList.length; i++){
             _files.add(pickedFileList[i]);
           }
-          print(_files.length);
         }
 
       } catch (e) {
@@ -112,14 +111,13 @@ class ContactFormScreen extends HookWidget {
                             final storageRef = FirebaseStorage.instance.ref().child('evidences/$_fileName');
                             await storageRef.putFile(File(_files[i].path));
                             final url = await storageRef.getDownloadURL();
-                            print(url.toString());
                             _listOfUrl.add(url.toString());
                           }
                           await ReportRepository().createReport(
                             CreateReportDto(
                               detail: _detail.text,
                               title: _title.text,
-                              //url : _listOfUrl,
+                              imgList : _listOfUrl,
                             ),
                           );
                         } catch (_) {}

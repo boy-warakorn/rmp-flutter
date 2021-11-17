@@ -133,8 +133,9 @@ class PackageDetailScreen extends HookWidget {
                 context,
               ),
               kSizedBoxVerticalS,
+              if(_package.value.imgList.isNotEmpty)
               Image.network(
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png',
+                _package.value.imgList[0],
               ),
               kSizedBoxVerticalM,
               Row(
