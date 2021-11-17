@@ -24,20 +24,17 @@ class ContactFormScreen extends HookWidget {
     final _title = useTextEditingController();
     final _detail = useTextEditingController();
     final List<String> _listOfUrl = [];
+    final List<XFile> _files = [];
 
-    Future<void> _openAndUpload() async {
+    Future<void> _openGallery() async {
       final ImagePicker _picker = ImagePicker();
       final List<XFile>? pickedFileList = await _picker.pickMultiImage();
       try {
         if (pickedFileList!.isNotEmpty) {
           for(int i = 0; i < pickedFileList.length; i++){
-            final _fileName = basename(pickedFileList[i].path);
-            final storageRef = FirebaseStorage.instance.ref().child('evidences/$_fileName');
-            await storageRef.putFile(File(pickedFileList[i].path));
-            final url = await storageRef.getDownloadURL();
-            print(url.toString());
-            _listOfUrl.add(url.toString());
+            _files.add(pickedFileList[i]);
           }
+          print(_files.length);
         }
 
       } catch (e) {
@@ -83,7 +80,7 @@ class ContactFormScreen extends HookWidget {
                       Icons.cloud_upload_outlined,
                     ),
                     color: kBrandColor,
-                    onPressed: () => _openAndUpload(),
+                    onPressed: () => _openGallery(),
                   ),
                 ],
               ),
@@ -108,12 +105,21 @@ class ContactFormScreen extends HookWidget {
                     child: CustomButton(
                       text: "SEND",
                       onPressed: () async {
-                        if (_title.text.isEmpty || _detail.text.isEmpty) return;
+                        if (_title.text.isEmpty || _detail.text.isEmpty && _files.isEmpty) return;
                         try {
+                          for(int i = 0; i < _files.length; i++){
+                            final _fileName = basename(_files[i].path);
+                            final storageRef = FirebaseStorage.instance.ref().child('evidences/$_fileName');
+                            await storageRef.putFile(File(_files[i].path));
+                            final url = await storageRef.getDownloadURL();
+                            print(url.toString());
+                            _listOfUrl.add(url.toString());
+                          }
                           await ReportRepository().createReport(
                             CreateReportDto(
                               detail: _detail.text,
                               title: _title.text,
+                              //url : _listOfUrl,
                             ),
                           );
                         } catch (_) {}
