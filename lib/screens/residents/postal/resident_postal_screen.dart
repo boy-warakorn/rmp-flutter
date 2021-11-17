@@ -5,19 +5,26 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
+import 'package:rmp_flutter/widgets/general/empty_list_display.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
 import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
 
-const tabs = [
-  "Received",
-  "Not Received",
-];
-
-const dummyImgUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png";
+const dummyImgUrl =
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png";
 
 class ResidentPostalScreen extends HookWidget {
   static const routeName = "/resident/postal";
   const ResidentPostalScreen({Key? key}) : super(key: key);
+
+  static const _tabs = [
+    "Received",
+    "Not Received",
+  ];
+
+  static const _emptyLabels = [
+    "No received package",
+    "No new package",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +46,7 @@ class ResidentPostalScreen extends HookWidget {
     return Column(
       children: [
         TextTab(
-          labels: tabs,
+          labels: _tabs,
           onSelect: (i) {
             _tabIndex.value = i;
           },
@@ -52,36 +59,39 @@ class ResidentPostalScreen extends HookWidget {
             ),
             child: Column(
               children: [
-                kSizedBoxVerticalS,
+                kSizedBoxVerticalM,
                 kSizedBoxVerticalXS,
-                kSizedBoxVerticalS,
-                kSizedBoxHorizontalXS,
                 _isLoading.value
                     ? Center(
                         child: CircularProgressIndicator(),
                       )
-                    : Expanded(
-                        child: GridView.builder(
-                          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 180,
-                            childAspectRatio: 1 / 1.5,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: kSizeS * 1.5,
+                    : _packages.value.packages.isEmpty
+                        ? EmptyListDisplay(
+                          text: _emptyLabels[_tabIndex.value],
+                        )
+                        : Expanded(
+                            child: GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 180,
+                                childAspectRatio: 1 / 1.5,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: kSizeS * 1.5,
+                              ),
+                              itemCount: _packages.value.packages.length,
+                              itemBuilder: (context, index) {
+                                final pk = _packages.value.packages[index];
+                                return EntityCard(
+                                  title: pk.postalService,
+                                  onPressed: () {},
+                                  subtitle: "Arrived ${pk.arrivedAt}",
+                                  statusKey: pk.status,
+                                  imageUrl: dummyImgUrl,
+                                  isPostal: true,
+                                );
+                              },
+                            ),
                           ),
-                          itemCount: _packages.value.packages.length,
-                          itemBuilder: (context, index) {
-                            final pk = _packages.value.packages[index];
-                            return EntityCard(
-                              title: pk.postalService,
-                              onPressed: () {},
-                              subtitle: "Arrived ${pk.arrivedAt}",
-                              statusKey: pk.status,
-                              imageUrl: dummyImgUrl,
-                              isPostal: true,
-                            );
-                          },
-                        ),
-                      ),
               ],
             ),
           ),
