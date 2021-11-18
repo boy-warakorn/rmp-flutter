@@ -45,26 +45,29 @@ class DashboardScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final _packagesTotal = useState(PackagesModel(packages: []));
     final _packagesReceived = useState(PackagesModel(packages: []));
-    final _isLoading = useState(true);
+    final _isLoading = useState(false);
     final _reportsResponded = useState(ReportsModel(reports: []));
     final _reportsPending = useState(ReportsModel(reports: []));
     final _isResponded = useState(true);
 
     void fetchData() async {
       _isLoading.value = true;
-      _packagesTotal.value = await PackageRepository().getPackages("");
-      _reportsResponded.value = await ReportRepository().getReportsByCondo(_isResponded.value);
-      _reportsPending.value = await ReportRepository().getReportsByCondo(!_isResponded.value);
-      _packagesReceived.value = await PackageRepository().getPackageByResident(false);
+      _packagesTotal.value =
+          await PackageRepository().getPackages("in-storage");
+      _reportsResponded.value =
+          await ReportRepository().getReportsByCondo(_isResponded.value);
+      _reportsPending.value =
+          await ReportRepository().getReportsByCondo(!_isResponded.value);
+      _packagesReceived.value =
+          await PackageRepository().getPackageByResident(!_isResponded.value);
       _isLoading.value = false;
     }
 
-    useEffect((){
-      fetchData();
-    });
+    // useEffect(() {
+    //   fetchData();
+    // });
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -72,61 +75,69 @@ class DashboardScreen extends HookWidget {
           padding: const EdgeInsets.all(
             kSizeS * (24 / 16),
           ),
-          child: Column(
-            children: [
-              _buildTitleCardGroup(
-                context,
-                header: "Postal Package",
-                leftCard: TitleCard(
-                  title: "Received",
-                  subtitle: _packagesReceived.value.packages.length.toString(),
+          child: _isLoading.value
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
+                  children: [
+                    _buildTitleCardGroup(
+                      context,
+                      header: "Postal Package",
+                      leftCard: TitleCard(
+                        title: "Received",
+                        subtitle:
+                            _packagesReceived.value.packages.length.toString(),
+                      ),
+                      rightCard: TitleCard(
+                        title: "Total",
+                        subtitle:
+                            _packagesTotal.value.packages.length.toString(),
+                      ),
+                    ),
+                    kSizedBoxVerticalM,
+                    _buildTitleCardGroup(
+                      context,
+                      header: "Residential Report",
+                      leftCard: TitleCard(
+                        title: "Unread",
+                        subtitle:
+                            _reportsPending.value.reports.length.toString(),
+                      ),
+                      rightCard: TitleCard(
+                        title: "Replied",
+                        subtitle:
+                            _reportsResponded.value.reports.length.toString(),
+                      ),
+                    ),
+                    kSizedBoxVerticalS,
+                    // CardTemplate(
+                    //   child: Column(
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     children: [
+                    // Text(
+                    //   "All Reports",
+                    //   style: Theme.of(context).textTheme.headline4,
+                    // ),
+                    // kSizedBoxVerticalS,
+                    // kSizedBoxVerticalXS,
+                    // SummaryEntity(
+                    //   text: "Summ",
+                    //   count: 1,
+                    // ),
+                    // SummaryEntity(
+                    //   text: "Summ",
+                    //   count: 9,
+                    // ),
+                    // SummaryEntity(
+                    //   text: "Summ",
+                    //   count: 10,
+                    // ),
+                    //     ],
+                    //   ),
+                    // ),
+                  ],
                 ),
-                rightCard: TitleCard(
-                  title: "Total",
-                  subtitle: _packagesTotal.value.packages.length.toString(),
-                ),
-              ),
-              kSizedBoxVerticalS,
-              _buildTitleCardGroup(
-                context,
-                header: "Residential Report",
-                leftCard: TitleCard(
-                  title: "Unread",
-                  subtitle: _reportsPending.value.reports.length.toString(),
-                ),
-                rightCard: TitleCard(
-                  title: "Replied",
-                  subtitle: _reportsResponded.value.reports.length.toString(),
-                ),
-              ),
-              kSizedBoxVerticalS,
-              // CardTemplate(
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              // Text(
-              //   "All Reports",
-              //   style: Theme.of(context).textTheme.headline4,
-              // ),
-              // kSizedBoxVerticalS,
-              // kSizedBoxVerticalXS,
-              // SummaryEntity(
-              //   text: "Summ",
-              //   count: 1,
-              // ),
-              // SummaryEntity(
-              //   text: "Summ",
-              //   count: 9,
-              // ),
-              // SummaryEntity(
-              //   text: "Summ",
-              //   count: 10,
-              // ),
-              //     ],
-              //   ),
-              // ),
-            ],
-          ),
         ),
       ),
     );
