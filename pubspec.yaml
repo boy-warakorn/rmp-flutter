@@ -26,7 +26,6 @@ dependencies:
   firebase_storage: ^10.0.3
   firebase_core: ^1.6.0
   path: ^1.8.0
-  multi_image_picker2: ^5.0.02
   persistent_bottom_nav_bar: ^4.0.2
 
 dev_dependencies:
