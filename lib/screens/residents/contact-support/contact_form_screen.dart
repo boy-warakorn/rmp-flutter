@@ -23,6 +23,7 @@ class ContactFormScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _title = useTextEditingController();
     final _detail = useTextEditingController();
+    final _isLoading = useState(false);
     final List<String> _listOfUrl = [];
     final List<XFile> _files = [];
 
@@ -43,98 +44,106 @@ class ContactFormScreen extends HookWidget {
     return Scaffold(
       appBar: BackAppBar(),
       backgroundColor: kBgColor,
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(
-            left: kSizeS * 1.5,
-            right: kSizeS * 1.5,
-            top: kSizeS * 1.75,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FormTextField(
-                fieldName: "Title",
-                textEditingController: _title,
-              ),
-              kSizedBoxVerticalS,
-              FormTextArea(
-                fieldName: "Complaint Detail",
-                textEditingController: _detail,
-                minLine: 10,
-                maxLine: 20,
-              ),
-              kSizedBoxVerticalS,
-              Row(
-                children: [
-                  CustomText.sectionHeaderBlack(
-                    "Upload Photos (Optional)",
-                    context,
-                  ),
-                  kSizedBoxHorizontalXS,
-                  IconButton(
-                    splashRadius: kSizeS * 1.5,
-                    icon: Icon(
-                      Icons.cloud_upload_outlined,
+      body: _isLoading.value
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(
+                  left: kSizeS * 1.5,
+                  right: kSizeS * 1.5,
+                  top: kSizeS * 1.75,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FormTextField(
+                      fieldName: "Title",
+                      textEditingController: _title,
                     ),
-                    color: kBrandColor,
-                    onPressed: () => _openGallery(),
-                  ),
-                ],
-              ),
-              kSizedBoxVerticalL,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    width: kSizeXL / 1.25,
-                    child: CustomButton(
-                      text: "CLEAR",
-                      onPressed: () {
-                        _title.text = "";
-                        _detail.text = "";
-                      },
-                      color: kWarningColor,
+                    kSizedBoxVerticalS,
+                    FormTextArea(
+                      fieldName: "Complaint Detail",
+                      textEditingController: _detail,
+                      minLine: 10,
+                      maxLine: 20,
                     ),
-                  ),
-                  kSizedBoxHorizontalS,
-                  Container(
-                    width: kSizeXL / 1.25,
-                    child: CustomButton(
-                      text: "SEND",
-                      onPressed: () async {
-                        if (_title.text.isEmpty ||
-                            _detail.text.isEmpty && _files.isEmpty) return;
-                        try {
-                          for (int i = 0; i < _files.length; i++) {
-                            final _fileName = basename(_files[i].path);
-                            final storageRef = FirebaseStorage.instance
-                                .ref()
-                                .child('evidences/$_fileName');
-                            await storageRef.putFile(File(_files[i].path));
-                            final url = await storageRef.getDownloadURL();
-                            _listOfUrl.add(url.toString());
-                          }
-                          await ReportRepository().createReport(
-                            CreateReportDto(
-                              detail: _detail.text,
-                              title: _title.text,
-                              imgList: _listOfUrl,
-                            ),
-                          );
-                        } catch (_) {}
-                        Navigator.of(context)
-                            .pushNamed(ContactResultScreen.routeName);
-                      },
+                    kSizedBoxVerticalS,
+                    Row(
+                      children: [
+                        CustomText.sectionHeaderBlack(
+                          "Upload Photos (Optional)",
+                          context,
+                        ),
+                        kSizedBoxHorizontalXS,
+                        IconButton(
+                          splashRadius: kSizeS * 1.5,
+                          icon: Icon(
+                            Icons.cloud_upload_outlined,
+                          ),
+                          color: kBrandColor,
+                          onPressed: () => _openGallery(),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    kSizedBoxVerticalL,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          width: kSizeXL / 1.25,
+                          child: CustomButton(
+                            text: "CLEAR",
+                            onPressed: () {
+                              _title.text = "";
+                              _detail.text = "";
+                            },
+                            color: kWarningColor,
+                          ),
+                        ),
+                        kSizedBoxHorizontalS,
+                        Container(
+                          width: kSizeXL / 1.25,
+                          child: CustomButton(
+                            text: "SEND",
+                            onPressed: () async {
+                              if (_title.text.isEmpty ||
+                                  _detail.text.isEmpty && _files.isEmpty)
+                                return;
+                              try {
+                                _isLoading.value = true;
+                                for (int i = 0; i < _files.length; i++) {
+                                  final _fileName = basename(_files[i].path);
+                                  final storageRef = FirebaseStorage.instance
+                                      .ref()
+                                      .child('evidences/$_fileName');
+                                  await storageRef
+                                      .putFile(File(_files[i].path));
+                                  final url = await storageRef.getDownloadURL();
+                                  _listOfUrl.add(url.toString());
+                                }
+                                await ReportRepository().createReport(
+                                  CreateReportDto(
+                                    detail: _detail.text,
+                                    title: _title.text,
+                                    imgList: _listOfUrl,
+                                  ),
+                                );
+                                _isLoading.value = false;
+                              } catch (_) {}
+                              Navigator.of(context)
+                                  .pushNamed(ContactResultScreen.routeName);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    kSizedBoxVerticalM,
+                  ],
+                ),
               ),
-              kSizedBoxVerticalM,
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

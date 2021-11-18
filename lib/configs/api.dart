@@ -22,6 +22,7 @@ const getRoomIdListUrl = "$baseRoomsUrl/id-list";
 // report
 const baseReportUrl = "$baseApiUrl/reports";
 const getReportsUrl = baseReportUrl;
+const getReportsResidentUrl = "$baseReportUrl/resident";
 const createReportUrl = baseReportUrl;
 String getReportUrl(String id) => "$baseReportUrl/$id";
 String replyReportUrl(String id) => "$baseReportUrl/$id/reply";

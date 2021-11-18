@@ -50,7 +50,7 @@ class ReportRepository implements BaseReportRepository {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
       final result = await dio.get(
-        getReportsUrl,
+        getReportsResidentUrl,
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',

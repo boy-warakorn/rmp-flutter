@@ -19,20 +19,34 @@ class ContactSupportScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _reports = useState(ReportsModel(reports: []));
     final _isLoading = useState(false);
-    final List<String> _items = ["Responded", "Pending", "Resolved"];
-    final _tabIndex = useState(0);
+    final List<String> _items = [
+      "Responded",
+      "Pending",
+      "Resolved",
+    ];
+    final List<String> _complaintAndMaintenance = [
+      "Complaint",
+      "Maintenance",
+    ];
+    final _bottomTabIndex = useState(0);
+    final _topTabIndex = useState(0);
 
     void fetchReports() async {
-      final reportStatus = _items[_tabIndex.value].toLowerCase();
+      final reportStatus = _items[_bottomTabIndex.value].toLowerCase();
+      final reportType = _complaintAndMaintenance[_topTabIndex.value].toLowerCase();
       _isLoading.value = true;
       _reports.value =
           await ReportRepository().getReportsByResident(reportStatus);
+      //fetch report type
       _isLoading.value = false;
     }
 
     useEffect(() {
       fetchReports();
-    }, [_tabIndex.value]);
+    }, [
+      _bottomTabIndex.value,
+      _topTabIndex.value,
+    ]);
 
     return Container(
       decoration: BoxDecoration(
@@ -81,10 +95,18 @@ class ContactSupportScreen extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextTab(
+                    labels: _complaintAndMaintenance,
+                    selectedIndex: _topTabIndex.value,
+                    onSelect: (p0) {
+                      _topTabIndex.value = p0;
+                    },
+                    selectedColor: kBrandAlternativeDarkerColor,
+                  ),
+                  TextTab(
                     labels: _items,
-                    selectedIndex: _tabIndex.value,
-                    onSelect: (p0){
-                      _tabIndex.value = p0;
+                    selectedIndex: _bottomTabIndex.value,
+                    onSelect: (p0) {
+                      _bottomTabIndex.value = p0;
                     },
                   ),
                   kSizedBoxVerticalS,

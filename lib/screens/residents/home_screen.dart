@@ -4,15 +4,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/providers/user_provider.dart';
-import 'package:rmp_flutter/widgets/general/announcement_card.dart';
+// import 'package:rmp_flutter/widgets/general/announcement_card.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 
-const _dummyData = [
-  {
-    "title": "Free Pizza 1",
-    "subtitle": "Come get free pizza at GYM",
-  },
-];
+// const _dummyData = [
+//   {
+//     "title": "Free Pizza 1",
+//     "subtitle": "Come get free pizza at GYM",
+//   },
+// ];
 
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -119,25 +119,25 @@ class ResidentHomeScreen extends HookConsumerWidget {
                                     ),
                                     kSizedBoxVerticalS,
                                     kSizedBoxVerticalXS,
-                                    CustomText.sectionHeader(
-                                      "Announcement",
-                                      context,
-                                    ),
-                                    kSizedBoxVerticalS,
-                                    Expanded(
-                                      child: ListView.builder(
-                                        itemCount: _dummyData.length,
-                                        itemBuilder: (context, index) {
-                                          return AnnouncementCard(
-                                            title: _dummyData[index]['title']
-                                                .toString(),
-                                            subtitle: _dummyData[index]
-                                                    ['subtitle']
-                                                .toString(),
-                                          );
-                                        },
-                                      ),
-                                    ),
+                                    // CustomText.sectionHeader(
+                                    //   "Announcement",
+                                    //   context,
+                                    // ),
+                                    // kSizedBoxVerticalS,
+                                    // Expanded(
+                                    //   child: ListView.builder(
+                                    //     itemCount: _dummyData.length,
+                                    //     itemBuilder: (context, index) {
+                                    //       return AnnouncementCard(
+                                    //         title: _dummyData[index]['title']
+                                    //             .toString(),
+                                    //         subtitle: _dummyData[index]
+                                    //                 ['subtitle']
+                                    //             .toString(),
+                                    //       );
+                                    //     },
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),

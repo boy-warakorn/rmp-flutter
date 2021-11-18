@@ -6,15 +6,20 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
-import 'package:rmp_flutter/screens/residents/contact-support/resident_reply_screen.dart';
 import 'package:rmp_flutter/widgets/dialogs/abort_issue_dialog.dart';
 import 'package:rmp_flutter/widgets/general/text_with_value.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
+import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class ReportDetailScreen extends HookConsumerWidget {
   static const routeName = "/resident/report-detail";
   const ReportDetailScreen({Key? key}) : super(key: key);
+
+  static const _tab = [
+    "Complaint",
+    "Respond",
+  ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,6 +28,7 @@ class ReportDetailScreen extends HookConsumerWidget {
     final _report = useState(
       Report.empty(),
     );
+    final _tabIndex = useState(0);
 
     final _abortDetail = useTextEditingController();
 
@@ -72,58 +78,74 @@ class ReportDetailScreen extends HookConsumerWidget {
                   ],
                 ),
               )
-            : Container(
-                padding: EdgeInsets.only(
-                  left: kSizeS * 1.5,
-                  right: kSizeS * 1.5,
-                  top: kSizeS,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Title",
-                      style: Theme.of(context).textTheme.headline3?.copyWith(
-                            color: kBlackColor,
-                          ),
+            : Column(
+                children: [
+                  TextTab(
+                    labels: _tab,
+                    selectedIndex: _tabIndex.value,
+                    onSelect: (p0) {
+                      _tabIndex.value = p0;
+                    },
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(
+                      left: kSizeS * 1.5,
+                      right: kSizeS * 1.5,
+                      top: kSizeS,
                     ),
-                    kSizedBoxVerticalS,
-                    Text(
-                      _report.value.title,
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                    kSizedBoxVerticalS,
-                    TextWithValue(
-                      head: "Issue Detail",
-                      detail: _report.value.detail,
-                    ),
-                    kSizedBoxVerticalM,
-                    Text(
-                      "Evidences",
-                      style: Theme.of(context).textTheme.headline3?.copyWith(
-                            color: kBlackColor,
-                          ),
-                    ),
-                    kSizedBoxVerticalS,
-                    GridView.builder(
-                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 180,
-                        childAspectRatio: 1.5,
-                        crossAxisSpacing: kSizeS,
-                        mainAxisSpacing: kSizeS,
-                      ),
-                      itemCount: _report.value.imgList.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Image.network(
-                          _report.value.imgList[index],
-                        );
-                      },
-                    ),
-                    kSizedBoxVerticalL,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text(
+                          "Title",
+                          style:
+                              Theme.of(context).textTheme.headline3?.copyWith(
+                                    color: kBlackColor,
+                                  ),
+                        ),
+                        kSizedBoxVerticalS,
+                        Text(
+                          _report.value.title,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        kSizedBoxVerticalS,
+                        _tabIndex.value == 1
+                            ? TextWithValue(
+                                head: "Reply Detail",
+                                detail: _report.value.respondDetail!.isEmpty
+                                    ? "No Reply yet."
+                                    : _report.value.respondDetail!,
+                              )
+                            : TextWithValue(
+                                head: "Issue Detail",
+                                detail: _report.value.detail,
+                              ),
+                        kSizedBoxVerticalM,
+                        Text(
+                          "Evidences",
+                          style:
+                              Theme.of(context).textTheme.headline3?.copyWith(
+                                    color: kBlackColor,
+                                  ),
+                        ),
+                        kSizedBoxVerticalS,
+                        GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 180,
+                            childAspectRatio: 1.5,
+                            crossAxisSpacing: kSizeS,
+                            mainAxisSpacing: kSizeS,
+                          ),
+                          itemCount: _report.value.imgList.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return Image.network(
+                              _report.value.imgList[index],
+                            );
+                          },
+                        ),
+                        kSizedBoxVerticalL,
                         if (_report.value.status != "resolved")
                           CustomButton(
                             text: "Abort Issue",
@@ -134,30 +156,11 @@ class ReportDetailScreen extends HookConsumerWidget {
                               vertical: kSizeXS,
                             ),
                           ),
-                        kSizedBoxHorizontalXS,
-                        if (_report.value.respondDetail!.isNotEmpty)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              CustomButton(
-                                text: "See Reply",
-                                onPressed: () =>
-                                    Navigator.of(context).pushNamed(
-                                  ResidentReplyScreen.routeName,
-                                  arguments: _report.value.respondDetail,
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: kSizeS * 1.5,
-                                  vertical: kSizeXS,
-                                ),
-                              ),
-                            ],
-                          ),
+                        kSizedBoxVerticalM,
                       ],
                     ),
-                    kSizedBoxVerticalM,
-                  ],
-                ),
+                  ),
+                ],
               ),
       ),
     );

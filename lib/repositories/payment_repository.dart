@@ -76,7 +76,7 @@ class PaymentRepository implements BasePaymentRepository {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
       final result = await dio.get(
-        basePaymentUrl,
+        getPaymentsUrl,
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
