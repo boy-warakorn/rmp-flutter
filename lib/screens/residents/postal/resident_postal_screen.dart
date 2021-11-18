@@ -5,8 +5,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
+import 'package:rmp_flutter/screens/residents/postal/profile_card_screen.dart';
 import 'package:rmp_flutter/widgets/general/empty_list_display.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
+import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
 
 const dummyImgUrl =
@@ -65,33 +67,48 @@ class ResidentPostalScreen extends HookWidget {
                     ? Center(
                         child: CircularProgressIndicator(),
                       )
-                    : _packages.value.packages.isEmpty
-                        ? EmptyListDisplay(
-                          text: _emptyLabels[_tabIndex.value],
-                        )
-                        : Expanded(
-                            child: GridView.builder(
-                              gridDelegate:
-                                  SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 180,
-                                childAspectRatio: 1 / 1.5,
-                                crossAxisSpacing: 20,
-                                mainAxisSpacing: kSizeS * 1.5,
+                    : Expanded(
+                        child: _packages.value.packages.isEmpty
+                            ? EmptyListDisplay(
+                                text: _emptyLabels[_tabIndex.value],
+                              )
+                            : GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 180,
+                                  childAspectRatio: 1 / 1.5,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: kSizeS * 1.5,
+                                ),
+                                itemCount: _packages.value.packages.length,
+                                itemBuilder: (context, index) {
+                                  final pk = _packages.value.packages[index];
+                                  return EntityCard(
+                                    title: pk.postalService,
+                                    onPressed: () {},
+                                    subtitle: "Arrived ${pk.arrivedAt}",
+                                    statusKey: pk.status,
+                                    imageUrl: dummyImgUrl,
+                                    isPostal: true,
+                                  );
+                                },
                               ),
-                              itemCount: _packages.value.packages.length,
-                              itemBuilder: (context, index) {
-                                final pk = _packages.value.packages[index];
-                                return EntityCard(
-                                  title: pk.postalService,
-                                  onPressed: () {},
-                                  subtitle: "Arrived ${pk.arrivedAt}",
-                                  statusKey: pk.status,
-                                  imageUrl: dummyImgUrl,
-                                  isPostal: true,
-                                );
-                              },
-                            ),
-                          ),
+                      ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CustomButton(
+                      text: "SHOW IDENTIFICATION",
+                      onPressed: () => Navigator.of(context).pushNamed(
+                        ProfileCardScreen.routeName,
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        vertical: kSizeXS,
+                        horizontal: kSizeS,
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

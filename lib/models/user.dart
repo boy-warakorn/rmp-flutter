@@ -6,6 +6,7 @@ class UserModel {
   final String name;
   final String businessName;
   final String phoneNumber;
+  final String citizenNumber;
 
   UserModel({
     required this.role,
@@ -13,6 +14,7 @@ class UserModel {
     required this.businessName,
     required this.userId,
     required this.phoneNumber,
+    required this.citizenNumber,
   });
 
   factory UserModel.fromJson(dynamic fetchedResult) {
@@ -24,6 +26,7 @@ class UserModel {
       businessName: userResult["businessName"],
       userId: userResult["id"],
       phoneNumber: userResult["profile"]["phoneNumber"],
+      citizenNumber: userResult["profile"]["citizenNumber"],
     );
   }
 }

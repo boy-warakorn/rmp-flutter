@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 final currentUser = ChangeNotifierProvider((ref) => CurrentUser());
 
 class CurrentUser extends ChangeNotifier {
-  UserModel _user = UserModel(role: "", name: "", businessName: "", userId: "", phoneNumber: "");
+  UserModel _user = UserModel(role: "", name: "", businessName: "", userId: "", phoneNumber: "", citizenNumber: "",);
   bool _isLoading = false;
   UserModel get user => _user;
   bool get isLoading => _isLoading;
@@ -23,7 +23,7 @@ class CurrentUser extends ChangeNotifier {
   }
 
   void clearUser() async {
-    _user = UserModel(role: "", name: "", businessName: "", userId: "", phoneNumber: "");
+    _user = UserModel(role: "", name: "", businessName: "", userId: "", phoneNumber: "", citizenNumber: "",);
     final _prefs = await SharedPreferences.getInstance();
     _prefs.clear();
     notifyListeners();

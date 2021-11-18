@@ -20,7 +20,7 @@ class ProfileSettingScreen extends HookConsumerWidget {
     final _phoneNumber = ref.read(currentUser).user.phoneNumber;
     final _nameController = useTextEditingController(text: _name);
     final _phoneNumberController = useTextEditingController(
-        text: _phoneNumber); //TODO: will add phone number data
+        text: _phoneNumber);
     final _roleController = useTextEditingController(text: _role);
 
     return Scaffold(
@@ -31,83 +31,65 @@ class ProfileSettingScreen extends HookConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: <Color>[
-                    kBrandColor,
-                    kBrandAlternativeDarkerColor,
-                  ],
+            Column(
+              children: [
+                Icon(
+                  Icons.account_circle_outlined,
+                  size: kSizeXL,
+                  color: kBrandDarkerColor,
                 ),
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(
-                    kSizeS,
-                  ),
+                kSizedBoxVerticalS,
+                kSizedBoxVerticalXS,
+                Text(
+                  "Personal Profile",
+                  style: Theme.of(context).textTheme.headline3?.copyWith(
+                        color: kBrandDarkerColor,
+                      ),
                 ),
-              ),
-              child: kSizedBoxVerticalL,
-            ),
-            Transform.translate(
-              offset: const Offset(0, -kSizeM * 1.8),
-              child: Column(
-                children: [
-                  Image.asset("assets/images/129.png"),
-                  kSizedBoxVerticalS,
-                  kSizedBoxVerticalXS,
-                  Text(
-                    "Personal Profile",
-                    style: Theme.of(context).textTheme.headline3?.copyWith(
-                          color: kBrandDarkerColor,
-                        ),
-                  ),
-                  kSizedBoxVerticalXS,
-                  kSizedBoxVerticalS,
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: kSizeS * 1.5),
-                    child: Column(
-                      children: [
-                        FormTextFieldIcon(
-                          fieldName: "Your name",
-                          textEditingController: _nameController,
-                          fieldColor: kBrandDarkerColor,
-                        ),
-                        kSizedBoxVerticalXS,
-                        kSizedBoxVerticalS,
-                        FormTextFieldIcon(
-                          fieldName: "Phone number",
-                          textEditingController: _phoneNumberController,
-                          fieldColor: kBrandDarkerColor,
-                        ),
-                        kSizedBoxVerticalXS,
-                        kSizedBoxVerticalS,
-                        FormTextFieldIcon(
-                          fieldName: "Your Role",
-                          textEditingController: _roleController,
-                          fieldColor: kBrandDarkerColor,
-                        ),
-                        kSizedBoxVerticalM,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              width: kSizeXL,
-                              child: CustomButton(
-                                text: "DONE",
-                                onPressed: () => Navigator.of(context)
-                                    .pushNamed(PreLoadingScreen.routeName),
-                              ),
+                kSizedBoxVerticalXS,
+                kSizedBoxVerticalS,
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: kSizeS * 1.5),
+                  child: Column(
+                    children: [
+                      FormTextFieldIcon(
+                        fieldName: "Your name",
+                        textEditingController: _nameController,
+                        fieldColor: kBrandDarkerColor,
+                      ),
+                      kSizedBoxVerticalXS,
+                      kSizedBoxVerticalS,
+                      FormTextFieldIcon(
+                        fieldName: "Phone number",
+                        textEditingController: _phoneNumberController,
+                        fieldColor: kBrandDarkerColor,
+                      ),
+                      kSizedBoxVerticalXS,
+                      kSizedBoxVerticalS,
+                      FormTextFieldIcon(
+                        fieldName: "Your Role",
+                        textEditingController: _roleController,
+                        fieldColor: kBrandDarkerColor,
+                      ),
+                      kSizedBoxVerticalM,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            width: kSizeXL,
+                            child: CustomButton(
+                              text: "DONE",
+                              onPressed: () => Navigator.of(context)
+                                  .pushNamed(PreLoadingScreen.routeName),
                             ),
-                          ],
-                        ),
-                        kSizedBoxVerticalM,
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                      kSizedBoxVerticalM,
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),
