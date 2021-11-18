@@ -109,8 +109,9 @@ class ContactFormScreen extends HookWidget {
                             text: "SEND",
                             onPressed: () async {
                               if (_title.text.isEmpty ||
-                                  _detail.text.isEmpty && _files.isEmpty)
+                                  _detail.text.isEmpty && _files.isEmpty) {
                                 return;
+                              }
                               try {
                                 _isLoading.value = true;
                                 for (int i = 0; i < _files.length; i++) {

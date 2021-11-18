@@ -21,7 +21,7 @@ class PostalScreen extends HookWidget {
 
     void _fetchPackages() async {
       _isLoading.value = true;
-      _packages.value = await PackageRepository().getPackages();
+      _packages.value = await PackageRepository().getPackages("in-storage");
       _isLoading.value = false;
     }
 

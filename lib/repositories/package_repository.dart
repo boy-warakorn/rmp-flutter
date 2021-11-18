@@ -23,7 +23,7 @@ class PackageDto {
 }
 
 abstract class BasePackageRepository {
-  Future<PackagesModel> getPackages();
+  Future<PackagesModel> getPackages(String status);
   Future<PackagesModel> getPackageByResident(bool isReceived);
   Future<Package?> getPackage(String id);
   Future<PackageMasterModel> getPackageMasterData();
@@ -141,16 +141,19 @@ class PackageRepository implements BasePackageRepository {
   }
 
   @override
-  Future<PackagesModel> getPackages() async {
+  Future<PackagesModel> getPackages(String status) async {
     try {
       final pref = await SharedPreferences.getInstance();
       final token = pref.getString("token");
 
       final response = await dio.get(
-        "$getPackagesUrl/?status=in-storage",
+        getPackagesUrl,
         options: Options(headers: {
           "Authorization": "Bearer $token",
         }),
+        queryParameters: {
+          "status" : status,
+        }
       );
 
       return PackagesModel.fromJSON(response);
