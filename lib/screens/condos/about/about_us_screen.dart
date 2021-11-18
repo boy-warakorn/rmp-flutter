@@ -119,21 +119,21 @@ class AboutUsScreen extends StatelessWidget {
                         name: "Anawat Paothong",
                         role: "Role Name",
                         image: NetworkImage(
-                          paintUrl,
+                          littleBearURL,
                         ),
                       ),
                       TeamMemberCard(
                         name: "Warakorn Chantranupong",
                         role: "Role Name",
                         image: NetworkImage(
-                          boyUrl,
+                          littleBearURL,
                         ),
                       ),
                       TeamMemberCard(
                         name: "Noppanut Boonrueng",
                         role: "Role Name",
                         image: NetworkImage(
-                          ohnUrl,
+                          littleBearURL,
                         ),
                       )
                     ],
