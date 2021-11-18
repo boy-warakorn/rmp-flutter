@@ -12,7 +12,7 @@ const loremIpsum =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet ";
 
 const obj = "We aim this application will improve communication between condo's personnel and resident. And we hope this application will help you reduce load of work.";
-const value = "Our value is to give convenience for all users to use this application and manage the work. It is easy to use and less time to learn how to use.";
+const value = "Our value is to give convenience for all users to use this application and manage the work. It is easy to use and less time to learn how to use. Also beautiful UI.";
 const vision = "We saw that many resident managements struggle about their communication and work, so we build this application to solve their communication and work problem.";
 
 class AboutUsScreen extends StatelessWidget {
