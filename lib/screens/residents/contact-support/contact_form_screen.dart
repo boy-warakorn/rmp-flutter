@@ -31,11 +31,10 @@ class ContactFormScreen extends HookWidget {
       final List<XFile>? pickedFileList = await _picker.pickMultiImage();
       try {
         if (pickedFileList!.isNotEmpty) {
-          for(int i = 0; i < pickedFileList.length; i++){
+          for (int i = 0; i < pickedFileList.length; i++) {
             _files.add(pickedFileList[i]);
           }
         }
-
       } catch (e) {
         print(e.toString());
       }
@@ -104,11 +103,14 @@ class ContactFormScreen extends HookWidget {
                     child: CustomButton(
                       text: "SEND",
                       onPressed: () async {
-                        if (_title.text.isEmpty || _detail.text.isEmpty && _files.isEmpty) return;
+                        if (_title.text.isEmpty ||
+                            _detail.text.isEmpty && _files.isEmpty) return;
                         try {
-                          for(int i = 0; i < _files.length; i++){
+                          for (int i = 0; i < _files.length; i++) {
                             final _fileName = basename(_files[i].path);
-                            final storageRef = FirebaseStorage.instance.ref().child('evidences/$_fileName');
+                            final storageRef = FirebaseStorage.instance
+                                .ref()
+                                .child('evidences/$_fileName');
                             await storageRef.putFile(File(_files[i].path));
                             final url = await storageRef.getDownloadURL();
                             _listOfUrl.add(url.toString());
@@ -117,7 +119,7 @@ class ContactFormScreen extends HookWidget {
                             CreateReportDto(
                               detail: _detail.text,
                               title: _title.text,
-                              imgList : _listOfUrl,
+                              imgList: _listOfUrl,
                             ),
                           );
                         } catch (_) {}

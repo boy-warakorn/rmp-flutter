@@ -6,12 +6,25 @@ import 'package:rmp_flutter/models/payment.dart';
 import 'package:rmp_flutter/repositories/payment_repository.dart';
 import 'package:rmp_flutter/screens/residents/payment/specific_payment_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
+import 'package:rmp_flutter/widgets/general/empty_list_display.dart';
 import 'package:rmp_flutter/widgets/general/payment_card.dart';
 import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
 
 class PaymentFilterScreen extends HookWidget {
   static const routeName = "/resident/payment-filter";
   const PaymentFilterScreen({Key? key}) : super(key: key);
+
+  static const _tabs = [
+    "Complete",
+    "Pending",
+    "Active",
+  ];
+
+  static const _emptyLabels = [
+    "No completed payment",
+    "No pending payment",
+    "No active payment",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +40,7 @@ class PaymentFilterScreen extends HookWidget {
     ];
 
     void fetchPayment() async {
-      final paymentStatus = _item[_tabIndex.value].toLowerCase();
+      final paymentStatus = _tabs[_tabIndex.value].toLowerCase();
 
       _isLoading.value = true;
       _payments.value =
@@ -80,7 +93,7 @@ class PaymentFilterScreen extends HookWidget {
                 children: [
                   TextTab(
                     selectedIndex: _tabIndex.value,
-                    labels: _item,
+                    labels: _tabs,
                     onSelect: (p0) {
                       _tabIndex.value = p0;
                     },
@@ -110,26 +123,30 @@ class PaymentFilterScreen extends HookWidget {
                           ? Center(
                               child: CircularProgressIndicator(),
                             )
-                          : ListView.builder(
-                              itemCount: _payments.value.payments.length,
-                              itemBuilder: (context, index) {
-                                final _currentPayment =
-                                    _payments.value.payments[index];
-                                return PaymentCard(
-                                  type: _currentPayment.type,
-                                  amount: _currentPayment.amount.toString(),
-                                  paidDate: _currentPayment.paidAt.isEmpty
-                                      ? "-"
-                                      : _currentPayment.paidAt,
-                                  status: _currentPayment.status,
-                                  onPressed: () =>
-                                      Navigator.of(context).pushNamed(
-                                    SpecificPaymentScreen.routeName,
-                                    arguments: _currentPayment,
-                                  ),
-                                );
-                              },
-                            ),
+                          : _payments.value.payments.isEmpty
+                              ? EmptyListDisplay(
+                                  text: _emptyLabels[_tabIndex.value],
+                                )
+                              : ListView.builder(
+                                  itemCount: _payments.value.payments.length,
+                                  itemBuilder: (context, index) {
+                                    final _currentPayment =
+                                        _payments.value.payments[index];
+                                    return PaymentCard(
+                                      type: _currentPayment.type,
+                                      amount: _currentPayment.amount.toString(),
+                                      paidDate: _currentPayment.paidAt.isEmpty
+                                          ? "-"
+                                          : _currentPayment.paidAt,
+                                      status: _currentPayment.status,
+                                      onPressed: () =>
+                                          Navigator.of(context).pushNamed(
+                                        SpecificPaymentScreen.routeName,
+                                        arguments: _currentPayment,
+                                      ),
+                                    );
+                                  },
+                                ),
                     ),
                   ),
                 ],

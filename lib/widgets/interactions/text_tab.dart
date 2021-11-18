@@ -116,9 +116,10 @@ class TextTab extends StatelessWidget {
               color: kLightColor,
               boxShadow: [
                 BoxShadow(
-                  color: kAlternativeColor,
+                  color: kTabShadowColor,
                   blurRadius: kSizeXXS,
                   offset: Offset(0, kSizeXXS),
+                  
                 )
               ],
             ),

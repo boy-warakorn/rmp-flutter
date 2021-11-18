@@ -8,7 +8,6 @@ class CustomButton extends StatelessWidget {
   final void Function() onPressed;
   final Color color;
   final EdgeInsets padding;
-  final bool isLoading;
   final bool enabled;
   final bool isDominant;
 
@@ -18,8 +17,6 @@ class CustomButton extends StatelessWidget {
     this.textStyle,
     required this.onPressed,
     this.isDominant = true,
-    @Deprecated("Use [enabled] to allow/disallow the button instead")
-        this.isLoading = false,
     this.color = kBrandColor,
     this.padding = const EdgeInsets.all(
       kSizeXXS,
@@ -39,27 +36,19 @@ class CustomButton extends StatelessWidget {
         ),
         shape: const RoundedRectangleBorder(borderRadius: kBorderRadiusXXL),
       ),
-      onPressed: enabled
-          ? isLoading
-              ? () {}
-              : onPressed
-          : null,
+      onPressed: enabled ? onPressed : null,
       child: Center(
-        child: isLoading
-            ? CircularProgressIndicator(
-                color: kLightColor,
-              )
-            : Text(
-                text,
-                style: isDominant
-                    ? textStyle ??
-                        Theme.of(context).textTheme.bodyText1?.copyWith(
-                              color: Colors.white,
-                            )
-                    : Theme.of(context).textTheme.bodyText1?.copyWith(
-                          color: color,
-                        ),
-              ),
+        child: Text(
+          text,
+          style: isDominant
+              ? textStyle ??
+                  Theme.of(context).textTheme.bodyText1?.copyWith(
+                        color: Colors.white,
+                      )
+              : Theme.of(context).textTheme.bodyText1?.copyWith(
+                    color: color,
+                  ),
+        ),
       ),
     );
   }

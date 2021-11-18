@@ -14,9 +14,6 @@ import 'package:rmp_flutter/screens/residents/payment/payment_result_screen.dart
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
-const slip =
-    "https://www.microsuck.net/wp-content/uploads/2019/09/1-592x1024.png";
-
 class ConfirmPaymentScreen extends HookWidget {
   static const routeName = "/resident/confirm-payment";
   const ConfirmPaymentScreen({Key? key}) : super(key: key);
@@ -70,7 +67,7 @@ class ConfirmPaymentScreen extends HookWidget {
                     kSizedBoxVerticalS,
                     kSizedBoxVerticalXS,
                     CustomButton(
-                      isLoading: _isLoading.value,
+                      enabled: !_isLoading.value,
                       text: "SUBMIT RECEIPT",
                       onPressed: _uploadPhoto,
                     ),

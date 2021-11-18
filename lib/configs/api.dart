@@ -1,5 +1,4 @@
 const baseApiUrl = "https://rmp.ryuhub.dev/api";
-// const baseApiUrl = "http://localhost:1234/api";
 
 // auth
 const baseAuthUrl = "$baseApiUrl/auth/mobile";
