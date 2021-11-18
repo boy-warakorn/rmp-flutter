@@ -1,16 +1,16 @@
-import 'package:rmp_flutter/screens/condos/about/about_us_screen.dart';
+import 'package:rmp_flutter/screens/about/about_us_screen.dart';
 import 'package:rmp_flutter/screens/condos/dashboard/dashboard_screen.dart';
-import 'package:rmp_flutter/screens/condos/forgot_password_screen.dart';
+import 'package:rmp_flutter/screens/forgot_password_screen.dart';
 import 'package:rmp_flutter/screens/condos/help-desk/help_desk_screen.dart';
 import 'package:rmp_flutter/screens/condos/help-desk/reply_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_add_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_screen.dart';
-import 'package:rmp_flutter/screens/condos/profile/profile_setting_screen.dart';
 import 'package:rmp_flutter/screens/login_screen.dart';
 
 import 'package:rmp_flutter/screens/preloading_screen.dart';
+import 'package:rmp_flutter/screens/profile/profile_setting_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_form_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_result_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_support_screen.dart';
