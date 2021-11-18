@@ -25,9 +25,9 @@ class UserRepository implements BaseUserRepository {
         );
         return UserModel.fromJson(result);
       }
-      return UserModel(role: "", name: "", businessName: "", userId: "");
+      return UserModel(role: "", name: "", businessName: "", userId: "", phoneNumber: "");
     } on DioError catch (_) {
-      return UserModel(role: "", name: "", businessName: "", userId: "");
+      return UserModel(role: "", name: "", businessName: "", userId: "", phoneNumber: "");
     }
   }
 }

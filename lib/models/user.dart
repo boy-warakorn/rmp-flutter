@@ -5,12 +5,14 @@ class UserModel {
   final String userId;
   final String name;
   final String businessName;
+  final String phoneNumber;
 
   UserModel({
     required this.role,
     required this.name,
     required this.businessName,
     required this.userId,
+    required this.phoneNumber,
   });
 
   factory UserModel.fromJson(dynamic fetchedResult) {
@@ -21,6 +23,7 @@ class UserModel {
       name: userResult["profile"]["name"],
       businessName: userResult["businessName"],
       userId: userResult["id"],
+      phoneNumber: userResult["profile"]["phoneNumber"],
     );
   }
 }

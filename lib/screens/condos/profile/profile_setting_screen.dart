@@ -17,9 +17,10 @@ class ProfileSettingScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _role = ref.read(currentUser).user.role;
     final _name = ref.read(currentUser).user.name;
+    final _phoneNumber = ref.read(currentUser).user.phoneNumber;
     final _nameController = useTextEditingController(text: _name);
-    final _phoneNumber = useTextEditingController(
-        text: "0933264415"); //TODO: will add phone number data
+    final _phoneNumberController = useTextEditingController(
+        text: _phoneNumber); //TODO: will add phone number data
     final _roleController = useTextEditingController(text: _role);
 
     return Scaffold(
@@ -77,7 +78,7 @@ class ProfileSettingScreen extends HookConsumerWidget {
                         kSizedBoxVerticalS,
                         FormTextFieldIcon(
                           fieldName: "Phone number",
-                          textEditingController: _phoneNumber,
+                          textEditingController: _phoneNumberController,
                           fieldColor: kBrandDarkerColor,
                         ),
                         kSizedBoxVerticalXS,
