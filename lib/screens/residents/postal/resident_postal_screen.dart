@@ -64,9 +64,11 @@ class ResidentPostalScreen extends HookWidget {
                 kSizedBoxVerticalM,
                 kSizedBoxVerticalXS,
                 _isLoading.value
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
+                    ? Expanded(
+                      child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                    )
                     : Expanded(
                         child: _packages.value.packages.isEmpty
                             ? EmptyListDisplay(
