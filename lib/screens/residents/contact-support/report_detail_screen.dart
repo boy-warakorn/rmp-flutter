@@ -121,30 +121,39 @@ class ReportDetailScreen extends HookConsumerWidget {
                                 detail: _report.value.detail,
                               ),
                         kSizedBoxVerticalM,
-                        Text(
-                          "Evidences",
-                          style:
-                              Theme.of(context).textTheme.headline3?.copyWith(
-                                    color: kBlackColor,
+                        _tabIndex.value == 0
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Evidences",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3
+                                        ?.copyWith(
+                                          color: kBlackColor,
+                                        ),
                                   ),
-                        ),
-                        kSizedBoxVerticalS,
-                        GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 180,
-                            childAspectRatio: 1.5,
-                            crossAxisSpacing: kSizeS,
-                            mainAxisSpacing: kSizeS,
-                          ),
-                          itemCount: _report.value.imgList.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return Image.network(
-                              _report.value.imgList[index],
-                            );
-                          },
-                        ),
+                                  kSizedBoxVerticalS,
+                                  GridView.builder(
+                                    gridDelegate:
+                                        SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent: 180,
+                                      childAspectRatio: 1.5,
+                                      crossAxisSpacing: kSizeS,
+                                      mainAxisSpacing: kSizeS,
+                                    ),
+                                    itemCount: _report.value.imgList.length,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return Image.network(
+                                        _report.value.imgList[index],
+                                      );
+                                    },
+                                  ),
+                                ],
+                              )
+                            : Container(),
                         kSizedBoxVerticalL,
                         if (_report.value.status != "resolved")
                           CustomButton(

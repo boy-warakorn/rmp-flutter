@@ -88,7 +88,7 @@ class ResidentPostalScreen extends HookWidget {
                                     onPressed: () {},
                                     subtitle: "Arrived ${pk.arrivedAt}",
                                     statusKey: pk.status,
-                                    imageUrl: dummyImgUrl,
+                                    imageUrl: pk.imgList[index],
                                     isPostal: true,
                                   );
                                 },
