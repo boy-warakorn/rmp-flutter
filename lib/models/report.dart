@@ -30,7 +30,9 @@ class Report {
   final String detail;
   final String? respondDetail;
   final String status;
-  final List<dynamic> imgList;
+  final List<String> imgList;
+  final String type;
+  final String availableDay;
 
   Report({
     required this.id,
@@ -43,6 +45,8 @@ class Report {
     required this.status,
     this.respondDetail,
     required this.imgList,
+    required this.type,
+    required this.availableDay,
   });
 
   static Report empty() {
@@ -56,6 +60,8 @@ class Report {
       detail: "",
       status: "",
       imgList: [],
+      type: "complaint",
+      availableDay: "",
     );
   }
 
@@ -79,7 +85,11 @@ class Report {
             detail: _reportResult["detail"],
             status: _reportResult["status"],
             respondDetail: _reportResult["respondDetail"],
-            imgList: _reportResult["imgList"],
+            imgList: (_reportResult["imgList"] as List<dynamic>)
+                .map((item) => item.toString())
+                .toList(),
+            type: _reportResult["type"],
+            availableDay: _reportResult["availableDay"],
           )
         : Report(
             detail: _reportContent["detail"],
@@ -91,7 +101,11 @@ class Report {
             title: _reportContent["title"],
             reportOwner: _reportContent["reportOwner"],
             respondDetail: _reportContent["respondDetail"] ?? '',
-            imgList: _reportResult["imgList"],
+            imgList: (_reportResult["imgList"] as List<dynamic>)
+                .map((item) => item.toString())
+                .toList(),
+            type: _reportResult["type"],
+            availableDay: _reportResult["availableDay"],
           );
   }
 }

@@ -38,17 +38,9 @@ class ContactFormScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _title = useTextEditingController();
+    final _title = useTextEditingController(); 
     final _detail = useTextEditingController();
-    final _selectedDays = useState(<WeekDay>[
-      WeekDay.sunday,
-      WeekDay.monday,
-      WeekDay.tuesday,
-      WeekDay.wednesday,
-      WeekDay.thursday,
-      WeekDay.friday,
-      WeekDay.saturday,
-    ]);
+    final _selectedDays = useState(<WeekDay>[]);
     final _tabIndex = useState(0);
     final _files = useState(<XFile>[]);
 

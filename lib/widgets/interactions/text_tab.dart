@@ -22,6 +22,21 @@ class TextTab extends StatelessWidget {
     this.onSelect,
   }) : super(key: key);
 
+  factory TextTab.secondary({
+    required List<String> labels,
+    int selectedIndex = -1,
+    void Function(int)? onSelect,
+  }) {
+    return TextTab(
+      labels: labels,
+      selectedIndex: selectedIndex,
+      onSelect: onSelect,
+      verticalPadding: kSizeXS * 1.5,
+      selectedColor: kStrokeColor,
+      underlineHeight: 2.5,
+    );
+  }
+
   Widget _buildTabBound({
     bool useFlex = false,
     Widget? child,
@@ -119,7 +134,6 @@ class TextTab extends StatelessWidget {
                   color: kTabShadowColor,
                   blurRadius: kSizeXXS,
                   offset: Offset(0, kSizeXXS),
-                  
                 )
               ],
             ),

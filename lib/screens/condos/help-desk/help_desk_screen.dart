@@ -12,6 +12,15 @@ import 'package:rmp_flutter/utils/date_format.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
 
+const _typeTabs = [
+  "Complaint",
+  "Maintenance",
+];
+const _statusTabs = [
+  "Incoming",
+  "Responded",
+];
+
 class HelpDeskScreen extends HookConsumerWidget {
   static const routeName = "/condo/helpdesk";
 
@@ -19,22 +28,19 @@ class HelpDeskScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _bottomTabIndex = useState(0);
+    final _typeTabIndex = useState(0);
+    final _statusTabIndex = useState(0);
+
     final _reports = useState(ReportsModel(reports: []));
     final _isLoading = useState(false);
-    final _topTabIndex = useState(0);
-
-    final List<String> _complaintAndMaintenance = [
-      "Complaint",
-      "Maintenance",
-    ];
 
     void fetchReports() async {
       _isLoading.value = true;
-      final reportType =
-      _complaintAndMaintenance[_topTabIndex.value].toLowerCase();
-      _reports.value =
-          await ReportRepository().getReportsByCondo(_bottomTabIndex.value == 1, reportType);
+
+      final reportType = _typeTabs[_typeTabIndex.value].toLowerCase();
+      _reports.value = await ReportRepository()
+          .getReportsByCondo(_statusTabIndex.value == 1, reportType);
+
       _isLoading.value = false;
     }
 
@@ -42,71 +48,77 @@ class HelpDeskScreen extends HookConsumerWidget {
       () {
         fetchReports();
       },
-      [_bottomTabIndex.value],
+      [_statusTabIndex.value, _typeTabIndex.value],
     );
 
     return Column(
       children: [
         TextTab(
-          labels: _complaintAndMaintenance,
-          selectedIndex: _topTabIndex.value,
+          labels: _typeTabs,
+          selectedIndex: _typeTabIndex.value,
           onSelect: (i) {
-            _topTabIndex.value = i;
+            _typeTabIndex.value = i;
           },
           selectedColor: kBrandAlternativeDarkerColor,
         ),
-        TextTab(
-          labels: [
-            "Incoming",
-            "Responded",
-          ],
-          selectedIndex: _bottomTabIndex.value,
-          onSelect: (i) {
-            _bottomTabIndex.value = i;
-          },
-          verticalPadding: kSizeXS * 1.5,
-          selectedColor: kStrokeColor,
-          underlineHeight: 2.5,
-        ),
         Expanded(
-          child: _isLoading.value
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : _reports.value.reports.isEmpty
-                  ? EmptyListDisplay(
-                      text: _bottomTabIndex.value == 0
-                          ? "No incoming report"
-                          : "No responded report",
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.all(
-                        kSizeS * (24 / 16),
-                      ),
-                      child: ListView.builder(
-                        itemCount: _reports.value.reports.length,
-                        itemBuilder: (context, index) {
-                          final _currentReport = _reports.value.reports[index];
-                          return HelpDeskCard(
-                            owner: _currentReport.reportOwner,
-                            title: _currentReport.title,
-                            date: formattedDate(_currentReport.requestedDate),
-                            detail: _currentReport.detail,
-                            actionButton: CustomButton(
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed(ReplyScreen.routeName,
-                                        arguments: _currentReport.id)
-                                    .then((value) => fetchReports());
-                              },
-                              text: !(_bottomTabIndex.value == 1)
-                                  ? "Reply"
-                                  : "See detail",
+          child: Column(
+            children: [
+              TextTab.secondary(
+                labels: _statusTabs,
+                onSelect: (i) {
+                  _statusTabIndex.value = i;
+                },
+                selectedIndex: _statusTabIndex.value,
+              ),
+              Expanded(
+                child: _isLoading.value
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : _reports.value.reports.isEmpty
+                        ? Column(
+                            children: [
+                              EmptyListDisplay(
+                                text: _statusTabIndex.value == 0
+                                    ? "No incoming report"
+                                    : "No responded report",
+                              ),
+                            ],
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(
+                              kSizeS * (24 / 16),
                             ),
-                          );
-                        },
-                      ),
-                    ),
+                            child: ListView.builder(
+                              itemCount: _reports.value.reports.length,
+                              itemBuilder: (context, index) {
+                                final _currentReport =
+                                    _reports.value.reports[index];
+                                return HelpDeskCard(
+                                  owner: _currentReport.reportOwner,
+                                  title: _currentReport.title,
+                                  date: formattedDate(
+                                      _currentReport.requestedDate),
+                                  detail: _currentReport.detail,
+                                  actionButton: CustomButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushNamed(ReplyScreen.routeName,
+                                              arguments: _currentReport.id)
+                                          .then((value) => fetchReports());
+                                    },
+                                    text: !(_statusTabIndex.value == 1)
+                                        ? "Reply"
+                                        : "See detail",
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+              ),
+            ],
+          ),
         ),
       ],
     );

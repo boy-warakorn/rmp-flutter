@@ -5,11 +5,14 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
+import 'package:rmp_flutter/utils/report_daylist_extractor.dart';
 import 'package:rmp_flutter/widgets/dialogs/resolve_issue_dialog.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/text_with_value.dart';
+import 'package:rmp_flutter/widgets/interactions/attachment_list.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
+import 'package:rmp_flutter/widgets/interactions/week_day_selector.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class ReplyScreen extends HookWidget {
@@ -62,6 +65,21 @@ class ReplyScreen extends HookWidget {
 
     useEffect(() {}, [_report.value]);
 
+    Widget _buildAvailableDays() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText.sectionHeaderBlack("Available day(s)", context),
+          kSizedBoxVerticalS,
+          WeekDaySelector(
+            selectedDays:
+                extractAvailableDaysFromString(_report.value.availableDay),
+            onSelect: null,
+          ),
+        ],
+      );
+    }
+
     return Scaffold(
       backgroundColor: kBgColor,
       appBar: BackAppBar(),
@@ -103,7 +121,7 @@ class ReplyScreen extends HookWidget {
                           ),
                           kSizedBoxVerticalS,
                           CustomText.sectionHeaderBlack(
-                            "Complaint Detail",
+                            "${_report.value.type == 'complaint' ? 'Complaint' : 'Maintenance'} Detail",
                             context,
                           ),
                           kSizedBoxVerticalS,
@@ -111,6 +129,9 @@ class ReplyScreen extends HookWidget {
                             _report.value.detail,
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
+                          kSizedBoxVerticalS,
+                          if (_report.value.type == 'maintenance')
+                            _buildAvailableDays(),
                           kSizedBoxVerticalS,
                           kSizedBoxVerticalXS,
                           _report.value.respondDetail!.isEmpty
@@ -131,21 +152,9 @@ class ReplyScreen extends HookWidget {
                             context,
                           ),
                           kSizedBoxVerticalS,
-                          GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 180,
-                              childAspectRatio: 1.5,
-                              mainAxisSpacing: kSizeS,
-                              crossAxisSpacing: kSizeS,
-                            ),
-                            itemCount: _report.value.imgList.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Image.network(
-                                _report.value.imgList[index],
-                              );
-                            },
+                          AttachmentList(
+                            imgSourceType: ImgSourceType.url,
+                            imgSourceStrings: _report.value.imgList,
                           ),
                           kSizedBoxVerticalS,
                           kSizedBoxVerticalXS,
