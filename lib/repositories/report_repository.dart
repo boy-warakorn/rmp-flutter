@@ -82,6 +82,8 @@ class ReportRepository implements BaseReportRepository {
           },
         ),
       );
+      print(result);
+
       return Report.fromJson(result.toString(), true);
     } on DioError catch (_) {
       throw HttpException("Get Report Failed");
@@ -130,6 +132,7 @@ class ReportRepository implements BaseReportRepository {
           'type': type,
         },
       );
+
       return ReportsModel.fromJson(result);
     } on DioError catch (_) {
       throw HttpException("Get Reports By Condo Failed");
