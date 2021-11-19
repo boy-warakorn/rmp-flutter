@@ -32,12 +32,6 @@ const _tabs = [
   "Maintenance",
 ];
 
-const _dummyUrl = [
-  "https://www.ikea.com/th/en/images/products/djungelskog-soft-toy-panda__0877971_pe662366_s5.jpg?f=xl",
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/330px-Grosser_Panda.JPG",
-  "https://files.worldwildlife.org/wwfcmsprod/images/Panda_in_Tree/hero_small/99i33zyc0l_Large_WW170579.jpg",
-];
-
 class ContactFormScreen extends HookWidget {
   static const routeName = "/resident/contact-form";
   const ContactFormScreen({Key? key}) : super(key: key);

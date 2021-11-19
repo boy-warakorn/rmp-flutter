@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
-import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/screens/general/view_attachment_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/layout/card_template.dart';

@@ -7,7 +7,6 @@ import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/residents/postal/profile_card_screen.dart';
 import 'package:rmp_flutter/widgets/general/empty_list_display.dart';
-import 'package:rmp_flutter/widgets/general/entity_card.dart';
 import 'package:rmp_flutter/widgets/general/resident_package_card.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/interactions/text_tab.dart';

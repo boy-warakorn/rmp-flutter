@@ -4,9 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/providers/user_provider.dart';
-import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
-import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class ProfileSettingScreen extends HookConsumerWidget {
