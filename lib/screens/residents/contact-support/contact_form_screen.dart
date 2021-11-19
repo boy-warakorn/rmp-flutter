@@ -11,7 +11,15 @@ import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
+import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
+import 'package:rmp_flutter/widgets/interactions/week_day_checkbox.dart';
+import 'package:rmp_flutter/widgets/interactions/week_day_selector.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
+
+const _tabs = [
+  "Complaint",
+  "Maintenance",
+];
 
 class ContactFormScreen extends HookWidget {
   static const routeName = "/resident/contact-form";
@@ -21,7 +29,50 @@ class ContactFormScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _title = useTextEditingController();
     final _detail = useTextEditingController();
+    final _selectedDays = useState(<WeekDay>[
+      WeekDay.sunday,
+      WeekDay.monday,
+      WeekDay.tuesday,
+      WeekDay.wednesday,
+      WeekDay.thursday,
+      WeekDay.friday,
+      WeekDay.saturday,
+    ]);
+    final _tabIndex = useState(0);
+
     List<Asset> images = <Asset>[];
+
+    void selectDay(WeekDay day) {
+      List<WeekDay> tmp = [];
+      for (WeekDay d in _selectedDays.value) {
+        tmp.add(d);
+      }
+
+      if (tmp.contains(day)) {
+        tmp.removeWhere((d) => d == day);
+      } else {
+        tmp.add(day);
+      }
+
+      _selectedDays.value = tmp;
+    }
+
+    Widget _buildDaySelector() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText.sectionHeaderBlack(
+              "Day available for appointment", context),
+          kSizedBoxVerticalS,
+          if (_tabIndex.value == 1)
+            WeekDaySelector(
+              selectedDays: _selectedDays.value,
+              onSelect: selectDay,
+            ),
+          kSizedBoxVerticalS,
+        ],
+      );
+    }
 
     Future<void> _openGallery() async {
       List<Asset> resultList = <Asset>[];
@@ -47,94 +98,105 @@ class ContactFormScreen extends HookWidget {
       }
     }
 
-    Future<void> _uploadPhoto() async{
-      
-    }
-
     return Scaffold(
-      appBar: BackAppBar(),
+      appBar: BackAppBar(
+        isGradient: true,
+      ),
       backgroundColor: kBgColor,
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(
-            left: kSizeS * 1.5,
-            right: kSizeS * 1.5,
-            top: kSizeS * 1.75,
+      body: Column(
+        children: [
+          TextTab(
+            labels: _tabs,
+            selectedIndex: _tabIndex.value,
+            onSelect: (i) {
+              _tabIndex.value = i;
+            },
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FormTextField(
-                fieldName: "Title",
-                textEditingController: _title,
-              ),
-              kSizedBoxVerticalS,
-              FormTextArea(
-                fieldName: "Complaint Detail",
-                textEditingController: _detail,
-                minLine: 10,
-                maxLine: 20,
-              ),
-              kSizedBoxVerticalS,
-              Row(
-                children: [
-                  CustomText.sectionHeaderBlack(
-                    "Upload Photos (Optional)",
-                    context,
-                  ),
-                  kSizedBoxHorizontalXS,
-                  IconButton(
-                    splashRadius: kSizeS * 1.5,
-                    icon: Icon(
-                      Icons.cloud_upload_outlined,
+          Expanded(
+            child: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.all(
+                  kSizeS * 1.5,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FormTextField(
+                      fieldName: "Title",
+                      textEditingController: _title,
                     ),
-                    color: kBrandColor,
-                    onPressed: () => _openGallery(),
-                  ),
-                ],
-              ),
-              kSizedBoxVerticalL,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    width: kSizeXL / 1.25,
-                    child: CustomButton(
-                      text: "CLEAR",
-                      onPressed: () {
-                        _title.text = "";
-                        _detail.text = "";
-                      },
-                      color: kWarningColor,
+                    kSizedBoxVerticalS,
+                    if (_tabIndex.value == 1) _buildDaySelector(),
+                    FormTextArea(
+                      fieldName: "${_tabs[_tabIndex.value]} Detail",
+                      textEditingController: _detail,
+                      minLine: 10,
+                      maxLine: 20,
                     ),
-                  ),
-                  kSizedBoxHorizontalS,
-                  Container(
-                    width: kSizeXL / 1.25,
-                    child: CustomButton(
-                      text: "SEND",
-                      onPressed: () async {
-                        if (_title.text.isEmpty || _detail.text.isEmpty) return;
-                        try {
-                          await ReportRepository().createReport(
-                            CreateReportDto(
-                              detail: _detail.text,
-                              title: _title.text,
-                            ),
-                          );
-                        } catch (_) {}
+                    kSizedBoxVerticalS,
+                    Row(
+                      children: [
+                        CustomText.sectionHeaderBlack(
+                          "Upload Photos (Optional)",
+                          context,
+                        ),
+                        kSizedBoxHorizontalXS,
+                        IconButton(
+                          splashRadius: kSizeS * 1.5,
+                          icon: Icon(
+                            Icons.cloud_upload_outlined,
+                          ),
+                          color: kBrandColor,
+                          onPressed: () => _openGallery(),
+                        ),
+                      ],
+                    ),
+                    kSizedBoxVerticalL,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          width: kSizeXL / 1.25,
+                          child: CustomButton(
+                            text: "CLEAR",
+                            onPressed: () {
+                              _title.text = "";
+                              _detail.text = "";
+                            },
+                            color: kWarningColor,
+                          ),
+                        ),
+                        kSizedBoxHorizontalS,
+                        Container(
+                          width: kSizeXL / 1.25,
+                          child: CustomButton(
+                            text: "SEND",
+                            onPressed: () async {
+                              if (_title.text.isEmpty || _detail.text.isEmpty)
+                                return;
+                              try {
+                                await ReportRepository().createReport(
+                                  CreateReportDto(
+                                    detail: _detail.text,
+                                    title: _title.text,
+                                  ),
+                                );
+                              } catch (_) {}
 
-                        Navigator.of(context)
-                            .pushNamed(ContactResultScreen.routeName);
-                      },
+                              Navigator.of(context)
+                                  .pushNamed(ContactResultScreen.routeName);
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    kSizedBoxVerticalM,
+                  ],
+                ),
               ),
-              kSizedBoxVerticalM,
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
