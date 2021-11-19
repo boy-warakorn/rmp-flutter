@@ -11,17 +11,19 @@ class PackageDto {
   final String note;
   final String arrivedAt;
   final String postalService;
+  final List<String> imgList;
 
   PackageDto({
     required this.roomNumber,
     this.note = "",
     required this.arrivedAt,
     required this.postalService,
+    required this.imgList,
   });
 }
 
 abstract class BasePackageRepository {
-  Future<PackagesModel> getPackages();
+  Future<PackagesModel> getPackages(String status);
   Future<PackagesModel> getPackageByResident(bool isReceived);
   Future<Package?> getPackage(String id);
   Future<PackageMasterModel> getPackageMasterData();
@@ -45,6 +47,7 @@ class PackageRepository implements BasePackageRepository {
           "note": package.note,
           "arrivedAt": package.arrivedAt,
           "postalService": package.postalService,
+          "imgList" : package.imgList,
         },
         options: Options(headers: {
           "Authorization": "Bearer $token",
@@ -84,6 +87,7 @@ class PackageRepository implements BasePackageRepository {
           "note": package.note,
           "arrivedAt": package.arrivedAt,
           "postalService": package.postalService,
+          "imgList" : package.imgList,
         },
         options: Options(
           headers: {
@@ -137,16 +141,19 @@ class PackageRepository implements BasePackageRepository {
   }
 
   @override
-  Future<PackagesModel> getPackages() async {
+  Future<PackagesModel> getPackages(String status) async {
     try {
       final pref = await SharedPreferences.getInstance();
       final token = pref.getString("token");
 
       final response = await dio.get(
-        "$getPackagesUrl/?status=in-storage",
+        getPackagesUrl,
         options: Options(headers: {
           "Authorization": "Bearer $token",
         }),
+        queryParameters: {
+          "status" : status,
+        }
       );
 
       return PackagesModel.fromJSON(response);
@@ -161,7 +168,7 @@ class PackageRepository implements BasePackageRepository {
       final pref = await SharedPreferences.getInstance();
       final token = pref.getString("token");
 
-      final response = await dio.get(getPackagesUrl,
+      final response = await dio.get(getPackagesByResidentUrl,
           options: Options(
             headers: {
               "Authorization": "Bearer $token",

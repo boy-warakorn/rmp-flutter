@@ -15,7 +15,7 @@ class ProfileText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: kSizeL * 1.5,
+        horizontal: kSizeS * 1.5,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -23,11 +23,12 @@ class ProfileText extends StatelessWidget {
           Text(
             text,
             style: isBold
-                ? Theme.of(context).textTheme.headline3?.copyWith(
-                      color: kLightColor,
-                    )
-                : Theme.of(context).textTheme.headline5?.copyWith(
-                      color: kLightColor,
+                ? Theme.of(context).textTheme.headline5?.copyWith(
+              color: kBlackColor,
+              fontWeight: FontWeight.normal,
+            )
+                : Theme.of(context).textTheme.headline3?.copyWith(
+                      color: kBrandDarkerColor,
                       fontSize: kFontSizeHeadline3,
                     ),
           ),

@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:path/path.dart';
 import 'package:rmp_flutter/utils/date_format.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
@@ -56,9 +55,10 @@ class PostalAddScreen extends HookWidget {
     final _isValidRoom = useState(false);
     final _haveService = useState(false);
     final _showRoomValidity = useState(false);
-    
+
     String _fileName = '';
-    File _packagePhoto = File('');
+    final _packagePhoto = useState(File(''));
+    List<String> _listOfUrl = [];
 
     bool _submitAllowed() {
       return _isValidRoom.value && _haveService.value && _haveDate.value;
@@ -86,49 +86,22 @@ class PostalAddScreen extends HookWidget {
       _isLoading.value = false;
     }
 
-    void _createPackage(BuildContext context) async {
-      final packageDto = PackageDto(
-        roomNumber: _roomNumber.text,
-        arrivedAt: _deliveredDate.text,
-        postalService: _deliveredBy.text,
-        note: _note.text,
-      );
-
-      await PackageRepository().createPackage(packageDto);
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(PreLoadingScreen.routeName, (_) => false);
-    }
-
     Future<void> _takePhoto() async {
       final ImagePicker _picker = ImagePicker();
       final XFile? slipPhoto =
           await _picker.pickImage(source: ImageSource.camera);
-      final _image = File(slipPhoto!.path);
-      _fileName = basename(_image.path);
-      _packagePhoto = _image;
-      print(_fileName);
+      if (slipPhoto!.path.isNotEmpty) {
+        _packagePhoto.value = File(slipPhoto.path);
+
+      }
     }
 
     Future<void> _openGallery() async {
       final ImagePicker _picker = ImagePicker();
       final XFile? slipPhoto =
           await _picker.pickImage(source: ImageSource.gallery);
-      final _image = File(slipPhoto!.path);
-      _fileName = basename(_image.path);
-      _packagePhoto = _image;
-      print(_fileName);
-    }
-    
-    Future<void> uploadAndCreatePackage() async{
-      try{
-        final storageRef = FirebaseStorage.instance
-            .ref()
-            .child('packagePhoto/${_roomNumberList.value}/$_fileName');
-        await storageRef.putFile(_packagePhoto);
-        final photoUrl = await storageRef.getDownloadURL();
-        // wait for API
-      }catch(e){
-        print(e.toString());
+      if (slipPhoto!.path.isNotEmpty) {
+        _packagePhoto.value = File(slipPhoto.path);
       }
     }
 
@@ -338,7 +311,36 @@ class PostalAddScreen extends HookWidget {
                               child: CustomButton(
                                 enabled: _submitAllowed(),
                                 text: "ADD",
-                                onPressed: () => _createPackage(context),
+                                onPressed: () async {
+                                  try {
+                                    _isLoading.value = true;
+                                    final storageRef = FirebaseStorage.instance
+                                        .ref()
+                                        .child('packagePhoto/$_fileName');
+                                    await storageRef.putFile(_packagePhoto.value);
+                                    final url =
+                                        await storageRef.getDownloadURL();
+                                    _listOfUrl.add(url.toString());
+
+                                    final packageDto = PackageDto(
+                                      roomNumber: _roomNumber.text,
+                                      arrivedAt: _deliveredDate.text,
+                                      postalService: _deliveredBy.text,
+                                      note: _note.text,
+                                      imgList: _listOfUrl,
+                                    );
+
+                                    await PackageRepository()
+                                        .createPackage(packageDto);
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                            PreLoadingScreen.routeName,
+                                            (_) => false);
+                                  } catch (e) {
+                                    print(e.toString());
+                                  }
+                                  _isLoading.value = false;
+                                },
                               ),
                             ),
                           ],

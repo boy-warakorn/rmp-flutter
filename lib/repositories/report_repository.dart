@@ -7,10 +7,10 @@ import 'package:rmp_flutter/repositories/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class BaseReportRepository {
-  Future<ReportsModel> getReportsByResident();
+  Future<ReportsModel> getReportsByResident(String status, String type);
   Future<Report> getReport(String id);
   Future<void> createReport(CreateReportDto createReportDto);
-  Future<ReportsModel> getReportsByCondo(bool isResponded);
+  Future<ReportsModel> getReportsByCondo(bool isResponded, String type);
   Future<void> replyReport(String id, ReplyReportDto replyReportDto);
   Future<void> setResolvedOnReport(
       String id, ResolveReportDto resolveReportDto);
@@ -19,10 +19,12 @@ abstract class BaseReportRepository {
 class CreateReportDto {
   final String title;
   final String detail;
+  final List<String> imgList;
 
   CreateReportDto({
     required this.detail,
     required this.title,
+    required this.imgList,
   });
 }
 
@@ -43,17 +45,21 @@ class ResolveReportDto {
 
 class ReportRepository implements BaseReportRepository {
   @override
-  Future<ReportsModel> getReportsByResident() async {
+  Future<ReportsModel> getReportsByResident(String status, String type) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
       final result = await dio.get(
-        getReportsUrl,
+        getReportsResidentUrl,
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
           },
         ),
+        queryParameters: {
+          'status' : status,
+          'type' : type,
+        }
       );
       return ReportsModel.fromJson(result);
     } on DioError catch (_) {
@@ -89,7 +95,8 @@ class ReportRepository implements BaseReportRepository {
         createReportUrl,
         data: {
           "title": createReportDto.title,
-          "detail": createReportDto.detail
+          "detail": createReportDto.detail,
+          "imgList": createReportDto.imgList,
         },
         options: Options(
           headers: {
@@ -103,7 +110,7 @@ class ReportRepository implements BaseReportRepository {
   }
 
   @override
-  Future<ReportsModel> getReportsByCondo(bool isResponded) async {
+  Future<ReportsModel> getReportsByCondo(bool isResponded, String type) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
@@ -116,6 +123,7 @@ class ReportRepository implements BaseReportRepository {
         ),
         queryParameters: {
           'status': isResponded ? 'responded' : 'pending',
+          'type': type,
         },
       );
       return ReportsModel.fromJson(result);

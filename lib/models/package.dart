@@ -5,8 +5,8 @@ class PackageMasterModel {
 
   PackageMasterModel({required this.postalService});
 
-  factory PackageMasterModel.fromJSON(dynamic fethcedResult) {
-    Iterable serviceIt = jsonDecode(fethcedResult.toString())["postalService"];
+  factory PackageMasterModel.fromJSON(dynamic fetchedResult) {
+    Iterable serviceIt = jsonDecode(fetchedResult.toString())["postalService"];
 
     return PackageMasterModel(
         postalService: serviceIt.map((service) => service.toString()).toList());
@@ -25,14 +25,16 @@ class PackagesModel {
         packages: packagesIt
             .map(
               (pkItem) => Package(
-                  id: pkItem["id"],
-                  roomNumber: pkItem["roomNumber"],
-                  roomOwner: pkItem["roomOwner"] ?? "-",
-                  note: pkItem["note"],
-                  arrivedAt: pkItem["arrivedAt"],
-                  deliveredAt: pkItem["deliveredAt"],
-                  status: pkItem["status"],
-                  postalService: pkItem["postalService"]),
+                id: pkItem["id"],
+                roomNumber: pkItem["roomNumber"],
+                roomOwner: pkItem["roomOwner"] ?? "-",
+                note: pkItem["note"],
+                arrivedAt: pkItem["arrivedAt"],
+                deliveredAt: pkItem["deliveredAt"],
+                status: pkItem["status"],
+                postalService: pkItem["postalService"],
+                imgList: pkItem["imgList"]
+              ),
             )
             .toList());
   }
@@ -47,6 +49,7 @@ class Package {
   final String deliveredAt;
   final String status;
   final String postalService;
+  final List<dynamic> imgList;
 
   Package({
     required this.id,
@@ -57,6 +60,7 @@ class Package {
     required this.deliveredAt,
     required this.status,
     required this.postalService,
+    required this.imgList,
   });
 
   Package.empty()
@@ -69,6 +73,7 @@ class Package {
           deliveredAt: "",
           status: "",
           postalService: "",
+          imgList: [],
         );
 
   factory Package.fromJSON(dynamic fetchedResult) {
@@ -83,6 +88,7 @@ class Package {
       deliveredAt: pkItem["deliveredAt"],
       status: pkItem["status"],
       postalService: pkItem["postalService"],
+      imgList: pkItem["imgList"],
     );
   }
 }

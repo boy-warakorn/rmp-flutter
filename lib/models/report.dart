@@ -30,6 +30,7 @@ class Report {
   final String detail;
   final String? respondDetail;
   final String status;
+  final List<dynamic> imgList;
 
   Report({
     required this.id,
@@ -41,6 +42,7 @@ class Report {
     required this.detail,
     required this.status,
     this.respondDetail,
+    required this.imgList,
   });
 
   static Report empty() {
@@ -53,6 +55,7 @@ class Report {
       title: "",
       detail: "",
       status: "",
+      imgList: [],
     );
   }
 
@@ -76,6 +79,7 @@ class Report {
             detail: _reportResult["detail"],
             status: _reportResult["status"],
             respondDetail: _reportResult["respondDetail"],
+            imgList: _reportResult["imgList"],
           )
         : Report(
             detail: _reportContent["detail"],
@@ -87,6 +91,7 @@ class Report {
             title: _reportContent["title"],
             reportOwner: _reportContent["reportOwner"],
             respondDetail: _reportContent["respondDetail"] ?? '',
+            imgList: _reportResult["imgList"],
           );
   }
 }
