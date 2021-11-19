@@ -10,6 +10,7 @@ import 'package:rmp_flutter/screens/residents/contact-support/contact_result_scr
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
+import 'package:rmp_flutter/widgets/interactions/attachment_list.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
 import 'package:rmp_flutter/widgets/interactions/week_day_checkbox.dart';
@@ -19,6 +20,14 @@ import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 const _tabs = [
   "Complaint",
   "Maintenance",
+];
+
+const _dummyUrl = [
+  "https://www.ikea.com/th/en/images/products/djungelskog-soft-toy-panda__0877971_pe662366_s5.jpg?f=xl",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/330px-Grosser_Panda.JPG",
+  "https://files.worldwildlife.org/wwfcmsprod/images/Panda_in_Tree/hero_small/99i33zyc0l_Large_WW170579.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Panda_Cub_from_Wolong%2C_Sichuan%2C_China.JPG/800px-Panda_Cub_from_Wolong%2C_Sichuan%2C_China.JPG",
+  "https://images.theconversation.com/files/430483/original/file-20211105-9897-18ahqx2.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop",
 ];
 
 class ContactFormScreen extends HookWidget {
@@ -150,6 +159,11 @@ class ContactFormScreen extends HookWidget {
                           onPressed: () => _openGallery(),
                         ),
                       ],
+                    ),
+                    kSizedBoxVerticalS,
+                    AttachmentList(
+                      imgUrlList: _dummyUrl,
+                      onSelect: (i) => print(i),
                     ),
                     kSizedBoxVerticalL,
                     Row(
