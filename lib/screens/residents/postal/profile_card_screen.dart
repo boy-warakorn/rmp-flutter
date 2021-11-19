@@ -28,16 +28,15 @@ class ProfileCardScreen extends HookConsumerWidget {
           ),
           child: Column(
             children: [
-              Icon(
-                Icons.account_circle_outlined,
-                size: kSizeXL,
-                color: kStrokeColor,
+              Image.asset(
+                "assets/images/man-avatar.png",
+                width: 250,
+                height: 250,
               ),
-              kSizedBoxVerticalXS,
               CustomText.sectionHeaderBlack(_name, context),
               kSizedBoxVerticalXXS,
               CustomText.sectionHeaderBlack("A001", context),
-              kSizedBoxVerticalM,
+              kSizedBoxVerticalS,
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
