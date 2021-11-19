@@ -213,10 +213,12 @@ class ContactFormScreen extends HookWidget {
                             ],
                           ),
                           kSizedBoxVerticalS,
-                          AttachmentList(
-                            imgSourceStrings: extractImgSourceStrings(),
-                            imgSourceType: ImgSourceType.filePath,
-                          ),
+                          _files.value.isNotEmpty
+                              ? AttachmentList(
+                                  imgSourceStrings: extractImgSourceStrings(),
+                                  imgSourceType: ImgSourceType.filePath,
+                                )
+                              : Container(),
                           kSizedBoxVerticalL,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -228,6 +230,8 @@ class ContactFormScreen extends HookWidget {
                                   onPressed: () {
                                     _title.text = "";
                                     _detail.text = "";
+                                    _files.value = [];
+                                    _selectedDays.value = [];
                                   },
                                   color: kWarningColor,
                                 ),
