@@ -4,9 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/providers/user_provider.dart';
-import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
-import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class ProfileSettingScreen extends HookConsumerWidget {
@@ -19,13 +17,13 @@ class ProfileSettingScreen extends HookConsumerWidget {
     final _name = ref.read(currentUser).user.name;
     final _phoneNumber = ref.read(currentUser).user.phoneNumber;
     final _nameController = useTextEditingController(text: _name);
-    final _phoneNumberController = useTextEditingController(
-        text: _phoneNumber);
+    final _phoneNumberController = useTextEditingController(text: _phoneNumber);
     final _roleController = useTextEditingController(text: _role);
 
     return Scaffold(
       appBar: BackAppBar(
         isGradient: true,
+        isEdit : true,
       ),
       backgroundColor: kBgColor,
       body: SingleChildScrollView(
@@ -34,13 +32,11 @@ class ProfileSettingScreen extends HookConsumerWidget {
             Column(
               children: [
                 kSizedBoxVerticalS,
-                Icon(
-                  Icons.account_circle_outlined,
-                  size: kSizeXL,
-                  color: kBrandDarkerColor,
+                Image.asset(
+                  "assets/images/man-avatar.png",
+                  width: 250,
+                  height: 250,
                 ),
-                kSizedBoxVerticalS,
-                kSizedBoxVerticalXS,
                 Text(
                   "Personal Profile",
                   style: Theme.of(context).textTheme.headline3?.copyWith(
@@ -71,20 +67,6 @@ class ProfileSettingScreen extends HookConsumerWidget {
                         fieldName: "Your Role",
                         textEditingController: _roleController,
                         fieldColor: kBrandDarkerColor,
-                      ),
-                      kSizedBoxVerticalM,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            width: kSizeXL,
-                            child: CustomButton(
-                              text: "DONE",
-                              onPressed: () => Navigator.of(context)
-                                  .pushNamed(PreLoadingScreen.routeName),
-                            ),
-                          ),
-                        ],
                       ),
                       kSizedBoxVerticalM,
                     ],

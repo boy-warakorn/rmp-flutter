@@ -4,11 +4,13 @@ import 'package:rmp_flutter/configs/constants.dart';
 
 class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isGradient;
+  final bool isEdit;
   @override
   Size get preferredSize => const Size.fromHeight(kSizeM * 1.75);
   const BackAppBar({
     Key? key,
     this.isGradient = false,
+    this.isEdit = false,
   }) : super(key: key);
 
   @override
@@ -30,6 +32,24 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           : Container(),
+      actions: [
+        isEdit
+            ? Container(
+                margin: EdgeInsets.only(
+                  right: kSizeXXS,
+                ),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.mode_edit,
+                    size: kSizeS * 1.4,
+                  ),
+                  onPressed: () {
+                    print('this is edit function.');
+                  },
+                ),
+              )
+            : Container()
+      ],
       leading: IconButton(
         splashRadius: kSizeS,
         onPressed: () => Navigator.of(context).pop(),

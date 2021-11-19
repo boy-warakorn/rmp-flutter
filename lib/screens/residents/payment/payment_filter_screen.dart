@@ -36,7 +36,6 @@ class PaymentFilterScreen extends HookWidget {
 
     void fetchPayment() async {
       final paymentStatus = _tabs[_tabIndex.value].toLowerCase();
-
       _isLoading.value = true;
       _payments.value =
           await PaymentRepository().getPaymentByStatus(paymentStatus);
@@ -70,9 +69,18 @@ class PaymentFilterScreen extends HookWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomText.sectionHeaderLight(
-                  "Your Payment",
-                  context,
+                Row(
+                  children: [
+                    Icon(
+                      Icons.credit_card,
+                      size: kSizeS * 1.5,
+                    ),
+                    kSizedBoxHorizontalXS,
+                    CustomText.sectionHeaderLight(
+                      "Your Payment",
+                      context,
+                    ),
+                  ],
                 ),
                 kSizedBoxVerticalS,
               ],

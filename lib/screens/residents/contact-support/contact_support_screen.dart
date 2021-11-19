@@ -76,9 +76,18 @@ class ContactSupportScreen extends HookConsumerWidget {
             ),
             child: Column(
               children: [
-                CustomText.sectionHeaderLight(
-                  "Contact Support",
-                  context,
+                Row(
+                  children: [
+                    Icon(
+                      Icons.chat_bubble_outline_rounded,
+                      size: kSizeS * 1.5,
+                    ),
+                    kSizedBoxHorizontalXS,
+                    CustomText.sectionHeaderLight(
+                      "Contact Support",
+                      context,
+                    ),
+                  ],
                 ),
                 kSizedBoxVerticalS,
               ],
@@ -114,12 +123,17 @@ class ContactSupportScreen extends HookConsumerWidget {
                     onSelect: (p0) {
                       _bottomTabIndex.value = p0;
                     },
+                    verticalPadding: kSizeXS * 1.5,
+                    selectedColor: kStrokeColor,
+                    underlineHeight: 2.5,
                   ),
                   kSizedBoxVerticalS,
                   _isLoading.value
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
+                      ? Expanded(
+                        child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                      )
                       : _reports.value.reports.isEmpty
                           ? EmptyListDisplay(
                               text: _emptyLabels[_bottomTabIndex.value],
