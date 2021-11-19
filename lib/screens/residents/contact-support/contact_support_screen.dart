@@ -43,8 +43,7 @@ class ContactSupportScreen extends HookConsumerWidget {
           _complaintAndMaintenance[_topTabIndex.value].toLowerCase();
       _isLoading.value = true;
       _reports.value =
-          await ReportRepository().getReportsByResident(reportStatus);
-      //fetch report type
+          await ReportRepository().getReportsByResident(reportStatus, reportType);
       _isLoading.value = false;
     }
 

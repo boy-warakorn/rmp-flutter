@@ -7,10 +7,10 @@ import 'package:rmp_flutter/repositories/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class BaseReportRepository {
-  Future<ReportsModel> getReportsByResident(String status);
+  Future<ReportsModel> getReportsByResident(String status, String type);
   Future<Report> getReport(String id);
   Future<void> createReport(CreateReportDto createReportDto);
-  Future<ReportsModel> getReportsByCondo(bool isResponded);
+  Future<ReportsModel> getReportsByCondo(bool isResponded, String type);
   Future<void> replyReport(String id, ReplyReportDto replyReportDto);
   Future<void> setResolvedOnReport(
       String id, ResolveReportDto resolveReportDto);
@@ -45,7 +45,7 @@ class ResolveReportDto {
 
 class ReportRepository implements BaseReportRepository {
   @override
-  Future<ReportsModel> getReportsByResident(String status) async {
+  Future<ReportsModel> getReportsByResident(String status, String type) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
@@ -58,6 +58,7 @@ class ReportRepository implements BaseReportRepository {
         ),
         queryParameters: {
           'status' : status,
+          'type' : type,
         }
       );
       return ReportsModel.fromJson(result);
@@ -109,7 +110,7 @@ class ReportRepository implements BaseReportRepository {
   }
 
   @override
-  Future<ReportsModel> getReportsByCondo(bool isResponded) async {
+  Future<ReportsModel> getReportsByCondo(bool isResponded, String type) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
@@ -122,6 +123,7 @@ class ReportRepository implements BaseReportRepository {
         ),
         queryParameters: {
           'status': isResponded ? 'responded' : 'pending',
+          'type': type,
         },
       );
       return ReportsModel.fromJson(result);

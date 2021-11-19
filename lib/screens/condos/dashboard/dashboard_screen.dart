@@ -56,10 +56,10 @@ class DashboardScreen extends HookWidget {
       _isLoading.value = true;
       _packagesTotal.value =
           await PackageRepository().getPackages("in-storage");
-      _reportsResponded.value =
-          await ReportRepository().getReportsByCondo(_isResponded.value);
-      _reportsPending.value =
-          await ReportRepository().getReportsByCondo(!_isResponded.value);
+      // _reportsResponded.value =
+      //     await ReportRepository().getReportsByCondo(_isResponded.value);
+      // _reportsPending.value =
+      //     await ReportRepository().getReportsByCondo(!_isResponded.value);
       _packagesReceived.value =
           await PackageRepository().getPackageByResident(!_isResponded.value);
       _isLoading.value = false;

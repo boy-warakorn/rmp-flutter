@@ -313,6 +313,7 @@ class PostalAddScreen extends HookWidget {
                                 text: "ADD",
                                 onPressed: () async {
                                   try {
+                                    _isLoading.value = true;
                                     final storageRef = FirebaseStorage.instance
                                         .ref()
                                         .child('packagePhoto/$_fileName');
@@ -338,6 +339,7 @@ class PostalAddScreen extends HookWidget {
                                   } catch (e) {
                                     print(e.toString());
                                   }
+                                  _isLoading.value = false;
                                 },
                               ),
                             ),
