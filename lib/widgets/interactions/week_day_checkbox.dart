@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/configs/week_days.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 
 enum WeekDay {
@@ -12,26 +13,6 @@ enum WeekDay {
   friday,
   saturday,
 }
-
-Map<WeekDay, Color> _dayColor = {
-  WeekDay.sunday: kSunday,
-  WeekDay.monday: kMonday,
-  WeekDay.tuesday: kTuesday,
-  WeekDay.wednesday: kWednesday,
-  WeekDay.thursday: kThursday,
-  WeekDay.friday: kFriday,
-  WeekDay.saturday: kSaturday,
-};
-
-Map<WeekDay, String> _dayName = {
-  WeekDay.sunday: "Sunday",
-  WeekDay.monday: "Monday",
-  WeekDay.tuesday: "Tuesday",
-  WeekDay.wednesday: "Wednesday",
-  WeekDay.thursday: "Thursday",
-  WeekDay.friday: "Friday",
-  WeekDay.saturday: "Saturday",
-};
 
 class WeekDayCheckbox extends StatelessWidget {
   final WeekDay day;
@@ -58,7 +39,7 @@ class WeekDayCheckbox extends StatelessWidget {
         ),
         kSizedBoxHorizontalXS,
         CustomText(
-          _dayName[day]!,
+          dayName[day]!,
           style: Theme.of(context).textTheme.bodyText1!.copyWith(
                 color: kLightColor,
               ),
@@ -68,9 +49,9 @@ class WeekDayCheckbox extends StatelessWidget {
     } else {
       rowContent = [
         CustomText(
-          _dayName[day]!,
+          dayName[day]!,
           style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                color: selected ? kLightColor : _dayColor[day],
+                color: selected ? kLightColor : dayColor[day],
               ),
         ),
       ];
@@ -93,9 +74,9 @@ class WeekDayCheckbox extends StatelessWidget {
               ? null
               : Border.all(
                   width: kSizeXXXS,
-                  color: _dayColor[day]!,
+                  color: dayColor[day]!,
                 ),
-          color: selected ? _dayColor[day] : Colors.transparent,
+          color: selected ? dayColor[day] : Colors.transparent,
           borderRadius: kBorderRadiusM,
         ),
         child: _buildContent(context),
