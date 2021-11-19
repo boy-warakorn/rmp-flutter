@@ -20,11 +20,15 @@ class CreateReportDto {
   final String title;
   final String detail;
   final List<String> imgList;
+  final String type;
+  final List<String> dayList;
 
   CreateReportDto({
     required this.detail,
     required this.title,
     required this.imgList,
+    required this.type,
+    required this.dayList,
   });
 }
 
@@ -49,18 +53,16 @@ class ReportRepository implements BaseReportRepository {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
-      final result = await dio.get(
-        getReportsResidentUrl,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
-        ),
-        queryParameters: {
-          'status' : status,
-          'type' : type,
-        }
-      );
+      final result = await dio.get(getReportsResidentUrl,
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer $token',
+            },
+          ),
+          queryParameters: {
+            'status': status,
+            'type': type,
+          });
       return ReportsModel.fromJson(result);
     } on DioError catch (_) {
       throw HttpException("Get Reports By Resident Failed");
@@ -97,6 +99,8 @@ class ReportRepository implements BaseReportRepository {
           "title": createReportDto.title,
           "detail": createReportDto.detail,
           "imgList": createReportDto.imgList,
+          "dayList": createReportDto.dayList,
+          "type": createReportDto.type,
         },
         options: Options(
           headers: {
