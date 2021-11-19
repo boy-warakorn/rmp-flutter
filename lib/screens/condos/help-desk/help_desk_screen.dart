@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
@@ -18,14 +19,22 @@ class HelpDeskScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _tabIndex = useState(0);
+    final _bottomTabIndex = useState(0);
     final _reports = useState(ReportsModel(reports: []));
     final _isLoading = useState(false);
+    final _topTabIndex = useState(0);
+
+    final List<String> _complaintAndMaintenance = [
+      "Complaint",
+      "Maintenance",
+    ];
 
     void fetchReports() async {
       _isLoading.value = true;
+      final reportType =
+      _complaintAndMaintenance[_topTabIndex.value].toLowerCase();
       _reports.value =
-          await ReportRepository().getReportsByCondo(_tabIndex.value == 1);
+          await ReportRepository().getReportsByCondo(_bottomTabIndex.value == 1, reportType);
       _isLoading.value = false;
     }
 
@@ -33,19 +42,27 @@ class HelpDeskScreen extends HookConsumerWidget {
       () {
         fetchReports();
       },
-      [_tabIndex.value],
+      [_bottomTabIndex.value],
     );
 
     return Column(
       children: [
         TextTab(
+          labels: _complaintAndMaintenance,
+          selectedIndex: _topTabIndex.value,
+          onSelect: (i) {
+            _topTabIndex.value = i;
+          },
+          selectedColor: kBrandAlternativeDarkerColor,
+        ),
+        TextTab(
           labels: [
             "Incoming",
             "Responded",
           ],
-          selectedIndex: _tabIndex.value,
+          selectedIndex: _bottomTabIndex.value,
           onSelect: (i) {
-            _tabIndex.value = i;
+            _bottomTabIndex.value = i;
           },
         ),
         Expanded(
@@ -55,7 +72,7 @@ class HelpDeskScreen extends HookConsumerWidget {
                 )
               : _reports.value.reports.isEmpty
                   ? EmptyListDisplay(
-                      text: _tabIndex.value == 0
+                      text: _bottomTabIndex.value == 0
                           ? "No incoming report"
                           : "No responded report",
                     )
@@ -79,7 +96,7 @@ class HelpDeskScreen extends HookConsumerWidget {
                                         arguments: _currentReport.id)
                                     .then((value) => fetchReports());
                               },
-                              text: !(_tabIndex.value == 1)
+                              text: !(_bottomTabIndex.value == 1)
                                   ? "Reply"
                                   : "See detail",
                             ),

@@ -8,7 +8,9 @@ import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/report_detail_screen.dart';
 import 'package:rmp_flutter/utils/date_format.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
+import 'package:rmp_flutter/widgets/general/empty_list_display.dart';
 import 'package:rmp_flutter/widgets/general/entity_card.dart';
+import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
 
 class ContactSupportScreen extends HookConsumerWidget {
   static const routeName = "/resident/contact-support";
@@ -18,16 +20,39 @@ class ContactSupportScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _reports = useState(ReportsModel(reports: []));
     final _isLoading = useState(false);
+    final List<String> _items = [
+      "Responded",
+      "Pending",
+      "Resolved",
+    ];
+    final List<String> _complaintAndMaintenance = [
+      "Complaint",
+      "Maintenance",
+    ];
+    final _emptyLabels = [
+      "No responded issue",
+      "No pending issue",
+      "No resolved issue",
+    ];
+    final _bottomTabIndex = useState(0);
+    final _topTabIndex = useState(0);
 
     void fetchReports() async {
+      final reportStatus = _items[_bottomTabIndex.value].toLowerCase();
+      final reportType =
+          _complaintAndMaintenance[_topTabIndex.value].toLowerCase();
       _isLoading.value = true;
-      _reports.value = await ReportRepository().getReportsByResident();
+      _reports.value =
+          await ReportRepository().getReportsByResident(reportStatus, reportType);
       _isLoading.value = false;
     }
 
     useEffect(() {
       fetchReports();
-    }, []);
+    }, [
+      _bottomTabIndex.value,
+      _topTabIndex.value,
+    ]);
 
     return Container(
       decoration: BoxDecoration(
@@ -55,14 +80,15 @@ class ContactSupportScreen extends HookConsumerWidget {
                   "Contact Support",
                   context,
                 ),
+                kSizedBoxVerticalS,
               ],
             ),
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.all(
-                kSizeS * 1.5,
-              ),
+              // padding: EdgeInsets.all(
+              //   kSizeS * 1.5,
+              // ),
               decoration: BoxDecoration(
                 color: kBgColor,
                 borderRadius: BorderRadius.vertical(
@@ -74,35 +100,56 @@ class ContactSupportScreen extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomText.sectionHeader(
-                    "All Issues",
-                    context,
+                  TextTab(
+                    labels: _complaintAndMaintenance,
+                    selectedIndex: _topTabIndex.value,
+                    onSelect: (p0) {
+                      _topTabIndex.value = p0;
+                    },
+                    selectedColor: kBrandAlternativeDarkerColor,
+                  ),
+                  TextTab(
+                    labels: _items,
+                    selectedIndex: _bottomTabIndex.value,
+                    onSelect: (p0) {
+                      _bottomTabIndex.value = p0;
+                    },
                   ),
                   kSizedBoxVerticalS,
                   _isLoading.value
                       ? Center(
                           child: CircularProgressIndicator(),
                         )
-                      : Expanded(
-                          child: ListView.builder(
-                            itemCount: _reports.value.reports.length,
-                            itemBuilder: (ctx, index) {
-                              final _currentReport =
-                                  _reports.value.reports[index];
+                      : _reports.value.reports.isEmpty
+                          ? EmptyListDisplay(
+                              text: _emptyLabels[_bottomTabIndex.value],
+                            )
+                          : Expanded(
+                              child: ListView.builder(
+                                itemCount: _reports.value.reports.length,
+                                itemBuilder: (ctx, index) {
+                                  final _currentReport =
+                                      _reports.value.reports[index];
 
-                              return EntityCard(
-                                title: _currentReport.title,
-                                subtitle:
-                                    "Requested Date: ${formattedDate(_currentReport.requestedDate)}",
-                                statusKey: _currentReport.status,
-                                onPressed: () => Navigator.of(context)
-                                    .pushNamed(ReportDetailScreen.routeName,
-                                        arguments: _currentReport.id)
-                                    .then((value) => fetchReports()),
-                              );
-                            },
-                          ),
-                        ),
+                                  return Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: kSizeS * 1.5,
+                                    ),
+                                    child: EntityCard(
+                                      title: _currentReport.title,
+                                      subtitle:
+                                          "Requested Date: ${formattedDate(_currentReport.requestedDate)}",
+                                      statusKey: _currentReport.status,
+                                      onPressed: () => Navigator.of(context)
+                                          .pushNamed(
+                                              ReportDetailScreen.routeName,
+                                              arguments: _currentReport.id)
+                                          .then((value) => fetchReports()),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                 ],
               ),
             ),

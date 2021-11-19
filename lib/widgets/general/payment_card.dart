@@ -62,7 +62,9 @@ class PaymentCard extends StatelessWidget {
                                     ? kSuccessColor
                                     : status == "pending"
                                         ? kWarningColor
-                                        : kErrorColor,
+                                        : status == "active"
+                                            ? kBrandColor
+                                            : kErrorColor,
                               ),
                             ),
                           ],

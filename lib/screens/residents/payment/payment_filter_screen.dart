@@ -18,12 +18,14 @@ class PaymentFilterScreen extends HookWidget {
     "Complete",
     "Pending",
     "Active",
+    "Rejected",
   ];
 
   static const _emptyLabels = [
     "No completed payment",
     "No pending payment",
     "No active payment",
+    "No rejected payment"
   ];
 
   @override
@@ -78,9 +80,6 @@ class PaymentFilterScreen extends HookWidget {
           ),
           Expanded(
             child: Container(
-              // padding: EdgeInsets.all(
-              //   kSizeS * 1.5,
-              // ),
               decoration: BoxDecoration(
                 color: kBgColor,
               ),
@@ -94,9 +93,31 @@ class PaymentFilterScreen extends HookWidget {
                       _tabIndex.value = p0;
                     },
                   ),
+                  kSizedBoxVerticalS,
+                  _tabIndex.value == 3 && _payments.value.payments.isNotEmpty
+                      ? _isLoading.value
+                          ? Container()
+                          : Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: kSizeS * 1.5,
+                              ),
+                              child: Text(
+                                "If your payment status notify you as 'rejected', you will have to contact to condo personnel.",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.copyWith(
+                                      color: kErrorColor,
+                                    ),
+                              ),
+                            )
+                      : Container(),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(kSizeS * 1.5),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: kSizeS * 1.5,
+                        vertical: kSizeXXS,
+                      ),
                       child: _isLoading.value
                           ? Center(
                               child: CircularProgressIndicator(),

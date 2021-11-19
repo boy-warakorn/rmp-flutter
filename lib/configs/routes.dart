@@ -1,21 +1,20 @@
-import 'package:rmp_flutter/screens/condos/about/about_us_screen.dart';
+import 'package:rmp_flutter/screens/about/about_us_screen.dart';
 import 'package:rmp_flutter/screens/condos/dashboard/dashboard_screen.dart';
-import 'package:rmp_flutter/screens/condos/forgot_password_screen.dart';
+import 'package:rmp_flutter/screens/forgot_password_screen.dart';
 import 'package:rmp_flutter/screens/condos/help-desk/help_desk_screen.dart';
 import 'package:rmp_flutter/screens/condos/help-desk/reply_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_add_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_screen.dart';
-import 'package:rmp_flutter/screens/condos/profile/profile_setting_screen.dart';
 import 'package:rmp_flutter/screens/login_screen.dart';
 
 import 'package:rmp_flutter/screens/preloading_screen.dart';
+import 'package:rmp_flutter/screens/profile/profile_setting_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_form_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_result_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_support_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/report_detail_screen.dart';
-import 'package:rmp_flutter/screens/residents/contact-support/resident_reply_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/confirm_payment_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/payment_filter_screen.dart';
 import 'package:rmp_flutter/screens/residents/payment/payment_result_screen.dart';
@@ -57,7 +56,6 @@ final residentRoutes = {
   ResidentPostalScreen.routeName: (_) => const ResidentPostalScreen(),
   ConfirmPaymentScreen.routeName: (_) => const ConfirmPaymentScreen(),
   SpecificPaymentScreen.routeName: (_) => const SpecificPaymentScreen(),
-  ResidentReplyScreen.routeName: (_) => const ResidentReplyScreen(),
   ProfileCardScreen.routeName: (_) => const ProfileCardScreen(),
   IDCardScreen.routeName: (_) => const IDCardScreen(),
   PaymentFilterScreen.routeName: (_) => const PaymentFilterScreen(),
