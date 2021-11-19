@@ -14,25 +14,27 @@ class EmptyListDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            color: kAlternativeColor,
-            size: kSizeL,
+    return Expanded(
+      child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/images/box.png",
+                width: 200,
+                height: 200,
+              ),
+              Text(
+                text,
+                style: Theme.of(context).textTheme.headline5?.copyWith(
+                      color: kBlackColor,
+                      fontSize: kSizeS * (1.5),
+                    ),
+              ),
+            ],
           ),
-          kSizedBoxVerticalS,
-          Text(
-            text,
-            style: Theme.of(context).textTheme.headline5?.copyWith(
-                  color: kAlternativeColor,
-                  fontSize: kSizeS * (1.5),
-                ),
-          ),
-        ],
+        
       ),
     );
   }
