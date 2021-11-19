@@ -33,6 +33,7 @@ class ProfileSettingScreen extends HookConsumerWidget {
           children: [
             Column(
               children: [
+                kSizedBoxVerticalS,
                 Icon(
                   Icons.account_circle_outlined,
                   size: kSizeXL,
