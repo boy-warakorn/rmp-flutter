@@ -82,7 +82,6 @@ class ReportRepository implements BaseReportRepository {
           },
         ),
       );
-      print(result);
 
       return Report.fromJson(result.toString(), true);
     } on DioError catch (_) {
