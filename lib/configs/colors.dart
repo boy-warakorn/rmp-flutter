@@ -22,6 +22,14 @@ const kBgColor = Color(0xFFF0F0F0);
 const kLightColor = Colors.white;
 const kBlackColor = Colors.black;
 
+const kSunday = Color(0xFFd43b3b);
+const kMonday = Color(0xFFdeab35);
+const kTuesday = Color(0xFFeb028a);
+const kWednesday = Color(0xFF00b02f);
+const kThursday = Color(0xFFff8800);
+const kFriday = Color(0xFF0299f7);
+const kSaturday = Color(0xFF8600c9);
+
 final Shader kGradientColor =
     LinearGradient(colors: <Color>[kBrandColor, kBrandAlternativeDarkerColor])
         .createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
