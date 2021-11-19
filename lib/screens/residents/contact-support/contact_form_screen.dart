@@ -56,10 +56,10 @@ class ContactFormScreen extends HookWidget {
       WeekDay.saturday,
     ]);
     final _tabIndex = useState(0);
+    final _files = useState(<XFile>[]);
 
     final _isLoading = useState(false);
     final List<String> _listOfUrl = [];
-    List<XFile> _files = [];
 
     void selectDay(WeekDay day) {
       List<WeekDay> tmp = [];
@@ -74,6 +74,15 @@ class ContactFormScreen extends HookWidget {
       }
 
       _selectedDays.value = tmp;
+    }
+
+    List<String> extractImgSourceStrings() {
+      var result = <String>[];
+      for (XFile file in _files.value) {
+        result.add(file.path);
+      }
+
+      return result;
     }
 
     Widget _buildDaySelector() {
@@ -100,7 +109,7 @@ class ContactFormScreen extends HookWidget {
       final List<XFile>? pickedFileList = await _picker.pickMultiImage();
       try {
         if (pickedFileList != null) {
-          _files = pickedFileList;
+          _files.value = pickedFileList;
         }
         print(_files);
       } catch (e) {
@@ -109,16 +118,16 @@ class ContactFormScreen extends HookWidget {
     }
 
     Future<void> sendReport() async {
-      if (_title.text.isEmpty || _detail.text.isEmpty && _files.isEmpty) {
+      if (_title.text.isEmpty || _detail.text.isEmpty && _files.value.isEmpty) {
         return;
       }
       try {
         _isLoading.value = true;
-        for (int i = 0; i < _files.length; i++) {
-          final _fileName = basename(_files[i].path);
+        for (int i = 0; i < _files.value.length; i++) {
+          final _fileName = basename(_files.value[i].path);
           final storageRef =
               FirebaseStorage.instance.ref().child('evidences/$_fileName');
-          await storageRef.putFile(File(_files[i].path));
+          await storageRef.putFile(File(_files.value[i].path));
           final url = await storageRef.getDownloadURL();
           _listOfUrl.add(url.toString());
         }
@@ -205,8 +214,8 @@ class ContactFormScreen extends HookWidget {
                           ),
                           kSizedBoxVerticalS,
                           AttachmentList(
-                            imgUrlList: _dummyUrl,
-                            onSelect: (i) => print(i),
+                            imgSourceStrings: extractImgSourceStrings(),
+                            imgSourceType: ImgSourceType.filePath,
                           ),
                           kSizedBoxVerticalL,
                           Row(
