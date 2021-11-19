@@ -64,6 +64,9 @@ class HelpDeskScreen extends HookConsumerWidget {
           onSelect: (i) {
             _bottomTabIndex.value = i;
           },
+          verticalPadding: kSizeXS * 1.5,
+          selectedColor: kStrokeColor,
+          underlineHeight: 2.5,
         ),
         Expanded(
           child: _isLoading.value
