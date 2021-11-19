@@ -4,7 +4,6 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
-import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 
 class DashboardScreen extends HookWidget {
