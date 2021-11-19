@@ -14,9 +14,6 @@ class ViewAttactmentScreen extends StatelessWidget {
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-    print(args["src"]);
-    print(args["srcType"]);
-
     return Scaffold(
       backgroundColor: kBgColor,
       appBar: BackAppBar(),
