@@ -12,6 +12,7 @@ import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/dialogs/notice_dialog.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
+import 'package:rmp_flutter/widgets/interactions/keyboard_dismisser.dart';
 
 class LoginScreen extends HookConsumerWidget {
   static const routeName = "/login";
@@ -64,115 +65,117 @@ class LoginScreen extends HookConsumerWidget {
       }
     }
 
-    return Scaffold(
-      backgroundColor: kBgColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: kSizeXXL * 1.1,
-              decoration: BoxDecoration(
-                color: kLightColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-                borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.circular(
-                    kSizeM,
+    return KeyboardDismisser(
+      child: Scaffold(
+        backgroundColor: kBgColor,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: kSizeXXL * 1.1,
+                decoration: BoxDecoration(
+                  color: kLightColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                  borderRadius: const BorderRadius.vertical(
+                    bottom: Radius.circular(
+                      kSizeM,
+                    ),
                   ),
                 ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      kSizedBoxVerticalL,
-                      Image.asset(
-                        "assets/images/rmp_ex.png",
-                        width: kSizeXL,
-                        height: kSizeXL,
-                      ),
-                      kSizedBoxVerticalM,
-                      kSizedBoxVerticalS,
-                      Text(
-                        "Login",
-                        style: GoogleFonts.montserrat(
-                          color: kBlackColor,
-                          fontSize: kFontSizeHeadline3,
-                          fontWeight: FontWeight.w600,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        kSizedBoxVerticalL,
+                        Image.asset(
+                          "assets/images/rmp_ex.png",
+                          width: kSizeXL,
+                          height: kSizeXL,
                         ),
+                        kSizedBoxVerticalM,
+                        kSizedBoxVerticalS,
+                        Text(
+                          "Login",
+                          style: GoogleFonts.montserrat(
+                            color: kBlackColor,
+                            fontSize: kFontSizeHeadline3,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      transform: Matrix4.translationValues(
+                        0.0,
+                        1.0,
+                        0.0,
                       ),
-                    ],
-                  ),
-                  Container(
-                    transform: Matrix4.translationValues(
-                      0.0,
-                      1.0,
-                      0.0,
+                      height: kSizeXXS,
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: kSizeM * 1.4,
+                      ),
+                      decoration: const BoxDecoration(
+                        color: kBrandColor,
+                        borderRadius: kBorderRadiusM,
+                      ),
                     ),
-                    height: kSizeXXS,
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: kSizeM * 1.4,
-                    ),
-                    decoration: const BoxDecoration(
-                      color: kBrandColor,
-                      borderRadius: kBorderRadiusM,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: kSizeM,
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: kSizeM,
+                ),
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    kSizedBoxVerticalM,
+                    FormTextFieldIcon(
+                      fieldName: "Username",
+                      icon: const Icon(
+                        Icons.account_circle,
+                        size: kSizeM,
+                      ),
+                      textEditingController: _username,
+                      suffixText: '',
+                      isPassword: false,
+                    ),
+                    kSizedBoxVerticalS,
+                    FormTextFieldIcon(
+                      fieldName: "Password",
+                      icon: const Icon(
+                        Icons.lock_rounded,
+                        size: kSizeM,
+                      ),
+                      textEditingController: _password,
+                      suffixText: 'Show',
+                      isPassword: true,
+                    ),
+                    kSizedBoxVerticalM,
+                    CustomButton(
+                      padding: EdgeInsets.symmetric(
+                        vertical: _isLoading.value ? kSizeS * 0.8 : kSizeS * 1.2,
+                      ),
+                      text: "LOGIN",
+                      // enabled: !_isLoading.value,
+                      enabled: !_isLoading.value,
+                      onPressed: _onLogin,
+                    ),
+                  ],
+                ),
               ),
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  kSizedBoxVerticalM,
-                  FormTextFieldIcon(
-                    fieldName: "Username",
-                    icon: const Icon(
-                      Icons.account_circle,
-                      size: kSizeM,
-                    ),
-                    textEditingController: _username,
-                    suffixText: '',
-                    isPassword: false,
-                  ),
-                  kSizedBoxVerticalS,
-                  FormTextFieldIcon(
-                    fieldName: "Password",
-                    icon: const Icon(
-                      Icons.lock_rounded,
-                      size: kSizeM,
-                    ),
-                    textEditingController: _password,
-                    suffixText: 'Show',
-                    isPassword: true,
-                  ),
-                  kSizedBoxVerticalM,
-                  CustomButton(
-                    padding: EdgeInsets.symmetric(
-                      vertical: _isLoading.value ? kSizeS * 0.8 : kSizeS * 1.2,
-                    ),
-                    text: "LOGIN",
-                    // enabled: !_isLoading.value,
-                    enabled: !_isLoading.value,
-                    onPressed: _onLogin,
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
