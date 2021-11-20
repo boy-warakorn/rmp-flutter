@@ -6,11 +6,14 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
+import 'package:rmp_flutter/utils/report_daylist_extractor.dart';
 import 'package:rmp_flutter/widgets/dialogs/abort_issue_dialog.dart';
+import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/text_with_value.dart';
 import 'package:rmp_flutter/widgets/interactions/attachment_list.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
+import 'package:rmp_flutter/widgets/interactions/week_day_selector.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class ReportDetailScreen extends HookConsumerWidget {
@@ -59,12 +62,31 @@ class ReportDetailScreen extends HookConsumerWidget {
       _isLoading.value = false;
     }
 
+    Widget _buildAvailableDays() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText.sectionHeaderBlack("Available day(s)", context),
+          kSizedBoxVerticalS,
+          WeekDaySelector(
+            selectedDays:
+            extractAvailableDaysFromString(_report.value.availableDay),
+            onSelect: null,
+          ),
+          kSizedBoxVerticalS,
+          kSizedBoxVerticalXS,
+        ],
+      );
+    }
+
     useEffect(() {
       fetchReport();
     }, []);
 
     return Scaffold(
-      appBar: BackAppBar(),
+      appBar: BackAppBar(
+        isGradient: true,
+      ),
       backgroundColor: kBgColor,
       body: SingleChildScrollView(
         child: _isLoading.value
@@ -110,18 +132,21 @@ class ReportDetailScreen extends HookConsumerWidget {
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                         kSizedBoxVerticalS,
-                        _tabIndex.value == 1
+                        _tabIndex.value == 0
                             ? TextWithValue(
+                                head:
+                                    "${_report.value.type == 'complaint' ? 'Complaint' : 'Maintenance'} Detail",
+                                detail: _report.value.detail,
+                              )
+                            : TextWithValue(
                                 head: "Reply Detail",
                                 detail: _report.value.respondDetail!.isEmpty
                                     ? "No Reply yet."
                                     : _report.value.respondDetail!,
-                              )
-                            : TextWithValue(
-                                head: "Issue Detail",
-                                detail: _report.value.detail,
                               ),
                         kSizedBoxVerticalM,
+                        if (_report.value.type == 'maintenance')
+                          _buildAvailableDays(),
                         _tabIndex.value == 0
                             ? Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
