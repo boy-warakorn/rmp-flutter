@@ -8,6 +8,7 @@ import 'package:path/path.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/configs/week_days.dart';
+import 'package:rmp_flutter/enums/img_source_type.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_result_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
@@ -38,7 +39,7 @@ class ContactFormScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _title = useTextEditingController(); 
+    final _title = useTextEditingController();
     final _detail = useTextEditingController();
     final _selectedDays = useState(<WeekDay>[]);
     final _tabIndex = useState(0);
@@ -48,7 +49,7 @@ class ContactFormScreen extends HookWidget {
     final List<String> _listOfUrl = [];
 
     void selectDay(WeekDay day) {
-      List<WeekDay> tmp = [];
+      var tmp = <WeekDay>[];
       for (WeekDay d in _selectedDays.value) {
         tmp.add(d);
       }
@@ -60,6 +61,17 @@ class ContactFormScreen extends HookWidget {
       }
 
       _selectedDays.value = tmp;
+    }
+
+    void removeAttachment(int index) {
+      var tmp = <XFile>[];
+      for (int i = 0; i < _files.value.length; i++) {
+        if (i != index) {
+          tmp.add(_files.value[i]);
+        }
+      }
+
+      _files.value = tmp;
     }
 
     List<String> extractImgSourceStrings() {
@@ -184,7 +196,7 @@ class ContactFormScreen extends HookWidget {
                           Row(
                             children: [
                               CustomText.sectionHeaderBlack(
-                                "Upload Photos (Optional)",
+                                "Attachments (Optional)",
                                 context,
                               ),
                               kSizedBoxHorizontalXS,
@@ -203,6 +215,8 @@ class ContactFormScreen extends HookWidget {
                               ? AttachmentList(
                                   imgSourceStrings: extractImgSourceStrings(),
                                   imgSourceType: ImgSourceType.filePath,
+                                  removable: true,
+                                  onRemove: removeAttachment,
                                 )
                               : Container(),
                           kSizedBoxVerticalL,
