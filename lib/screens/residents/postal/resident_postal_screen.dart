@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/residents/postal/profile_card_screen.dart';
+import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/general/empty_list_display.dart';
 import 'package:rmp_flutter/widgets/general/resident_package_card.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
@@ -55,55 +57,50 @@ class ResidentPostalScreen extends HookWidget {
           selectedIndex: _tabIndex.value,
         ),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(
-              kSizeS,
-            ),
-            child: Column(
-              children: [
-                _isLoading.value
-                    ? Expanded(
-                      child: Center(
-                          child: CircularProgressIndicator(),
+          child: _isLoading.value
+              ? CenteredProgressIndicator()
+              : _packages.value.packages.isEmpty
+                  ? Column(
+                      children: [
+                        EmptyListDisplay(
+                          text: _emptyLabels[_tabIndex.value],
                         ),
+                      ],
                     )
-                    : Expanded(
-                        child: _packages.value.packages.isEmpty
-                            ? EmptyListDisplay(
-                                text: _emptyLabels[_tabIndex.value],
-                              )
-                            : ListView.builder(
-                                itemCount: _packages.value.packages.length,
-                                itemBuilder: (context, index) {
-                                  final pk = _packages.value.packages[index];
-                                  return ResidentPackageCard(
-                                    postalService: pk.postalService,
-                                    arrivedAt: pk.arrivedAt,
-                                    imageUrl: pk.imgList[0],
-                                    deliveredAt: _tabIndex.value == 0
-                                        ? pk.deliveredAt
-                                        : null,
-                                  );
-                                },
-                              ),
-                      ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    CustomButton(
-                      text: "SHOW IDENTIFICATION",
-                      onPressed: () => Navigator.of(context).pushNamed(
-                        ProfileCardScreen.routeName,
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        vertical: kSizeXS,
-                        horizontal: kSizeS,
-                      ),
+                  : ListView.builder(
+                      padding: EdgeInsets.all(kSizeS),
+                      itemCount: _packages.value.packages.length,
+                      itemBuilder: (context, index) {
+                        final pk = _packages.value.packages[index];
+                        return ResidentPackageCard(
+                          postalService: pk.postalService,
+                          arrivedAt: pk.arrivedAt,
+                          imageUrl: pk.imgList[0],
+                          deliveredAt:
+                              _tabIndex.value == 0 ? pk.deliveredAt : null,
+                        );
+                      },
                     ),
-                  ],
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(
+            vertical: kSizeXXS,
+          ),
+          color: kLightColor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomButton(
+                text: "SHOW IDENTIFICATION",
+                onPressed: () => Navigator.of(context).pushNamed(
+                  ProfileCardScreen.routeName,
                 ),
-              ],
-            ),
+                padding: EdgeInsets.symmetric(
+                  vertical: kSizeXS,
+                  horizontal: kSizeS,
+                ),
+              ),
+            ],
           ),
         ),
       ],
