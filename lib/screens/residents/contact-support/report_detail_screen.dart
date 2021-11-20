@@ -8,6 +8,7 @@ import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/dialogs/abort_issue_dialog.dart';
 import 'package:rmp_flutter/widgets/general/text_with_value.dart';
+import 'package:rmp_flutter/widgets/interactions/attachment_list.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
@@ -135,22 +136,9 @@ class ReportDetailScreen extends HookConsumerWidget {
                                         ),
                                   ),
                                   kSizedBoxVerticalS,
-                                  GridView.builder(
-                                    gridDelegate:
-                                        SliverGridDelegateWithMaxCrossAxisExtent(
-                                      mainAxisExtent: 200,
-                                      maxCrossAxisExtent: 180,
-                                      childAspectRatio: 1.5,
-                                      crossAxisSpacing: kSizeS,
-                                      mainAxisSpacing: kSizeS,
-                                    ),
-                                    itemCount: _report.value.imgList.length,
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      return Image.network(
-                                        _report.value.imgList[index],
-                                      );
-                                    },
+                                  AttachmentList(
+                                    imgSourceType: ImgSourceType.url,
+                                    imgSourceStrings: _report.value.imgList,
                                   ),
                                 ],
                               )
