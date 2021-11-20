@@ -134,6 +134,17 @@ class ReplyScreen extends HookWidget {
                             _buildAvailableDays(),
                           kSizedBoxVerticalS,
                           kSizedBoxVerticalXS,
+                          CustomText.sectionHeaderBlack(
+                            "Evidences",
+                            context,
+                          ),
+                          kSizedBoxVerticalS,
+                          AttachmentList(
+                            imgSourceType: ImgSourceType.url,
+                            imgSourceStrings: _report.value.imgList,
+                          ),
+                          kSizedBoxVerticalS,
+                          kSizedBoxVerticalXS,
                           _report.value.respondDetail!.isEmpty
                               ? FormTextArea(
                                   fieldName: "Reply",
@@ -145,17 +156,6 @@ class ReplyScreen extends HookWidget {
                                   head: "Reply Detail",
                                   detail: _report.value.respondDetail!,
                                 ),
-                          kSizedBoxVerticalS,
-                          kSizedBoxVerticalXS,
-                          CustomText.sectionHeaderBlack(
-                            "Evidences",
-                            context,
-                          ),
-                          kSizedBoxVerticalS,
-                          AttachmentList(
-                            imgSourceType: ImgSourceType.url,
-                            imgSourceStrings: _report.value.imgList,
-                          ),
                           kSizedBoxVerticalS,
                           kSizedBoxVerticalXS,
                           Row(
