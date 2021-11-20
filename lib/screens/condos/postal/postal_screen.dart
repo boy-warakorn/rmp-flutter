@@ -8,6 +8,7 @@ import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/condos/postal/package_detail_screen.dart';
 import 'package:rmp_flutter/utils/date_format.dart';
 import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
+import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/empty_list_display.dart';
 import 'package:rmp_flutter/widgets/general/package_card.dart';
 import 'package:rmp_flutter/widgets/interactions/text_tab.dart';
@@ -45,7 +46,14 @@ class PostalScreen extends HookWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: kBgColor,
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: <Color>[
+            kBrandColor,
+            kBrandAlternativeDarkerColor,
+          ],
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,14 +71,11 @@ class PostalScreen extends HookWidget {
                     Icon(
                       Icons.layers,
                       size: kSizeS * 1.5,
-                      color: kBrandDarkerColor,
                     ),
                     kSizedBoxHorizontalXS,
-                    Text(
+                    CustomText.sectionHeaderLight(
                       "Postal Management",
-                      style: Theme.of(context).textTheme.headline3?.copyWith(
-                        // color: kLightColor,
-                      ),
+                      context,
                     ),
                   ],
                 ),
@@ -95,11 +100,7 @@ class PostalScreen extends HookWidget {
               ),
               decoration: BoxDecoration(
                 color: kBgColor,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(
-                    kSizeS,
-                  ),
-                ),
+
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
