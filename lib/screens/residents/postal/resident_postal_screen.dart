@@ -82,26 +82,21 @@ class ResidentPostalScreen extends HookWidget {
                       },
                     ),
         ),
-        Container(
-          padding: EdgeInsets.symmetric(
-            vertical: kSizeXXS,
-          ),
-          color: kLightColor,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomButton(
-                text: "SHOW IDENTIFICATION",
-                onPressed: () => Navigator.of(context).pushNamed(
-                  ProfileCardScreen.routeName,
-                ),
-                padding: EdgeInsets.symmetric(
-                  vertical: kSizeXS,
-                  horizontal: kSizeS,
-                ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            CustomButton(
+              text: "SHOW IDENTIFICATION",
+              onPressed: () => Navigator.of(context).pushNamed(
+                ProfileCardScreen.routeName,
               ),
-            ],
-          ),
+              padding: EdgeInsets.symmetric(
+                vertical: kSizeXS,
+                horizontal: kSizeS,
+              ),
+            ),
+            kSizedBoxHorizontalS,
+          ],
         ),
       ],
     );
