@@ -70,7 +70,7 @@ class ContactSupportScreen extends HookConsumerWidget {
         children: [
           Container(
             padding: EdgeInsets.only(
-              left: kSizeS * 1.5,
+              left: kSizeS,
               top: kSizeS * 1.5,
               bottom: kSizeS,
             ),
