@@ -93,14 +93,12 @@ class PostalScreen extends HookWidget {
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(
-                left: kSizeS * 1.5,
-                right: kSizeS * 1.5,
-                top: kSizeS,
+              padding: EdgeInsets.symmetric(
+                horizontal: kSizeS * 1.5,
+                vertical: kSizeS,
               ),
               decoration: BoxDecoration(
                 color: kBgColor,
-
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

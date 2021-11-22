@@ -75,7 +75,7 @@ class ResidentPostalScreen extends HookWidget {
                         return ResidentPackageCard(
                           postalService: pk.postalService,
                           arrivedAt: pk.arrivedAt,
-                          imageUrl: pk.imgList[0],
+                          imageUrl: pk.imgList.isEmpty ? null : pk.imgList[0],
                           deliveredAt:
                               _tabIndex.value == 0 ? pk.deliveredAt : null,
                         );
