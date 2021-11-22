@@ -60,13 +60,9 @@ class ResidentPostalScreen extends HookWidget {
           child: _isLoading.value
               ? CenteredProgressIndicator()
               : _packages.value.packages.isEmpty
-                  ? Column(
-                      children: [
-                        EmptyListDisplay(
-                          text: _emptyLabels[_tabIndex.value],
-                        ),
-                      ],
-                    )
+                  ? EmptyListDisplay(
+                    text: _emptyLabels[_tabIndex.value],
+                  )
                   : ListView.builder(
                       padding: EdgeInsets.all(kSizeS),
                       itemCount: _packages.value.packages.length,
