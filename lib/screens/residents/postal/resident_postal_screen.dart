@@ -72,7 +72,6 @@ class ResidentPostalScreen extends HookWidget {
                       itemCount: _packages.value.packages.length,
                       itemBuilder: (context, index) {
                         final pk = _packages.value.packages[index];
-                        print(pk.deliveredAt);
                         return ResidentPackageCard(
                           postalService: pk.postalService,
                           arrivedAt: pk.arrivedAt,
