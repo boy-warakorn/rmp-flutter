@@ -2,13 +2,16 @@ import 'dart:convert';
 
 class PaymentModel {
   final List<Payment> payments;
+  final Map<String, dynamic> statusCount;
 
   PaymentModel({
     required this.payments,
+    required this.statusCount,
   });
 
   factory PaymentModel.fromJson(dynamic fetchResult) {
     Iterable paymentResult = jsonDecode(fetchResult.toString())["payments"];
+    Map<String, dynamic> paymentCount = jsonDecode(fetchResult.toString())["statusCount"];
 
     return PaymentModel(
         payments: paymentResult
@@ -24,7 +27,9 @@ class PaymentModel {
                 paidAt: paymentItem["paidAt"],
               ),
             )
-            .toList());
+            .toList(),
+      statusCount: paymentCount,
+    );
   }
 }
 

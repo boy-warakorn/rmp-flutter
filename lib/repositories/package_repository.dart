@@ -47,7 +47,7 @@ class PackageRepository implements BasePackageRepository {
           "note": package.note,
           "arrivedAt": package.arrivedAt,
           "postalService": package.postalService,
-          "imgList" : package.imgList,
+          "imgList": package.imgList,
         },
         options: Options(headers: {
           "Authorization": "Bearer $token",
@@ -64,12 +64,14 @@ class PackageRepository implements BasePackageRepository {
       final pref = await SharedPreferences.getInstance();
       final token = pref.getString("token");
 
-      await dio.delete(getDeletePackageUrl(id),
-          options: Options(
-            headers: {
-              "Authorization": "Bearer $token",
-            },
-          ));
+      await dio.delete(
+        getDeletePackageUrl(id),
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
     } on DioError catch (_) {
       throw HttpException("Delete package failed");
     }
@@ -87,7 +89,7 @@ class PackageRepository implements BasePackageRepository {
           "note": package.note,
           "arrivedAt": package.arrivedAt,
           "postalService": package.postalService,
-          "imgList" : package.imgList,
+          "imgList": package.imgList,
         },
         options: Options(
           headers: {
@@ -108,11 +110,12 @@ class PackageRepository implements BasePackageRepository {
 
       final response = await dio.get(
         getPackageByIdUrl(id),
-        options: Options(headers: {
-          "Authorization": "Bearer $token",
-        }),
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
       );
-
       return Package.fromJSON(response);
     } on DioError catch (_) {
       throw HttpException("Get single package failed");
@@ -148,14 +151,15 @@ class PackageRepository implements BasePackageRepository {
 
       final response = await dio.get(
         getPackagesUrl,
-        options: Options(headers: {
-          "Authorization": "Bearer $token",
-        }),
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
         queryParameters: {
-          "status" : status,
-        }
+          "status": status,
+        },
       );
-
       return PackagesModel.fromJSON(response);
     } on DioError catch (_) {
       throw HttpException("Get Packages Failed");
@@ -168,16 +172,17 @@ class PackageRepository implements BasePackageRepository {
       final pref = await SharedPreferences.getInstance();
       final token = pref.getString("token");
 
-      final response = await dio.get(getPackagesByResidentUrl,
-          options: Options(
-            headers: {
-              "Authorization": "Bearer $token",
-            },
-          ),
-          queryParameters: {
-            'status': isReceived ? 'received' : 'in-storage',
-          });
-
+      final response = await dio.get(
+        getPackagesByResidentUrl,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
+        queryParameters: {
+          'status': isReceived ? 'received' : 'in-storage',
+        },
+      );
       return PackagesModel.fromJSON(response);
     } on DioError catch (_) {
       throw HttpException("Failed to get Packages by Resident");

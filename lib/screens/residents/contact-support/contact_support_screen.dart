@@ -18,7 +18,7 @@ class ContactSupportScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _reports = useState(ReportsModel(reports: []));
+    final _reports = useState(ReportsModel(reports: [], statusCount: {}));
     final _isLoading = useState(false);
     final List<String> _items = [
       "Responded",
@@ -53,6 +53,18 @@ class ContactSupportScreen extends HookConsumerWidget {
       _bottomTabIndex.value,
       _topTabIndex.value,
     ]);
+
+    List<String> generateTabLabel(){
+      if(_reports.value.statusCount.isEmpty){
+        return _items;
+      }else {
+        return [
+          "Responded (${_reports.value.statusCount["responded"]})",
+          "Pending (${_reports.value.statusCount["pending"]})",
+          "Resolved (${_reports.value.statusCount["resolved"]})",
+        ];
+      }
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -118,7 +130,7 @@ class ContactSupportScreen extends HookConsumerWidget {
                     selectedColor: kBrandAlternativeDarkerColor,
                   ),
                   TextTab(
-                    labels: _items,
+                    labels: generateTabLabel(),
                     selectedIndex: _bottomTabIndex.value,
                     onSelect: (p0) {
                       _bottomTabIndex.value = p0;

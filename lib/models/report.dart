@@ -2,13 +2,16 @@ import 'dart:convert';
 
 class ReportsModel {
   final List<Report> reports;
+  final Map<String, dynamic> statusCount;
 
   ReportsModel({
     required this.reports,
+    required this.statusCount,
   });
 
   factory ReportsModel.fromJson(dynamic fetchedResult) {
     Iterable reportsResult = jsonDecode(fetchedResult.toString())["reports"];
+    Map<String, dynamic> reportCount = jsonDecode(fetchedResult.toString())["statusCount"];
 
     return ReportsModel(
       reports: List.from(
@@ -16,6 +19,7 @@ class ReportsModel {
           (report) => Report.fromJson(report, false),
         ),
       ),
+      statusCount: reportCount,
     );
   }
 }
