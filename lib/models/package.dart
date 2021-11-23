@@ -15,11 +15,16 @@ class PackageMasterModel {
 
 class PackagesModel {
   final List<Package> packages;
+  final Map<String, dynamic> statusCount;
 
-  PackagesModel({required this.packages});
+  PackagesModel({
+    required this.packages,
+    required this.statusCount,
+  });
 
   factory PackagesModel.fromJSON(dynamic fetchedResult) {
     Iterable packagesIt = jsonDecode(fetchedResult.toString())["packages"];
+    Map<String, dynamic> packageCount = jsonDecode(fetchedResult.toString())["statusCount"];
 
     return PackagesModel(
         packages: packagesIt
@@ -33,10 +38,12 @@ class PackagesModel {
                 deliveredAt: pkItem["deliveredAt"],
                 status: pkItem["status"],
                 postalService: pkItem["postalService"],
-                imgList: pkItem["imgList"]
+                imgList: pkItem["imgList"],
               ),
             )
-            .toList());
+            .toList(),
+      statusCount: packageCount,
+    );
   }
 }
 

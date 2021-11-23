@@ -44,11 +44,11 @@ class DashboardScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _packagesTotal = useState(PackagesModel(packages: []));
-    final _packagesReceived = useState(PackagesModel(packages: []));
+    final _packagesTotal = useState(PackagesModel(packages: [], statusCount: {}));
+    final _packagesReceived = useState(PackagesModel(packages: [], statusCount: {}));
     final _isLoading = useState(false);
-    final _reportsResponded = useState(ReportsModel(reports: []));
-    final _reportsPending = useState(ReportsModel(reports: []));
+    final _reportsResponded = useState(ReportsModel(reports: [], statusCount: {}));
+    final _reportsPending = useState(ReportsModel(reports: [], statusCount: {}));
     final _isResponded = useState(true);
 
     void fetchData() async {

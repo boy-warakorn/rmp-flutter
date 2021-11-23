@@ -109,7 +109,6 @@ class ContactFormScreen extends HookWidget {
         if (pickedFileList != null) {
           _files.value = pickedFileList;
         }
-        print(_files);
       } catch (e) {
         print(e.toString());
       }

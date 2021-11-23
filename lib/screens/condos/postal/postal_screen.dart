@@ -29,9 +29,20 @@ class PostalScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _packages = useState(PackagesModel(packages: []));
+    final _packages = useState(PackagesModel(packages: [], statusCount: {}));
     final _isLoading = useState(true);
     final _tabIndex = useState(0);
+
+    List<String> generateTabLabel(){
+      if(_packages.value.statusCount.isEmpty){
+        return _tabs;
+      }else {
+        return [
+          "Received (${_packages.value.statusCount["received"]})",
+          "In Storage (${_packages.value.statusCount["inStorage"]})"
+        ];
+      }
+    }
 
     void _fetchPackages() async {
       final packageStatus = _tabs[_tabIndex.value].toLowerCase();
@@ -84,7 +95,7 @@ class PostalScreen extends HookWidget {
               kSizedBoxVerticalXS,
               TextTab(
                 selectedIndex: _tabIndex.value,
-                labels: _tabs,
+                labels: generateTabLabel(),
                 onSelect: (p0) {
                   _tabIndex.value = p0;
                 },

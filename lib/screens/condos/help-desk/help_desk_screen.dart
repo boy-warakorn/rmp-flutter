@@ -17,10 +17,6 @@ const _typeTabs = [
   "Complaint",
   "Maintenance",
 ];
-const _statusTabs = [
-  "Incoming",
-  "Responded",
-];
 
 class HelpDeskScreen extends HookConsumerWidget {
   static const routeName = "/condo/helpdesk";
@@ -32,7 +28,7 @@ class HelpDeskScreen extends HookConsumerWidget {
     final _typeTabIndex = useState(0);
     final _statusTabIndex = useState(0);
 
-    final _reports = useState(ReportsModel(reports: []));
+    final _reports = useState(ReportsModel(reports: [], statusCount: {}));
     final _isLoading = useState(false);
 
     void fetchReports() async {
@@ -52,6 +48,17 @@ class HelpDeskScreen extends HookConsumerWidget {
       [_statusTabIndex.value, _typeTabIndex.value],
     );
 
+    List<String> generateTabLabel(){
+      if(_reports.value.statusCount.isEmpty){
+        return _typeTabs;
+      }else {
+        return [
+          "Incoming (${_reports.value.statusCount["pending"]})",
+          "Responded (${_reports.value.statusCount["responded"]})",
+        ];
+      }
+    }
+
     return Column(
       children: [
         TextTab(
@@ -66,7 +73,7 @@ class HelpDeskScreen extends HookConsumerWidget {
           child: Column(
             children: [
               TextTab.secondary(
-                labels: _statusTabs,
+                labels: generateTabLabel(),
                 onSelect: (i) {
                   _statusTabIndex.value = i;
                 },

@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
@@ -20,20 +19,20 @@ class ResidentPostalScreen extends HookWidget {
   static const routeName = "/resident/postal";
   const ResidentPostalScreen({Key? key}) : super(key: key);
 
-  static const _tabs = [
-    "Not Received",
-    "Received",
-  ];
-
   static const _emptyLabels = [
     "No new package",
     "No received package",
   ];
 
+  static const _tabs = [
+    "Received",
+    "Not Received",
+  ];
+
   @override
   Widget build(BuildContext context) {
     final _isLoading = useState(true);
-    final _packages = useState(PackagesModel(packages: []));
+    final _packages = useState(PackagesModel(packages: [], statusCount: {}));
     final _tabIndex = useState(0);
 
     bool isReceived() {
@@ -51,10 +50,21 @@ class ResidentPostalScreen extends HookWidget {
       _fetchPackages();
     }, [_tabIndex.value]);
 
+    List<String> generateTabLabel() {
+      if (_packages.value.statusCount.isEmpty) {
+        return _tabs;
+      } else {
+        return [
+          "Received (${_packages.value.statusCount["received"]})",
+          "Not Received (${_packages.value.statusCount["inStorage"]})"
+        ];
+      }
+    }
+
     return Column(
       children: [
         TextTab(
-          labels: _tabs,
+          labels: generateTabLabel(),
           onSelect: (i) {
             _tabIndex.value = i;
           },

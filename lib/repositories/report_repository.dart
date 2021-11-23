@@ -62,7 +62,8 @@ class ReportRepository implements BaseReportRepository {
           queryParameters: {
             'status': status,
             'type': type,
-          });
+          },);
+      print(result.data);
       return ReportsModel.fromJson(result);
     } on DioError catch (_) {
       throw HttpException("Get Reports By Resident Failed");
@@ -131,7 +132,6 @@ class ReportRepository implements BaseReportRepository {
           'type': type,
         },
       );
-
       return ReportsModel.fromJson(result);
     } on DioError catch (_) {
       throw HttpException("Get Reports By Condo Failed");

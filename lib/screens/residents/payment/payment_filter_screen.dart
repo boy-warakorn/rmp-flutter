@@ -30,7 +30,7 @@ class PaymentFilterScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _payments = useState(PaymentModel(payments: []));
+    final _payments = useState(PaymentModel(payments: [], statusCount: {}));
     final _isLoading = useState(false);
     final _tabIndex = useState(0);
 
@@ -46,6 +46,19 @@ class PaymentFilterScreen extends HookWidget {
     useEffect(() {
       fetchPayment();
     }, [_tabIndex.value]);
+
+    List<String> generateTabLabel(){
+      if(_payments.value.statusCount.isEmpty){
+        return _tabs;
+      }else {
+        return [
+          "Complete (${_payments.value.statusCount["complete"]})",
+          "Pending (${_payments.value.statusCount["pending"]})",
+          "Active (${_payments.value.statusCount["active"]})",
+          "Reject (${_payments.value.statusCount["reject"]})",
+        ];
+      }
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -97,7 +110,7 @@ class PaymentFilterScreen extends HookWidget {
                 children: [
                   TextTab(
                     selectedIndex: _tabIndex.value,
-                    labels: _tabs,
+                    labels: generateTabLabel(),
                     onSelect: (p0) {
                       _tabIndex.value = p0;
                     },
