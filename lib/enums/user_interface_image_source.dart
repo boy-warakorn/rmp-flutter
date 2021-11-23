@@ -1,0 +1,4 @@
+enum UserInterfaceImageSource {
+  url,
+  filePath,
+}

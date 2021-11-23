@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:rmp_flutter/enums/user_interface_image_source.dart';
 import 'package:rmp_flutter/utils/date_format.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
@@ -17,6 +18,7 @@ import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
 import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
+import 'package:rmp_flutter/widgets/interactions/attachment_list.dart';
 import 'package:rmp_flutter/widgets/interactions/custom_button.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 import 'package:image_picker/image_picker.dart';
@@ -57,8 +59,7 @@ class PostalAddScreen extends HookWidget {
     final _showRoomValidity = useState(false);
 
     String _fileName = '';
-    final _packagePhoto = useState(File(''));
-    List<String> _listOfUrl = [];
+    ValueNotifier<File?> _packagePhoto = useState(null);
 
     bool _submitAllowed() {
       return _isValidRoom.value && _haveService.value && _haveDate.value;
@@ -86,23 +87,44 @@ class PostalAddScreen extends HookWidget {
       _isLoading.value = false;
     }
 
-    Future<void> _takePhoto() async {
-      final ImagePicker _picker = ImagePicker();
-      final XFile? slipPhoto =
-          await _picker.pickImage(source: ImageSource.camera);
-      if (slipPhoto!.path.isNotEmpty) {
-        _packagePhoto.value = File(slipPhoto.path);
+    Future<void> getUserImage({required ImageSource source}) async {
+      final picker = ImagePicker();
+      final slipPhoto = await picker.pickImage(source: source);
 
+      if (slipPhoto != null) {
+        _packagePhoto.value = File(slipPhoto.path);
       }
     }
 
-    Future<void> _openGallery() async {
-      final ImagePicker _picker = ImagePicker();
-      final XFile? slipPhoto =
-          await _picker.pickImage(source: ImageSource.gallery);
-      if (slipPhoto!.path.isNotEmpty) {
-        _packagePhoto.value = File(slipPhoto.path);
+    Future<void> confirmAdd() async {
+      try {
+        _isLoading.value = true;
+
+        final imgUrlList = <String>[];
+
+        if (_packagePhoto.value != null) {
+          final storageRef =
+              FirebaseStorage.instance.ref().child('packagePhoto/$_fileName');
+          await storageRef.putFile(_packagePhoto.value!);
+          final url = await storageRef.getDownloadURL();
+          imgUrlList.add(url.toString());
+        }
+
+        final packageDto = PackageDto(
+          roomNumber: _roomNumber.text,
+          arrivedAt: _deliveredDate.text,
+          postalService: _deliveredBy.text,
+          note: _note.text,
+          imgList: imgUrlList,
+        );
+
+        await PackageRepository().createPackage(packageDto);
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil(PreLoadingScreen.routeName, (_) => false);
+      } catch (e) {
+        print(e.toString());
       }
+      _isLoading.value = false;
     }
 
     useEffect(() {
@@ -221,7 +243,7 @@ class PostalAddScreen extends HookWidget {
                     Row(
                       children: [
                         CustomText.sectionHeaderBlack(
-                          "Upload Photos (Optional)",
+                          "Attachments (Optional)",
                           context,
                         ),
                         kSizedBoxHorizontalXS,
@@ -256,7 +278,8 @@ class PostalAddScreen extends HookWidget {
                                                 0.7,
                                         child: CustomButton(
                                           text: "Take a photo",
-                                          onPressed: _takePhoto,
+                                          onPressed: () => getUserImage(
+                                              source: ImageSource.camera),
                                           padding: EdgeInsets.symmetric(
                                             vertical: kSizeXS,
                                             horizontal: kSizeXS,
@@ -270,7 +293,8 @@ class PostalAddScreen extends HookWidget {
                                                 0.7,
                                         child: CustomButton(
                                           text: "Choose from gallery",
-                                          onPressed: _openGallery,
+                                          onPressed: () => getUserImage(
+                                              source: ImageSource.gallery),
                                           color: kWarningColor,
                                           padding: EdgeInsets.symmetric(
                                             vertical: kSizeXS,
@@ -286,6 +310,13 @@ class PostalAddScreen extends HookWidget {
                           },
                         ),
                       ],
+                    ),
+                    kSizedBoxVerticalS,
+                    AttachmentList(
+                      imgSourceType: UserInterfaceImageSource.filePath,
+                      imgSourceStrings: _packagePhoto.value == null
+                          ? []
+                          : <String>[_packagePhoto.value!.path],
                     ),
                     kSizedBoxVerticalL,
                     Row(
@@ -311,36 +342,7 @@ class PostalAddScreen extends HookWidget {
                               child: CustomButton(
                                 enabled: _submitAllowed(),
                                 text: "ADD",
-                                onPressed: () async {
-                                  try {
-                                    _isLoading.value = true;
-                                    final storageRef = FirebaseStorage.instance
-                                        .ref()
-                                        .child('packagePhoto/$_fileName');
-                                    await storageRef.putFile(_packagePhoto.value);
-                                    final url =
-                                        await storageRef.getDownloadURL();
-                                    _listOfUrl.add(url.toString());
-
-                                    final packageDto = PackageDto(
-                                      roomNumber: _roomNumber.text,
-                                      arrivedAt: _deliveredDate.text,
-                                      postalService: _deliveredBy.text,
-                                      note: _note.text,
-                                      imgList: _listOfUrl,
-                                    );
-
-                                    await PackageRepository()
-                                        .createPackage(packageDto);
-                                    Navigator.of(context)
-                                        .pushNamedAndRemoveUntil(
-                                            PreLoadingScreen.routeName,
-                                            (_) => false);
-                                  } catch (e) {
-                                    print(e.toString());
-                                  }
-                                  _isLoading.value = false;
-                                },
+                                onPressed: confirmAdd,
                               ),
                             ),
                           ],
