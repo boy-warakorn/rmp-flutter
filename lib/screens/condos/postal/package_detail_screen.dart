@@ -7,6 +7,7 @@ import 'package:rmp_flutter/repositories/package_repository.dart';
 import 'package:rmp_flutter/screens/condos/postal/postal_edit_screen.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
 import 'package:rmp_flutter/widgets/dialogs/alert_box.dart';
+import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/general/text_wall_display.dart';
 import 'package:rmp_flutter/widgets/interactions/circle_icon_button.dart';
@@ -73,102 +74,107 @@ class PackageDetailScreen extends HookWidget {
 
     return Scaffold(
       appBar: BackAppBar(),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: kSizeS * 1.5,
-            vertical: kSizeS,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomText.sectionHeaderBlack(
-                _package.value.roomNumber,
-                context,
-              ),
-              kSizedBoxVerticalS,
-              Text(
-                "Owner: ${_package.value.roomOwner}",
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontSize: kFontSizeHeadline4,
+      body: _isLoading.value
+          ? CenteredProgressIndicator()
+          : SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: kSizeS * 1.5,
+                  vertical: kSizeS,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText.sectionHeaderBlack(
+                      _package.value.roomNumber,
+                      context,
                     ),
-              ),
-              kSizedBoxVerticalXS,
-              Text(
-                "Delivered By: ${_package.value.postalService}",
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontSize: kFontSizeHeadline4,
+                    kSizedBoxVerticalS,
+                    Text(
+                      "Owner: ${_package.value.roomOwner}",
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontSize: kFontSizeHeadline4,
+                          ),
                     ),
-              ),
-              kSizedBoxVerticalXS,
-              Text(
-                "Arrival Date: ${_package.value.arrivedAt}",
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontSize: kFontSizeHeadline4,
+                    kSizedBoxVerticalXS,
+                    Text(
+                      "Delivered By: ${_package.value.postalService}",
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontSize: kFontSizeHeadline4,
+                          ),
                     ),
-              ),
-              kSizedBoxVerticalXS,
-              Text(
-                "Status: ${_package.value.deliveredAt.isEmpty ? "Arrived" : "Delivered"}",
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                      fontSize: kFontSizeHeadline4,
+                    kSizedBoxVerticalXS,
+                    Text(
+                      "Arrival Date: ${_package.value.arrivedAt}",
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontSize: kFontSizeHeadline4,
+                          ),
                     ),
-              ),
-              kSizedBoxVerticalXS,
-              CustomText.sectionHeaderBlack(
-                "Note",
-                context,
-              ),
-              kSizedBoxVerticalS,
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: kSizeXL * 1.5,
-                child: TextWallDisplay(
-                  text: _package.value.note.isEmpty ? "-" : _package.value.note,
+                    kSizedBoxVerticalXS,
+                    Text(
+                      "Status: ${_package.value.deliveredAt.isEmpty ? "Arrived" : "Delivered"}",
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontSize: kFontSizeHeadline4,
+                          ),
+                    ),
+                    kSizedBoxVerticalXS,
+                    CustomText.sectionHeaderBlack(
+                      "Note",
+                      context,
+                    ),
+                    kSizedBoxVerticalS,
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: kSizeXL * 1.5,
+                      child: TextWallDisplay(
+                        text: _package.value.note.isEmpty
+                            ? "-"
+                            : _package.value.note,
+                      ),
+                    ),
+                    kSizedBoxVerticalS,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CircleIconButton(
+                          color: kErrorColor,
+                          onPressed: _showDeleteAlertBox,
+                          icon: Icons.delete,
+                        ),
+                        kSizedBoxHorizontalS,
+                        CircleIconButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(PostalEditScreen.routeName,
+                                    arguments: id)
+                                .then(
+                                  (value) => _fetchPackageInfo(),
+                                );
+                          },
+                          icon: Icons.edit,
+                        ),
+                      ],
+                    ),
+                    kSizedBoxVerticalS,
+                    CustomText.sectionHeaderBlack(
+                      "Package Photo",
+                      context,
+                    ),
+                    kSizedBoxVerticalS,
+                    if (_package.value.imgList.isNotEmpty)
+                      Image.network(
+                        _package.value.imgList[0],
+                      ),
+                    kSizedBoxVerticalM,
+                    Divider(),
+                    CustomButton(
+                      text: "CONFIRM",
+                      onPressed: _showConfirmDialog,
+                    ),
+                  ],
                 ),
               ),
-              kSizedBoxVerticalS,
-              CustomText.sectionHeaderBlack(
-                "Package Photo",
-                context,
-              ),
-              kSizedBoxVerticalS,
-              if(_package.value.imgList.isNotEmpty)
-              Image.network(
-                _package.value.imgList[0],
-              ),
-              kSizedBoxVerticalM,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CircleIconButton(
-                    color: kErrorColor,
-                    onPressed: _showDeleteAlertBox,
-                    icon: Icons.delete,
-                  ),
-                  kSizedBoxHorizontalS,
-                  CircleIconButton(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed(PostalEditScreen.routeName, arguments: id)
-                          .then(
-                            (value) => _fetchPackageInfo(),
-                          );
-                    },
-                    icon: Icons.edit,
-                  ),
-                ],
-              ),
-              kSizedBoxVerticalM,
-              Divider(),
-              CustomButton(
-                text: "CONFIRM",
-                onPressed: _showConfirmDialog,
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
