@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/enums/img_source_type.dart';
+import 'package:rmp_flutter/enums/image_source_type.dart';
 import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/preloading_screen.dart';
@@ -143,7 +143,7 @@ class ReplyScreen extends HookWidget {
                           ),
                           kSizedBoxVerticalS,
                           AttachmentList(
-                            imgSourceType: ImgSourceType.url,
+                            imgSourceType: ImageSourceType.url,
                             imgSourceStrings: _report.value.imgList,
                           ),
                           kSizedBoxVerticalS,

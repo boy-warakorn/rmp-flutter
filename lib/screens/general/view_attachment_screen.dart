@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/enums/img_source_type.dart';
+import 'package:rmp_flutter/enums/image_source_type.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class ViewAttactmentScreen extends StatelessWidget {
@@ -32,7 +32,7 @@ class ViewAttactmentScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Center(
-                        child: args["srcType"] == ImgSourceType.filePath
+                        child: args["srcType"] == ImageSourceType.filePath
                             ? Image.file(File(args["src"]))
                             : Image.network(args["src"]),
                       ),

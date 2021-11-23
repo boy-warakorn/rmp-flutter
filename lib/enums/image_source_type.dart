@@ -1,0 +1,4 @@
+enum ImageSourceType {
+  url,
+  filePath,
+}
