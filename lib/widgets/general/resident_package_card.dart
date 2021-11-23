@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/layout/card_template.dart';
 
@@ -41,15 +42,33 @@ class ResidentPackageCard extends StatelessWidget {
         children: [
           Expanded(
             flex: 2,
-            child: imageUrl == null
-                ? FittedBox(
-                  fit: BoxFit.fill,
-                  child: Icon(
-                      Icons.all_inbox_rounded,
-                      color: kAlternativeColor,
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: imageUrl == null
+                  ? FittedBox(
+                      fit: BoxFit.fill,
+                      child: Icon(
+                        Icons.all_inbox_rounded,
+                        color: kAlternativeColor,
+                      ),
+                    )
+                  : Image.network(
+                      imageUrl!,
+                      loadingBuilder: (ctx, widget, progress) {
+                        if (progress == null) {
+                          return widget;
+                        }
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: progress.expectedTotalBytes != null
+                                ? progress.cumulativeBytesLoaded /
+                                    progress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
                     ),
-                )
-                : Image.network(imageUrl!),
+            ),
           ),
           kSizedBoxHorizontalS,
           Expanded(
