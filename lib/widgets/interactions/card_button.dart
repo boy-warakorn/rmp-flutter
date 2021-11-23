@@ -11,6 +11,7 @@ class CardButton extends StatelessWidget {
   final Color backgroundColor;
   final bool useGradientBackground;
   final Color contentColor;
+  final double fontSize;
 
   const CardButton({
     Key? key,
@@ -20,6 +21,7 @@ class CardButton extends StatelessWidget {
     this.useGradientBackground = true,
     this.backgroundColor = kBrandColor,
     this.contentColor = kLightColor,
+    this.fontSize = kSizeS,
   }) : super(key: key);
 
   @override
@@ -59,6 +61,7 @@ class CardButton extends StatelessWidget {
                   title,
                   style: Theme.of(context).textTheme.bodyText1?.copyWith(
                         color: contentColor,
+                        fontSize: fontSize,
                       ),
                 )
               ],
