@@ -1,4 +1,0 @@
-enum ImgSourceType {
-  url,
-  filePath,
-}

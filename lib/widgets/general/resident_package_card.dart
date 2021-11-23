@@ -13,7 +13,7 @@ class ResidentPackageCard extends StatelessWidget {
     this.deliveredAt,
   }) : super(key: key);
 
-  final String imageUrl;
+  final String? imageUrl;
   final String postalService;
   final String arrivedAt;
   final String? deliveredAt;
@@ -41,7 +41,15 @@ class ResidentPackageCard extends StatelessWidget {
         children: [
           Expanded(
             flex: 2,
-            child: Image.network(imageUrl),
+            child: imageUrl == null
+                ? FittedBox(
+                  fit: BoxFit.fill,
+                  child: Icon(
+                      Icons.all_inbox_rounded,
+                      color: kAlternativeColor,
+                    ),
+                )
+                : Image.network(imageUrl!),
           ),
           kSizedBoxHorizontalS,
           Expanded(

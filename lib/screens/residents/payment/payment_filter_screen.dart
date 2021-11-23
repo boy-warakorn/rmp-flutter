@@ -42,6 +42,7 @@ class PaymentFilterScreen extends HookWidget {
       _isLoading.value = false;
     }
 
+
     useEffect(() {
       fetchPayment();
     }, [_tabIndex.value]);
@@ -101,7 +102,6 @@ class PaymentFilterScreen extends HookWidget {
                       _tabIndex.value = p0;
                     },
                   ),
-                  kSizedBoxVerticalS,
                   _tabIndex.value == 3 && _payments.value.payments.isNotEmpty
                       ? _isLoading.value
                           ? Container()

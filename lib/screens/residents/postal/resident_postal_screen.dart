@@ -21,13 +21,13 @@ class ResidentPostalScreen extends HookWidget {
   const ResidentPostalScreen({Key? key}) : super(key: key);
 
   static const _tabs = [
-    "Received",
     "Not Received",
+    "Received",
   ];
 
   static const _emptyLabels = [
-    "No received package",
     "No new package",
+    "No received package",
   ];
 
   @override
@@ -36,10 +36,14 @@ class ResidentPostalScreen extends HookWidget {
     final _packages = useState(PackagesModel(packages: []));
     final _tabIndex = useState(0);
 
+    bool isReceived() {
+      return _tabIndex.value == 1;
+    }
+
     void _fetchPackages() async {
       _isLoading.value = true;
       _packages.value =
-          await PackageRepository().getPackageByResident(_tabIndex.value == 0);
+          await PackageRepository().getPackageByResident(isReceived());
       _isLoading.value = false;
     }
 
@@ -60,24 +64,20 @@ class ResidentPostalScreen extends HookWidget {
           child: _isLoading.value
               ? CenteredProgressIndicator()
               : _packages.value.packages.isEmpty
-                  ? Column(
-                      children: [
-                        EmptyListDisplay(
-                          text: _emptyLabels[_tabIndex.value],
-                        ),
-                      ],
+                  ? EmptyListDisplay(
+                      text: _emptyLabels[_tabIndex.value],
                     )
                   : ListView.builder(
                       padding: EdgeInsets.all(kSizeS),
                       itemCount: _packages.value.packages.length,
                       itemBuilder: (context, index) {
                         final pk = _packages.value.packages[index];
+                        print(pk.deliveredAt);
                         return ResidentPackageCard(
                           postalService: pk.postalService,
                           arrivedAt: pk.arrivedAt,
-                          imageUrl: pk.imgList[0],
-                          deliveredAt:
-                              _tabIndex.value == 0 ? pk.deliveredAt : null,
+                          imageUrl: pk.imgList.isEmpty ? null : pk.imgList[0],
+                          deliveredAt: isReceived() ? pk.deliveredAt : null,
                         );
                       },
                     ),

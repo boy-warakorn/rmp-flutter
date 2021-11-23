@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
-import 'package:rmp_flutter/enums/img_source_type.dart';
+import 'package:rmp_flutter/enums/user_interface_image_source.dart';
 import 'package:rmp_flutter/screens/general/view_attachment_screen.dart';
 import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/layout/card_template.dart';
@@ -18,7 +18,7 @@ class AttachmentList extends StatelessWidget {
   }) : super(key: key);
 
   final List<String> imgSourceStrings;
-  final ImgSourceType imgSourceType;
+  final UserInterfaceImageSource imgSourceType;
   final bool removable;
   final void Function(int)? onRemove;
 

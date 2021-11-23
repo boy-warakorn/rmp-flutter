@@ -8,7 +8,7 @@ import 'package:path/path.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/configs/week_days.dart';
-import 'package:rmp_flutter/enums/img_source_type.dart';
+import 'package:rmp_flutter/enums/user_interface_image_source.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_result_screen.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_area.dart';
@@ -214,7 +214,7 @@ class ContactFormScreen extends HookWidget {
                           _files.value.isNotEmpty
                               ? AttachmentList(
                                   imgSourceStrings: extractImgSourceStrings(),
-                                  imgSourceType: ImgSourceType.filePath,
+                                  imgSourceType: UserInterfaceImageSource.filePath,
                                   removable: true,
                                   onRemove: removeAttachment,
                                 )

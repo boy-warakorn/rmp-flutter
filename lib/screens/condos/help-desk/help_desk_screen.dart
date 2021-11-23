@@ -6,6 +6,7 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/screens/condos/help-desk/reply_screen.dart';
+import 'package:rmp_flutter/widgets/general/centered_progress_indicator.dart';
 import 'package:rmp_flutter/widgets/general/empty_list_display.dart';
 import 'package:rmp_flutter/widgets/general/help_desk_card.dart';
 import 'package:rmp_flutter/utils/date_format.dart';
@@ -73,19 +74,13 @@ class HelpDeskScreen extends HookConsumerWidget {
               ),
               Expanded(
                 child: _isLoading.value
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
+                    ? CenteredProgressIndicator()
                     : _reports.value.reports.isEmpty
-                        ? Column(
-                            children: [
-                              EmptyListDisplay(
-                                text: _statusTabIndex.value == 0
-                                    ? "No incoming report"
-                                    : "No responded report",
-                              ),
-                            ],
-                          )
+                        ? EmptyListDisplay(
+                          text: _statusTabIndex.value == 0
+                              ? "No incoming report"
+                              : "No responded report",
+                        )
                         : Padding(
                             padding: const EdgeInsets.all(
                               kSizeS * (24 / 16),
