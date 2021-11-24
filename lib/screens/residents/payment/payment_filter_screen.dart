@@ -119,8 +119,10 @@ class PaymentFilterScreen extends HookWidget {
                       ? _isLoading.value
                           ? Container()
                           : Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: kSizeS * 1.5,
+                              padding: EdgeInsets.only(
+                                left: kSizeS * 1.5,
+                                right: kSizeS * 1.5,
+                                top: kSizeS,
                               ),
                               child: Text(
                                 "If your payment status notify you as 'rejected', you will have to contact to condo personnel.",
@@ -137,7 +139,7 @@ class PaymentFilterScreen extends HookWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: kSizeS * 1.5,
-                        vertical: kSizeXXS,
+                        vertical: kSizeS * 1.5,
                       ),
                       child: _isLoading.value
                           ? Center(
