@@ -4,6 +4,7 @@ import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/package.dart';
 import 'package:rmp_flutter/models/report.dart';
 import 'package:rmp_flutter/repositories/package_repository.dart';
+import 'package:rmp_flutter/repositories/report_repository.dart';
 import 'package:rmp_flutter/widgets/general/title_card.dart';
 
 class DashboardScreen extends HookWidget {
@@ -44,29 +45,33 @@ class DashboardScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _packagesTotal = useState(PackagesModel(packages: [], statusCount: {}));
-    final _packagesReceived = useState(PackagesModel(packages: [], statusCount: {}));
+    final _packagesTotal =
+        useState(PackagesModel(packages: [], statusCount: {}));
+    final _packagesReceived =
+        useState(PackagesModel(packages: [], statusCount: {}));
     final _isLoading = useState(false);
-    final _reportsResponded = useState(ReportsModel(reports: [], statusCount: {}));
-    final _reportsPending = useState(ReportsModel(reports: [], statusCount: {}));
+    final _reportsComplaint =
+        useState(ReportsModel(reports: [], statusCount: {}));
+    final _reportsMaintenance =
+        useState(ReportsModel(reports: [], statusCount: {}));
     final _isResponded = useState(true);
 
     void fetchData() async {
       _isLoading.value = true;
       _packagesTotal.value =
           await PackageRepository().getPackages("in-storage");
-      // _reportsResponded.value =
-      //     await ReportRepository().getReportsByCondo(_isResponded.value);
-      // _reportsPending.value =
-      //     await ReportRepository().getReportsByCondo(!_isResponded.value);
+      _reportsComplaint.value = await ReportRepository()
+          .getReportsByCondo(_isResponded.value, "complaint");
+      _reportsMaintenance.value = await ReportRepository()
+          .getReportsByCondo(!_isResponded.value, "maintenance");
       _packagesReceived.value =
           await PackageRepository().getPackageByResident(!_isResponded.value);
       _isLoading.value = false;
     }
 
-    // useEffect(() {
-    //   fetchData();
-    // });
+    useEffect(() {
+      // fetchData();
+    });
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -85,13 +90,12 @@ class DashboardScreen extends HookWidget {
                       header: "Postal Package",
                       leftCard: TitleCard(
                         title: "Received",
-                        subtitle:
-                            _packagesReceived.value.packages.length.toString(),
+                        subtitle: "0",
+                        // _packagesReceived.value.statusCount["received"],
                       ),
                       rightCard: TitleCard(
                         title: "Total",
-                        subtitle:
-                            _packagesTotal.value.packages.length.toString(),
+                        subtitle: _packagesTotal.value.statusCount["all"],
                       ),
                     ),
                     kSizedBoxVerticalM,
@@ -100,13 +104,13 @@ class DashboardScreen extends HookWidget {
                       header: "Residential Report",
                       leftCard: TitleCard(
                         title: "Unread",
-                        subtitle:
-                            _reportsPending.value.reports.length.toString(),
+                        subtitle: "0",
+                        // _reportsMaintenance.value.statusCount["pending"],
                       ),
                       rightCard: TitleCard(
                         title: "Replied",
-                        subtitle:
-                            _reportsResponded.value.reports.length.toString(),
+                        subtitle: "0",
+                        // _reportsMaintenance.value.statusCount["pending"],
                       ),
                     ),
                     kSizedBoxVerticalS,

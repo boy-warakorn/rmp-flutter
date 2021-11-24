@@ -23,7 +23,7 @@ class ProfileSettingScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: BackAppBar(
         isGradient: true,
-        isEdit : true,
+        isEdit : false,
       ),
       backgroundColor: kBgColor,
       body: SingleChildScrollView(

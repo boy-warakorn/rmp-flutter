@@ -53,16 +53,18 @@ class ReportRepository implements BaseReportRepository {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
-      final result = await dio.get(getReportsResidentUrl,
-          options: Options(
-            headers: {
-              'Authorization': 'Bearer $token',
-            },
-          ),
-          queryParameters: {
-            'status': status,
-            'type': type,
-          },);
+      final result = await dio.get(
+        getReportsResidentUrl,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+        queryParameters: {
+          'status': status,
+          'type': type,
+        },
+      );
       print(result.data);
       return ReportsModel.fromJson(result);
     } on DioError catch (_) {
@@ -130,6 +132,7 @@ class ReportRepository implements BaseReportRepository {
         queryParameters: {
           'status': isResponded ? 'responded' : 'pending',
           'type': type,
+          'mobile': true,
         },
       );
       return ReportsModel.fromJson(result);

@@ -36,7 +36,7 @@ class ResidentPostalScreen extends HookWidget {
     final _tabIndex = useState(0);
 
     bool isReceived() {
-      return _tabIndex.value == 1;
+      return _tabIndex.value == 0;
     }
 
     void _fetchPackages() async {

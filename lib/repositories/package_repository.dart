@@ -181,6 +181,7 @@ class PackageRepository implements BasePackageRepository {
         ),
         queryParameters: {
           'status': isReceived ? 'received' : 'in-storage',
+          'mobile': true,
         },
       );
       return PackagesModel.fromJSON(response);
