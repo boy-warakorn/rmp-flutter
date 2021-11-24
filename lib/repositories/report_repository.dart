@@ -65,7 +65,6 @@ class ReportRepository implements BaseReportRepository {
           'type': type,
         },
       );
-      print(result.data);
       return ReportsModel.fromJson(result);
     } on DioError catch (_) {
       throw HttpException("Get Reports By Resident Failed");
