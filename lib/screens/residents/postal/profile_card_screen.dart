@@ -41,6 +41,21 @@ class ProfileCardScreen extends HookConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   ProfileText(
+                    text: "Room number",
+                  ),
+                  kSizedBoxVerticalXS,
+                  ProfileText(
+                    text: "A001",
+                    isBold: true,
+                  ),
+                  Divider(
+                    height: kSizeXS,
+                    thickness: 1,
+                    indent: kSizeS * 1.5,
+                    endIndent: kSizeS * 1.25,
+                  ),
+                  kSizedBoxVerticalS,
+                  ProfileText(
                     text: "Name",
                   ),
                   kSizedBoxVerticalXS,
@@ -76,21 +91,6 @@ class ProfileCardScreen extends HookConsumerWidget {
                   kSizedBoxVerticalXS,
                   ProfileText(
                     text: _phoneNumber,
-                    isBold: true,
-                  ),
-                  Divider(
-                    height: kSizeXS,
-                    thickness: 1,
-                    indent: kSizeS * 1.5,
-                    endIndent: kSizeS * 1.25,
-                  ),
-                  kSizedBoxVerticalS,
-                  ProfileText(
-                    text: "Room number",
-                  ),
-                  kSizedBoxVerticalXS,
-                  ProfileText(
-                    text: "A001",
                     isBold: true,
                   ),
                   Divider(

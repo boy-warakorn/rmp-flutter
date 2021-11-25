@@ -9,15 +9,17 @@ class PaymentCard extends StatelessWidget {
   final String paidDate;
   final String status;
   final void Function() onPressed;
+  final String dueDate;
 
-  const PaymentCard(
-      {Key? key,
-      required this.type,
-      required this.amount,
-      required this.paidDate,
-      required this.onPressed,
-      required this.status})
-      : super(key: key);
+  const PaymentCard({
+    Key? key,
+    required this.type,
+    required this.amount,
+    required this.paidDate,
+    required this.onPressed,
+    required this.status,
+    required this.dueDate,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class PaymentCard extends StatelessWidget {
     return CardTemplate(
       padding: EdgeInsets.zero,
       child: InkWell(
-        onTap: paidDate == "-" ? onPressed : null,
+        onTap: paidDate == "-" && status == "active" ? onPressed : null,
         child: Padding(
           padding: const EdgeInsets.all(kSizeS),
           child: Column(
@@ -46,6 +48,11 @@ class PaymentCard extends StatelessWidget {
                         kSizedBoxVerticalXS,
                         Text(
                           "Paid date: $paidDate",
+                          style: contentStyle,
+                        ),
+                        kSizedBoxVerticalXS,
+                        Text(
+                          "Due date: $dueDate",
                           style: contentStyle,
                         ),
                         kSizedBoxVerticalXS,
@@ -72,7 +79,7 @@ class PaymentCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  if (paidDate == "-")
+                  if (paidDate == "-" && status == "active")
                     const Icon(
                       Icons.arrow_forward_ios,
                       color: kStrokeColor,
