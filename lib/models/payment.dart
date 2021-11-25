@@ -25,6 +25,7 @@ class PaymentModel {
                 confirmedAt: paymentItem["confirmedAt"],
                 issuedAt: paymentItem["issuedAt"],
                 paidAt: paymentItem["paidAt"],
+                duedAt: paymentItem["duedAt"],
               ),
             )
             .toList(),
@@ -42,6 +43,7 @@ class Payment {
   final String issuedAt;
   final String confirmedAt;
   final String paidAt;
+  final String duedAt;
 
   Payment({
     required this.id,
@@ -52,6 +54,7 @@ class Payment {
     required this.confirmedAt,
     required this.issuedAt,
     required this.paidAt,
+    required this.duedAt,
   });
 
   factory Payment.fromJson(dynamic fetchResult) {
@@ -65,6 +68,8 @@ class Payment {
         amount: _paymentResult["amount"],
         confirmedAt: _paymentResult["confirmedAt"],
         issuedAt: _paymentResult["issuedAt"],
-        paidAt: _paymentResult["paidAt"]);
+        paidAt: _paymentResult["paidAt"],
+      duedAt: _paymentResult["duedAt"]
+    );
   }
 }

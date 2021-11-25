@@ -15,6 +15,7 @@ class PaymentFilterScreen extends HookWidget {
   const PaymentFilterScreen({Key? key}) : super(key: key);
 
   static const _tabs = [
+    "Overdue",
     "Complete",
     "Pending",
     "Active",
@@ -22,10 +23,11 @@ class PaymentFilterScreen extends HookWidget {
   ];
 
   static const _emptyLabels = [
+    "No overdue payment",
     "No completed payment",
     "No pending payment",
     "No active payment",
-    "No rejected payment"
+    "No rejected payment",
   ];
 
   @override
@@ -42,16 +44,16 @@ class PaymentFilterScreen extends HookWidget {
       _isLoading.value = false;
     }
 
-
     useEffect(() {
       fetchPayment();
     }, [_tabIndex.value]);
 
-    List<String> generateTabLabel(){
-      if(_payments.value.statusCount.isEmpty){
+    List<String> generateTabLabel() {
+      if (_payments.value.statusCount.isEmpty) {
         return _tabs;
-      }else {
+      } else {
         return [
+          "Overdue (${_payments.value.statusCount["overdue"]})",
           "Complete (${_payments.value.statusCount["complete"]})",
           "Pending (${_payments.value.statusCount["pending"]})",
           "Active (${_payments.value.statusCount["active"]})",
@@ -115,7 +117,27 @@ class PaymentFilterScreen extends HookWidget {
                       _tabIndex.value = p0;
                     },
                   ),
-                  _tabIndex.value == 3 && _payments.value.payments.isNotEmpty
+                  _tabIndex.value == 0 && _payments.value.payments.isNotEmpty
+                      ? _isLoading.value
+                          ? Container()
+                          : Container(
+                              padding: EdgeInsets.only(
+                                left: kSizeS * 1.5,
+                                right: kSizeS * 1.5,
+                                top: kSizeS,
+                              ),
+                              child: Text(
+                                "Please contact to condo's personnel to extend time for payment.",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.copyWith(
+                                      color: kErrorColor,
+                                    ),
+                              ),
+                            )
+                      : Container(),
+                  _tabIndex.value == 4 && _payments.value.payments.isNotEmpty
                       ? _isLoading.value
                           ? Container()
                           : Container(
@@ -166,6 +188,7 @@ class PaymentFilterScreen extends HookWidget {
                                         SpecificPaymentScreen.routeName,
                                         arguments: _currentPayment,
                                       ),
+                                      dueDate: _currentPayment.duedAt,
                                     );
                                   },
                                 ),

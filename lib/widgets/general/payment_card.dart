@@ -9,6 +9,7 @@ class PaymentCard extends StatelessWidget {
   final String paidDate;
   final String status;
   final void Function() onPressed;
+  final String dueDate;
 
   const PaymentCard(
       {Key? key,
@@ -16,7 +17,9 @@ class PaymentCard extends StatelessWidget {
       required this.amount,
       required this.paidDate,
       required this.onPressed,
-      required this.status})
+      required this.status,
+        required this.dueDate,
+      })
       : super(key: key);
 
   @override
@@ -46,6 +49,11 @@ class PaymentCard extends StatelessWidget {
                         kSizedBoxVerticalXS,
                         Text(
                           "Paid date: $paidDate",
+                          style: contentStyle,
+                        ),
+                        kSizedBoxVerticalXS,
+                        Text(
+                          "Due date: $dueDate",
                           style: contentStyle,
                         ),
                         kSizedBoxVerticalXS,
