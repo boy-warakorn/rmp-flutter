@@ -55,8 +55,8 @@ class ChangePasswordScreen extends HookConsumerWidget {
             ),
           );
           _isLoading.value = false;
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil(ChangePasswordResultScreen.routeName, (_) => false);
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              ChangePasswordResultScreen.routeName, (_) => false);
         } catch (_) {
           showDialog(
             context: context,
@@ -82,7 +82,12 @@ class ChangePasswordScreen extends HookConsumerWidget {
       body: SingleChildScrollView(
         child: _isLoading.value
             ? Center(
-                child: CircularProgressIndicator(),
+                child: Column(
+                  children: [
+                    kSizedBoxVerticalXXL,
+                    CircularProgressIndicator(),
+                  ],
+                ),
               )
             : Column(
                 children: [
