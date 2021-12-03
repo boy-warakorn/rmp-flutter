@@ -14,7 +14,7 @@ class TextTab extends StatelessWidget {
   const TextTab({
     Key? key,
     required this.labels,
-    this.tabWidth = kSizeXL - kSizeXS,
+    this.tabWidth = kSizeXXL * 0.6,
     this.underlineHeight = kSizeXXS,
     this.verticalPadding = kSizeS,
     this.selectedColor = kBrandColor,
