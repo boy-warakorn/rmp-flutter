@@ -39,10 +39,10 @@ class MainScreen extends HookConsumerWidget {
     final _role = ref.read(currentUser).user.role;
     final _isResident = _role == "resident";
     final _currentTabIndex = useState(0);
-    final _paymentResident = "0";
-    final _postalResident = "2";
-    final _helpdeskResident = "4";
-    final _helpdeskCondo = "3";
+    const _paymentResident = "0";
+    const _postalResident = "2";
+    const _helpdeskResident = "4";
+    const _helpdeskCondo = "3";
 
     void onTap(int index) {
       _currentTabIndex.value = index;
