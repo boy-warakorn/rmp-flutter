@@ -26,7 +26,7 @@ class PreLoadingScreen extends HookConsumerWidget {
     final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
     return FutureBuilder(
-        future: _initialization,
+        future: Future.wait([_initialization]),
         builder: (_, snapshot) {
           if (snapshot.hasError) {
             return Scaffold(
