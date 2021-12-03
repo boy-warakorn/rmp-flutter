@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class BaseUserRepository {
   Future<UserModel> getCurrentUser();
+  Future<void> updateDeviceId(String deviceId);
   Future<void> changePassword(ChangePasswordDto changePasswordDto);
 }
 
@@ -19,6 +20,7 @@ class ChangePasswordDto {
     required this.currentPassword,
     required this.newPassword,
   });
+  
 }
 
 class UserRepository implements BaseUserRepository {
@@ -43,6 +45,26 @@ class UserRepository implements BaseUserRepository {
       throw HttpException("Change Password Failed");
     }
   }
+
+  Future<void> updateDeviceId(String deviceId) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      if (token != null) {
+        await dio.post(
+          updateDeviceIdUrl,
+          data: {"deviceId": deviceId},
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer $token',
+            },
+          ),
+        );
+      }
+    } on DioError catch (_) {
+      return;
+  }
+ }
 
   @override
   Future<UserModel> getCurrentUser() async {
