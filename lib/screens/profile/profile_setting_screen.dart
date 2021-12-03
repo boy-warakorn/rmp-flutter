@@ -25,7 +25,8 @@ class ProfileSettingScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: BackAppBar(
         isGradient: true,
-        isEdit: false,
+        isEdit: true,
+        isResident: _role == "resident",
       ),
       backgroundColor: kBgColor,
       body: SingleChildScrollView(
@@ -55,6 +56,7 @@ class ProfileSettingScreen extends HookConsumerWidget {
                         fieldName: "Your name",
                         textEditingController: _nameController,
                         fieldColor: kBrandDarkerColor,
+                        isEnabled: false,
                       ),
                       kSizedBoxVerticalXS,
                       kSizedBoxVerticalS,
@@ -62,6 +64,7 @@ class ProfileSettingScreen extends HookConsumerWidget {
                         fieldName: "Phone number",
                         textEditingController: _phoneNumberController,
                         fieldColor: kBrandDarkerColor,
+                        isEnabled: false,
                       ),
                       kSizedBoxVerticalXS,
                       kSizedBoxVerticalS,
@@ -69,6 +72,7 @@ class ProfileSettingScreen extends HookConsumerWidget {
                         fieldName: "Your Role",
                         textEditingController: _roleController,
                         fieldColor: kBrandDarkerColor,
+                        isEnabled: false,
                       ),
                       kSizedBoxVerticalM,
                       Row(

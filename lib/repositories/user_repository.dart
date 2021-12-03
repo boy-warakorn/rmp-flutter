@@ -46,6 +46,7 @@ class UserRepository implements BaseUserRepository {
     }
   }
 
+  @override
   Future<void> updateDeviceId(String deviceId) async {
     try {
       final prefs = await SharedPreferences.getInstance();
