@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter/material.dart';
@@ -43,10 +42,6 @@ class MainScreen extends HookConsumerWidget {
     final _role = ref.read(currentUser).user.role;
     final _isResident = _role == "resident";
     final _currentTabIndex = useState(0);
-    final _paymentResident = "0";
-    final _postalResident = "2";
-    final _helpdeskResident = "4";
-    final _helpdeskCondo = "3";
 
     void requestPermission() async {
       final test = await messaging.requestPermission(
@@ -89,10 +84,6 @@ class MainScreen extends HookConsumerWidget {
         currentIndex: _currentTabIndex.value,
         isResident: _isResident,
         onTap: onTap,
-        paymentResident: _paymentResident,
-        helpdeskResident: _helpdeskResident,
-        postalResident: _postalResident,
-        helpdeskCondo: _helpdeskCondo,
       ),
       floatingActionButton: (_currentTabIndex.value == 2 && !_isResident) ||
               (_currentTabIndex.value == 3 && _isResident)

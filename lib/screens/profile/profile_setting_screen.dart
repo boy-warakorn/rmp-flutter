@@ -4,7 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
 import 'package:rmp_flutter/models/providers/user_provider.dart';
+import 'package:rmp_flutter/screens/profile/change_password.dart';
 import 'package:rmp_flutter/widgets/forms/form_text_field_icon.dart';
+import 'package:rmp_flutter/widgets/general/custom_text.dart';
 import 'package:rmp_flutter/widgets/navigations/back_app_bar.dart';
 
 class ProfileSettingScreen extends HookConsumerWidget {
@@ -23,7 +25,8 @@ class ProfileSettingScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: BackAppBar(
         isGradient: true,
-        isEdit : false,
+        isEdit: true,
+        isResident: _role == "resident",
       ),
       backgroundColor: kBgColor,
       body: SingleChildScrollView(
@@ -53,6 +56,7 @@ class ProfileSettingScreen extends HookConsumerWidget {
                         fieldName: "Your name",
                         textEditingController: _nameController,
                         fieldColor: kBrandDarkerColor,
+                        isEnabled: false,
                       ),
                       kSizedBoxVerticalXS,
                       kSizedBoxVerticalS,
@@ -60,6 +64,7 @@ class ProfileSettingScreen extends HookConsumerWidget {
                         fieldName: "Phone number",
                         textEditingController: _phoneNumberController,
                         fieldColor: kBrandDarkerColor,
+                        isEnabled: false,
                       ),
                       kSizedBoxVerticalXS,
                       kSizedBoxVerticalS,
@@ -67,8 +72,23 @@ class ProfileSettingScreen extends HookConsumerWidget {
                         fieldName: "Your Role",
                         textEditingController: _roleController,
                         fieldColor: kBrandDarkerColor,
+                        isEnabled: false,
                       ),
                       kSizedBoxVerticalM,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(kBrandColor),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(ChangePasswordScreen.routeName);
+                            },
+                            child: CustomText.sectionHeaderLight('Change password', context),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

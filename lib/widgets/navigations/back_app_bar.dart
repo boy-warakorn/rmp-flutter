@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:rmp_flutter/configs/colors.dart';
 import 'package:rmp_flutter/configs/constants.dart';
+import 'package:rmp_flutter/widgets/dialogs/notice_dialog.dart';
 
 class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isGradient;
   final bool isEdit;
+  final bool isResident;
+
   @override
   Size get preferredSize => const Size.fromHeight(kSizeM * 1.75);
   const BackAppBar({
     Key? key,
     this.isGradient = false,
     this.isEdit = false,
+    this.isResident = false,
   }) : super(key: key);
 
   @override
@@ -44,7 +48,28 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
                     size: kSizeS * 1.4,
                   ),
                   onPressed: () {
-                    print('this is edit function.');
+                    isResident
+                        ? showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return NoticeDialog(
+                                description:
+                                    "In order to change your name or your phone number. You must contact to condo's personnel to ask for permission.",
+                                iconColor: kErrorColor,
+                              );
+                            },
+                          )
+                        : showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return NoticeDialog(
+                                description:
+                                    "In order to change your name or your phone number. You must change them on our web page.",
+                              );
+                            },
+                          );
                   },
                 ),
               )

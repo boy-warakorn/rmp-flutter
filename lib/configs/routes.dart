@@ -1,4 +1,5 @@
 import 'package:rmp_flutter/screens/about/about_us_screen.dart';
+import 'package:rmp_flutter/screens/profile/change_password.dart';
 import 'package:rmp_flutter/screens/condos/dashboard/dashboard_screen.dart';
 import 'package:rmp_flutter/screens/forgot_password_screen.dart';
 import 'package:rmp_flutter/screens/condos/help-desk/help_desk_screen.dart';
@@ -11,6 +12,7 @@ import 'package:rmp_flutter/screens/general/view_attachment_screen.dart';
 import 'package:rmp_flutter/screens/login_screen.dart';
 
 import 'package:rmp_flutter/screens/preloading_screen.dart';
+import 'package:rmp_flutter/screens/profile/change_password_result_screen.dart';
 import 'package:rmp_flutter/screens/profile/profile_setting_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_form_screen.dart';
 import 'package:rmp_flutter/screens/residents/contact-support/contact_result_screen.dart';
@@ -37,6 +39,8 @@ final generalRoutes = {
   ForgotPasswordScreen.routeName: (_) => const ForgotPasswordScreen(),
   PreLoadingScreen.routeName: (_) => const PreLoadingScreen(),
   ViewAttactmentScreen.routeName: (_) => const ViewAttactmentScreen(),
+  ChangePasswordScreen.routeName: (_) => const ChangePasswordScreen(),
+  ChangePasswordResultScreen.routeName: (_) => const ChangePasswordResultScreen(),
 };
 
 final condoRoutes = {

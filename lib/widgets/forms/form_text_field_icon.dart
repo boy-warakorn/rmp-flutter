@@ -10,6 +10,7 @@ class FormTextFieldIcon extends HookWidget {
   final String suffixText;
   final Color fieldColor;
   final bool isPassword;
+  final bool isEnabled;
 
   const FormTextFieldIcon({
     Key? key,
@@ -19,6 +20,7 @@ class FormTextFieldIcon extends HookWidget {
       size: 0,
     ),
     required this.textEditingController,
+    this.isEnabled = true,
     this.suffixText = '',
     this.fieldColor = kBlackColor,
     this.isPassword = false,
@@ -46,6 +48,7 @@ class FormTextFieldIcon extends HookWidget {
         Container(
           height: kSizeL,
           child: TextFormField(
+            enabled: isEnabled,
             controller: textEditingController,
             decoration: InputDecoration(
               fillColor: kLightColor,

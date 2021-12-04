@@ -5,7 +5,9 @@ const baseAuthUrl = "$baseApiUrl/auth/mobile";
 
 // user
 const baseUserUrl = "$baseApiUrl/users";
+const changePasswordUrl = "$baseUserUrl/change-password";
 const updateDeviceIdUrl = "$baseUserUrl/update-device-id";
+
 
 const basePackageUrl = "$baseApiUrl/packages";
 
