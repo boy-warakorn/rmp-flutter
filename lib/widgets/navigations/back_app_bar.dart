@@ -56,6 +56,7 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
                               return NoticeDialog(
                                 description:
                                     "In order to change your name or your phone number. You must contact to condo's personnel to ask for permission.",
+                                iconColor: kErrorColor,
                               );
                             },
                           )
