@@ -45,33 +45,20 @@ class DashboardScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _packagesTotal =
-        useState(PackagesModel(packages: [], statusCount: {}));
-    final _packagesReceived =
-        useState(PackagesModel(packages: [], statusCount: {}));
-    final _isLoading = useState(false);
-    final _reportsComplaint =
-        useState(ReportsModel(reports: [], statusCount: {}));
-    final _reportsMaintenance =
-        useState(ReportsModel(reports: [], statusCount: {}));
-    final _isResponded = useState(true);
+    final _packages = useState(PackagesModel.empty());
+    final _reports = useState(ReportsModel.empty());
+    final _isLoading = useState(true);
 
     void fetchData() async {
       _isLoading.value = true;
-      _packagesTotal.value =
-          await PackageRepository().getPackages("in-storage");
-      _reportsComplaint.value = await ReportRepository()
-          .getReportsByCondo(_isResponded.value, "complaint");
-      _reportsMaintenance.value = await ReportRepository()
-          .getReportsByCondo(!_isResponded.value, "maintenance");
-      _packagesReceived.value =
-          await PackageRepository().getPackageByResident(!_isResponded.value);
+      _packages.value = await PackageRepository().getAllPackages();
+      _reports.value = await ReportRepository().getAllReports();
       _isLoading.value = false;
     }
 
     useEffect(() {
-      // fetchData();
-    });
+      fetchData();
+    }, []);
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -89,13 +76,14 @@ class DashboardScreen extends HookWidget {
                       context,
                       header: "Postal Package",
                       leftCard: TitleCard(
-                        title: "Received",
-                        subtitle: "0",
-                        // _packagesReceived.value.statusCount["received"],
+                        title: "In-storage",
+                        subtitle:
+                            _packages.value.statusCount["inStorage"].toString(),
                       ),
                       rightCard: TitleCard(
-                        title: "Total",
-                        subtitle: _packagesTotal.value.statusCount["all"],
+                        title: "Delivered",
+                        subtitle:
+                            _packages.value.statusCount["received"].toString(),
                       ),
                     ),
                     kSizedBoxVerticalM,
@@ -103,42 +91,17 @@ class DashboardScreen extends HookWidget {
                       context,
                       header: "Residential Report",
                       leftCard: TitleCard(
-                        title: "Unread",
-                        subtitle: "0",
-                        // _reportsMaintenance.value.statusCount["pending"],
+                        title: "Incoming",
+                        subtitle:
+                            _reports.value.statusCount["pending"].toString(),
                       ),
                       rightCard: TitleCard(
-                        title: "Replied",
-                        subtitle: "0",
-                        // _reportsMaintenance.value.statusCount["pending"],
+                        title: "Responded",
+                        subtitle:
+                            _reports.value.statusCount["responded"].toString(),
                       ),
                     ),
                     kSizedBoxVerticalS,
-                    // CardTemplate(
-                    //   child: Column(
-                    //     crossAxisAlignment: CrossAxisAlignment.start,
-                    //     children: [
-                    // Text(
-                    //   "All Reports",
-                    //   style: Theme.of(context).textTheme.headline4,
-                    // ),
-                    // kSizedBoxVerticalS,
-                    // kSizedBoxVerticalXS,
-                    // SummaryEntity(
-                    //   text: "Summ",
-                    //   count: 1,
-                    // ),
-                    // SummaryEntity(
-                    //   text: "Summ",
-                    //   count: 9,
-                    // ),
-                    // SummaryEntity(
-                    //   text: "Summ",
-                    //   count: 10,
-                    // ),
-                    //     ],
-                    //   ),
-                    // ),
                   ],
                 ),
         ),
