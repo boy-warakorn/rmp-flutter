@@ -31,12 +31,12 @@ class PostalScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _packages = useState(PackagesModel(packages: [], statusCount: {}));
     final _isLoading = useState(true);
-    final _tabIndex = useState(0);
+    final _tabIndex = useState(1);
 
-    List<String> generateTabLabel(){
-      if(_packages.value.statusCount.isEmpty){
+    List<String> generateTabLabel() {
+      if (_packages.value.statusCount.isEmpty) {
         return _tabs;
-      }else {
+      } else {
         return [
           "Received (${_packages.value.statusCount["received"]})",
           "In Storage (${_packages.value.statusCount["inStorage"]})"
@@ -133,7 +133,9 @@ class PostalScreen extends HookWidget {
                                         .pushNamed(
                                             PackageDetailScreen.routeName,
                                             arguments: pk.id)
-                                        .then((value) => _fetchPackages()),
+                                        .then(
+                                          (value) => _fetchPackages(),
+                                        ),
                                   );
                                 },
                               ),
