@@ -22,26 +22,31 @@ class PackagesModel {
     required this.statusCount,
   });
 
+  factory PackagesModel.empty() {
+    return PackagesModel(packages: [], statusCount: {});
+  }
+
   factory PackagesModel.fromJSON(dynamic fetchedResult) {
     Iterable packagesIt = jsonDecode(fetchedResult.toString())["packages"];
-    Map<String, dynamic> packageCount = jsonDecode(fetchedResult.toString())["statusCount"];
+    Map<String, dynamic> packageCount =
+        jsonDecode(fetchedResult.toString())["statusCount"];
 
     return PackagesModel(
-        packages: packagesIt
-            .map(
-              (pkItem) => Package(
-                id: pkItem["id"],
-                roomNumber: pkItem["roomNumber"],
-                roomOwner: pkItem["roomOwner"] ?? "-",
-                note: pkItem["note"],
-                arrivedAt: pkItem["arrivedAt"],
-                deliveredAt: pkItem["deliveredAt"],
-                status: pkItem["status"],
-                postalService: pkItem["postalService"],
-                imgList: pkItem["imgList"],
-              ),
-            )
-            .toList(),
+      packages: packagesIt
+          .map(
+            (pkItem) => Package(
+              id: pkItem["id"],
+              roomNumber: pkItem["roomNumber"],
+              roomOwner: pkItem["roomOwner"] ?? "-",
+              note: pkItem["note"],
+              arrivedAt: pkItem["arrivedAt"],
+              deliveredAt: pkItem["deliveredAt"],
+              status: pkItem["status"],
+              postalService: pkItem["postalService"],
+              imgList: pkItem["imgList"],
+            ),
+          )
+          .toList(),
       statusCount: packageCount,
     );
   }

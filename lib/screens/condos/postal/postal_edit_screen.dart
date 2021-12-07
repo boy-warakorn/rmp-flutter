@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -73,7 +71,9 @@ class PostalEditScreen extends HookWidget {
       );
 
       Navigator.popUntil(
-          context, ModalRoute.withName(PackageDetailScreen.routeName));
+        context,
+        ModalRoute.withName(PackageDetailScreen.routeName),
+      );
     }
 
     useEffect(() {

@@ -13,7 +13,10 @@ abstract class BaseReportRepository {
   Future<ReportsModel> getReportsByCondo(bool isResponded, String type);
   Future<void> replyReport(String id, ReplyReportDto replyReportDto);
   Future<void> setResolvedOnReport(
-      String id, ResolveReportDto resolveReportDto);
+    String id,
+    ResolveReportDto resolveReportDto,
+  );
+  Future<ReportsModel> getAllReports();
 }
 
 class CreateReportDto {
@@ -182,6 +185,25 @@ class ReportRepository implements BaseReportRepository {
       );
     } on DioError catch (_) {
       throw HttpException("Set Resolved on Report Failed");
+    }
+  }
+
+  @override
+  Future<ReportsModel> getAllReports() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      final result = await dio.get(
+        getReportsUrl,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      return ReportsModel.fromJson(result);
+    } on DioError catch (_) {
+      throw HttpException("Get Reports By Condo Failed");
     }
   }
 }

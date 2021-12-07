@@ -9,9 +9,14 @@ class ReportsModel {
     required this.statusCount,
   });
 
+  factory ReportsModel.empty() {
+    return ReportsModel(reports: [], statusCount: {});
+  }
+
   factory ReportsModel.fromJson(dynamic fetchedResult) {
     Iterable reportsResult = jsonDecode(fetchedResult.toString())["reports"];
-    Map<String, dynamic> reportCount = jsonDecode(fetchedResult.toString())["statusCount"];
+    Map<String, dynamic> reportCount =
+        jsonDecode(fetchedResult.toString())["statusCount"];
 
     return ReportsModel(
       reports: List.from(

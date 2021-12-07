@@ -31,6 +31,7 @@ abstract class BasePackageRepository {
   Future<void> editPackage(PackageDto package, String id);
   Future<void> deletePackage(String id);
   Future<void> confirmPackage(String id);
+  Future<PackagesModel> getAllPackages();
 }
 
 class PackageRepository implements BasePackageRepository {
@@ -206,6 +207,26 @@ class PackageRepository implements BasePackageRepository {
       );
     } on DioError catch (_) {
       throw HttpException("Failed to confirm package");
+    }
+  }
+
+  @override
+  Future<PackagesModel> getAllPackages()  async {
+    try {
+      final pref = await SharedPreferences.getInstance();
+      final token = pref.getString("token");
+
+      final response = await dio.get(
+        getPackagesUrl,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+      return PackagesModel.fromJSON(response);
+    } on DioError catch (_) {
+      throw HttpException("Get Packages Failed");
     }
   }
 }
