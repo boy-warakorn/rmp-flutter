@@ -65,11 +65,48 @@ class PackageDetailScreen extends HookWidget {
       _isLoading.value = true;
       _package.value = await PackageRepository().getPackage(id);
       _isLoading.value = false;
+
+      print(_package.value.status);
     }
 
     useEffect(() {
       _fetchPackageInfo();
     }, []);
+
+    Widget _buildInteractionControls() {
+      return Column(
+        children: [
+          kSizedBoxVerticalM,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              CircleIconButton(
+                color: kErrorColor,
+                onPressed: _showDeleteAlertBox,
+                icon: Icons.delete,
+              ),
+              kSizedBoxHorizontalS,
+              CircleIconButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed(PostalEditScreen.routeName, arguments: id)
+                      .then(
+                        (value) => _fetchPackageInfo(),
+                      );
+                },
+                icon: Icons.edit,
+              ),
+            ],
+          ),
+          kSizedBoxVerticalM,
+          Divider(),
+          CustomButton(
+            text: "CONFIRM",
+            onPressed: _showConfirmDialog,
+          ),
+        ],
+      );
+    }
 
     return Scaffold(
       appBar: BackAppBar(),
@@ -133,38 +170,12 @@ class PackageDetailScreen extends HookWidget {
                 context,
               ),
               kSizedBoxVerticalS,
-              if(_package.value.imgList.isNotEmpty)
-              Image.network(
-                _package.value.imgList[0],
-              ),
-              kSizedBoxVerticalM,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CircleIconButton(
-                    color: kErrorColor,
-                    onPressed: _showDeleteAlertBox,
-                    icon: Icons.delete,
-                  ),
-                  kSizedBoxHorizontalS,
-                  CircleIconButton(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed(PostalEditScreen.routeName, arguments: id)
-                          .then(
-                            (value) => _fetchPackageInfo(),
-                          );
-                    },
-                    icon: Icons.edit,
-                  ),
-                ],
-              ),
-              kSizedBoxVerticalM,
-              Divider(),
-              CustomButton(
-                text: "CONFIRM",
-                onPressed: _showConfirmDialog,
-              ),
+              if (_package.value.imgList.isNotEmpty)
+                Image.network(
+                  _package.value.imgList[0],
+                ),
+              if (_package.value.status == "in-storage")
+                _buildInteractionControls(),
             ],
           ),
         ),
